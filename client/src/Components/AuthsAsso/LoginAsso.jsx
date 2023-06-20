@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const AssoLogin = ({toggleForm}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
     // Perform login logic here
     try {
-      const response = await axios.post('http://localhost:8080/login', {
+      const response = await axios.post('http://localhost:8080/api/associates/login', {
         email,
         password,
       });
@@ -22,7 +22,7 @@ const Login = () => {
         // Store the token in local storage
         localStorage.setItem('token', token);
         // Redirect to dashboard page
-        navigate('/dashboard');
+        navigate('/AssoDashboard');
       } else {
         console.log('Login failed');
         // Handle login error
@@ -31,7 +31,6 @@ const Login = () => {
       console.error('Error logging in:', error);
       // Handle error
     }
-    console.log("Login:", email, password);
   };
 
   return (
@@ -61,7 +60,7 @@ const Login = () => {
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
         <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
-          Get started today
+          Login as Associate
         </h1>
 
         <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
@@ -168,4 +167,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AssoLogin;

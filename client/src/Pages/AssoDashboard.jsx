@@ -2,9 +2,10 @@ import React, {useEffect} from "react";
 import { useJwt } from "react-jwt";
 import { useNavigate } from "react-router-dom";
 
-const Dashboard = () => {
+const AssoDashboard = () => {
   const navigate = useNavigate();
-  const { decodedToken } = useJwt(localStorage.getItem("token"));
+
+  const { decodedToken } = useJwt(localStorage.getItem('token'));
 
   const userEmail = decodedToken ? decodedToken.name : "No Name Found";
 
@@ -12,21 +13,21 @@ const Dashboard = () => {
     const token = localStorage.getItem('token');
     if (!token) {
       // No token found, redirect to login page
-      navigate('/login');
+      navigate('/AssoLogin');
     } else {
       const tokenExpiration = decodedToken ? decodedToken.exp * 1000 : 0; // Convert expiration time to milliseconds
 
       if (tokenExpiration && tokenExpiration < Date.now()) {
         // Token expired, remove from local storage and redirect to login page
         localStorage.removeItem('token');
-        navigate('/login');
+        navigate('/AssoLogin');
       }
     }
   }, [decodedToken, navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    window.location.href = '/login';
+    window.location.href = '/AssoLogin';
     console.log("Logging out")
   }
 
@@ -47,4 +48,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AssoDashboard;

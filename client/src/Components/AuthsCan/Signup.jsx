@@ -13,14 +13,14 @@ const Signup = ({toggleForm}) => {
       e.preventDefault();
       // Perform signup logic here
       try {
-        const response = await axios.post('http://localhost:8080/signup', {
+        const response = await axios.post('http://localhost:8080/api/candidates/signup', {
           name,
           email,
           password,
         });
   
         if (response.status === 201) {
-          console.log('Signup successful');
+          console.log('Signup successful as Affiliate');
           navigate('/login');
           // Redirect to login page or perform other actions
         } else {

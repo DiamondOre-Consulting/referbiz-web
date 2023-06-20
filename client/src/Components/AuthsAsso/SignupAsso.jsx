@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 
-const Signup = ({toggleForm}) => {
+const AssoSignup = ({toggleForm}) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -13,7 +13,7 @@ const Signup = ({toggleForm}) => {
       e.preventDefault();
       // Perform signup logic here
       try {
-        const response = await axios.post('http://localhost:8080/signup', {
+        const response = await axios.post('http://localhost:8080/api/associates/signup', {
           name,
           email,
           password,
@@ -21,7 +21,7 @@ const Signup = ({toggleForm}) => {
   
         if (response.status === 201) {
           console.log('Signup successful');
-          navigate('/login');
+          navigate('/AssoLogin');
           // Redirect to login page or perform other actions
         } else {
           console.log('Signup failed');
@@ -39,7 +39,7 @@ const Signup = ({toggleForm}) => {
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
         <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
-          Get started today
+          Get started today as an Associate
         </h1>
 
         <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
@@ -179,4 +179,4 @@ const Signup = ({toggleForm}) => {
     );
 }
 
-export default Signup
+export default AssoSignup;
