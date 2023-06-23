@@ -1,6 +1,11 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import { useJwt } from "react-jwt";
 import { useNavigate } from "react-router-dom";
+import PopupCard from "../Components/Instructions/PopupCard";
+import AffNav from "../Components/AffDashComponents/AffNav";
+import AffHero from "../Components/AffDashComponents/AffHero";
+import AffBody from "../Components/AffDashComponents/AffBody";
+import AffFooter from "../Components/AffDashComponents/AffFooter";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -9,41 +14,37 @@ const Dashboard = () => {
   const userEmail = decodedToken ? decodedToken.name : "No Name Found";
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
       // No token found, redirect to login page
-      navigate('/login');
+      navigate("/login");
     } else {
       const tokenExpiration = decodedToken ? decodedToken.exp * 1000 : 0; // Convert expiration time to milliseconds
 
       if (tokenExpiration && tokenExpiration < Date.now()) {
         // Token expired, remove from local storage and redirect to login page
-        localStorage.removeItem('token');
-        navigate('/login');
+        localStorage.removeItem("token");
+        navigate("/login");
       }
     }
   }, [decodedToken, navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/login';
-    console.log("Logging out")
-  }
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");;
+  //   window.location.href = "/login";
+  //   console.log("Logging out");
+  // };
 
   return (
-    <div className="h-screen bg-blue-900">
-      <div className="flex justify-end px-4 py-5">
-        <button className="bg-gray-300 px-10 py-15 text-gray-900" onClick={handleLogout}>
-          Logout
-        </button>
+    <>
+      <AffNav />
+      <div className="h-screen bg-gray-700 px-10 py-10">
+        <AffHero />
+        <AffBody />
       </div>
-      <div className="flex justify-center items-center">
-        <h2 className="text-4xl text-gray-200">
-          Welcome, <span className="text-white">{userEmail}</span>
-        </h2>
-        {/* Rest of the dashboard content */}
-      </div>
-    </div>
+      <AffFooter />
+      <PopupCard/>
+    </>
   );
 };
 

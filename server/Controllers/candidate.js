@@ -2,6 +2,7 @@ import express, { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
+import authenticateToken from "../Middlewares/authenticateToken.js";
 
 import User from "../Models/Users.js";
 dotenv.config();
@@ -57,6 +58,7 @@ router.post("/login", async (req, res) => {
     if (!passwordMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
+    
 
     // Generate JWT token
     const token = jwt.sign({ name: user.name, email: user.email }, secretKey, {
@@ -67,6 +69,29 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     console.error("Error logging in:", error);
     return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+
+router.get('/user-data', authenticateToken, async (req, res) => {
+  try {
+    // Get the user's email from the decoded token
+    const { email } = req.user;
+
+    // Find the user in the database
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Extract the required fields from the user object
+    const { totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+
+    res.status(200).json({ totalShared, totalShortlisted, totalJoined, totalAmount });
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
