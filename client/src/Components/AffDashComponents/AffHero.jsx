@@ -31,7 +31,7 @@ const AffHero = () => {
           const { data } = response;
           setUserData(data);
           console.log(data);
-          console.log(userData.totalAmount)
+          console.log(userData?.totalAmount)
         } catch (error) {
           console.error('Error fetching user data:', error);
           // Handle error and show appropriate message or redirect to login page

@@ -34,6 +34,9 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  document: {
+    type: String,
+  }
 });
 
 export default mongoose.model('User', userSchema);

@@ -2,9 +2,11 @@ import express, { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
+import multer from 'multer';
 import authenticateToken from "../Middlewares/authenticateToken.js";
 
 import User from "../Models/Users.js";
+import CvSharing from "../Models/CvSharing.js";
 dotenv.config();
 
 const secretKey = process.env.JWT_SECRET;
@@ -73,7 +75,7 @@ router.post("/login", async (req, res) => {
 });
 
 
-
+// FETCHING USER DATA
 router.get('/user-data', authenticateToken, async (req, res) => {
   try {
     // Get the user's email from the decoded token
@@ -94,5 +96,69 @@ router.get('/user-data', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+
+// HANDLE CV SHARING FORM
+// Define storage options for Multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    // Specify the directory where you want to store the uploaded files
+    cb(null, 'C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/server/Uploads/');
+  },
+  filename: function (req, file, cb) {
+    // Set the file name to be the original name of the uploaded file
+    cb(null, file.originalname);
+  }
+});
+
+// Create the Multer upload instance
+const upload = multer({ storage: storage });
+
+router.post('/affiliate-contact-form', authenticateToken, upload.single('document'), async (req, res) => {
+  const { refName, refPhone, refUniqueEmailId, userEmail } = req.body;
+
+  const uploadedFile = req.file;
+
+  // Get the user's email from the decoded token
+  const { email } = req.user;
+
+  // Handle form submission and file upload logic
+  if (!uploadedFile) {
+    return res.status(400).json({ error: 'No file uploaded' });
+  }
+
+  // Perform any necessary validation on the form fields
+  if (!refName || !refPhone || !refUniqueEmailId) {
+    return res.status(400).json({ error: 'Name, email, and phone number are required fields' });
+  }
+
+  // Save the file to the desired location
+  const filePath = uploadedFile.path; // Get the file path
+
+  try {
+    // Create a new contact form entry and save it to the database
+    const cvSharing = new CvSharing({
+      refName,
+      refPhone,
+      refUniqueEmailId,
+      userEmail: email, // Save the user's email along with the form data
+      document: filePath,
+      // user: req.user.email, // Associate the form entry with the logged-in user
+    });
+    await cvSharing.save();
+
+    // Update totalShared count for the associated candidate
+    await User.findOneAndUpdate(
+      { email: email }, // Match the candidate ID
+      { $inc: { totalShared: 1 } }, // Increment totalShared by 1
+    );
+
+    res.status(201).json({ message: 'Form submitted successfully' });
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 export default router;

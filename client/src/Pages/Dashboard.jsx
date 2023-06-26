@@ -38,7 +38,7 @@ const Dashboard = () => {
   return (
     <>
       <AffNav />
-      <div className="h-screen bg-gray-700 px-10 py-10">
+      <div className="h-full bg-gray-700 px-10 py-10">
         <AffHero />
         <AffBody />
       </div>

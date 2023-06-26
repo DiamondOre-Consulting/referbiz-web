@@ -1,0 +1,208 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { useJwt } from "react-jwt";
+import Dropzone from "react-dropzone";
+
+const CvSharing = () => {
+  const [formValues, setFormValues] = useState({
+    refName: "",
+    refPhone: "",
+    refUniqueEmailId: "",
+    document: null,
+  });
+  //   const [message, setMessage] = useState('');
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setFormValues({ ...formValues, document: file });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login"); // Redirect to login page if not authenticated
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("refName", formValues.refName);
+    formData.append("refPhone", formValues.refPhone);
+    formData.append("refUniqueEmailId", formValues.refUniqueEmailId);
+    formData.append("document", formValues.document);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/candidates/affiliate-contact-form",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data);
+      setFormValues({
+        refName: "",
+        refPhone: "",
+        refUniqueEmailId: "",
+        document: null,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <>
+      {/* <div className="max-w-md mx-auto p-6 bg-gray-200">
+        <h1 className="text-2xl font-bold mb-4">Form Submission</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="name" className="block font-medium mb-2">
+              Name
+            </label>
+            <input
+              type="text"
+              id="refName"
+              name="refName"
+              value={formValues.refName}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="email" className="block font-medium mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              id="refUniqueEmailId"
+              name="refUniqueEmailId"
+              value={formValues.refUniqueEmailId}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="phone" className="block font-medium mb-2">
+              Phone Num
+            </label>
+            <input
+              type="text"
+              id="refPhone"
+              name="refPhone"
+              value={formValues.refPhone}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="document" className="block font-medium mb-2">
+              Document
+            </label>
+            <input
+              type="file"
+              id="document"
+              name="document"
+              onChange={handleFileChange}
+            />
+          </div>
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          >
+            Submit
+          </button>
+        </form>
+      </div> */}
+
+      {/* <div class="bg-gray-500"> */}
+        <div className="mx-auto max-w-screen-2xl bg-gray-200 rounded-lg">
+          <form className="mx-auto max-w-lg rounded-lg border" onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-4 p-4 md:p-8">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="mb-2 inline-block text-xl text-indigo-600 sm:text-xl"
+                >
+                  Candidate Name
+                </label>
+                <input
+                  type="text"
+                  id="refName"
+                  name="refName"
+                  value={formValues.refName}
+                  onChange={handleInputChange}
+                  className="w-full rounded border bg-gray-400 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="email"
+                  className="mb-2 inline-block text-xl text-indigo-600 sm:text-xl"
+                >
+                  Candidate Email
+                </label>
+                <input
+                  type="email"
+                  id="refUniqueEmailId"
+                  name="refUniqueEmailId"
+                  value={formValues.refUniqueEmailId}
+                  onChange={handleInputChange}
+                  className="w-full rounded border bg-gray-400 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="mb-2 inline-block text-xl text-indigo-600 sm:text-xl"
+                >
+                  Candidate Phone Number
+                </label>
+                <input
+                  type="text"
+                  id="refPhone"
+                  name="refPhone"
+                  value={formValues.refPhone}
+                  onChange={handleInputChange}
+                  className="w-full rounded border bg-gray-400 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="document"
+                  className="mb-2 inline-block text-xl text-indigo-600 sm:text-xl"
+                >
+                  Candidate Resume
+                </label>
+                <input
+                  type="file"
+                  id="document"
+                  name="document"
+                  onChange={handleFileChange}
+                  className="w-full rounded border bg-gray-400 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+                />
+              </div>
+
+              <button className="block rounded-lg mt-4 bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base">
+                Submit
+              </button>
+            </div>
+
+          </form>
+        </div>
+      {/* </div> */}
+    </>
+  );
+};
+
+export default CvSharing;
