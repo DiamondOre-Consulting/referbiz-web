@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-const AssoLogin = ({toggleForm}) => {
+const AssoLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -34,29 +34,6 @@ const AssoLogin = ({toggleForm}) => {
   };
 
   return (
-    //   <div>
-    //     <h2>Login</h2>
-    //     <form onSubmit={handleLogin}>
-    //       <input
-    //         type="email"
-    //         placeholder="Email"
-    //         value={email}
-    //         onChange={(e) => setEmail(e.target.value)}
-    //       />
-    //       <input
-    //         type="password"
-    //         placeholder="Password"
-    //         value={password}
-    //         onChange={(e) => setPassword(e.target.value)}
-    //       />
-    //       <button type="submit">Login</button>
-    //     </form>
-    //     <p>
-    //       Don't have an account?{' '}
-    //       <button onClick={toggleForm}>Signup</button>
-    //     </p>
-    //   </div>
-
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
         <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
@@ -156,10 +133,10 @@ const AssoLogin = ({toggleForm}) => {
           </button>
 
           <p className="text-center text-sm text-gray-500">
-            No account?
-            <a className="underline cursor-pointer" onClick={toggleForm}>
-              Sign up
-            </a>
+            No account or Forgot Password ?
+            <Link to={"/contactus"} className="underline cursor-pointer">
+              Contact Us
+            </Link>
           </p>
         </form>
       </div>

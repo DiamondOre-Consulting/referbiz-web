@@ -63,65 +63,6 @@ const CvSharing = () => {
 
   return (
     <>
-      {/* <div className="max-w-md mx-auto p-6 bg-gray-200">
-        <h1 className="text-2xl font-bold mb-4">Form Submission</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="name" className="block font-medium mb-2">
-              Name
-            </label>
-            <input
-              type="text"
-              id="refName"
-              name="refName"
-              value={formValues.refName}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block font-medium mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              id="refUniqueEmailId"
-              name="refUniqueEmailId"
-              value={formValues.refUniqueEmailId}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="phone" className="block font-medium mb-2">
-              Phone Num
-            </label>
-            <input
-              type="text"
-              id="refPhone"
-              name="refPhone"
-              value={formValues.refPhone}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="document" className="block font-medium mb-2">
-              Document
-            </label>
-            <input
-              type="file"
-              id="document"
-              name="document"
-              onChange={handleFileChange}
-            />
-          </div>
-          <button
-            type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-          >
-            Submit
-          </button>
-        </form>
-      </div> */}
-
       {/* <div class="bg-gray-500"> */}
         <div className="mx-auto max-w-screen-2xl bg-gray-200 rounded-lg">
           <form className="mx-auto max-w-lg rounded-lg border" onSubmit={handleSubmit}>
@@ -200,7 +141,6 @@ const CvSharing = () => {
 
           </form>
         </div>
-      {/* </div> */}
     </>
   );
 };

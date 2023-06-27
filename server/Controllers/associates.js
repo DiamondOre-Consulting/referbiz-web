@@ -7,6 +7,7 @@ import authenticateToken from "../Middlewares/authenticateToken.js";
 
 import AssoUser from "../Models/AssoUsers.js";
 import CvSharing from "../Models/CvSharing.js";
+import ContactUs from "../Models/ContactUs.js";
 dotenv.config();
 
 const secretKey = process.env.JWT_SECRET;
@@ -157,6 +158,30 @@ router.post('/associate-contact-form', authenticateToken, upload.single('documen
   } catch (error) {
     console.error('Error submitting form:', error);
     res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+router.post("/contactus", async (req, res) => {
+  const { name, email, message } = req.body;
+
+  try {
+    // Create a new user object
+    const newMessage = new ContactUs({
+      name,
+      email,
+      message,
+    });
+
+    // Save the user to the database
+    await newMessage.save();
+
+    return res
+      .status(202)
+      .json({ message: "Message Sent Successfully!!!" });
+  } catch (error) {
+    console.error("Error creating user:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 });
 

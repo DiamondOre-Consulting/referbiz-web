@@ -1,19 +1,15 @@
 import mongoose from "mongoose";
 
-const CvSharingFormSchema = new mongoose.Schema({
-  refName: {
+const ContactUs = new mongoose.Schema({
+  name: {
     type: String,
     required: true,
   },
-  refPhone: {
+  email: {
     type: String,
     required: true,
   },
-  refUniqueEmailId: {
-    type: String,
-    required: true,
-  },
-  userEmail: {
+  message: {
     type: String,
     required: true,
   },
@@ -23,5 +19,5 @@ const CvSharingFormSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model('CvSharing', CvSharingFormSchema);
+export default mongoose.model('ContactUs', ContactUs);
 

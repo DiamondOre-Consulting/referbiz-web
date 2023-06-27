@@ -3,19 +3,15 @@ import AssoSignup from '../Components/AuthsAsso/SignupAsso';
 import AssoLogin from '../Components/AuthsAsso/LoginAsso';
 
 const AssoAuthPage = () => {
-    const [showLogin, setShowLogin] = useState(false);
+    // const [showLogin, setShowLogin] = useState(false);
 
-  const toggleForm = () => {
-    setShowLogin(!showLogin);
-  };
+  // const toggleForm = () => {
+  //   setShowLogin(!showLogin);
+  // };
 
   return (
     <div>
-      {showLogin ? (
-        <AssoLogin toggleForm={toggleForm} />
-      ) : (
-        <AssoSignup toggleForm={toggleForm} />
-      )}
+        <AssoLogin />
     </div>
   );
 }
