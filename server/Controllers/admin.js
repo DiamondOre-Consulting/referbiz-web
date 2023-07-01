@@ -438,8 +438,8 @@ router.put(
   "/admin-associates-data/update-cv-sharing/:id",
   adminAuthToken,
   async (req, res) => {
-    const { id } = req.params;
-    const { isShortlisted, isJoined } = req.body;
+    const { id } = req.params;  
+    const { isShortlisted, isJoined, email } = req.body;
 
     try {
       // Get the user's email from the decoded token
@@ -462,14 +462,20 @@ router.put(
         cvUser.isShortlisted = cvUser.isShortlisted;
       } else {
         cvUser.isShortlisted = isShortlisted;
-        cvUser.count = cv.user+1;
+        await CvSharing.findOneAndUpdate(
+            { email : email },
+            { $inc : {count : 1} },
+        )
+        console.log(cvUser.count);
       }
 
       if (!isJoined) {
         cvUser.isJoined = cvUser.isJoined;
       } else {
         cvUser.isJoined = isJoined;
-        cvUser.count = cv.user+1;
+        let impCount = cvUser.count;
+        impCount++;
+        cvUser.count = impCount;
       }
 
       // Save the updated associate

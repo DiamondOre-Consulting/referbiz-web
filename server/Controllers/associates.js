@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
 router.get('/user-data', authenticateToken, async (req, res) => {
   try {
     // Get the user's email from the decoded token
-    const { email } = req.user;
+    const { email, id } = req.user;
 
     // Find the user in the database
     const user = await AssoUser.findOne({ email });
@@ -95,20 +95,19 @@ router.get('/user-data', authenticateToken, async (req, res) => {
     // console.log(cvUser.isShortlisted, " ", cvUser.isJoined)
     // console.log(cvUser)
     if (cvUser) {
-      if(cvUser.isShortlisted==true && cvUser.count==1) {
+      console.log(cvUser.count);
+      if(cvUser.isShortlisted==true && temp<1) {
         await AssoUser.findOneAndUpdate(
-          { email: email }, // Match the candidate ID
+          { _id : id }, // Match the candidate ID
           { $inc: { totalShortlisted: 1 } }, // Increment totalShared by 1
-        );
-        
+        ); 
       }
-      if(cvUser.isJoined==true && cvUser.count==1) {
-        await AssoUser.findOneAndUpdate(
-          { email: email }, // Match the candidate ID
-          { $inc: { totalJoined: 1 } }, // Increment totalShared by 1
-        );
-        
-      }
+      // if(cvUser.isJoined==true && cvUser.count<1) {
+      //   await AssoUser.findOneAndUpdate(
+      //     { email: email }, // Match the candidate ID
+      //     { $inc: { totalJoined: 1 } }, // Increment totalShared by 1
+      //   );
+      // }
       // CvSharing.findOneAndUpdate(
       //   {_id: { $in: user.allCvInfo }},
       //   { $inc: { count: 1 } }
