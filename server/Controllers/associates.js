@@ -15,7 +15,7 @@ const secretKey = process.env.JWT_SECRET;
 const router = express.Router();
 
 router.post("/signup", async (req, res) => {
-  const { name, email, password, mentorName, mentorEmail } = req.body;
+  const { name, email, password, mentorName, mentorEmail, allCvInfo, document } = req.body;
 
   try {
     // Check if user already exists
@@ -34,6 +34,8 @@ router.post("/signup", async (req, res) => {
       password: hashedPassword,
       mentorName,
       mentorEmail,
+      allCvInfo,
+      document
     });
 
     // Save the user to the database
@@ -89,8 +91,34 @@ router.get('/user-data', authenticateToken, async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
+    const cvUser = await CvSharing.findOne({_id: { $in: user.allCvInfo }});
+    // console.log(cvUser.isShortlisted, " ", cvUser.isJoined)
+    // console.log(cvUser)
+    if (cvUser) {
+      if(cvUser.isShortlisted==true && cvUser.count==1) {
+        await AssoUser.findOneAndUpdate(
+          { email: email }, // Match the candidate ID
+          { $inc: { totalShortlisted: 1 } }, // Increment totalShared by 1
+        );
+        
+      }
+      if(cvUser.isJoined==true && cvUser.count==1) {
+        await AssoUser.findOneAndUpdate(
+          { email: email }, // Match the candidate ID
+          { $inc: { totalJoined: 1 } }, // Increment totalShared by 1
+        );
+        
+      }
+      // CvSharing.findOneAndUpdate(
+      //   {_id: { $in: user.allCvInfo }},
+      //   { $inc: { count: 1 } }
+      // )
+    }
+    // console.log(cvUser.count)
+
     // Extract the required fields from the user object
     const { totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+    // console.log(user.totalShortlisted, " ", user.totalJoined)
 
     res.status(200).json({ totalShared, totalShortlisted, totalJoined, totalAmount });
   } catch (error) {
@@ -151,7 +179,10 @@ router.post('/associate-contact-form', authenticateToken, upload.single('documen
     // Update totalShared count for the associated candidate
     await AssoUser.findOneAndUpdate(
       { email: email }, // Match the candidate ID
-      { $inc: { totalShared: 1 } }, // Increment totalShared by 1
+      {
+        $inc: { totalShared: 1 },
+        $push: { allCvInfo: cvSharing._id }
+      }
     );
 
     res.status(201).json({ message: 'Form submitted successfully' });

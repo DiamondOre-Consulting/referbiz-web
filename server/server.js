@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import candidateController from './Controllers/candidate.js';
 import associateController from './Controllers/associates.js';
+import adminController from './Controllers/admin.js';
 
 const app = express();
 dotenv.config();
@@ -88,7 +89,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 app.use('/api/candidates', candidateController);
 app.use('/api/associates', associateController);
-
+app.use('/api/admin-rb', adminController);
 
 // Start the server
 app.listen(8080, () => {

@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
   },
   document: {
     type: String,
+  },
+  allCvInfo: {
+    type: Array,
+    default: [],
   }
 });
 
