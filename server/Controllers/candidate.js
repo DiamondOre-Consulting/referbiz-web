@@ -88,34 +88,14 @@ router.get('/user-data', authenticateToken, async (req, res) => {
     }
 
     const cvUser = await CvSharing.findOne({_id: { $in: user.allCvInfo }});
-    if (cvUser) {
-      console.log(cvUser.isShortlisted, " ", cvUser.isJoined)
-      if(cvUser.isShortlisted==true ) {
-        await User.findOneAndUpdate(
-          { email: email }, // Match the candidate ID
-          { $inc: { totalShortlisted: 1 } }, // Increment totalShared by 1
-        );
-        // await CvSharing.findOneAndUpdate(
-        //   { _id: { $in: user.allCvInfo } }, // Match the cv ID
-        //   { $inc: { count: 1 } }, // Increment totalShared by 1
-        // );
-      }
-      if(cvUser.isJoined==true ) {
-        await User.findOneAndUpdate(
-          { email: email }, // Match the candidate ID
-          { $inc: { totalJoined: 1 } }, // Increment totalShared by 1
-        );
-        // await CvSharing.findOneAndUpdate(
-        //   { _id: { $in: user.allCvInfo } }, // Match the cv ID
-        //   { $inc: { count: 1 } }, // Increment totalShared by 1
-        // );
-      }
+    if(!cvUser) {
+      return res.status(400).json({ message: 'Info could not be updated!!!' });
     }
 
     // Extract the required fields from the user object
     const { totalShared, totalShortlisted, totalJoined, totalAmount } = user;
-    console.log(user.totalShortlisted, " ", user.totalJoined)
-    console.log(cvUser)
+    // console.log(user.totalShortlisted, " ", user.totalJoined)
+    // console.log(cvUser)
 
     res.status(200).json({ totalShared, totalShortlisted, totalJoined, totalAmount });
   } catch (error) {

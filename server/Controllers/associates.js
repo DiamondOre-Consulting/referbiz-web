@@ -92,27 +92,30 @@ router.get('/user-data', authenticateToken, async (req, res) => {
     }
 
     const cvUser = await CvSharing.findOne({_id: { $in: user.allCvInfo }});
+    if(!cvUser) {
+      return res.status(400).json({ message: 'Info could not be updated!!!' });
+    }
     // console.log(cvUser.isShortlisted, " ", cvUser.isJoined)
     // console.log(cvUser)
-    if (cvUser) {
-      console.log(cvUser.count);
-      if(cvUser.isShortlisted==true && temp<1) {
-        await AssoUser.findOneAndUpdate(
-          { _id : id }, // Match the candidate ID
-          { $inc: { totalShortlisted: 1 } }, // Increment totalShared by 1
-        ); 
-      }
-      // if(cvUser.isJoined==true && cvUser.count<1) {
-      //   await AssoUser.findOneAndUpdate(
-      //     { email: email }, // Match the candidate ID
-      //     { $inc: { totalJoined: 1 } }, // Increment totalShared by 1
-      //   );
-      // }
-      // CvSharing.findOneAndUpdate(
-      //   {_id: { $in: user.allCvInfo }},
-      //   { $inc: { count: 1 } }
-      // )
-    }
+    // if (cvUser) {
+    //   console.log(cvUser.count);
+    //   if(cvUser.isShortlisted==true && cvUser.count==1) {
+    //     await AssoUser.findOneAndUpdate(
+    //       { email : email }, // Match the candidate ID
+    //       { $inc: { totalShortlisted: 1 } }, // Increment totalShared by 1
+    //     ); 
+    //   }
+    //   // if(cvUser.isJoined==true && cvUser.count<1) {
+    //   //   await AssoUser.findOneAndUpdate(
+    //   //     { email: email }, // Match the candidate ID
+    //   //     { $inc: { totalJoined: 1 } }, // Increment totalShared by 1
+    //   //   );
+    //   // }
+    //   // CvSharing.findOneAndUpdate(
+    //   //   {_id: { $in: user.allCvInfo }},
+    //   //   { $inc: { count: 1 } }
+    //   // )
+    // }
     // console.log(cvUser.count)
 
     // Extract the required fields from the user object
@@ -180,7 +183,7 @@ router.post('/associate-contact-form', authenticateToken, upload.single('documen
       { email: email }, // Match the candidate ID
       {
         $inc: { totalShared: 1 },
-        $push: { allCvInfo: cvSharing._id }
+        allCvInfo: [cvSharing._id] 
       }
     );
 

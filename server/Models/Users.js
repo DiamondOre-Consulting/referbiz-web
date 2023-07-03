@@ -38,7 +38,12 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   allCvInfo: {
-    type: Array,
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'CvSharing'
+      }
+    ],
     default: [],
   }
 });
