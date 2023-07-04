@@ -2,6 +2,9 @@ import express, { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import path from "path";
 import multer from 'multer';
 import authenticateToken from "../Middlewares/authenticateToken.js";
 
@@ -13,8 +16,27 @@ const secretKey = process.env.JWT_SECRET;
 
 const router = express.Router();
 
-router.post("/signup", async (req, res) => {
+const picStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    // Specify the directory where you want to store the uploaded files
+    cb(null, 'ProfileImgUploads');
+  },
+  filename: function (req, file, cb) {
+    // Set the file name to be the original name of the uploaded file
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    // cb(null, file.originalname);
+  }
+});
+
+const uploadImg = multer({ storage: picStorage });
+
+// const uploadImg = multer({ dest: 'ProfileImgUploads/' });
+
+router.post("/signup", uploadImg.single('profileImage'), async (req, res) => {
   const { name, email, password } = req.body;
+  const profileImage = req.file;
+  // const filePath = "C:/Users/Harsh%20Jha/Documents/RAS%20Portal%20Pilot/ReferBiz/server/ProfileImgUploads/";
 
   try {
     // Check if user already exists
@@ -31,6 +53,7 @@ router.post("/signup", async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      profileImage: profileImage.filename,
     });
 
     // Save the user to the database
@@ -87,17 +110,10 @@ router.get('/user-data', authenticateToken, async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    const cvUser = await CvSharing.findOne({_id: { $in: user.allCvInfo }});
-    if(!cvUser) {
-      return res.status(400).json({ message: 'Info could not be updated!!!' });
-    }
-
     // Extract the required fields from the user object
-    const { totalShared, totalShortlisted, totalJoined, totalAmount } = user;
-    // console.log(user.totalShortlisted, " ", user.totalJoined)
-    // console.log(cvUser)
+    const { name, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
 
-    res.status(200).json({ totalShared, totalShortlisted, totalJoined, totalAmount });
+    res.status(200).json({ name, email, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount });
   } catch (error) {
     console.error('Error fetching user data:', error);
     res.status(500).json({ message: 'Internal server error' });

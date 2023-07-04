@@ -433,7 +433,7 @@ router.get("/all-cv-admin", adminAuthToken, async (req, res) => {
   }
 });
 
-// UPDATE ASSOCIATES CV-SHARE SHORTLISTED BY ID
+// UPDATE ASSOCIATE CV-SHARE SHORTLISTED BY ID
 router.put(
   "/admin-associates-data/update-shortlisted-cv-sharing/:id",
   adminAuthToken,
@@ -592,54 +592,6 @@ router.put(
     }
   }
 );
-
-// UPDATE AFFILIATES CV-SHARE BY ID
-// router.put(
-//     "/admin-affiliates-data/update-cv-sharing/:id",
-//     adminAuthToken,
-//     async (req, res) => {
-//       const { id } = req.params;
-//       const { isShortlisted, isJoined } = req.body;
-  
-//       try {
-//         // Get the user's email from the decoded token
-//         const { adminEmail } = req.user;
-  
-//         // Find the user in the database
-//         const user = await AdminUsers.findOne({ adminEmail });
-//         if (!user) {
-//           return res.status(404).json({ message: "Admin not found" });
-//         }
-  
-//         // Find the associate by ID
-//         const cvUser = await CvSharing.findById(id);
-//         if (!cvUser) {
-//           return res.status(404).json({ message: "cv details not found" });
-//         }
-  
-//         // Update the cvSharing's fields
-//         if (!isShortlisted) {
-//           cvUser.isShortlisted = cvUser.isShortlisted;
-//         } else {
-//           cvUser.isShortlisted = isShortlisted;
-//         }
-  
-//         if (!isJoined) {
-//           cvUser.isJoined = cvUser.isJoined;
-//         } else {
-//           cvUser.isJoined = isJoined;
-//         }
-  
-//         // Save the updated associate
-//         await cvUser.save();
-  
-//         res.status(200).json({ message: "cv details updated successfully" });
-//       } catch (error) {
-//         console.error("Error updating cv details:", error);
-//         res.status(500).json({ message: "Internal server error" });
-//       }
-//     }
-//   );
 
 // UPDATE AFFILIATE CV-SHARE SHORTLISTED BY ID
 router.put(

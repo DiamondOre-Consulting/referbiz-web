@@ -91,38 +91,11 @@ router.get('/user-data', authenticateToken, async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    const cvUser = await CvSharing.findOne({_id: { $in: user.allCvInfo }});
-    if(!cvUser) {
-      return res.status(400).json({ message: 'Info could not be updated!!!' });
-    }
-    // console.log(cvUser.isShortlisted, " ", cvUser.isJoined)
-    // console.log(cvUser)
-    // if (cvUser) {
-    //   console.log(cvUser.count);
-    //   if(cvUser.isShortlisted==true && cvUser.count==1) {
-    //     await AssoUser.findOneAndUpdate(
-    //       { email : email }, // Match the candidate ID
-    //       { $inc: { totalShortlisted: 1 } }, // Increment totalShared by 1
-    //     ); 
-    //   }
-    //   // if(cvUser.isJoined==true && cvUser.count<1) {
-    //   //   await AssoUser.findOneAndUpdate(
-    //   //     { email: email }, // Match the candidate ID
-    //   //     { $inc: { totalJoined: 1 } }, // Increment totalShared by 1
-    //   //   );
-    //   // }
-    //   // CvSharing.findOneAndUpdate(
-    //   //   {_id: { $in: user.allCvInfo }},
-    //   //   { $inc: { count: 1 } }
-    //   // )
-    // }
-    // console.log(cvUser.count)
-
     // Extract the required fields from the user object
-    const { totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+    const {name, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
     // console.log(user.totalShortlisted, " ", user.totalJoined)
 
-    res.status(200).json({ totalShared, totalShortlisted, totalJoined, totalAmount });
+    res.status(200).json({ name, email, totalShared, totalShortlisted, totalJoined, totalAmount });
   } catch (error) {
     console.error('Error fetching user data:', error);
     res.status(500).json({ message: 'Internal server error' });

@@ -1,18 +1,16 @@
 import express from 'express';
-// import bcrypt from 'bcrypt';
-// import jwt from 'jsonwebtoken';
 import cors from 'cors';
 import mongoose from 'mongoose';
-// import User from './Models/Users.js';
+// import { fileURLToPath } from 'url';
+// import { dirname, join } from 'path';
+// import multer from 'multer';
 import dotenv from 'dotenv';
-import candidateController from './Controllers/candidate.js';
-import associateController from './Controllers/associates.js';
-import adminController from './Controllers/admin.js';
 
 const app = express();
 dotenv.config();
 app.use(express.json());
 app.use(cors());
+app.use(express.static('ProfileImgUploads'))
 
 // Secret key for JWT
 const secretKey = process.env.JWT_SECRET; // Replace with your own secret key
@@ -86,6 +84,30 @@ mongoose.connect(process.env.MONGO_URI, {
 //     return res.status(500).json({ message: 'Internal server error' });
 //   }
 // });
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     // Specify the directory where you want to store the uploaded files
+//     const __filename = fileURLToPath(import.meta.url);
+//     const __dirname = dirname(__filename);
+//     cb(null, join(__dirname, 'ProfileImgUploads/'));
+//   },
+//   filename: function (req, file, cb) {
+//     // Set the file name to be the original name of the uploaded file
+//     cb(null, file.originalname);
+//   }
+// });
+
+// // Create the Multer upload instance
+// const upload = multer({ storage: storage });
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
+// const profileImgUploadsPath = join(__dirname, 'ProfileImgUploads');
+// app.use('/ProfileImgUploads', express.static(profileImgUploadsPath));
+
+import candidateController from './Controllers/candidate.js';
+import associateController from './Controllers/associates.js';
+import adminController from './Controllers/admin.js';
 
 app.use('/api/candidates', candidateController);
 app.use('/api/associates', associateController);

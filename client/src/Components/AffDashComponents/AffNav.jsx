@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
+import axios from "axios";
 import Logo from "./Referbiz.png";
 
 const AffNav = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const [userData, setUserData] = useState(null);
 
   const toggleMobileNav = () => {
     setIsMobileNavOpen(!isMobileNavOpen);
@@ -21,8 +24,34 @@ const AffNav = () => {
   };
 
   const { decodedToken } = useJwt(localStorage.getItem("token"));
+  const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login"); // Redirect to login page if not authenticated
+      return;
+    }
 
   const userName = decodedToken ? decodedToken.name : "No Name Found";
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        // Make a GET request to retrieve the user data
+        const response = await axios.get('http://localhost:8080/api/candidates/user-data', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }); // Replace '/api/user' with the appropriate endpoint
+
+        // Set the user data in state
+        setUserData(response.data);
+        console.log(response.data)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   return (
     <header className="bg-white">
@@ -44,7 +73,7 @@ const AffNav = () => {
                 >
                   <img
                     className="w-10 h-10 rounded-full"
-                    src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+                    src={`http://localhost:8080/`+userData?.profileImage}
                     alt="avatar"
                   />
                   {userName}
