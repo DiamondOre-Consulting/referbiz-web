@@ -1,6 +1,11 @@
 import React, {useEffect} from "react";
 import { useJwt } from "react-jwt";
 import { useNavigate } from "react-router-dom";
+import AssoNav from "../AssoDashComponents/AssoNav";
+import AssoHero from "../AssoDashComponents/AssoHero";
+import AssoBody from "../AssoDashComponents/AssoBody";
+import AssoFooter from "../AssoDashComponents/AssoFooter";
+import PopupCard from "../Components/Instructions/PopupCard";
 
 const AssoDashboard = () => {
   const navigate = useNavigate();
@@ -32,19 +37,15 @@ const AssoDashboard = () => {
   }
 
   return (
-    <div className="h-screen bg-blue-900">
-      <div className="flex justify-end px-4 py-5">
-        <button className="bg-gray-300 px-10 py-15 text-gray-900" onClick={handleLogout}>
-          Logout
-        </button>
+    <>
+      <AssoNav />
+      <div className="h-full bg-gray-700 px-10 py-10">
+        <AssoHero />
+        <AssoBody />
       </div>
-      <div className="flex justify-center items-center">
-        <h2 className="text-4xl text-gray-200">
-          Welcome, <span className="text-white">{userEmail}</span>
-        </h2>
-        {/* Rest of the dashboard content */}
-      </div>
-    </div>
+      <AssoFooter />
+      <PopupCard />
+    </>
   );
 };
 

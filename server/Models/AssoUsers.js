@@ -54,7 +54,11 @@ const assoUserSchema = new mongoose.Schema({
       }
     ],
     default: [],
-  }
+  },
+  profileImage: {
+    type: String,
+    required: false,
+  },
 });
 
 export default mongoose.model('AssoUser', assoUserSchema);

@@ -7,6 +7,7 @@ import AssoAuthPage from "./Pages/AuthPageAsso";
 import AssoLogin from "./Components/AuthsAsso/LoginAsso";
 import AssoDashboard from "./Pages/AssoDashboard";
 import AssoContact from "./Pages/AssoContact";
+import AuthAdmin from "./Pages/AuthAdmin";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/contactus" element={<AssoContact />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/AssoDashboard" element={<AssoDashboard />} />
+          <Route path="/auth-admin" element={<AuthAdmin />} />
         </Routes>
       </Router>
     </>

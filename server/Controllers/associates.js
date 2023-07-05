@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
 import multer from "multer";
+import path from 'path';
 import authenticateToken from "../Middlewares/authenticateToken.js";
 
 import AssoUser from "../Models/AssoUsers.js";
@@ -14,8 +15,24 @@ const secretKey = process.env.JWT_SECRET;
 
 const router = express.Router();
 
-router.post("/signup", async (req, res) => {
+const picStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    // Specify the directory where you want to store the uploaded files
+    cb(null, 'ProfileImgUploads');
+  },
+  filename: function (req, file, cb) {
+    // Set the file name to be the original name of the uploaded file
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    // cb(null, file.originalname);
+  }
+});
+
+const uploadImg = multer({ storage: picStorage });
+
+router.post("/signup", uploadImg.single('profileImage') ,async (req, res) => {
   const { name, email, password, mentorName, mentorEmail, allCvInfo, document } = req.body;
+  const profileImage = req.file;
 
   try {
     // Check if user already exists
@@ -35,7 +52,8 @@ router.post("/signup", async (req, res) => {
       mentorName,
       mentorEmail,
       allCvInfo,
-      document
+      document,
+      profileImage: profileImage.filename,
     });
 
     // Save the user to the database
@@ -92,10 +110,10 @@ router.get('/user-data', authenticateToken, async (req, res) => {
     }
 
     // Extract the required fields from the user object
-    const {name, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+    const {name, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
     // console.log(user.totalShortlisted, " ", user.totalJoined)
 
-    res.status(200).json({ name, email, totalShared, totalShortlisted, totalJoined, totalAmount });
+    res.status(200).json({ name, email, profileImage ,totalShared, totalShortlisted, totalJoined, totalAmount });
   } catch (error) {
     console.error('Error fetching user data:', error);
     res.status(500).json({ message: 'Internal server error' });
@@ -152,13 +170,15 @@ router.post('/associate-contact-form', authenticateToken, upload.single('documen
     await cvSharing.save();
 
     // Update totalShared count for the associated candidate
-    await AssoUser.findOneAndUpdate(
+    const asso = await AssoUser.findOneAndUpdate(
       { email: email }, // Match the candidate ID
       {
         $inc: { totalShared: 1 },
-        allCvInfo: [cvSharing._id] 
+        $push: { allCvInfo: cvSharing._id } 
       }
     );
+
+      console.log(asso)
 
     res.status(201).json({ message: 'Form submitted successfully' });
   } catch (error) {
