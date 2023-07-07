@@ -1,10 +1,10 @@
 import React, {useEffect} from "react";
 import { useJwt } from "react-jwt";
 import { useNavigate } from "react-router-dom";
-import AssoNav from "../AssoDashComponents/AssoNav";
-import AssoHero from "../AssoDashComponents/AssoHero";
-import AssoBody from "../AssoDashComponents/AssoBody";
-import AssoFooter from "../AssoDashComponents/AssoFooter";
+import AssoNav from "../Components/AssoDashComponents/AssoNav";
+import AssoHero from "../Components/AssoDashComponents/AssoHero";
+import AssoBody from "../Components/AssoDashComponents/AssoBody";
+import AssoFooter from "../Components/AssoDashComponents/AssoFooter";
 import PopupCard from "../Components/Instructions/PopupCard";
 
 const AssoDashboard = () => {

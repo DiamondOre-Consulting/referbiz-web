@@ -72,6 +72,29 @@ router.post("/admin-login-rb", async (req, res) => {
   }
 });
 
+// LOGGED IN USER DATA
+router.get('/admin-user-data', adminAuthToken, async (req, res) => {
+  try {
+    // Get the user's email from the decoded token
+    const { email, id } = req.user;
+
+    // Find the user in the database
+    const user = await AdminUsers.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Extract the required fields from the user object
+    const {name, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+    // console.log(user.totalShortlisted, " ", user.totalJoined)
+
+    res.status(200).json({ name, email, profileImage ,totalShared, totalShortlisted, totalJoined, totalAmount });
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 // AFFILIATES SECTION
 // FETCHING ALL AFFILIATES DATA
 router.get("/admin-affiliates-data", adminAuthToken, async (req, res) => {

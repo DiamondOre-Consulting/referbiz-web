@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({ toggleForm }) => {
+const LoginAdmin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -12,7 +12,7 @@ const Login = ({ toggleForm }) => {
     e.preventDefault();
     // Perform login logic here
     try {
-      const response = await axios.post('http://localhost:8080/api/candidates/login', {
+      const response = await axios.post('http://localhost:8080/api/admin-rb/admin-login-rb', {
         email,
         password,
       });
@@ -21,9 +21,9 @@ const Login = ({ toggleForm }) => {
         const token = response.data.token;
         // Store the token in local storage
         localStorage.setItem('token', token);
-        console.log("Logged in successfully as Affiliate")
+        console.log("Logged in successfully as Admin")
         // Redirect to dashboard page
-        navigate('/dashboard');
+        navigate('/admin-panel-confi');
       } else {
         console.log('Login failed');
         // Handle login error
@@ -39,13 +39,8 @@ const Login = ({ toggleForm }) => {
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
         <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
-          Continue as an Affiliate
+          Continue as an Admin
         </h1>
-
-        <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati
-          sunt dolores deleniti inventore quaerat mollitia?
-        </p>
 
         <form
           onSubmit={handleLogin}
@@ -134,16 +129,15 @@ const Login = ({ toggleForm }) => {
             Sign in
           </button>
 
-          <p className="text-center text-sm text-gray-500">
-            No account?
+          {/* <p className="text-center text-sm text-gray-500">
             <a className="underline cursor-pointer" onClick={toggleForm}>
-              Sign up
+            Forgot Password?
             </a>
-          </p>
+          </p> */}
         </form>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default LoginAdmin;

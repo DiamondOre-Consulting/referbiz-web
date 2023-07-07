@@ -1,5 +1,5 @@
 import React from 'react'
-import CvSharingAsso from '../Components/CvShareForm/CvSharingAsso';
+import CvSharingAsso from '../CvShareForm/CvSharingAsso';
 
 const AssoBody = () => {
   return (

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useJwt } from "react-jwt";
 import axios from "axios";
 import Logo from "./Referbiz.png";
 import FakeProfile from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/FakeProfile2.png";
 
-const AffNav = () => {
+const AdminNav = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -37,7 +38,7 @@ const AffNav = () => {
     const fetchUserData = async () => {
       try {
         // Make a GET request to retrieve the user data
-        const response = await axios.get('http://localhost:8080/api/candidates/user-data', {
+        const response = await axios.get('http://localhost:8080/api/admin-rb/admin-user-data', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -72,19 +73,11 @@ const AffNav = () => {
                   onClick={toggleDropdown}
                   className="flex items-center justify-between rounded-md gap-2 px-5 text-sm font-medium text-teal-600 hover:bg-gray-100"
                 >
-                  {userData?.profileImage ? (
-                    <img
-                      className="w-10 h-10 rounded-full"
-                      src={`http://localhost:8080/` + userData?.profileImage}
-                      alt="avatar"
-                    />
-                  ) : (
-                    <img
+                  <img
                       className="w-10 h-10 rounded-full"
                       src={FakeProfile}
                       alt="avatar"
                     />
-                  )}
                   {userName}
                 </button>
 
@@ -108,12 +101,18 @@ const AffNav = () => {
                 )}
               </div>
 
-              <a
+              {/* <button
                 className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-teal-800"
-                href="/"
+                
               >
-                Download Instructions
-              </a>
+                Add CV
+              </button> */}
+              <Link
+                className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-teal-800"
+                to={'/add-new-associate'}
+              >
+                Add New Associate
+              </Link>
             </div>
 
             {/* <div className="block md:hidden">
@@ -210,4 +209,4 @@ const AffNav = () => {
   );
 };
 
-export default AffNav;
+export default AdminNav;
