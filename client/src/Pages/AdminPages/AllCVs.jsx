@@ -6,8 +6,8 @@ import FakeProfile from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/
 import { Link, useNavigate } from "react-router-dom";
 import { useJwt } from "react-jwt";
 
-const AllAffiliates = () => {
-  const [affiliates, setAffiliates] = useState([]);
+const AllCVs = () => {
+  const [mainCv, setMainCv] = useState([]);
   const navigate = useNavigate();
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
@@ -37,7 +37,7 @@ const AllAffiliates = () => {
 
         // Fetch associates data from the backend
         const response = await axios.get(
-          "http://localhost:8080/api/admin-rb/admin-affiliates-data",
+          "http://localhost:8080/api/admin-rb/all-cv-admin",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ const AllAffiliates = () => {
         );
         const { data } = response;
         console.log(response.data);
-        setAffiliates(data);
+        setMainCv(data);
       } catch (error) {
         console.error("Error fetching associates:", error);
         // Handle error and show appropriate message
@@ -65,17 +65,17 @@ const AllAffiliates = () => {
       <AdminNav />
       <div className="flex flex-col justify-center items-center py-10 px-10 bg-gray-200">
         <h2 className="text-6xl font-bold mb-4 text-indigo-600">
-          Your Affiliates
+          All Shared CVs
         </h2>
         <div className="grid grid-cols-1 py-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {affiliates?.map((affiliate) => (
+          {mainCv?.map((CV) => (
               <Link
-                to={`/admin-all-affiliates/each-affiliate/${affiliate._id}`}
-                key={affiliate._id}
+                // to={`/admin-all-affiliates/each-affiliate/${affiliate._id}`}
+                key={CV._id}
                 className="bg-gray-300 shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg"
               >
                 <div>
-                  {affiliate?.profileImage ? (
+                  {/* {affiliate?.profileImage ? (
                     <img
                       className="w-10 h-10 rounded-full border-2 border-indigo-600"
                       src={`http://localhost:8080/` + affiliate?.profileImage}
@@ -87,31 +87,38 @@ const AllAffiliates = () => {
                       src={FakeProfile}
                       alt="avatar"
                     />
-                  )}
+                  )} */}
                   <div>
-                    <h3 className="text-lg font-semibold">{affiliate.name}</h3>
-                    <p className="text-sm text-gray-600">{affiliate.email}</p>
+                    <h3 className="text-lg font-semibold">{CV.refName}</h3>
+                    <p className="text-sm text-gray-600">{CV.refUniqueEmailId}</p>
+                    <p className="text-sm text-gray-600">{CV.refPhone}</p>
                   </div>
                 </div>
                 <div className="flex justify-between gap-2 items-center mt-4">
                   <p className="text-sm">
-                    Total Shared:{" "}
+                    Shortlisted:{" "}
                     <span className="text-indigo-700 font-semibold">
-                      {affiliate.totalShared}
+                      {CV.isShortlisted.toString()}
                     </span>{" "}
                   </p>
                   <p className="text-sm">
-                    Total Shortlisted:{" "}
+                    Joined:{" "}
                     <span className="text-indigo-700 font-semibold">
-                      {affiliate.totalShortlisted}
+                      {CV.isJoined.toString()}
                     </span>
                   </p>
                   <p className="text-sm">
+                    Shared By:{" "}
+                    <span className="text-indigo-700 font-semibold">
+                      {CV.userEmail}
+                    </span>
+                  </p>
+                  {/* <p className="text-sm">
                     Total Joined:{" "}
                     <span className="text-indigo-700 font-semibold">
                       {affiliate.totalJoined}
                     </span>
-                  </p>
+                  </p> */}
                 </div>
               </Link>
           ))}
@@ -122,4 +129,4 @@ const AllAffiliates = () => {
   );
 };
 
-export default AllAffiliates;
+export default AllCVs;

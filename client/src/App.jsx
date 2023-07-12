@@ -14,6 +14,9 @@ import AdminPanelDashbaord from "./Pages/AdminPanelDashbaord";
 import AddAssociate from "./Pages/AdminPages/AddAssociate";
 import AllAssociates from "./Pages/AdminPages/AllAssociates";
 import AllAffiliates from "./Pages/AdminPages/AllAffiliates";
+import EachAffiliate from "./Pages/AdminPages/EachAffiliate";
+import AllCVs from "./Pages/AdminPages/AllCVs";
+import EachAssociate from "./Pages/AdminPages/EachAssociate";
 
 function App() {
   return (
@@ -34,6 +37,9 @@ function App() {
           <Route path="/add-new-associate" element={<AddAssociate />} />
           <Route path="/admin-all-associates" element={<AllAssociates />} />
           <Route path="/admin-all-affiliates" element={<AllAffiliates />} />
+          <Route path="/admin-all-cvs" element={<AllCVs />} />
+          <Route path="/admin-all-affiliates/each-affiliate/:id" element={<EachAffiliate />} />
+          <Route path="/admin-all-associates/each-associate/:id" element={<EachAssociate />} />
         </Routes>
       </Router>
     </>

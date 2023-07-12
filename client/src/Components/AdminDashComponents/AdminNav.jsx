@@ -21,14 +21,14 @@ const AdminNav = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");;
-    window.location.href = "/login";
+    window.location.href = "/auth-admin-login";
     console.log("Logging out");
   };
 
   const { decodedToken } = useJwt(localStorage.getItem("token"));
   const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login"); // Redirect to login page if not authenticated
+      navigate("/auth-admin-login"); // Redirect to login page if not authenticated
       return;
     }
 

@@ -456,6 +456,60 @@ router.get("/all-cv-admin", adminAuthToken, async (req, res) => {
   }
 });
 
+// FETCH CV DETAILS BY ID
+router.get("/admin-affiliates-data/get-cv-data/:id", adminAuthToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Get the user's email from the decoded token
+    const { email } = req.user;
+
+    // Find the user in the database
+    const user = await AdminUsers.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    // Find the affiliate by ID
+    const cvById = await CvSharing.findById(id);
+    if (!cvById) {
+      return res.status(404).json({ message: "Cv Details not found" });
+    }
+
+    res.status(200).json(cvById);
+  } catch (error) {
+    console.error("Error retrieving associate:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// FETCH ASSOCIATES CV DETAILS BY ID
+router.get("/admin-associates-data/get-cv-data/:id", adminAuthToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Get the user's email from the decoded token
+    const { email } = req.user;
+
+    // Find the user in the database
+    const user = await AdminUsers.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    // Find the affiliate by ID
+    const cvById = await CvSharing.findById(id);
+    if (!cvById) {
+      return res.status(404).json({ message: "Cv Details not found" });
+    }
+
+    res.status(200).json(cvById);
+  } catch (error) {
+    console.error("Error retrieving associate:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // UPDATE ASSOCIATE CV-SHARE SHORTLISTED BY ID
 router.put(
   "/admin-associates-data/update-shortlisted-cv-sharing/:id",

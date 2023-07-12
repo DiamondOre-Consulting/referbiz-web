@@ -5,7 +5,7 @@ const AdminFooter = () => {
   return (
     <footer className="bg-gray-100">
   <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
-    <div className="flex justify-center text-5xl">
+    <div className="flex justify-center text-5xl font-semibold">
       <h2 className='text-gray-800'>Refer<span className='text-indigo-700'>Biz</span></h2>
     </div>
 
