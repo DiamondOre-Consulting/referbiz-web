@@ -8,12 +8,14 @@ import AdminUsers from "../Models/AdminUsers.js";
 import Users from "../Models/Users.js";
 import AssoUsers from "../Models/AssoUsers.js";
 import CvSharing from "../Models/CvSharing.js";
+import Employees from "../Models/Employees.js";
 dotenv.config();
 
 const secretKey = process.env.ADMIN_JWT_SECRET;
 
 const router = express.Router();
 
+// SIGNUP NEW ADMIN
 router.post("/admin-signup-rb", async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -44,6 +46,7 @@ router.post("/admin-signup-rb", async (req, res) => {
   }
 });
 
+// LOGIN AS ADMIN
 router.post("/admin-login-rb", async (req, res) => {
   const { email, password } = req.body;
 
@@ -73,7 +76,7 @@ router.post("/admin-login-rb", async (req, res) => {
 });
 
 // LOGGED IN USER DATA
-router.get('/admin-user-data', adminAuthToken, async (req, res) => {
+router.get("/admin-user-data", adminAuthToken, async (req, res) => {
   try {
     // Get the user's email from the decoded token
     const { email, id } = req.user;
@@ -81,19 +84,198 @@ router.get('/admin-user-data', adminAuthToken, async (req, res) => {
     // Find the user in the database
     const user = await AdminUsers.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     // Extract the required fields from the user object
-    const {name, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+    const {
+      name,
+      profileImage,
+      totalShared,
+      totalShortlisted,
+      totalJoined,
+      totalAmount,
+    } = user;
     // console.log(user.totalShortlisted, " ", user.totalJoined)
 
-    res.status(200).json({ name, email, profileImage ,totalShared, totalShortlisted, totalJoined, totalAmount });
+    res
+      .status(200)
+      .json({
+        name,
+        email,
+        profileImage,
+        totalShared,
+        totalShortlisted,
+        totalJoined,
+        totalAmount,
+      });
   } catch (error) {
-    console.error('Error fetching user data:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
+
+// EMPLOYEES SECTION
+// FETCHING ALL EMPLOYEES DATA
+router.get("/admin-employees-data", adminAuthToken, async (req, res) => {
+  try {
+    // Get the user's email from the decoded token
+    const { email } = req.user;
+
+    // Find the user in the database
+    const user = await AdminUsers.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const employees = await Employees.find({}, { password: 0 });
+
+    // Extract the required fields from the user object
+    //   const { name, email, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+    // console.log(employees[15].name, " and ", employees[15].email);
+    res.status(200).json(employees);
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// GET A EMPLOYEE BY ID
+router.get("/admin-employees-data/:id", adminAuthToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Get the user's email from the decoded token
+    const { email } = req.user;
+
+    // Find the user in the database
+    const user = await AdminUsers.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    // Find the affiliate by ID
+    const employee = await Employees.findById(id, { password: 0 });
+    if (!employee) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+
+    res.status(200).json(employee);
+  } catch (error) {
+    console.error("Error retrieving affiliate:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// UPDATE A EMPLOYEE BY ID
+router.put(
+  "/admin-employees-data/update/:id",
+  adminAuthToken,
+  async (req, res) => {
+    const { id } = req.params;
+    const {
+      EmpName,
+      EmpEmail,
+      totalShared,
+      totalShortlisted,
+      totalAmount,
+      totalJoined,
+      myAsso,
+    } = req.body;
+
+    try {
+      // Get the user's email from the decoded token
+      const { adminEmail } = req.user;
+
+      // Find the user in the database
+      const user = await AdminUsers.findOne({ adminEmail });
+      if (!user) {
+        return res.status(404).json({ message: "Admin not found" });
+      }
+
+      // Find the affiliate by ID
+      const employee = await Employees.findById(id);
+      if (!employee) {
+        return res.status(404).json({ message: "Employee not found" });
+      }
+
+      // Update the affiliate's fields
+      if (!EmpName) {
+        employee.EmpName = employee.EmpName;
+      } else {
+        employee.EmpName = EmpName;
+      }
+
+      if (!EmpEmail) {
+        employee.EmpEmail = employee.EmpEmail;
+      } else {
+        employee.EmpEmail = EmpEmail;
+      }
+
+      if (!totalShared) {
+        employee.totalShared = employee.totalShared;
+      } else {
+        employee.totalShared = totalShared;
+      }
+
+      if (!totalShortlisted) {
+        employee.totalShortlisted = employee.totalShortlisted;
+      } else {
+        employee.totalShortlisted = totalShortlisted;
+      }
+
+      if (!totalJoined) {
+        employee.totalJoined = employee.totalJoined;
+      } else {
+        employee.totalJoined = totalJoined;
+      }
+
+      if (!totalAmount) {
+        employee.totalAmount = employee.totalAmount;
+      } else {
+        employee.totalAmount = totalAmount;
+      }
+
+      // Save the updated employee
+      await employee.save();
+
+      res.status(200).json({ message: "employee updated successfully" });
+    } catch (error) {
+      console.error("Error updating employee:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+// DELETE EMPLOYEE BY ID
+router.delete(
+  "/admin-employees-data/delete/:id",
+  adminAuthToken,
+  async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      // Get the user's email from the decoded token
+      const { adminEmail } = req.user;
+
+      // Find the user in the database
+      const user = await AdminUsers.findOne({ adminEmail });
+      if (!user) {
+        return res.status(404).json({ message: "Admin not found" });
+      }
+
+      const deletedEmployee = await Employees.findByIdAndDelete(id);
+      if (!deletedEmployee) {
+        return res.status(404).json({ message: "Employee not found" });
+      }
+
+      res.status(200).json({ message: "Employee deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting affiliate:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
 
 // AFFILIATES SECTION
 // FETCHING ALL AFFILIATES DATA
@@ -457,65 +639,73 @@ router.get("/all-cv-admin", adminAuthToken, async (req, res) => {
 });
 
 // FETCH CV DETAILS BY ID
-router.get("/admin-affiliates-data/get-cv-data/:id", adminAuthToken, async (req, res) => {
-  const { id } = req.params;
+router.get(
+  "/admin-affiliates-data/get-cv-data/:id",
+  adminAuthToken,
+  async (req, res) => {
+    const { id } = req.params;
 
-  try {
-    // Get the user's email from the decoded token
-    const { email } = req.user;
+    try {
+      // Get the user's email from the decoded token
+      const { email } = req.user;
 
-    // Find the user in the database
-    const user = await AdminUsers.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "Admin not found" });
+      // Find the user in the database
+      const user = await AdminUsers.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: "Admin not found" });
+      }
+
+      // Find the affiliate by ID
+      const cvById = await CvSharing.findById(id);
+      if (!cvById) {
+        return res.status(404).json({ message: "Cv Details not found" });
+      }
+
+      res.status(200).json(cvById);
+    } catch (error) {
+      console.error("Error retrieving associate:", error);
+      res.status(500).json({ message: "Internal server error" });
     }
-
-    // Find the affiliate by ID
-    const cvById = await CvSharing.findById(id);
-    if (!cvById) {
-      return res.status(404).json({ message: "Cv Details not found" });
-    }
-
-    res.status(200).json(cvById);
-  } catch (error) {
-    console.error("Error retrieving associate:", error);
-    res.status(500).json({ message: "Internal server error" });
   }
-});
+);
 
 // FETCH ASSOCIATES CV DETAILS BY ID
-router.get("/admin-associates-data/get-cv-data/:id", adminAuthToken, async (req, res) => {
-  const { id } = req.params;
+router.get(
+  "/admin-associates-data/get-cv-data/:id",
+  adminAuthToken,
+  async (req, res) => {
+    const { id } = req.params;
 
-  try {
-    // Get the user's email from the decoded token
-    const { email } = req.user;
+    try {
+      // Get the user's email from the decoded token
+      const { email } = req.user;
 
-    // Find the user in the database
-    const user = await AdminUsers.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "Admin not found" });
+      // Find the user in the database
+      const user = await AdminUsers.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: "Admin not found" });
+      }
+
+      // Find the affiliate by ID
+      const cvById = await CvSharing.findById(id);
+      if (!cvById) {
+        return res.status(404).json({ message: "Cv Details not found" });
+      }
+
+      res.status(200).json(cvById);
+    } catch (error) {
+      console.error("Error retrieving associate:", error);
+      res.status(500).json({ message: "Internal server error" });
     }
-
-    // Find the affiliate by ID
-    const cvById = await CvSharing.findById(id);
-    if (!cvById) {
-      return res.status(404).json({ message: "Cv Details not found" });
-    }
-
-    res.status(200).json(cvById);
-  } catch (error) {
-    console.error("Error retrieving associate:", error);
-    res.status(500).json({ message: "Internal server error" });
   }
-});
+);
 
 // UPDATE ASSOCIATE CV-SHARE SHORTLISTED BY ID
 router.put(
   "/admin-associates-data/update-shortlisted-cv-sharing/:id",
   adminAuthToken,
   async (req, res) => {
-    const { id } = req.params;  
+    const { id } = req.params;
     const { isShortlisted, isJoined } = req.body;
     const cvId = id;
 
@@ -531,43 +721,25 @@ router.put(
 
       // Find the associate by ID
       const cvUserShortlist = await CvSharing.findByIdAndUpdate(id, {
-        $set: { isShortlisted: true }
+        $set: { isShortlisted: true },
       });
       if (!cvUserShortlist) {
         return res.status(404).json({ message: "cv details not found" });
       }
 
-
-      // Update the cvSharing's fields
-      // if (!isShortlisted) {
-      //   cvUser.isShortlisted = cvUser.isShortlisted;
-      // } else {
-      //   cvUser.isShortlisted = isShortlisted;
-      //   const assoUser = await AssoUsers.findOneAndUpdate(
-      //     { "allCvInfo": cvId},
-      //     { $inc: { totalShortlisted: 1 } }
-      //   )
-      //   console.log(assoUser);
-      // }
       console.log(cvUserShortlist.isShortlisted);
-      if(cvUserShortlist.isShortlisted) {
+      if (cvUserShortlist.isShortlisted) {
         const assoUser = await AssoUsers.findOneAndUpdate(
-              { allCvInfo: cvId, totalShortlisted: { $ne: 1 } },
-              { $inc: { totalShortlisted: 1 } }
-            )
-            console.log(assoUser);
+          { allCvInfo: cvId, totalShortlisted: { $ne: 1 } },
+          { $inc: { totalShortlisted: 1 } }
+        );
+        console.log(assoUser);
+        const empUser = await Employees.findOneAndUpdate(
+          { myAsso: assoUser._id, totalShortlisted: { $ne: 1 } },
+          { $inc: { totalShortlisted: 1 } }
+        );
+        console.log(empUser);
       }
-
-      // if (!isJoined) {
-      //   cvUser.isJoined = cvUser.isJoined;
-      // } else {
-      //   cvUser.isJoined = isJoined;
-      //   const assoUser = await AssoUsers.find(
-      //     { allCvInfo: {$in: cvId} },
-      //     { $inc: { totalJoined: 1 } }
-      //   )
-      //   console.log(assoUser);
-      // }
 
       // Save the updated associate
       await cvUserShortlist.save();
@@ -585,7 +757,7 @@ router.put(
   "/admin-associates-data/update-joined-cv-sharing/:id",
   adminAuthToken,
   async (req, res) => {
-    const { id } = req.params;  
+    const { id } = req.params;
     const { isShortlisted, isJoined } = req.body;
     const cvId = id;
 
@@ -601,12 +773,11 @@ router.put(
 
       // Find the associate by ID
       const cvUserJoined = await CvSharing.findByIdAndUpdate(id, {
-        $set: { isJoined: true }
+        $set: { isJoined: true },
       });
       if (!cvUserJoined) {
         return res.status(404).json({ message: "cv details not found" });
       }
-
 
       // Update the cvSharing's fields
       // if (!isShortlisted) {
@@ -620,12 +791,17 @@ router.put(
       //   console.log(assoUser);
       // }
       console.log(cvUserJoined.isJoined);
-      if(cvUserJoined.isJoined) {
+      if (cvUserJoined.isJoined) {
         const assoUser = await AssoUsers.findOneAndUpdate(
-              { allCvInfo: cvId, totalJoined: { $ne: 1 } },
-              { $inc: { totalJoined: 1 } }
-            )
-            console.log(assoUser);
+          { allCvInfo: cvId, totalJoined: { $ne: 1 } },
+          { $inc: { totalJoined: 1 } }
+        );
+        console.log(assoUser);
+        const empUser = await Employees.findOneAndUpdate(
+          { myAsso: assoUser._id, totalJoined: { $ne: 1 } },
+          { $inc: { totalJoined: 1 } }
+        );
+        console.log(empUser);
       }
 
       // if (!isJoined) {
@@ -641,7 +817,6 @@ router.put(
 
       // Save the updated associate
       await cvUserJoined.save();
-
 
       // const cvUserJoined = await CvSharing.findByIdAndUpdate(id, {
       //   $set: { isJoined: true }
@@ -660,8 +835,6 @@ router.put(
       // }
       // await cvUserJoined.save();
 
-
-
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {
       console.error("Error updating cv details:", error);
@@ -675,7 +848,7 @@ router.put(
   "/admin-affiliates-data/update-shortlisted-cv-sharing/:id",
   adminAuthToken,
   async (req, res) => {
-    const { id } = req.params;  
+    const { id } = req.params;
     const { isShortlisted, isJoined } = req.body;
     const cvId = id;
 
@@ -691,19 +864,19 @@ router.put(
 
       // Find the associate by ID
       const cvUserShortlist = await CvSharing.findByIdAndUpdate(id, {
-        $set: { isShortlisted: true }
+        $set: { isShortlisted: true },
       });
       if (!cvUserShortlist) {
         return res.status(404).json({ message: "cv details not found" });
       }
 
       console.log(cvUserShortlist.isShortlisted);
-      if(cvUserShortlist.isShortlisted) {
+      if (cvUserShortlist.isShortlisted) {
         const affiUser = await Users.findOneAndUpdate(
-              { allCvInfo: cvId, totalShortlisted: { $ne: 1 } },
-              { $inc: { totalShortlisted: 1 } }
-            )
-            console.log(affiUser);
+          { allCvInfo: cvId, totalShortlisted: { $ne: 1 } },
+          { $inc: { totalShortlisted: 1 } }
+        );
+        console.log(affiUser);
       }
 
       // Save the updated associate
@@ -722,7 +895,7 @@ router.put(
   "/admin-affiliates-data/update-joined-cv-sharing/:id",
   adminAuthToken,
   async (req, res) => {
-    const { id } = req.params;  
+    const { id } = req.params;
     const { isShortlisted, isJoined } = req.body;
     const cvId = id;
 
@@ -738,19 +911,19 @@ router.put(
 
       // Find the associate by ID
       const cvUserJoined = await CvSharing.findByIdAndUpdate(id, {
-        $set: { isJoined: true }
+        $set: { isJoined: true },
       });
       if (!cvUserJoined) {
         return res.status(404).json({ message: "cv details not found" });
       }
 
       console.log(cvUserJoined.isJoined);
-      if(cvUserJoined.isJoined) {
+      if (cvUserJoined.isJoined) {
         const affiUser = await Users.findOneAndUpdate(
-              { allCvInfo: cvId, totalJoined: { $ne: 1 } },
-              { $inc: { totalJoined: 1 } }
-            )
-            console.log(affiUser);
+          { allCvInfo: cvId, totalJoined: { $ne: 1 } },
+          { $inc: { totalJoined: 1 } }
+        );
+        console.log(affiUser);
       }
 
       // Save the updated affiliate

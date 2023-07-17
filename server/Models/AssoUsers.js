@@ -41,7 +41,6 @@ const assoUserSchema = new mongoose.Schema({
   mentorEmail: {
     type: String,
     required: true,
-    unique: true,
   },
   document: {
     type: String,

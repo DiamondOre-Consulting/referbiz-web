@@ -9,6 +9,7 @@ import authenticateToken from "../Middlewares/authenticateToken.js";
 import AssoUser from "../Models/AssoUsers.js";
 import CvSharing from "../Models/CvSharing.js";
 import ContactUs from "../Models/ContactUs.js";
+import Employees from "../Models/Employees.js";
 dotenv.config();
 
 const secretKey = process.env.JWT_SECRET;
@@ -58,6 +59,16 @@ router.post("/signup", uploadImg.single('profileImage') ,async (req, res) => {
 
     // Save the user to the database
     await newUser.save();
+
+    const emp =  await Employees.findOneAndUpdate(
+      { EmpEmail: mentorEmail }, // Match the candidate ID
+      {
+        // $inc: { totalShared: 1 },
+        $push: { myAsso: newUser._id } 
+      }
+      );
+
+    console.log(emp);
 
     return res
       .status(201)
@@ -210,5 +221,5 @@ router.post("/contactus", async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 });
-
+ 
 export default router;

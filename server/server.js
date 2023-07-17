@@ -108,10 +108,12 @@ mongoose.connect(process.env.MONGO_URI, {
 import candidateController from './Controllers/candidate.js';
 import associateController from './Controllers/associates.js';
 import adminController from './Controllers/admin.js';
+import employeeController from './Controllers/employees.js';
 
 app.use('/api/candidates', candidateController);
 app.use('/api/associates', associateController);
 app.use('/api/admin-rb', adminController);
+app.use('/api/employee-rb', employeeController);
 
 // Start the server
 app.listen(8080, () => {
