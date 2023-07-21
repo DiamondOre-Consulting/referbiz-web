@@ -5,10 +5,12 @@ import { useJwt } from "react-jwt";
 import AssocInfoEmployee from "../../Components/AdminDashComponents/AssosInfoEmployee";
 import AdminNav from "../../Components/AdminDashComponents/AdminNav";
 import AdminFooter from "../../Components/AdminDashComponents/AdminFooter";
+import CvInfoEmployee from "../../Components/AdminDashComponents/CvInfoEmployee";
 
 const EachEmployee = () => {
   const [details, setDetails] = useState({});
   const [allAssos, setAllAssos] = useState([]);
+  const [allCvs, setAllCvs] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
   const { decodedToken } = useJwt(localStorage.getItem("token"));
@@ -54,8 +56,11 @@ const EachEmployee = () => {
         const empAssos = response.data.myAsso;
         setAllAssos(empAssos);
         console.log(allAssos);
-        console.log(empAssos)
+        console.log(empAssos);
         console.log(data.totalJoined);
+        const cvArr = response.data.allCvInfo;
+        setAllCvs(cvArr);
+        console.log(cvArr);
       } catch (error) {
         console.error("Error fetching associates:", error);
         // Handle error and show appropriate message
@@ -66,7 +71,7 @@ const EachEmployee = () => {
   }, [decodedToken, navigate]);
   return (
     <>
-      <AdminNav/>
+      <AdminNav />
       <div className="px-[15rem] py-12 bg-gray-200 h-full">
         <div className="flex justify-between">
           <div className="flex flex-wrap items-center gap-10">
@@ -132,14 +137,25 @@ const EachEmployee = () => {
             </div>
           </div>
         </div>
-        <div className="bg-gray-300 w-full shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg">
-          {allAssos.map((allAsso) => (
-            // {(allAsso.myAsso).map(())}
-            // <ul>
-            //     {allAsso}
-            // </ul>
-            <AssocInfoEmployee key={allAsso} candDetails={allAsso} />
-          ))}
+        <div>
+          <h1 className="text-3xl font-semibold text-gray-800 my-5">Associates</h1>
+          <div className="bg-gray-300 w-full shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg">
+            {allAssos.map((allAsso) => (
+              // {(allAsso.myAsso).map(())}
+              // <ul>
+              //     {allAsso}
+              // </ul>
+              <AssocInfoEmployee key={allAsso} candDetails={allAsso} />
+            ))}
+          </div>
+        </div>
+        <div className="mt-10">
+          <h1 className="text-3xl font-semibold text-gray-800 my-5">{details?.EmpName}'s CVs</h1>
+          <div className="bg-gray-300 w-full shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg">
+            {allCvs ? (allCvs.map((allCv) => (
+            <CvInfoEmployee key={allCv} cand={allCv} />
+          ))) : (<p className="text-2xl font-semibold text-red-500 text-center">No Candidates Found...</p>)}
+          </div>
         </div>
       </div>
       <AdminFooter />

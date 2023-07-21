@@ -51,7 +51,6 @@ const EachAssociate = () => {
         );
         const { data } = response;
         console.log(response.data);
-        // console.log(response.data.allCvInfo[0])
         setDetails(data);
         const cvArr = response.data.allCvInfo;
         setAllCvs(cvArr);
