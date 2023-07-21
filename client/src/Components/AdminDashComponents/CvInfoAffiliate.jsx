@@ -5,7 +5,7 @@ import axios from "axios";
 const CvInfoAffiliate = ({ candDetails }) => {
   console.log(candDetails);
   const [candidate, setCandidate] = useState({});
-  const [shortlistig, setShortlisting] = useState("");
+  const [shortlisting, setShortlisting] = useState("");
   const [joining, setJoining] = useState("");
 
   const { decodedToken } = useJwt(localStorage.getItem("token"));
@@ -46,11 +46,10 @@ const CvInfoAffiliate = ({ candDetails }) => {
         );
         setCandidate(response.data); // Assuming the response data contains the card details
         console.log(response.data);
-        console.log(candidate.isShortlisted);
-        // const stringShortlisted = candidate.isShortlisted.toString();
-        // const stringJoined = candidate.isJoined.toString();
-        // setShortlisting(candidate?.isShortlisted?.toString());
-        // setJoining(candidate?.isJoined?.toString());
+        const shorting = response.data.isShortlisted.toString();
+        const joint = response.data.isJoined.toString();
+        setShortlisting(shorting);
+        setJoining(joint);
       } catch (error) {
         console.error("Error fetching card data:", error);
       }
@@ -90,7 +89,11 @@ const CvInfoAffiliate = ({ candDetails }) => {
               <span className="text-indigo-700 font-semibold">
                 {candidate &&
                   candidate.createdAt &&
-                  candidate.createdAt.slice(0, 10)}
+                  candidate.createdAt.slice(8, 10) +
+                    "-" +
+                    candidate.createdAt.slice(5, 7) +
+                    "-" +
+                    candidate.createdAt.slice(0, 4)}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
@@ -98,27 +101,38 @@ const CvInfoAffiliate = ({ candDetails }) => {
               <span className="text-indigo-700 font-semibold">
                 {candidate &&
                   candidate.createdAt &&
-                  candidate.createdAt.slice(11, 16)}
+                  (() => {
+                    const utcTime = new Date(candidate.createdAt);
+                    const istTime = new Date(utcTime.getTime() + 19800000);
+                    const formattedISTTime = istTime.toLocaleString("en-IN", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                    });
+                    return formattedISTTime;
+                  })()}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
               <p className="text-sm">Candidate Shortlisted </p>
               <span className="text-indigo-700 font-semibold">
-                {candidate
+                {/* {candidate
                   ? candidate &&
                     candidate.isShortlisted &&
                     candidate.isShortlisted.toString()
-                  : false}
+                  : false} */}
+                  {shortlisting}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
               <p className="text-sm">Candidate Joined </p>
               <span className="text-indigo-700 font-semibold">
-                {candidate
+                {/* {candidate
                   ? candidate &&
                     candidate.isShortlisted &&
                     candidate.isShortlisted.toString()
-                  : false}
+                  : false} */}
+                  {joining}
               </span>{" "}
             </div>
             {/* <p className="text-sm">

@@ -4,10 +4,10 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import multer from "multer";
 import path from "path";
-import authenticateToken from "../Middlewares/authenticateToken.js";
 import Employees from "../Models/Employees.js";
 import employeeAuthToken from "../Middlewares/employeeAuthToken.js";
 import AssoUsers from "../Models/AssoUsers.js";
+import CvSharing from "../Models/CvSharing.js";
 dotenv.config();
 
 const secretKey = process.env.EMPLOYEE_JWT_SECRET;
@@ -165,13 +165,106 @@ router.get("/my-associates-data/:id", employeeAuthToken, async (req, res) => {
     }
 
     console.log(associate.allCvInfo);
-    
+
     res.status(200).json(associate);
   } catch (error) {
     console.error("Error retrieving associate:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+// UPDATE A PARTICULAR ASSOCIATE
+router.put(
+  "/my-associates-data/update/:id",
+  employeeAuthToken,
+  async (req, res) => {
+    const { id } = req.params;
+    const {
+      name,
+      email,
+      totalShared,
+      totalShortlisted,
+      totalAmount,
+      totalJoined,
+      mentorName,
+      mentorEmail,
+    } = req.body;
+
+    try {
+      // Get the user's email from the decoded token
+      const { EmpEmail } = req.user;
+
+      // Find the user in the database
+      const user = await Employees.findOne({ EmpEmail });
+      if (!user) {
+        return res.status(404).json({ message: "Employee not found" });
+      }
+
+      // Find the associate by ID
+      const associate = await AssoUsers.findById(id);
+      if (!associate) {
+        return res.status(404).json({ message: "associate not found" });
+      }
+
+      // Update the associate's fields
+      if (!name) {
+        associate.name = associate.name;
+      } else {
+        associate.name = name;
+      }
+
+      if (!email) {
+        associate.email = associate.email;
+      } else {
+        associate.email = email;
+      }
+
+      if (!totalShared) {
+        associate.totalShared = associate.totalShared;
+      } else {
+        associate.totalShared = totalShared;
+      }
+
+      if (!totalShortlisted) {
+        associate.totalShortlisted = associate.totalShortlisted;
+      } else {
+        associate.totalShortlisted = totalShortlisted;
+      }
+
+      if (!totalJoined) {
+        associate.totalJoined = associate.totalJoined;
+      } else {
+        associate.totalJoined = totalJoined;
+      }
+
+      if (!totalAmount) {
+        associate.totalAmount = associate.totalAmount;
+      } else {
+        associate.totalAmount = totalAmount;
+      }
+
+      if (!mentorName) {
+        associate.mentorName = associate.mentorName;
+      } else {
+        associate.mentorName = mentorName;
+      }
+
+      if (!mentorEmail) {
+        associate.mentorEmail = associate.mentorEmail;
+      } else {
+        associate.mentorEmail = mentorEmail;
+      }
+
+      // Save the updated associate
+      await associate.save();
+
+      res.status(200).json({ message: "Your associate is updated successfully" });
+    } catch (error) {
+      console.error("Error updating associate:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
 
 // UPDATE ASSOCIATE CV-SHARE SHORTLISTED BY ID
 router.put(
@@ -272,6 +365,37 @@ router.put(
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {
       console.error("Error updating cv details:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+// FETCHING ASSOCIATE'S CV DETAILS BY ID
+router.get(
+  "/my-associates/get-cv-data/:id",
+  employeeAuthToken,
+  async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      // Get the user's email from the decoded token
+      const { email } = req.user;
+
+      // Find the user in the database
+      const user = await Employees.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: "Employee not found" });
+      }
+
+      // Find the affiliate by ID
+      const cvById = await CvSharing.findById(id);
+      if (!cvById) {
+        return res.status(404).json({ message: "Cv Details not found" });
+      }
+
+      res.status(200).json(cvById);
+    } catch (error) {
+      console.error("Error retrieving associate:", error);
       res.status(500).json({ message: "Internal server error" });
     }
   }

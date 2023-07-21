@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 import axios from "axios";
+import FakeProfile from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/FakeProfile2.png";
 
-const CvInfoAssociate = ({ candDetails }) => {
+const AssosInfoEmployee = ({ candDetails }) => {
   console.log(candDetails);
   const [candidate, setCandidate] = useState({});
   const [shortlisting, setShortlisting] = useState("");
   const [joining, setJoining] = useState("");
+  const [candidatesData, setCandidatesData] = useState([]);
 
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
@@ -35,21 +37,23 @@ const CvInfoAssociate = ({ candDetails }) => {
           navigate("/auth-admin-login");
           return;
         }
-
-        const response = await axios.get(
-          `http://localhost:8080/api/admin-rb/admin-associates-data/get-cv-data/${candDetails}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setCandidate(response.data); // Assuming the response data contains the card details
-        console.log(response.data);
-        const shorting = response.data.isShortlisted.toString();
-        const joint = response.data.isJoined.toString();
-        setShortlisting(shorting);
-        setJoining(joint);
+        // for(let i=0; i<candDetails.length; i++) {
+            const response = await axios.get(
+                `http://localhost:8080/api/admin-rb/admin-associates-data/${candDetails}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              );
+              setCandidate(response.data); // Assuming the response data contains the card details
+              console.log(response.data);
+            //   const shorting = response.data.isShortlisted.toString();
+            //   const joint = response.data.isJoined.toString();
+            //   setShortlisting(shorting);
+            //   setJoining(joint);
+        // }
+        
       } catch (error) {
         console.error("Error fetching card data:", error);
       }
@@ -64,69 +68,54 @@ const CvInfoAssociate = ({ candDetails }) => {
         {candidate ? (
           <div
             key={candidate?._id}
-            className="flex justify-between gap-2 items-center mt-4"
+            className="flex justify-between gap-1 items-center mt-4 px-5"
           >
+              {candidate?.profileImage ? (
+                  <img
+                    className="w-20 h-20 rounded-full border-2 border-indigo-600"
+                    src={`http://localhost:8080/` + candidate?.profileImage}
+                    alt="avatar"
+                  />
+                ) : (
+                  <img
+                    className="w-20 h-20 bg-gray-100 rounded-full border-2 border-indigo-600"
+                    src={FakeProfile}
+                    alt="avatar"
+                  />
+                )}
+            
             <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Name </p>
+              <p className="text-sm">Assosiate Name </p>
               <span className="text-indigo-700 font-semibold">
-                {candidate?.refName}
+                {candidate?.name}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Email </p>
+              <p className="text-sm">Assosiate Email </p>
               <span className="text-indigo-700 font-semibold">
-                {candidate?.refUniqueEmailId}
+                {candidate?.email}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Phone </p>
+              <p className="text-sm">Total Shared</p>
               <span className="text-indigo-700 font-semibold">
-                {candidate?.refPhone}
+                {candidate?.totalShared}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
-              <p className="text-sm">Submission Date </p>
+              <p className="text-sm">Total Shortlisted</p>
               <span className="text-indigo-700 font-semibold">
-                {candidate &&
-                  candidate.createdAt &&
-                  candidate.createdAt.slice(8, 10) +
-                    "-" +
-                    candidate.createdAt.slice(5, 7) +
-                    "-" +
-                    candidate.createdAt.slice(0, 4)}
+                {candidate?.totalShortlisted}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
-              <p className="text-sm">Submission Time </p>
+              <p className="text-sm">Total Joined</p>
               <span className="text-indigo-700 font-semibold">
-              {candidate &&
-                  candidate.createdAt &&
-                  (() => {
-                    const utcTime = new Date(candidate.createdAt);
-                    const istTime = new Date(utcTime.getTime() + 19800000);
-                    const formattedISTTime = istTime.toLocaleString("en-IN", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: true,
-                    });
-                    return formattedISTTime;
-                  })()
-                  }
-              </span>{" "}
-            </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Shortlisted </p>
-              <span className="text-indigo-700 font-semibold">
-                {shortlisting}
-              </span>{" "}
-            </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Joined </p>
-              <span className="text-indigo-700 font-semibold">
-                {joining}
+                {candidate?.totalJoined}
               </span>{" "}
             </div>
           </div>
+        
         ) : (
           <p>Loading...</p>
         )}
@@ -135,4 +124,4 @@ const CvInfoAssociate = ({ candDetails }) => {
   );
 };
 
-export default CvInfoAssociate;
+export default AssosInfoEmployee;

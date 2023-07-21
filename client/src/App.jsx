@@ -7,7 +7,6 @@ import AssoAuthPage from "./Pages/AuthPageAsso";
 import AssoLogin from "./Components/AuthsAsso/LoginAsso";
 import AssoDashboard from "./Pages/AssoDashboard";
 import AssoContact from "./Pages/AssoContact";
-// import AuthAdmin from "./Pages/AuthAdmin";
 import SignupAdmin from "./Pages/AuthsAdmin/SignupAdmin";
 import LoginAdmin from "./Pages/AuthsAdmin/LoginAdmin";
 import AdminPanelDashbaord from "./Pages/AdminPanelDashbaord";
@@ -17,6 +16,14 @@ import AllAffiliates from "./Pages/AdminPages/AllAffiliates";
 import EachAffiliate from "./Pages/AdminPages/EachAffiliate";
 import AllCVs from "./Pages/AdminPages/AllCVs";
 import EachAssociate from "./Pages/AdminPages/EachAssociate";
+import AuthEmployee from "./Pages/AuthEmployee";
+import SignupEmployee from "./Pages/EmployeesPages/EmpSignup";
+import LoginEmployee from "./Pages/EmployeesPages/EmpLogin";
+import EmployeePanelDashboard from "./Pages/EmployeePanelDashboard";
+import MyAssociates from "./Pages/EmployeesPages/MyAssociates";
+import MyEachAssociate from "./Pages/EmployeesPages/MyEachAssociate";
+import AllEmployees from "./Pages/AdminPages/AllEmployees";
+import EachEmployee from "./Pages/AdminPages/EachEmployee";
 
 function App() {
   return (
@@ -37,9 +44,16 @@ function App() {
           <Route path="/add-new-associate" element={<AddAssociate />} />
           <Route path="/admin-all-associates" element={<AllAssociates />} />
           <Route path="/admin-all-affiliates" element={<AllAffiliates />} />
+          <Route path="/admin-all-employees" element={<AllEmployees />} />
           <Route path="/admin-all-cvs" element={<AllCVs />} />
           <Route path="/admin-all-affiliates/each-affiliate/:id" element={<EachAffiliate />} />
           <Route path="/admin-all-associates/each-associate/:id" element={<EachAssociate />} />
+          <Route path="/admin-all-employees/:id" element={<EachEmployee />} />
+          <Route path="/employee-signup-confi" element={<SignupEmployee />} />
+          <Route path="/employee-login-confi" element={<LoginEmployee />} />
+          <Route path="/employee-panel-confi" element={<EmployeePanelDashboard />} />
+          <Route path="/my-associates" element={<MyAssociates />} />
+          <Route path="/my-associates/:id" element={<MyEachAssociate />} />
         </Routes>
       </Router>
     </>

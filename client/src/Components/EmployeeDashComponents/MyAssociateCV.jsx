@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useJwt } from "react-jwt";
 import axios from "axios";
 
-const CvInfoAssociate = ({ candDetails }) => {
+const MyAssociateCV = ({ candDetails }) => {
   console.log(candDetails);
   const [candidate, setCandidate] = useState({});
   const [shortlisting, setShortlisting] = useState("");
@@ -14,14 +15,14 @@ const CvInfoAssociate = ({ candDetails }) => {
     const token = localStorage.getItem("token");
     if (!token) {
       // No token found, redirect to login page
-      navigate("/auth-admin-login");
+      navigate("/employee-login-confi");
     } else {
       const tokenExpiration = decodedToken ? decodedToken.exp * 1000 : 0; // Convert expiration time to milliseconds
 
       if (tokenExpiration && tokenExpiration < Date.now()) {
         // Token expired, remove from local storage and redirect to login page
         localStorage.removeItem("token");
-        navigate("/auth-admin-login");
+        navigate("/employee-login-confi");
       }
     }
 
@@ -32,12 +33,12 @@ const CvInfoAssociate = ({ candDetails }) => {
         if (!token) {
           // Token not found in local storage, handle the error or redirect to the login page
           console.error("No token found");
-          navigate("/auth-admin-login");
+          navigate("/employee-login-confi");
           return;
         }
 
         const response = await axios.get(
-          `http://localhost:8080/api/admin-rb/admin-associates-data/get-cv-data/${candDetails}`,
+          `http://localhost:8080/api/employee-rb/my-associates/get-cv-data/${candDetails}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -99,7 +100,7 @@ const CvInfoAssociate = ({ candDetails }) => {
             <div className="flex flex-col items-center">
               <p className="text-sm">Submission Time </p>
               <span className="text-indigo-700 font-semibold">
-              {candidate &&
+                {candidate &&
                   candidate.createdAt &&
                   (() => {
                     const utcTime = new Date(candidate.createdAt);
@@ -117,15 +118,53 @@ const CvInfoAssociate = ({ candDetails }) => {
             <div className="flex flex-col items-center">
               <p className="text-sm">Candidate Shortlisted </p>
               <span className="text-indigo-700 font-semibold">
+                {/* {candidate
+                  ? candidate &&
+                    candidate.isShortlisted &&
+                    candidate.isShortlisted.toString()
+                  : false}  */}
                 {shortlisting}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
               <p className="text-sm">Candidate Joined </p>
               <span className="text-indigo-700 font-semibold">
+                {/* {candidate
+                  ? candidate &&
+                    candidate.isShortlisted &&
+                    candidate.isShortlisted.toString()
+                  : false} */}
                 {joining}
               </span>{" "}
             </div>
+            {/* <p className="text-sm">
+              Candidate Email:{" "}
+              <span className="text-indigo-700 font-semibold">
+                {candidate?.refUniqueEmailId}
+              </span>
+            </p>
+            <p className="text-sm">
+              Candidate Phone Number:{" "}
+              <span className="text-indigo-700 font-semibold">
+                {candidate?.refPhone}
+              </span>
+            </p>
+            <p className="text-sm">
+              Submission Date:{" "}
+              <span className="text-indigo-700 font-semibold">
+                {candidate &&
+                  candidate.createdAt &&
+                  candidate.createdAt.slice(0, 10)}
+              </span>
+            </p>
+            <p className="text-sm">
+              Submission Time:{" "}
+              <span className="text-indigo-700 font-semibold">
+                {candidate &&
+                  candidate.createdAt &&
+                  candidate.createdAt.slice(11, 16)}
+              </span>
+            </p> */}
           </div>
         ) : (
           <p>Loading...</p>
@@ -135,4 +174,4 @@ const CvInfoAssociate = ({ candDetails }) => {
   );
 };
 
-export default CvInfoAssociate;
+export default MyAssociateCV;

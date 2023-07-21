@@ -5,12 +5,12 @@ import axios from "axios";
 import Wave from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/wave.png";
 import Forward from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/fast-forward.png";
 
-const AdminHero = () => {
+const EmployeeHero = () => {
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
-  const userName = decodedToken ? decodedToken.name : "No Name Found";
+  const userName = decodedToken ? decodedToken.EmpName : "No Name Found";
 
   return (
     <section>
@@ -21,39 +21,39 @@ const AdminHero = () => {
         <img className="w-[4rem] h-[4rem]" src={Wave} alt="waving" />
       </div>
       <div className="py-6 sm:py-8 lg:py-12">
-        <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4 lg:gap-4">
-            <Link to={'/admin-all-associates'} className="flex items-center justify-center cursor-pointer rounded-lg gap-3 bg-gray-100 p-4 lg:p-8 hover:bg-gray-300 hover:gap-5">
+        <div className="mx-auto max-w-screen-md px-4 md:px-8">
+          {/* <div className="grid grid-cols-1 gap-6 md:grid-cols-1 lg:gap-4"> */}
+            <Link to={'/my-associates'} className="flex items-center justify-center cursor-pointer rounded-lg gap-3 bg-gray-100 p-4 lg:p-8 hover:bg-gray-300 hover:gap-5">
               <div className="text-sm font-semibold sm:text-base">
                 Check Associates Activities
               </div>
               <img className="w-4 h-4" src={Forward} alt="click to go" />
             </Link>
 
-            <Link to={'/admin-all-affiliates'} className="flex items-center justify-center cursor-pointer rounded-lg gap-3 bg-gray-100 p-4 lg:p-8 hover:bg-gray-300 hover:gap-5">
+            {/* <Link to={'/admin-all-affiliates'} className="flex items-center justify-center cursor-pointer rounded-lg gap-3 bg-gray-100 p-4 lg:p-8 hover:bg-gray-300 hover:gap-5">
               <div className="text-sm font-semibold sm:text-base">
                 Check Affiliates Activities
               </div>
               <img className="w-4 h-4" src={Forward} alt="click to go" />
             </Link>
 
-            <Link to={'/admin-all-employees'} className="flex items-center justify-center cursor-pointer rounded-lg gap-3 bg-gray-100 p-4 lg:p-8 hover:bg-gray-300 hover:gap-5">
+            <div className="flex items-center justify-center cursor-pointer rounded-lg gap-3 bg-gray-100 p-4 lg:p-8 hover:bg-gray-300 hover:gap-5">
               <div className="text-sm font-semibold sm:text-base">Check Employees Activities</div>
               <img className="w-4 h-4" src={Forward} alt="click to go" />
-            </Link>
+            </div>
 
             <Link to={'/admin-all-cvs'} className="flex items-center justify-center cursor-pointer rounded-lg gap-3 bg-gray-100 p-4 lg:p-8 hover:bg-gray-300 hover:gap-5">
               <div className="text-sm font-semibold sm:text-base">
                 Check All CVs
               </div>
               <img className="w-4 h-4" src={Forward} alt="click to go" />
-            </Link>
+            </Link> */}
   
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </section>  
   );
 };
 
-export default AdminHero;
+export default EmployeeHero;

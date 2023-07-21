@@ -638,7 +638,7 @@ router.get("/all-cv-admin", adminAuthToken, async (req, res) => {
   }
 });
 
-// FETCH CV DETAILS BY ID
+// FETCH AFFILIATES CV DETAILS BY ID
 router.get(
   "/admin-affiliates-data/get-cv-data/:id",
   adminAuthToken,
