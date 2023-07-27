@@ -125,7 +125,7 @@ const MyEachAssociate = () => {
             </div>
           </div>
         </div>
-        <div className="bg-gray-300 w-full shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg">
+        <div className="bg-gray-300 w-full shadow-md rounded-md p-4 hover:shadow-lg">
           {allCvs.map((allCv) => (
             <MyAssociateCV key={allCv} candDetails={allCv} />
           ))}

@@ -83,11 +83,11 @@ const UpdateProfileAdmin = () => {
     try {
       const response = await axios.put(
         `http://localhost:8080/api/admin-rb/admin-user-data/update/${id}`,
-        formData,
+        formValues,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
+            // "Content-Type": "multipart/form-data",
           },
         }
       );

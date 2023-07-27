@@ -18,8 +18,8 @@ const UpdateProfileEmployee = () => {
   const { id } = useParams();
 
   const handleInputChange = (event) => {
-    const { EmpName, value } = event.target;
-    setFormValues({ ...formValues, [EmpName]: value });
+    const { name, value } = event.target;
+    setFormValues({ ...formValues, [name]: value });
   };
 
 //   const handleFileChange = (event) => {
@@ -75,19 +75,19 @@ const UpdateProfileEmployee = () => {
       navigate("/employee-login-confi");
     }
 
-    const formData = new FormData();
-    formData.append("EmpName", formValues.EmpName);
-    formData.append("EmpEmail", formValues.EmpEmail);
+    // const formData = new FormData();
+    // formData.append("EmpName", formValues.EmpName);
+    // formData.append("EmpEmail", formValues.EmpEmail);
     // formData.append("profileImage", formValues.profileImage);
     // Perform signup logic here
     try {
       const response = await axios.put(
         `http://localhost:8080/api/employee-rb/employee-user-data/update/${id}`,
-        formData,
+        formValues,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
+            // "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -97,6 +97,7 @@ const UpdateProfileEmployee = () => {
         localStorage.removeItem("token");
         window.location.href = "/employee-login-confi";
         console.log("Logging out");
+        console.log(response.data);
         // Redirect to login page or perform other actions
       } else {
         console.log("Signup failed");
@@ -137,7 +138,7 @@ const UpdateProfileEmployee = () => {
               <input
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                 type="text"
-                id="EmpName"
+                id="name"
                 name="EmpName"
                 placeholder={userData?.EmpName}
                 value={formValues.EmpName}
@@ -172,7 +173,7 @@ const UpdateProfileEmployee = () => {
               <input
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                 type="email"
-                id="EmpEmail"
+                id="email"
                 name="EmpEmail"
                 placeholder={userData?.EmpEmail}
                 value={formValues.EmpEmail}

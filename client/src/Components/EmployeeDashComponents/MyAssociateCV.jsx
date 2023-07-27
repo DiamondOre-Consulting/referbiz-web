@@ -61,7 +61,7 @@ const MyAssociateCV = ({ candDetails }) => {
 
   return (
     <div>
-      <div className="bg-gray-300 shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg my-7">
+      <div className="bg-gray-300 shadow-md rounded-md p-4 hover:shadow-lg my-7">
         {candidate ? (
           <div
             key={candidate?._id}
@@ -137,34 +137,9 @@ const MyAssociateCV = ({ candDetails }) => {
                 {joining}
               </span>{" "}
             </div>
-            {/* <p className="text-sm">
-              Candidate Email:{" "}
-              <span className="text-indigo-700 font-semibold">
-                {candidate?.refUniqueEmailId}
-              </span>
-            </p>
-            <p className="text-sm">
-              Candidate Phone Number:{" "}
-              <span className="text-indigo-700 font-semibold">
-                {candidate?.refPhone}
-              </span>
-            </p>
-            <p className="text-sm">
-              Submission Date:{" "}
-              <span className="text-indigo-700 font-semibold">
-                {candidate &&
-                  candidate.createdAt &&
-                  candidate.createdAt.slice(0, 10)}
-              </span>
-            </p>
-            <p className="text-sm">
-              Submission Time:{" "}
-              <span className="text-indigo-700 font-semibold">
-                {candidate &&
-                  candidate.createdAt &&
-                  candidate.createdAt.slice(11, 16)}
-              </span>
-            </p> */}
+            <div className="flex flex-col items-center bg-indigo-500 px-5 py-2 rounded-md cursor-pointer hover:bg-indigo-700">
+              <p className="text-sm flex justify-center text-gray-100">Edit</p>
+            </div>
           </div>
         ) : (
           <p>Loading...</p>
