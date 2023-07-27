@@ -8,6 +8,7 @@ import Employees from "../Models/Employees.js";
 import employeeAuthToken from "../Middlewares/employeeAuthToken.js";
 import AssoUsers from "../Models/AssoUsers.js";
 import CvSharing from "../Models/CvSharing.js";
+import adminAuthToken from "../Middlewares/adminAuthToken.js";
 dotenv.config();
 
 const secretKey = process.env.EMPLOYEE_JWT_SECRET;
@@ -82,7 +83,7 @@ router.post("/employee-login", async (req, res) => {
 router.get("/user-data", employeeAuthToken, async (req, res) => {
   try {
     // Get the user's email from the decoded token
-    const { EmpEmail, id } = req.user;
+    const { EmpEmail } = req.user;
 
     // Find the user in the database
     const user = await Employees.findOne({ EmpEmail });
@@ -92,6 +93,7 @@ router.get("/user-data", employeeAuthToken, async (req, res) => {
 
     // Extract the required fields from the user object
     const {
+      id,
       EmpName,
       profileImage,
       totalShared,
@@ -105,6 +107,7 @@ router.get("/user-data", employeeAuthToken, async (req, res) => {
     res
       .status(200)
       .json({
+        id,
         EmpName,
         EmpEmail,
         profileImage,
@@ -119,6 +122,57 @@ router.get("/user-data", employeeAuthToken, async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+// UPDATE A PARTICULAR AFFILIATE
+router.put(
+  "/employee-user-data/update/:id",
+  employeeAuthToken,
+  async (req, res) => {
+    const {
+      EmpName,
+      EmpEmail,
+    } = req.body;
+
+    try {
+      // Get the user's email from the decoded token
+      const { id } = req.params;
+      console.log(id)
+
+      // Find the user in the database
+      // const user = await Employees.findOne({ EmpEmail });
+      // if (!user) {
+      //   return res.status(404).json({ message: "employee not found" });
+      // }
+
+      // Find the employee by ID
+      const employee = await Employees.findById(id);
+      if (!employee) {
+        return res.status(404).json({ message: "employee not found" });
+      }
+
+      // Update the employee's fields
+      if (!EmpName) {
+        employee.EmpName = employee.EmpName;
+      } else {
+        employee.EmpName = EmpName;
+      }
+
+      if (!EmpEmail) {
+        employee.EmpEmail = employee.EmpEmail;
+      } else {
+        employee.EmpEmail = EmpEmail;
+      }
+
+      // Save the updated employee
+      await employee.save();
+
+      res.status(200).json({ message: "employee updated successfully" });
+    } catch (error) {
+      console.error("Error updating employee:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
 
 // ASSOCIATES SECTION
 // FETCHING ALL ASSOCIATES DATA

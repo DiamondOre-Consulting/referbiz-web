@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 import axios from "axios";
-import FakeProfile from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/FakeProfile2.png";
-import { Link } from "react-router-dom";
 
-const AssosInfoEmployee = ({ candDetails }) => {
-  console.log(candDetails);
+const EmployeeInfoAssoCv = ({ cand }) => {
+  console.log(cand);
   const [candidate, setCandidate] = useState({});
   const [shortlisting, setShortlisting] = useState("");
   const [joining, setJoining] = useState("");
-  const [candidatesData, setCandidatesData] = useState([]);
 
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
@@ -40,7 +37,7 @@ const AssosInfoEmployee = ({ candDetails }) => {
         }
 
         const response = await axios.get(
-          `http://localhost:8080/api/admin-rb/admin-associates-data/${candDetails}`,
+          `http://localhost:8080/api/admin-rb/admin-associates-data/get-cv-data/${cand}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -49,68 +46,87 @@ const AssosInfoEmployee = ({ candDetails }) => {
         );
         setCandidate(response.data); // Assuming the response data contains the card details
         console.log(response.data);
+        const shorting = response.data.isShortlisted.toString();
+        const joint = response.data.isJoined.toString();
+        setShortlisting(shorting);
+        setJoining(joint);
       } catch (error) {
         console.error("Error fetching card data:", error);
       }
     };
 
     fetchData();
-  }, [candDetails]);
+  }, [cand]);
 
   return (
     <div>
       <div className="bg-gray-300 shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg my-7">
         {candidate ? (
-          <Link
+          <div
             key={candidate?._id}
-            to={`/admin-all-employees/each-associate/${candidate?._id}`}
-            className="flex justify-between gap-1 items-center mt-4 px-5"
+            className="flex justify-between gap-2 items-center mt-4"
           >
-            {candidate?.profileImage ? (
-              <img
-                className="w-20 h-20 rounded-full border-2 border-indigo-600"
-                src={`http://localhost:8080/` + candidate?.profileImage}
-                alt="avatar"
-              />
-            ) : (
-              <img
-                className="w-20 h-20 bg-gray-100 rounded-full border-2 border-indigo-600"
-                src={FakeProfile}
-                alt="avatar"
-              />
-            )}
-
             <div className="flex flex-col items-center">
-              <p className="text-sm">Assosiate Name </p>
+              <p className="text-sm">Candidate Name </p>
               <span className="text-indigo-700 font-semibold">
-                {candidate?.name}
+                {candidate?.refName}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
-              <p className="text-sm">Assosiate Email </p>
+              <p className="text-sm">Candidate Email </p>
               <span className="text-indigo-700 font-semibold">
-                {candidate?.email}
+                {candidate?.refUniqueEmailId}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
-              <p className="text-sm">Total Shared</p>
+              <p className="text-sm">Candidate Phone </p>
               <span className="text-indigo-700 font-semibold">
-                {candidate?.totalShared}
+                {candidate?.refPhone}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
-              <p className="text-sm">Total Shortlisted</p>
+              <p className="text-sm">Submission Date </p>
               <span className="text-indigo-700 font-semibold">
-                {candidate?.totalShortlisted}
+                {candidate &&
+                  candidate.createdAt &&
+                  candidate.createdAt.slice(8, 10) +
+                    "-" +
+                    candidate.createdAt.slice(5, 7) +
+                    "-" +
+                    candidate.createdAt.slice(0, 4)}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
-              <p className="text-sm">Total Joined</p>
+              <p className="text-sm">Submission Time </p>
               <span className="text-indigo-700 font-semibold">
-                {candidate?.totalJoined}
+              {candidate &&
+                  candidate.createdAt &&
+                  (() => {
+                    const utcTime = new Date(candidate.createdAt);
+                    const istTime = new Date(utcTime.getTime() + 19800000);
+                    const formattedISTTime = istTime.toLocaleString("en-IN", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                    });
+                    return formattedISTTime;
+                  })()
+                  }
               </span>{" "}
             </div>
-          </Link>
+            <div className="flex flex-col items-center">
+              <p className="text-sm">Candidate Shortlisted </p>
+              <span className="text-indigo-700 font-semibold">
+                {shortlisting}
+              </span>{" "}
+            </div>
+            <div className="flex flex-col items-center">
+              <p className="text-sm">Candidate Joined </p>
+              <span className="text-indigo-700 font-semibold">
+                {joining}
+              </span>{" "}
+            </div>
+          </div>
         ) : (
           <p>Loading...</p>
         )}
@@ -119,4 +135,4 @@ const AssosInfoEmployee = ({ candDetails }) => {
   );
 };
 
-export default AssosInfoEmployee;
+export default EmployeeInfoAssoCv;

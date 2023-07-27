@@ -82,14 +82,7 @@ const MyEachAssociate = () => {
               <p className="text-xl text-gray-700">{details.email}</p>
             </div>
           </div>
-          {/* <div className="flex flex-wrap items-center gap-10">
-            <div className="flex flex-col items-left">
-              <h1 className="text-4xl font-semibold text-gray-900">
-                Mentor's Name: <span className="text-indigo-600">{details.mentorName}</span>
-              </h1>
-              <p className="text-xl text-gray-900">Mentor's Email: <span className="text-gray-700">{details.mentorEmail}</span></p>
-            </div>
-          </div> */}
+
         </div>
         <div className="py-6 sm:py-8 lg:py-12">
           <div className="mx-auto max-w-screen-xl px-4 md:px-8">

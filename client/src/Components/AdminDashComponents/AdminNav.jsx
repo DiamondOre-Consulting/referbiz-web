@@ -46,7 +46,8 @@ const AdminNav = () => {
 
         // Set the user data in state
         setUserData(response.data);
-        console.log(response.data)
+        const Id = response.data.id;
+        console.log(Id);
       } catch (error) {
         console.error(error);
       }
@@ -83,13 +84,13 @@ const AdminNav = () => {
 
                 {isDropdownOpen && (
                   <div className="absolute right-[14.5rem] mt-12 py-2 w-[10rem] bg-gray-200 rounded-md shadow-lg">
-                    <a
-                      href="#"
+                    <Link
+                      to={`/update-profile-admin/${userData?.id}`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={toggleDropdown}
                     >
                       Edit Profile
-                    </a>
+                    </Link>
                     <a
                       href="#"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

@@ -84,13 +84,13 @@ const EmployeeNav = () => {
 
                 {isDropdownOpen && (
                   <div className="absolute right-[14.5rem] mt-12 py-2 w-[10rem] bg-gray-200 rounded-md shadow-lg">
-                    <a
-                      href="#"
+                    <Link
+                      to={`/update-profile-employee/${userData?.id}`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={toggleDropdown}
                     >
                       Edit Profile
-                    </a>
+                    </Link>
                     <a
                       href="#"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

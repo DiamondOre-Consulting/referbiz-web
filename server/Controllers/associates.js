@@ -112,7 +112,7 @@ router.post("/login", async (req, res) => {
 router.get('/user-data', authenticateToken, async (req, res) => {
   try {
     // Get the user's email from the decoded token
-    const { email, id } = req.user;
+    const { email } = req.user;
 
     // Find the user in the database
     const user = await AssoUser.findOne({ email });
@@ -121,15 +121,67 @@ router.get('/user-data', authenticateToken, async (req, res) => {
     }
 
     // Extract the required fields from the user object
-    const {name, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+    const {id, name, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
     // console.log(user.totalShortlisted, " ", user.totalJoined)
 
-    res.status(200).json({ name, email, profileImage ,totalShared, totalShortlisted, totalJoined, totalAmount });
+    res.status(200).json({ id, name, email, profileImage ,totalShared, totalShortlisted, totalJoined, totalAmount });
   } catch (error) {
     console.error('Error fetching user data:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+// UPDATE A PARTICULAR AFFILIATE
+router.put(
+  "/associates-user-data/update/:id",
+  authenticateToken, uploadImg.single('profileImage'),
+  async (req, res) => {
+    const {
+      name,
+      email,
+    } = req.body;
+    const profileImage = req.file;
+
+    try {
+      // Get the user's email from the decoded token
+      const { id } = req.params;
+      console.log(id)
+
+      // Find the affiliate by ID
+      const associate = await AssoUser.findById(id);
+      if (!associate) {
+        return res.status(404).json({ message: "associate not found" });
+      }
+
+      // Update the associate's fields
+      if (!name) {
+        associate.name = associate.name;
+      } else {
+        associate.name = name;
+      }
+
+      if (!email) {
+        associate.email = associate.email;
+      } else {
+        associate.email = email;
+      }
+
+      if (!profileImage) {
+        associate.profileImage = associate.profileImage;
+      } else {
+        associate.profileImage = profileImage.filename;
+      }
+
+      // Save the updated associate
+      await associate.save();
+
+      res.status(200).json({ message: "associate updated successfully" });
+    } catch (error) {
+      console.error("Error updating associate:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
 
 
 // HANDLE CV SHARING FORM
@@ -183,6 +235,14 @@ router.post('/associate-contact-form', authenticateToken, upload.single('documen
     // Update totalShared count for the associated candidate
     const asso = await AssoUser.findOneAndUpdate(
       { email: email }, // Match the candidate ID
+      {
+        $inc: { totalShared: 1 },
+        $push: { allCvInfo: cvSharing._id } 
+      }
+    );
+
+    const empMentor = await Employees.findOneAndUpdate(
+      { myAsso: req.user._id }, // Match the candidate ID
       {
         $inc: { totalShared: 1 },
         $push: { allCvInfo: cvSharing._id } 

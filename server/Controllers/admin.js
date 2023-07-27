@@ -79,7 +79,7 @@ router.post("/admin-login-rb", async (req, res) => {
 router.get("/admin-user-data", adminAuthToken, async (req, res) => {
   try {
     // Get the user's email from the decoded token
-    const { email, id } = req.user;
+    const { email } = req.user;
 
     // Find the user in the database
     const user = await AdminUsers.findOne({ email });
@@ -89,6 +89,7 @@ router.get("/admin-user-data", adminAuthToken, async (req, res) => {
 
     // Extract the required fields from the user object
     const {
+      id,
       name,
       profileImage,
       totalShared,
@@ -101,6 +102,7 @@ router.get("/admin-user-data", adminAuthToken, async (req, res) => {
     res
       .status(200)
       .json({
+        id,
         name,
         email,
         profileImage,
@@ -114,6 +116,51 @@ router.get("/admin-user-data", adminAuthToken, async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+// UPDATE A PARTICULAR AFFILIATE
+router.put(
+  "/admin-user-data/update/:id",
+  adminAuthToken,
+  async (req, res) => {
+    const {
+      name,
+      email,
+    } = req.body;
+
+    try {
+      // Get the user's id from the decoded token
+      const { id } = req.params;
+      console.log(id)
+
+      // Find the affiliate by ID
+      const admin = await AdminUsers.findById(id);
+      if (!admin) {
+        return res.status(404).json({ message: "admin not found" });
+      }
+
+      // Update the admin's fields
+      if (!name) {
+        admin.name = admin.name;
+      } else {
+        admin.name = name;
+      }
+
+      if (!email) {
+        admin.email = admin.email;
+      } else {
+        admin.email = email;
+      }
+
+      // Save the updated admin
+      await admin.save();
+
+      res.status(200).json({ message: "admin updated successfully" });
+    } catch (error) {
+      console.error("Error updating admin:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
 
 // EMPLOYEES SECTION
 // FETCHING ALL EMPLOYEES DATA

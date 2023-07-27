@@ -24,6 +24,11 @@ import MyAssociates from "./Pages/EmployeesPages/MyAssociates";
 import MyEachAssociate from "./Pages/EmployeesPages/MyEachAssociate";
 import AllEmployees from "./Pages/AdminPages/AllEmployees";
 import EachEmployee from "./Pages/AdminPages/EachEmployee";
+import EmployeeAssoCv from "./Pages/AdminPages/EmployeeAssoCv";
+import UpdateProfile from "./Components/AffDashComponents/UpdateProfile";
+import UpdateProfileAsso from "./Components/AssoDashComponents/UpdateProfile";
+import UpdateProfileAdmin from "./Components/AdminDashComponents/UpdateProfile";
+import UpdateProfileEmployee from "./Components/EmployeeDashComponents/UpdateProfile";
 
 function App() {
   return (
@@ -37,10 +42,13 @@ function App() {
           <Route path="/AssoLogin" element={<AssoLogin />} />
           <Route path="/contactus" element={<AssoContact />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/update-profile/:id" element={<UpdateProfile />} />
           <Route path="/AssoDashboard" element={<AssoDashboard />} />
+          <Route path="/update-profile-asso/:id" element={<UpdateProfileAsso />} />
           <Route path="/auth-admin-signup-confi" element={<SignupAdmin />} />
           <Route path="/auth-admin-login" element={<LoginAdmin />} />
           <Route path="/admin-panel-confi" element={<AdminPanelDashbaord />} />
+          <Route path="/update-profile-admin/:id" element={<UpdateProfileAdmin />} />
           <Route path="/add-new-associate" element={<AddAssociate />} />
           <Route path="/admin-all-associates" element={<AllAssociates />} />
           <Route path="/admin-all-affiliates" element={<AllAffiliates />} />
@@ -49,9 +57,11 @@ function App() {
           <Route path="/admin-all-affiliates/each-affiliate/:id" element={<EachAffiliate />} />
           <Route path="/admin-all-associates/each-associate/:id" element={<EachAssociate />} />
           <Route path="/admin-all-employees/:id" element={<EachEmployee />} />
+          <Route path="/admin-all-employees/each-associate/:id" element={<EmployeeAssoCv />} />
           <Route path="/employee-signup-confi" element={<SignupEmployee />} />
           <Route path="/employee-login-confi" element={<LoginEmployee />} />
           <Route path="/employee-panel-confi" element={<EmployeePanelDashboard />} />
+          <Route path="/update-profile-employee/:id" element={<UpdateProfileEmployee />} />
           <Route path="/my-associates" element={<MyAssociates />} />
           <Route path="/my-associates/:id" element={<MyEachAssociate />} />
         </Routes>

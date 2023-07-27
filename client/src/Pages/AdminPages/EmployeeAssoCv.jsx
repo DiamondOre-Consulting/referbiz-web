@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios, { all } from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useJwt } from "react-jwt";
-import AssocInfoEmployee from "../../Components/AdminDashComponents/AssosInfoEmployee";
 import AdminNav from "../../Components/AdminDashComponents/AdminNav";
 import AdminFooter from "../../Components/AdminDashComponents/AdminFooter";
-import CvInfoEmployee from "../../Components/AdminDashComponents/CvInfoEmployee";
+import EmployeeInfoAssoCv from "../../Components/AdminDashComponents/EmployeeInfoAssoCv";
 
-const EachEmployee = () => {
+const EmployeeAssoCv = () => {
   const [details, setDetails] = useState({});
   const [allAssos, setAllAssos] = useState([]);
   const [allCvs, setAllCvs] = useState([]);
@@ -43,7 +42,7 @@ const EachEmployee = () => {
 
         // Fetch associates data from the backend
         const response = await axios.get(
-          `http://localhost:8080/api/admin-rb/admin-employees-data/${id}`,
+          `http://localhost:8080/api/admin-rb/admin-associates-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -53,11 +52,11 @@ const EachEmployee = () => {
         const { data } = response;
         console.log(response.data);
         setDetails(data);
-        const empAssos = response.data.myAsso;
-        setAllAssos(empAssos);
-        console.log(allAssos);
-        console.log(empAssos);
-        console.log(data.totalJoined);
+        // const empAssos = response.data.myAsso;
+        // setAllAssos(empAssos);
+        // console.log(allAssos);
+        // console.log(empAssos);
+        // console.log(data.totalJoined);
         const cvArr = response.data.allCvInfo;
         setAllCvs(cvArr);
         console.log(cvArr);
@@ -82,9 +81,9 @@ const EachEmployee = () => {
             /> */}
             <div className="flex flex-col items-left">
               <h1 className="text-4xl font-semibold text-indigo-600">
-                {details.EmpName}
+                {details.name}
               </h1>
-              <p className="text-xl text-gray-700">{details.EmpEmail}</p>
+              <p className="text-xl text-gray-700">{details.email}</p>
             </div>
           </div>
           {/* <div className="flex flex-wrap items-center gap-10">
@@ -137,19 +136,11 @@ const EachEmployee = () => {
             </div>
           </div>
         </div>
-        <div>
-          <h1 className="text-3xl font-semibold text-gray-800 my-5">Associates</h1>
-          <div className="bg-gray-300 w-full shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg">
-            {allAssos.map((allAsso) => (
-              <AssocInfoEmployee key={allAsso} candDetails={allAsso} />
-            ))}
-          </div>
-        </div>
         <div className="mt-10">
-          <h1 className="text-3xl font-semibold text-gray-800 my-5">{details?.EmpName}'s CVs</h1>
+          <h1 className="text-3xl font-semibold text-gray-800 my-5">{details?.name}'s CVs</h1>
           <div className="bg-gray-300 w-full shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg">
             {allCvs ? (allCvs.map((allCv) => (
-            <CvInfoEmployee key={allCv} cand={allCv} />
+            <EmployeeInfoAssoCv key={allCv} cand={allCv} />
           ))) : (<p className="text-2xl font-semibold text-red-500 text-center">No Candidates Found...</p>)}
           </div>
         </div>
@@ -159,4 +150,4 @@ const EachEmployee = () => {
   );
 };
 
-export default EachEmployee;
+export default EmployeeAssoCv;

@@ -3,6 +3,7 @@ import { useJwt } from "react-jwt";
 import axios from "axios";
 import Logo from "./Referbiz.png";
 import FakeProfile from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/FakeProfile2.png";
+import { Link } from "react-router-dom";
 
 const AffNav = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -34,6 +35,19 @@ const AffNav = () => {
   const userName = decodedToken ? decodedToken.name : "No Name Found";
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // No token found, redirect to login page
+      navigate("/login");
+    } else {
+      const tokenExpiration = decodedToken ? decodedToken.exp * 1000 : 0; // Convert expiration time to milliseconds
+
+      if (tokenExpiration && tokenExpiration < Date.now()) {
+        // Token expired, remove from local storage and redirect to login page
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
+    }
     const fetchUserData = async () => {
       try {
         // Make a GET request to retrieve the user data
@@ -46,6 +60,7 @@ const AffNav = () => {
         // Set the user data in state
         setUserData(response.data);
         console.log(response.data)
+        console.log(userData?.id)
       } catch (error) {
         console.error(error);
       }
@@ -90,13 +105,13 @@ const AffNav = () => {
 
                 {isDropdownOpen && (
                   <div className="absolute right-[14.5rem] mt-12 py-2 w-[10rem] bg-gray-200 rounded-md shadow-lg">
-                    <a
-                      href="#"
+                    <Link
+                      to={`/update-profile/${userData?.id}`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={toggleDropdown}
                     >
                       Edit Profile
-                    </a>
+                    </Link>
                     <a
                       href="#"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

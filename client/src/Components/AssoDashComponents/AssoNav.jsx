@@ -3,6 +3,7 @@ import { useJwt } from "react-jwt";
 import axios from "axios";
 import Logo from "./Referbiz.png";
 import FakeProfile from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/FakeProfile2.png";
+import { Link } from "react-router-dom";
 
 const AssoNav = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -92,13 +93,13 @@ const AssoNav = () => {
 
                 {isDropdownOpen && (
                   <div className="absolute right-[14.5rem] mt-12 py-2 w-[10rem] bg-gray-200 rounded-md shadow-lg">
-                    <a
-                      href="#"
+                    <Link
+                      to={`/update-profile-asso/${userData?.id}`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={toggleDropdown}
                     >
                       Edit Profile
-                    </a>
+                    </Link>
                     <a
                       href="#"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

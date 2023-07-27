@@ -111,14 +111,66 @@ router.get('/user-data', authenticateToken, async (req, res) => {
     }
 
     // Extract the required fields from the user object
-    const { name, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+    const { id, name, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
 
-    res.status(200).json({ name, email, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount });
+    res.status(200).json({ id, name, email, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount });
   } catch (error) {
     console.error('Error fetching user data:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+// UPDATE A PARTICULAR AFFILIATE
+router.put(
+  "/affiliates-user-data/update/:id",
+  authenticateToken, uploadImg.single('profileImage'),
+  async (req, res) => {
+    const {
+      name,
+      email,
+    } = req.body;
+    const profileImage = req.file;
+
+    try {
+      // Get the user's email from the decoded token
+      const { id } = req.params;
+      console.log(id)
+
+      // Find the affiliate by ID
+      const affiliate = await User.findById(id);
+      if (!affiliate) {
+        return res.status(404).json({ message: "Affiliate not found" });
+      }
+
+      // Update the affiliate's fields
+      if (!name) {
+        affiliate.name = affiliate.name;
+      } else {
+        affiliate.name = name;
+      }
+
+      if (!email) {
+        affiliate.email = affiliate.email;
+      } else {
+        affiliate.email = email;
+      }
+
+      if (!profileImage) {
+        affiliate.profileImage = affiliate.profileImage;
+      } else {
+        affiliate.profileImage = profileImage.filename;
+      }
+
+      // Save the updated affiliate
+      await affiliate.save();
+
+      res.status(200).json({ message: "Affiliate updated successfully" });
+    } catch (error) {
+      console.error("Error updating affiliate:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
 
 
 // HANDLE CV SHARING FORM
