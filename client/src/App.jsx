@@ -30,6 +30,7 @@ import UpdateProfileAsso from "./Components/AssoDashComponents/UpdateProfile";
 import UpdateProfileAdmin from "./Components/AdminDashComponents/UpdateProfile";
 import UpdateProfileEmployee from "./Components/EmployeeDashComponents/UpdateProfile";
 import EditPopUp from "./Components/EmployeeDashComponents/EditPopUp";
+import EditPopUpAffiliate from "./Components/AdminDashComponents/EditPopUpAffiliate";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
           <Route path="/admin-all-employees" element={<AllEmployees />} />
           <Route path="/admin-all-cvs" element={<AllCVs />} />
           <Route path="/admin-all-affiliates/each-affiliate/:id" element={<EachAffiliate />} />
+          <Route path="/admin-all-affiliates/each-affiliate/each-cv/:id" element={<EditPopUpAffiliate />} />
           <Route path="/admin-all-associates/each-associate/:id" element={<EachAssociate />} />
           <Route path="/admin-all-employees/:id" element={<EachEmployee />} />
           <Route path="/admin-all-employees/each-associate/:id" element={<EmployeeAssoCv />} />

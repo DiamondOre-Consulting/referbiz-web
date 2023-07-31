@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const CvInfoAffiliate = ({ candDetails }) => {
   console.log(candDetails);
@@ -135,34 +136,14 @@ const CvInfoAffiliate = ({ candDetails }) => {
                   {joining}
               </span>{" "}
             </div>
-            {/* <p className="text-sm">
-              Candidate Email:{" "}
-              <span className="text-indigo-700 font-semibold">
-                {candidate?.refUniqueEmailId}
-              </span>
-            </p>
-            <p className="text-sm">
-              Candidate Phone Number:{" "}
-              <span className="text-indigo-700 font-semibold">
-                {candidate?.refPhone}
-              </span>
-            </p>
-            <p className="text-sm">
-              Submission Date:{" "}
-              <span className="text-indigo-700 font-semibold">
-                {candidate &&
-                  candidate.createdAt &&
-                  candidate.createdAt.slice(0, 10)}
-              </span>
-            </p>
-            <p className="text-sm">
-              Submission Time:{" "}
-              <span className="text-indigo-700 font-semibold">
-                {candidate &&
-                  candidate.createdAt &&
-                  candidate.createdAt.slice(11, 16)}
-              </span>
-            </p> */}
+            <Link to={`/admin-all-affiliates/each-affiliate/each-cv/${candDetails}`} className="flex flex-col items-center bg-indigo-500 px-5 py-2 rounded-md cursor-pointer hover:bg-indigo-700">
+              <p
+                
+                className="text-sm flex justify-center text-gray-100"
+              >
+                Edit
+              </p> 
+            </Link>
           </div>
         ) : (
           <p>Loading...</p>
