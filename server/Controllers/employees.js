@@ -355,7 +355,7 @@ router.put(
         );
         console.log(assoUser);
         const empUser = await Employees.findOneAndUpdate(
-          { myAsso: assoUser._id, totalShortlisted: { $ne: 1 } },
+          { myAsso: assoUser?._id, totalShortlisted: { $ne: 1 } },
           { $inc: { totalShortlisted: 1 } }
         );
         console.log(empUser);
@@ -407,7 +407,7 @@ router.put(
         );
         console.log(assoUser);
         const empUser = await Employees.findOneAndUpdate(
-          { myAsso: assoUser._id, totalJoined: { $ne: 1 } },
+          { myAsso: assoUser?._id, totalJoined: { $ne: 1 } },
           { $inc: { totalJoined: 1 } }
         );
         console.log(empUser);

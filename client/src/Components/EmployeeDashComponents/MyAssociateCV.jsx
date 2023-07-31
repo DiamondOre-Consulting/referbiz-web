@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useJwt } from "react-jwt";
 import axios from "axios";
+import EditPopUp from "./EditPopUp";
 
 const MyAssociateCV = ({ candDetails }) => {
   console.log(candDetails);
   const [candidate, setCandidate] = useState({});
   const [shortlisting, setShortlisting] = useState("");
   const [joining, setJoining] = useState("");
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [update, setUpdate] = useState(false);
+
+  const handleEditClick = () => {
+    setShowEditForm(true);
+  };
 
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
@@ -111,8 +118,7 @@ const MyAssociateCV = ({ candDetails }) => {
                       hour12: true,
                     });
                     return formattedISTTime;
-                  })()
-                  }
+                  })()}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
@@ -137,14 +143,27 @@ const MyAssociateCV = ({ candDetails }) => {
                 {joining}
               </span>{" "}
             </div>
-            <div className="flex flex-col items-center bg-indigo-500 px-5 py-2 rounded-md cursor-pointer hover:bg-indigo-700">
-              <p className="text-sm flex justify-center text-gray-100">Edit</p>
-            </div>
+            <Link to={`/my-associates/each-cv/${candDetails}`} className="flex flex-col items-center bg-indigo-500 px-5 py-2 rounded-md cursor-pointer hover:bg-indigo-700">
+              <p
+                onClick={handleEditClick}
+                className="text-sm flex justify-center text-gray-100"
+              >
+                Edit
+              </p> 
+            </Link>
           </div>
         ) : (
           <p>Loading...</p>
         )}
       </div>
+      {showEditForm && (
+        <div className="modal">
+        <div className="modal-content">
+          <span className="close" onClick={() => setShowEditForm(false)}>&times;</span>
+          <EditPopUp candDetails={candDetails} update={update}  />
+        </div>
+      </div>
+      )}
     </div>
   );
 };
