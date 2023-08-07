@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios, { all } from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import AdminNav from "../../Components/AdminDashComponents/AdminNav";
 import AdminFooter from "../../Components/AdminDashComponents/AdminFooter";
 import { useJwt } from "react-jwt";
 import CvInfoAffiliate from "../../Components/AdminDashComponents/CvInfoAffiliate";
 import CvInfoAssociate from "../../Components/AdminDashComponents/CvInfoAssociate";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 
 const EachAssociate = () => {
   const [details, setDetails] = useState({});
@@ -80,16 +81,35 @@ const EachAssociate = () => {
                 {details.name}
               </h1>
               <p className="text-xl text-gray-700">{details.email}</p>
+              <div className="flex flex-col gap-4 my-4">
+                <div className="flex flex-col items-left">
+                  <h1 className="text-xl text-gray-900">
+                    Mentor's Name:{" "}
+                    <span className="text-indigo-600">
+                      {details.mentorName}
+                    </span>
+                  </h1>
+                  <p className="text-xl text-gray-900">
+                    Mentor's Email:{" "}
+                    <span className="text-gray-700">{details.mentorEmail}</span>
+                  </p>
+                </div>
+                <Link to={`/admin-all-associates/each-associate/update/${id}`}>
+                <button className="text-xl text-gray-100 bg-gray-600 px-3 py-2 rounded-lg hover:bg-gray-800">Edit Profile</button>
+                </Link>
+                {/* <BorderColorIcon className="text-gray-600 hover:text-gray-800 cursor-pointer" /> */}
+              </div>
             </div>
           </div>
-          <div className="flex flex-wrap items-center gap-10">
+          {/* <div className="flex flex-row items-center gap-10">
+            <BorderColorIcon />
             <div className="flex flex-col items-left">
               <h1 className="text-4xl font-semibold text-gray-900">
                 Mentor's Name: <span className="text-indigo-600">{details.mentorName}</span>
               </h1>
               <p className="text-xl text-gray-900">Mentor's Email: <span className="text-gray-700">{details.mentorEmail}</span></p>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="py-6 sm:py-8 lg:py-12">
           <div className="mx-auto max-w-screen-xl px-4 md:px-8">

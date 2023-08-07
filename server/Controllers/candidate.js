@@ -1,12 +1,14 @@
 import express, { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
 import path from "path";
-import multer from 'multer';
+import multer from "multer";
 import authenticateToken from "../Middlewares/authenticateToken.js";
+import twilio from "twilio";
+import nodemailer from "nodemailer";
 
 import User from "../Models/Users.js";
 import CvSharing from "../Models/CvSharing.js";
@@ -19,53 +21,143 @@ const router = express.Router();
 const picStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     // Specify the directory where you want to store the uploaded files
-    cb(null, 'ProfileImgUploads');
+    cb(null, "ProfileImgUploads");
   },
   filename: function (req, file, cb) {
     // Set the file name to be the original name of the uploaded file
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(
+      null,
+      file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
+    );
     // cb(null, file.originalname);
-  }
+  },
 });
 
 const uploadImg = multer({ storage: picStorage });
 
-// const uploadImg = multer({ dest: 'ProfileImgUploads/' });
+// Generate a random OTP
+const generateOTP = () => {
+  return Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
+};
 
-router.post("/signup", uploadImg.single('profileImage'), async (req, res) => {
-  const { name, email, password } = req.body;
-  const profileImage = req.file;
-  // const filePath = "C:/Users/Harsh%20Jha/Documents/RAS%20Portal%20Pilot/ReferBiz/server/ProfileImgUploads/";
-
+// Send OTP via email using Nodemailer
+const sendOTPByEmail = async (email, otp) => {
   try {
-    // Check if user already exists
-    const userExists = await User.exists({ email });
-    if (userExists) {
-      return res.status(409).json({ message: "User already exists" });
-    }
-
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create a new user object
-    const newUser = new User({
-      name,
-      email,
-      password: hashedPassword,
-      profileImage: profileImage.filename,
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
     });
 
-    // Save the user to the database
-    await newUser.save();
+    const mailOptions = {
+      from: "Sender Email <harshkr2709@gmail.com>",
+      to: `Recipient <${email}>`,
+      subject: "Sending Email using Node.js",
+      text: `Your OTP is: ${otp}`,
+    };
 
-    return res
-      .status(201)
-      .json({ message: "Candidate User created successfully" });
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending OTP:", error);
+    throw error;
+  }
+};
+
+// Verify OTP against stored OTP
+const verifyOTP = (otpStore, otp) => {
+  const storedOTP = otpStore[0];
+  console.log("stored: ", storedOTP);
+  if (storedOTP === otp) {
+    // storedOTP='';
+    return true;
+  } else {
+    return false;
+  }
+};
+
+// In-memory storage for OTPs (in a real app, use a database)
+const otpStore = {};
+
+// Initiate OTP sending
+router.post("/send-otp", uploadImg.single("profileImage"), async (req, res) => {
+  try {
+    const { email } = req.body;
+    console.log(req.body);
+
+    // Generate and store OTP
+    const otp = generateOTP();
+    otpStore[email] = otp; // Store OTP for the email
+
+    console.log(email);
+    console.log("otpStore: ", otpStore[email]);
+
+    // Send OTP via email
+    await sendOTPByEmail(email, otp);
+
+    console.log("otpStore:", otpStore[email]);
+
+    res.json({ message: "OTP sent successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
+
+router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
+  const { otp, name, email, password } = req.body;
+  const profileImage = req.file;
+
+  console.log("Signup Email:", email);
+  console.log("Entered OTP:", otp);
+  console.log("Stored OTP:", otpStore[email]);
+  // const isValidOTP = verifyOTP(otpStore, otp); //TESTING OTP
+
+  // if (isValidOTP) {
+  // TESTING OTP
+  try {
+    // Verify OTP
+    if (otpStore[email] === otp) {
+      const userExists = await User.exists({ email });
+      if (userExists) {
+        return res.status(409).json({ message: "User already exists" });
+      }
+
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Create a new user object
+      const newUser = new User({
+        name,
+        email,
+        password: hashedPassword,
+        profileImage: profileImage.filename,
+      });
+
+      // Save the user to the database
+      await newUser.save();
+
+      delete otpStore[email];
+
+      return res
+        .status(201)
+        .json({ message: "Candidate User crea ted successfully" });
+    } else {
+      return res.status(400).json({ message: "Invalid Token" });
+    }
+    // Check if user already exists
   } catch (error) {
     console.error("Error creating user:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
+  // } else {
+  //   res.status(400).json({ error: "Invalid OTP" });
+  // }
 });
 
 router.post("/login", async (req, res) => {
@@ -83,7 +175,6 @@ router.post("/login", async (req, res) => {
     if (!passwordMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    
 
     // Generate JWT token
     const token = jwt.sign({ name: user.name, email: user.email }, secretKey, {
@@ -97,9 +188,8 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
 // FETCHING USER DATA
-router.get('/user-data', authenticateToken, async (req, res) => {
+router.get("/user-data", authenticateToken, async (req, res) => {
   try {
     // Get the user's email from the decoded token
     const { email } = req.user;
@@ -107,34 +197,49 @@ router.get('/user-data', authenticateToken, async (req, res) => {
     // Find the user in the database
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     // Extract the required fields from the user object
-    const { id, name, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+    const {
+      id,
+      name,
+      profileImage,
+      totalShared,
+      totalShortlisted,
+      totalJoined,
+      totalAmount,
+    } = user;
 
-    res.status(200).json({ id, name, email, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount });
+    res.status(200).json({
+      id,
+      name,
+      email,
+      profileImage,
+      totalShared,
+      totalShortlisted,
+      totalJoined,
+      totalAmount,
+    });
   } catch (error) {
-    console.error('Error fetching user data:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
 // UPDATE A PARTICULAR AFFILIATE
 router.put(
   "/affiliates-user-data/update/:id",
-  authenticateToken, uploadImg.single('profileImage'),
+  authenticateToken,
+  uploadImg.single("profileImage"),
   async (req, res) => {
-    const {
-      name,
-      email,
-    } = req.body;
+    const { name, email } = req.body;
     const profileImage = req.file;
 
     try {
       // Get the user's email from the decoded token
       const { id } = req.params;
-      console.log(id)
+      console.log(id);
 
       // Find the affiliate by ID
       const affiliate = await User.findById(id);
@@ -172,71 +277,79 @@ router.put(
   }
 );
 
-
 // HANDLE CV SHARING FORM
 // Define storage options for Multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // Specify the directory where you want to store the uploaded files
-    cb(null, 'C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/server/Uploads/');
+    cb(
+      null,
+      "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/server/Uploads/"
+    );
   },
   filename: function (req, file, cb) {
     // Set the file name to be the original name of the uploaded file
     cb(null, file.originalname);
-  }
+  },
 });
 
 // Create the Multer upload instance
 const upload = multer({ storage: storage });
 
-router.post('/affiliate-contact-form', authenticateToken, upload.single('document'), async (req, res) => {
-  const { refName, refPhone, refUniqueEmailId, userEmail } = req.body;
+router.post(
+  "/affiliate-contact-form",
+  authenticateToken,
+  upload.single("document"),
+  async (req, res) => {
+    const { refName, refPhone, refUniqueEmailId, userEmail } = req.body;
 
-  const uploadedFile = req.file;
+    const uploadedFile = req.file;
 
-  // Get the user's email from the decoded token
-  const { email } = req.user;
+    // Get the user's email from the decoded token
+    const { email } = req.user;
 
-  // Handle form submission and file upload logic
-  if (!uploadedFile) {
-    return res.status(400).json({ error: 'No file uploaded' });
+    // Handle form submission and file upload logic
+    if (!uploadedFile) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    // Perform any necessary validation on the form fields
+    if (!refName || !refPhone || !refUniqueEmailId) {
+      return res
+        .status(400)
+        .json({ error: "Name, email, and phone number are required fields" });
+    }
+
+    // Save the file to the desired location
+    const filePath = uploadedFile.path; // Get the file path
+
+    try {
+      // Create a new contact form entry and save it to the database
+      const cvSharing = new CvSharing({
+        refName,
+        refPhone,
+        refUniqueEmailId,
+        userEmail: email, // Save the user's email along with the form data
+        document: filePath,
+        // user: req.user.email, // Associate the form entry with the logged-in user
+      });
+      await cvSharing.save();
+
+      // Update totalShared count for the associated candidate
+      await User.findOneAndUpdate(
+        { email: email }, // Match the candidate ID
+        {
+          $inc: { totalShared: 1 },
+          $push: { allCvInfo: cvSharing._id },
+        }
+      );
+
+      res.status(201).json({ message: "Form submitted successfully" });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
   }
-
-  // Perform any necessary validation on the form fields
-  if (!refName || !refPhone || !refUniqueEmailId) {
-    return res.status(400).json({ error: 'Name, email, and phone number are required fields' });
-  }
-
-  // Save the file to the desired location
-  const filePath = uploadedFile.path; // Get the file path
-
-  try {
-    // Create a new contact form entry and save it to the database
-    const cvSharing = new CvSharing({
-      refName,
-      refPhone,
-      refUniqueEmailId,
-      userEmail: email, // Save the user's email along with the form data
-      document: filePath,
-      // user: req.user.email, // Associate the form entry with the logged-in user
-    });
-    await cvSharing.save();
-
-    // Update totalShared count for the associated candidate
-    await User.findOneAndUpdate(
-      { email: email }, // Match the candidate ID
-      {
-        $inc: { totalShared: 1 },
-        $push: { allCvInfo: cvSharing._id }
-      }
-    );
-
-    res.status(201).json({ message: 'Form submitted successfully' });
-  } catch (error) {
-    console.error('Error submitting form:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
-
+);
 
 export default router;

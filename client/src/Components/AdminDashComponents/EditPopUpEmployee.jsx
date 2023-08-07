@@ -49,7 +49,7 @@ const EditPopUpEmployee = () => {
       try {
         // Make a GET request to retrieve the user data
         const response = await axios.get(
-          `http://localhost:8080/api/admin-rb/admin-affiliates-data/get-cv-data/${id}`,
+          `http://localhost:8080/api/admin-rb/admin-employees-data/get-cv-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -83,7 +83,7 @@ const EditPopUpEmployee = () => {
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/admin-rb/admin-affiliates-data/update-shortlisted-cv-sharing/${id}`,
+        `http://localhost:8080/api/admin-rb/admin-employees-data/update/${id}`,
         { isShortlisted: formValues.isShortlisted },
         {
           headers: {
@@ -119,11 +119,11 @@ const EditPopUpEmployee = () => {
     }
 
     const formData = new FormData();
-    formData.append("isSJoined", formValues.isShortlisted);
+    formData.append("isJoined", formValues.isJoined);
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/admin-rb/admin-affiliates-data/update-joined-cv-sharing/${id}`,
+        `http://localhost:8080/api/admin-rb/admin-employees-data/update/${id}`,
         { isJoined: formValues.isJoined },
         {
           headers: {
@@ -182,7 +182,7 @@ const EditPopUpEmployee = () => {
                 onChange={handleInputChange}
               >
                 <option value={null}>
-                  {userData?.isJoined === true ? "True" : "False"}
+                  {userData?.isShortlisted === true ? "True" : "False"}
                 </option>
                 <option value={false}>False</option>
                 <option value={true}>True</option>

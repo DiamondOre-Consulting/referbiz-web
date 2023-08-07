@@ -117,7 +117,7 @@ router.get("/admin-user-data", adminAuthToken, async (req, res) => {
   }
 });
 
-// UPDATE A PARTICULAR AFFILIATE
+// UPDATE USER-DATA
 router.put(
   "/admin-user-data/update/:id",
   adminAuthToken,
@@ -187,7 +187,7 @@ router.get("/admin-employees-data", adminAuthToken, async (req, res) => {
   }
 });
 
-// GET A EMPLOYEE BY ID
+// GET AN EMPLOYEE BY ID
 router.get("/admin-employees-data/:id", adminAuthToken, async (req, res) => {
   const { id } = req.params;
 
@@ -214,7 +214,7 @@ router.get("/admin-employees-data/:id", adminAuthToken, async (req, res) => {
   }
 });
 
-// UPDATE A EMPLOYEE BY ID
+// UPDATE AN EMPLOYEE BY ID
 router.put(
   "/admin-employees-data/update/:id",
   adminAuthToken,
@@ -622,6 +622,17 @@ router.put(
       // Save the updated associate
       await associate.save();
 
+      if(mentorEmail) {
+        const previousUser = await Employees.findOneAndUpdate(
+          { EmpEmail: mentorEmail },
+          { $pull: { myAsso: associate._id } } // Use $pull to remove associate._id from myAsso
+        );
+        const emp = await Employees.findOneAndUpdate(
+          { EmpEmail: mentorEmail },
+          { $push: { myAsso: associate._id } }
+        );
+      }
+
       res.status(200).json({ message: "associate updated successfully" });
     } catch (error) {
       console.error("Error updating associate:", error);
@@ -975,6 +986,89 @@ router.put(
 
       // Save the updated affiliate
       await cvUserJoined.save();
+
+      res.status(200).json({ message: "cv details updated successfully" });
+    } catch (error) {
+      console.error("Error updating cv details:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+// FETCH EMPLOYEE'S CV DETAILS BY ID
+router.get(
+  "/admin-employees-data/get-cv-data/:id",
+  adminAuthToken,
+  async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      // Get the user's email from the decoded token
+      const { email } = req.user;
+
+      // Find the user in the database
+      const user = await AdminUsers.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: "Admin not found" });
+      }
+
+      // Find the affiliate by ID
+      const cvById = await CvSharing.findById(id);
+      if (!cvById) {
+        return res.status(404).json({ message: "Cv Details not found" });
+      }
+
+      res.status(200).json(cvById);
+    } catch (error) {
+      console.error("Error retrieving associate:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+// UPDATE EMPLOYEE CV-SHARE SHORTLISTED BY ID
+router.put(
+  "/admin-employee-data/update-shortlisted-cv-sharing/:id",
+  adminAuthToken,
+  async (req, res) => {
+    const { id } = req.params;
+    const { isShortlisted, isJoined } = req.body;
+    const cvId = id;
+
+    try {
+      // Get the user's email from the decoded token
+      const { adminEmail } = req.user;
+
+      // Find the user in the database
+      const user = await AdminUsers.findOne({ adminEmail });
+      if (!user) {
+        return res.status(404).json({ message: "Admin not found" });
+      }
+
+      // Find the associate by ID
+      const cvUserShortlist = await CvSharing.findByIdAndUpdate(id, {
+        $set: { isShortlisted: true },
+      });
+      if (!cvUserShortlist) {
+        return res.status(404).json({ message: "cv details not found" });
+      }
+
+      console.log(cvUserShortlist.isShortlisted);
+      if (cvUserShortlist.isShortlisted) {
+        const assoUser = await AssoUsers.findOneAndUpdate(
+          { allCvInfo: cvId, totalShortlisted: { $ne: 1 } },
+          { $inc: { totalShortlisted: 1 } }
+        );
+        console.log(assoUser);
+        const empUser = await Employees.findOneAndUpdate(
+          { myAsso: assoUser._id, totalShortlisted: { $ne: 1 } },
+          { $inc: { totalShortlisted: 1 } }
+        );
+        console.log(empUser);
+      }
+
+      // Save the updated associate
+      await cvUserShortlist.save();
 
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {

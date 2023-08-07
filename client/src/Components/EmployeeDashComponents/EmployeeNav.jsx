@@ -114,6 +114,13 @@ const EmployeeNav = () => {
               >
                 Download Instructions
               </button>
+
+              <Link
+                className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-teal-800"
+                to={'/top-lists'}
+              >
+                Top Lists
+              </Link>
             </div>
 
             {/* <div className="block md:hidden">

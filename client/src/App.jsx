@@ -31,6 +31,9 @@ import UpdateProfileAdmin from "./Components/AdminDashComponents/UpdateProfile";
 import UpdateProfileEmployee from "./Components/EmployeeDashComponents/UpdateProfile";
 import EditPopUp from "./Components/EmployeeDashComponents/EditPopUp";
 import EditPopUpAffiliate from "./Components/AdminDashComponents/EditPopUpAffiliate";
+import EditPopUpAssociate from "./Components/AdminDashComponents/EditPopUpAssociate";
+import EditPopUpEmployee from "./Components/AdminDashComponents/EditPopUpEmployee";
+import TopLists from "./Components/Instructions/TopList";
 
 function App() {
   return (
@@ -59,7 +62,9 @@ function App() {
           <Route path="/admin-all-affiliates/each-affiliate/:id" element={<EachAffiliate />} />
           <Route path="/admin-all-affiliates/each-affiliate/each-cv/:id" element={<EditPopUpAffiliate />} />
           <Route path="/admin-all-associates/each-associate/:id" element={<EachAssociate />} />
+          <Route path="/admin-all-associates/each-associate/update/:id" element={<EditPopUpAssociate />} />
           <Route path="/admin-all-employees/:id" element={<EachEmployee />} />
+          <Route path="/admin-all-employees/update/:id" element={<EditPopUpEmployee />} />
           <Route path="/admin-all-employees/each-associate/:id" element={<EmployeeAssoCv />} />
           <Route path="/employee-signup-confi" element={<SignupEmployee />} />
           <Route path="/employee-login-confi" element={<LoginEmployee />} />
@@ -68,6 +73,10 @@ function App() {
           <Route path="/my-associates" element={<MyAssociates />} />
           <Route path="/my-associates/:id" element={<MyEachAssociate />} />
           <Route path="/my-associates/each-cv/:id" element={<EditPopUp />} />
+
+          {/* ------------------------------------------------------------------------------- */}
+
+          <Route path="/top-lists" element={<TopLists />} />
         </Routes>
       </Router>
     </>

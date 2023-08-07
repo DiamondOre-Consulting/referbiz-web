@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const CvInfoEmployee = ({ cand }) => {
-  console.log(candDetails);
+  console.log(cand);
   const [candidate, setCandidate] = useState({});
   const [shortlisting, setShortlisting] = useState("");
   const [joining, setJoining] = useState("");
@@ -56,7 +57,7 @@ const CvInfoEmployee = ({ cand }) => {
     };
 
     fetchData();
-  }, [candDetails]);
+  }, [cand]);
 
   return (
     <div>
@@ -126,6 +127,14 @@ const CvInfoEmployee = ({ cand }) => {
                 {joining}
               </span>{" "}
             </div>
+            {/* <Link to={`/admin-all-employees/update/${cand}`} className="flex flex-col items-center bg-indigo-500 px-5 py-2 rounded-md cursor-pointer hover:bg-indigo-700">
+              <p
+                
+                className="text-sm flex justify-center text-gray-100"
+              >
+                Edit
+              </p> 
+            </Link> */}
           </div>
         ) : (
           <p>Loading...</p>

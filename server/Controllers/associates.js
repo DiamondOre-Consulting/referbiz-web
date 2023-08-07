@@ -95,8 +95,9 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    console.log(user._id);
     // Generate JWT token
-    const token = jwt.sign({ name: user.name, email: user.email }, secretKey, {
+    const token = jwt.sign({ id: user._id, name: user.name, email: user.email }, secretKey, {
       expiresIn: "1h",
     });
 
@@ -205,7 +206,8 @@ router.post('/associate-contact-form', authenticateToken, upload.single('documen
 
   const uploadedFile = req.file;
 
-  const { email } = req.user;
+  const { email, id } = req.user;
+  console.log(id);
 
   // Handle form submission and file upload logic
   if (!uploadedFile) {
@@ -241,13 +243,16 @@ router.post('/associate-contact-form', authenticateToken, upload.single('documen
       }
     );
 
+    console.log("req.user._id:", req.user.id);
     const empMentor = await Employees.findOneAndUpdate(
-      { myAsso: req.user._id }, // Match the candidate ID
+      { myAsso: { $in: [id] } }, // Match the candidate ID
       {
         $inc: { totalShared: 1 },
-        $push: { allCvInfo: cvSharing._id } 
+        $push: { allCvInfo: cvSharing._id }   
       }
     );
+
+    console.log("empMentor:", empMentor);
 
       console.log(asso)
 

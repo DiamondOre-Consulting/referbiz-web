@@ -50,6 +50,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  otp: {
+    type: String,
+  }
 });
 
 export default mongoose.model('User', userSchema);
