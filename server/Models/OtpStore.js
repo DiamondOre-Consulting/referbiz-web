@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const AdminUsers = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -37,10 +37,22 @@ const AdminUsers = new mongoose.Schema({
   document: {
     type: String,
   },
-  key: {
+  allCvInfo: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'CvSharing'
+      }
+    ],
+    default: [],
+  },
+  profileImage: {
     type: String,
-    required: true,
+    required: false,
+  },
+  otp: {
+    type: String,
   }
 });
 
-export default mongoose.model('AdminUsers', AdminUsers);
+export default mongoose.model('User', userSchema);

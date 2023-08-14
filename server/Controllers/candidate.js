@@ -9,6 +9,8 @@ import multer from "multer";
 import authenticateToken from "../Middlewares/authenticateToken.js";
 import twilio from "twilio";
 import nodemailer from "nodemailer";
+import otpStore from "../server.js";
+import forgotOtp from "../server.js";
 
 import User from "../Models/Users.js";
 import CvSharing from "../Models/CvSharing.js";
@@ -70,19 +72,15 @@ const sendOTPByEmail = async (email, otp) => {
 };
 
 // Verify OTP against stored OTP
-const verifyOTP = (otpStore, otp) => {
-  const storedOTP = otpStore[0];
-  console.log("stored: ", storedOTP);
-  if (storedOTP === otp) {
-    // storedOTP='';
-    return true;
-  } else {
-    return false;
-  }
-};
-
-// In-memory storage for OTPs (in a real app, use a database)
-const otpStore = {};
+// const verifyOTP = (otpStore, otp) => {
+//   const storedOTP = otpStore[0];
+//   console.log("stored: ", storedOTP);
+//   if (storedOTP === otp) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// };
 
 // Initiate OTP sending
 router.post("/send-otp", uploadImg.single("profileImage"), async (req, res) => {
@@ -102,7 +100,7 @@ router.post("/send-otp", uploadImg.single("profileImage"), async (req, res) => {
 
     console.log("otpStore:", otpStore[email]);
 
-    res.json({ message: "OTP sent successfully" });
+    res.status(201).json({ message: "OTP sent successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred" });
@@ -117,12 +115,11 @@ router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
   console.log("Entered OTP:", otp);
   console.log("Stored OTP:", otpStore[email]);
   // const isValidOTP = verifyOTP(otpStore, otp); //TESTING OTP
-
   // if (isValidOTP) {
   // TESTING OTP
   try {
     // Verify OTP
-    if (otpStore[email] === otp) {
+    if (otpStore[email] == otp) {
       const userExists = await User.exists({ email });
       if (userExists) {
         return res.status(409).json({ message: "User already exists" });
@@ -136,7 +133,7 @@ router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
         name,
         email,
         password: hashedPassword,
-        profileImage: profileImage.filename,
+        profileImage: profileImage?.filename,
       });
 
       // Save the user to the database
@@ -146,7 +143,7 @@ router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
 
       return res
         .status(201)
-        .json({ message: "Candidate User crea ted successfully" });
+        .json({ message: "Candidate User created successfully" });
     } else {
       return res.status(400).json({ message: "Invalid Token" });
     }
@@ -276,6 +273,71 @@ router.put(
     }
   }
 );
+
+// FORGOT PASSWORD FOR AFFILIATE
+// SEND-OTP
+router.post("/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+    console.log(req.body);
+
+    // Check affiliate exists
+    const userExists = await User.exists({ email });
+    if (!userExists) {
+      return res.status(409).json({ message: "User does not exists" });
+    }
+
+    // Generate and store OTP
+    const otp = generateOTP();
+    forgotOtp[email] = otp; // Store OTP for the email
+
+    console.log(email);
+    console.log("otpStore: ", forgotOtp[email]);
+
+    // Send OTP via email
+    await sendOTPByEmail(email, otp);
+
+    console.log("otpStore:", otpStore[email]);
+
+    res.status(201).json({ message: "OTP sent successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
+
+// VERIFY AND UPDATE PASSWORD
+router.put("/update-password", async (req, res) => {
+  const { email, otp, password } = req.body;
+
+  try {
+    // const { id } = req.params;
+    if (forgotOtp[email] == otp) {
+      console.log("stored: ", forgotOtp[email]);
+      console.log("Entered: ", otp);
+
+      // Find the user in the database
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: "Affiliate not found" });
+      }
+
+      console.log(user);
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
+
+      await user.save();
+
+      delete otpStore[email];
+
+      res.status(200).json({ message: "Password Updated Successfully!!!" });
+    }
+  } catch (error) {
+    console.error("Error updating Admin Password:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 // HANDLE CV SHARING FORM
 // Define storage options for Multer

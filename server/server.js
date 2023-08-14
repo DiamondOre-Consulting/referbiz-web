@@ -115,7 +115,12 @@ app.use('/api/associates', associateController);
 app.use('/api/admin-rb', adminController);
 app.use('/api/employee-rb', employeeController);
 
+const otpStore = {};
+const forgotOtp = {};
+
 // Start the server
 app.listen(8080, () => {
   console.log('Server running on port 8080');
 });
+
+export default {otpStore, forgotOtp};

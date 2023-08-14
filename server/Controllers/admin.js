@@ -15,6 +15,19 @@ const secretKey = process.env.ADMIN_JWT_SECRET;
 
 const router = express.Router();
 
+const randomKeyGen = (length) => {
+  const charset =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let randomKey = "";
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    randomKey += charset.charAt(randomIndex);
+  }
+
+  return randomKey;
+};
+
 // SIGNUP NEW ADMIN
 router.post("/admin-signup-rb", async (req, res) => {
   const { name, email, password } = req.body;
@@ -29,11 +42,14 @@ router.post("/admin-signup-rb", async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const randomKey = randomKeyGen(15);
+
     // Create a new user object
     const newAdmin = new AdminUsers({
       name,
       email,
       password: hashedPassword,
+      key: randomKey,
     });
 
     // Save the user to the database
@@ -99,18 +115,16 @@ router.get("/admin-user-data", adminAuthToken, async (req, res) => {
     } = user;
     // console.log(user.totalShortlisted, " ", user.totalJoined)
 
-    res
-      .status(200)
-      .json({
-        id,
-        name,
-        email,
-        profileImage,
-        totalShared,
-        totalShortlisted,
-        totalJoined,
-        totalAmount,
-      });
+    res.status(200).json({
+      id,
+      name,
+      email,
+      profileImage,
+      totalShared,
+      totalShortlisted,
+      totalJoined,
+      totalAmount,
+    });
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -118,49 +132,42 @@ router.get("/admin-user-data", adminAuthToken, async (req, res) => {
 });
 
 // UPDATE USER-DATA
-router.put(
-  "/admin-user-data/update/:id",
-  adminAuthToken,
-  async (req, res) => {
-    const {
-      name,
-      email,
-    } = req.body;
+router.put("/admin-user-data/update/:id", adminAuthToken, async (req, res) => {
+  const { name, email } = req.body;
 
-    try {
-      // Get the user's id from the decoded token
-      const { id } = req.params;
-      console.log(id)
+  try {
+    // Get the user's id from the decoded token
+    const { id } = req.params;
+    console.log(id);
 
-      // Find the affiliate by ID
-      const admin = await AdminUsers.findById(id);
-      if (!admin) {
-        return res.status(404).json({ message: "admin not found" });
-      }
-
-      // Update the admin's fields
-      if (!name) {
-        admin.name = admin.name;
-      } else {
-        admin.name = name;
-      }
-
-      if (!email) {
-        admin.email = admin.email;
-      } else {
-        admin.email = email;
-      }
-
-      // Save the updated admin
-      await admin.save();
-
-      res.status(200).json({ message: "admin updated successfully" });
-    } catch (error) {
-      console.error("Error updating admin:", error);
-      res.status(500).json({ message: "Internal server error" });
+    // Find the affiliate by ID
+    const admin = await AdminUsers.findById(id);
+    if (!admin) {
+      return res.status(404).json({ message: "admin not found" });
     }
+
+    // Update the admin's fields
+    if (!name) {
+      admin.name = admin.name;
+    } else {
+      admin.name = name;
+    }
+
+    if (!email) {
+      admin.email = admin.email;
+    } else {
+      admin.email = email;
+    }
+
+    // Save the updated admin
+    await admin.save();
+
+    res.status(200).json({ message: "admin updated successfully" });
+  } catch (error) {
+    console.error("Error updating admin:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
-);
+});
 
 // EMPLOYEES SECTION
 // FETCHING ALL EMPLOYEES DATA
@@ -622,7 +629,7 @@ router.put(
       // Save the updated associate
       await associate.save();
 
-      if(mentorEmail) {
+      if (mentorEmail) {
         const previousUser = await Employees.findOneAndUpdate(
           { EmpEmail: mentorEmail },
           { $pull: { myAsso: associate._id } } // Use $pull to remove associate._id from myAsso
@@ -1077,5 +1084,35 @@ router.put(
     }
   }
 );
+
+// FORGOT PASSOWORD PROCESS
+router.put("/forgot-password", async (req, res) => {
+  const {email, key, password } = req.body;
+
+  try {
+    // const { id } = req.params;
+    console.log(key)
+
+    // Find the user in the database
+    const user = await AdminUsers.findOne({email});
+    if (!user) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    console.log(user)
+
+    if(user.key == key) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
+    }
+
+    await user.save();
+
+    res.status(200).json({ message: "Password Updated Successfully!!!" });
+  } catch (error) {
+    console.error("Error updating Admin Password:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 export default router;

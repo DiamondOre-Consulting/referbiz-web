@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginAdmin = () => {
   const [email, setEmail] = useState("");
@@ -129,11 +129,9 @@ const LoginAdmin = () => {
             Sign in
           </button>
 
-          {/* <p className="text-center text-sm text-gray-500">
-            <a className="underline cursor-pointer" onClick={toggleForm}>
+          <Link to={`/admin-forgot-password`} className="text-center text-sm text-gray-500 underline cursor-pointer flex justify-center mt-3">
             Forgot Password?
-            </a>
-          </p> */}
+          </Link>
         </form>
       </div>
     </div>

@@ -3,13 +3,15 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Signup = ({ toggleForm }) => {
-
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
     password: "",
     profileImage: null,
+    otp: "",
   });
+
+  const [otpSent, setOtpSent] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -23,6 +25,39 @@ const Signup = ({ toggleForm }) => {
 
   const navigate = useNavigate();
 
+  const handleSendOtp = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", formValues.name);
+    formData.append("email", formValues.email);
+    formData.append("password", formValues.password);
+    formData.append("profileImage", formValues.profileImage);
+    // Perform signup logic here
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/candidates/send-otp",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        console.log("OTP Sent ");
+        setOtpSent(true);
+      } else {
+        console.log("Signup failed");
+        // Handle signup error
+      }
+    } catch (error) {
+      console.error("Error signing up:", error);
+      // Handle error
+    }
+  };
+
   const handleSignup = async (e) => {
     e.preventDefault();
 
@@ -31,6 +66,7 @@ const Signup = ({ toggleForm }) => {
     formData.append("email", formValues.email);
     formData.append("password", formValues.password);
     formData.append("profileImage", formValues.profileImage);
+    formData.append("otp", formValues.otp);
     // Perform signup logic here
     try {
       const response = await axios.post(
@@ -44,9 +80,8 @@ const Signup = ({ toggleForm }) => {
       );
 
       if (response.status === 201) {
-        console.log("Signup successful as Affiliate");
+        console.log("User Registered Successfully!!!");
         navigate("/login");
-        // Redirect to login page or perform other actions
       } else {
         console.log("Signup failed");
         // Handle signup error
@@ -70,7 +105,7 @@ const Signup = ({ toggleForm }) => {
         </p>
 
         <form
-          onSubmit={handleSignup}
+          onSubmit={handleSendOtp}
           className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-gray-50"
         >
           <p className="text-center text-lg font-medium">
@@ -241,6 +276,40 @@ const Signup = ({ toggleForm }) => {
             </a>
           </p>
         </form>
+
+        {otpSent ? (
+          <form
+            onSubmit={handleSignup}
+            className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-gray-50"
+          >
+            <div>
+              <h3 className="text-center text-indigo-700 font-semibold">OTP Has been sent to your email id</h3>
+              <label htmlFor="otp" className="sr-only">
+                OTP
+              </label>
+
+              <div className="relative">
+                <input
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  type="text"
+                  id="otp"
+                  name="otp"
+                  placeholder="Enter OTP"
+                  value={formValues.otp}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
+            >
+              Sign up
+            </button>
+          </form>
+        ) : (
+          (<h1>LOADING...</h1>)
+        )}
       </div>
     </div>
   );

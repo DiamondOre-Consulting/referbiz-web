@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
@@ -140,6 +140,9 @@ const Login = ({ toggleForm }) => {
               Sign up
             </a>
           </p>
+          <Link to={'/affiliate-forgot-password'} className="text-center text-sm text-gray-500 cursor-pointer">
+            Forgot Password?
+          </Link>
         </form>
       </div>
     </div>
