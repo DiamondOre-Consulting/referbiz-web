@@ -132,6 +132,28 @@ router.get('/user-data', authenticateToken, async (req, res) => {
   }
 });
 
+// router.get('/user-data-me',  async (req, res) => {
+//   try {
+//     // Get the user's email from the decoded token
+//     const { email } = req.user;
+
+//     // Find the user in the database
+//     const user = await AssoUser.findOne({ email });
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     // Extract the required fields from the user object
+//     const {id, name, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+//     // console.log(user.totalShortlisted, " ", user.totalJoined)
+
+//     res.status(200).json({ id, name, email, profileImage ,totalShared, totalShortlisted, totalJoined, totalAmount });
+//   } catch (error) {
+//     console.error('Error fetching user data:', error);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// });
+
 // UPDATE A PARTICULAR AFFILIATE
 router.put(
   "/associates-user-data/update/:id",

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -13,41 +13,48 @@ const AffHero = () => {
 
   useEffect(() => {
     // Check if the user is authenticated (e.g., check token existence in localStorage)
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
-      navigate('/login'); // Redirect to login page if not authenticated
+      navigate("/login"); // Redirect to login page if not authenticated
       return;
     }
 
     // Make API request to fetch user data
     const fetchData = async () => {
-        try {
-          const response = await axios.get('http://localhost:8080/api/candidates/user-data', {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/candidates/user-data",
+          {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          });
-      
-          const { data } = response;
-          setUserData(data);
-          console.log(data);
-          console.log(userData?.totalAmount)
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-          // Handle error and show appropriate message or redirect to login page
-        }
-      };
-      
-      // Call the fetchData function to fetch user data
-      fetchData();
+          }
+        );
+
+        const { data } = response;
+        setUserData(data);
+        console.log(data);
+        console.log(userData?.totalAmount);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        // Handle error and show appropriate message or redirect to login page
+      }
+    };
+
+    // Call the fetchData function to fetch user data
+    fetchData();
   }, [navigate]);
   return (
     <section>
-      <div className="w-max-auto flex items-center">
-        <h2 className="text-6xl font-semibold text-gray-100 px-10 py-10">
+      <div className="w-full md:flex items-center justify-between">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-gray-100 px-4 sm:px-6 lg:px-10 py-6 sm:py-8 md:py-10">
           Welcome, {userName}
+          <img
+            className="w-12 sm:w-16 md:w-20 h-12 sm:h-16 md:h-20 inline-block ml-4"
+            src={Wave}
+            alt="waving"
+          />
         </h2>
-        <img className="w-[4rem] h-[4rem]" src={Wave} alt="waving" />
       </div>
       <div className="py-6 sm:py-8 lg:py-12">
         <div className="mx-auto max-w-screen-xl px-4 md:px-8">
@@ -63,7 +70,7 @@ const AffHero = () => {
 
             <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">
               <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
-              {userData?.totalShortlisted}
+                {userData?.totalShortlisted}
               </div>
               <div className="text-sm font-semibold sm:text-base">
                 Total Shortlisted
@@ -72,9 +79,11 @@ const AffHero = () => {
 
             <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">
               <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
-              {userData?.totalJoined}
+                {userData?.totalJoined}
               </div>
-              <div className="text-sm font-semibold sm:text-base">Total Joined</div>
+              <div className="text-sm font-semibold sm:text-base">
+                Total Joined
+              </div>
             </div>
 
             <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">

@@ -14,11 +14,15 @@ const AdminHero = () => {
 
   return (
     <section>
-      <div className="w-max-auto flex items-center">
-        <h2 className="text-6xl font-semibold text-gray-100 px-10 py-10">
+      <div className="w-full md:flex items-center justify-between">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-gray-100 px-4 sm:px-6 lg:px-10 py-6 sm:py-8 md:py-10">
           Welcome, {userName}
+          <img
+            className="w-12 sm:w-16 md:w-20 h-12 sm:h-16 md:h-20 inline-block ml-4"
+            src={Wave}
+            alt="waving"
+          />
         </h2>
-        <img className="w-[4rem] h-[4rem]" src={Wave} alt="waving" />
       </div>
       <div className="py-6 sm:py-8 lg:py-12">
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
