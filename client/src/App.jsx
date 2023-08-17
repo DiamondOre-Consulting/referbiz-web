@@ -37,6 +37,8 @@ import TopLists from "./Components/Instructions/TopList";
 import AdminForgotPassword from "./Components/AdminDashComponents/AdminForgotPassword";
 import AffiliateForgotPassword from "./Components/AuthsCan/AffiliateForgotPassword";
 import VerifyOTPAndUpdate from "./Components/AuthsCan/VerifyOTPAndUpdate";
+import HomeMain from "./Pages/HomePage/HomeMain";
+
 
 function App() {
   return (
@@ -44,6 +46,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/home-main" element={<HomeMain/>} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/AssoAuth" element={<AssoAuthPage />} />
           <Route path="/login" element={<Login />} />

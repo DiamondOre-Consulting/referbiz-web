@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 const app = express();
-// const ip = "192.168.1.49";
+const ip = "192.168.118.226";
 dotenv.config();
 app.use(express.json());
 app.use(cors());
@@ -41,9 +41,13 @@ app.use('/api/employee-rb', employeeController);
 const otpStore = {};
 const forgotOtp = {};
 
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
 // Start the server
-app.listen(8080, () => {
-  console.log(`Server running on PORT:8080`);
+app.listen(9001, ip, () => {
+  console.log(`Server running on ${ip}:9001`);
 });
 
 export default {otpStore, forgotOtp};
