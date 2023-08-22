@@ -14,7 +14,7 @@ const AssoContact = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/associates/contactus",
+        "http://192.168.29.235:8080/api/associates/contactus",
         {
           name,
           email,

@@ -19,7 +19,7 @@ const AdminBody = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/admin-rb/admin-user-data",
+          "http://192.168.29.235:8080/api/admin-rb/admin-user-data",
           {
             headers: {
               Authorization: `Bearer ${token}`,

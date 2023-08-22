@@ -39,7 +39,7 @@ const CvSharing = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/candidates/affiliate-contact-form",
+        "http://192.168.29.235:8080/api/candidates/affiliate-contact-form",
         formData,
         {
           headers: {

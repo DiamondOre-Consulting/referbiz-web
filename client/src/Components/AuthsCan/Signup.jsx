@@ -36,7 +36,7 @@ const Signup = ({ toggleForm }) => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/candidates/send-otp",
+        "http://192.168.29.235:8080/api/candidates/send-otp",
         formData,
         {
           headers: {
@@ -70,7 +70,7 @@ const Signup = ({ toggleForm }) => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/candidates/signup",
+        "http://192.168.29.235:8080/api/candidates/signup",
         formData,
         {
           headers: {

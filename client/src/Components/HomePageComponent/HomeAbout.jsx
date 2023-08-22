@@ -7,12 +7,12 @@ const HomeAbout = () => {
           <div className="mx-auto max-w-screen-xl px-4 md:px-8">
             <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
               <div>
-                <div className="h-64 flex justify-center items-center overflow-hidden rounded-lg bg-gray-200 shadow-2xl md:h-auto">
+                <div className="h-64 mx-10 my-10 flex justify-center items-center overflow-hidden rounded-lg bg-gray-200 shadow-2xl md:h-auto">
                   <img
                     src="https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?auto=format&q=75&fit=crop&w=600&h=750"
                     loading="lazy"
                     alt="Photo by Martin Sanchez"
-                    className="h-2/3 w-2/3 rounded-lg object-none object-center"
+                    className="h-full w-full rounded-lg object-none object-center"
                   />
                 </div>
               </div>

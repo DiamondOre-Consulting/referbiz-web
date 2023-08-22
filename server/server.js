@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 const app = express();
-const ip = "192.168.118.226";
+const ip = "192.168.29.235";
 dotenv.config();
 app.use(express.json());
 app.use(cors());
@@ -46,8 +46,8 @@ app.get('/', (req, res) => {
 })
 
 // Start the server
-app.listen(9001, ip, () => {
-  console.log(`Server running on ${ip}:9001`);
+app.listen(8080, ip, () => {
+  console.log(`Server running on ${ip}:8080`);
 });
 
 export default {otpStore, forgotOtp};

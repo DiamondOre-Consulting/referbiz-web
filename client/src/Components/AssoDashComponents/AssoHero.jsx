@@ -22,7 +22,7 @@ const AssoHero = () => {
     // Make API request to fetch user data
     const fetchData = async () => {
         try {
-          const response = await axios.get('http://localhost:8080/api/associates/user-data', {
+          const response = await axios.get('http://192.168.29.235:8080/api/associates/user-data', {
             headers: {
               Authorization: `Bearer ${token}`,
             },

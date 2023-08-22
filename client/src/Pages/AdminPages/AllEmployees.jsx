@@ -38,7 +38,7 @@ const AllEmployees = () => {
 
         // Fetch associates data from the backend
         const response = await axios.get(
-          "http://localhost:8080/api/admin-rb/admin-employees-data",
+          "http://192.168.29.235:8080/api/admin-rb/admin-employees-data",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -75,7 +75,7 @@ const AllEmployees = () => {
                 {associate?.profileImage ? (
                   <img
                     className="w-10 h-10 rounded-full border-2 border-indigo-600"
-                    src={`http://localhost:8080/` + associate?.profileImage}
+                    src={`http://192.168.29.235:8080/` + associate?.profileImage}
                     alt="avatar"
                   />
                 ) : (

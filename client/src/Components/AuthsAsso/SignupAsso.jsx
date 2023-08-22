@@ -37,7 +37,7 @@ const AssoSignup = ({toggleForm}) => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/associates/signup",
+        "http://192.168.29.235:8080/api/associates/signup",
         formData,
         {
           headers: {

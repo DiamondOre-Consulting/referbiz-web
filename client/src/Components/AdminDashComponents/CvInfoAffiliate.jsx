@@ -38,7 +38,7 @@ const CvInfoAffiliate = ({ candDetails }) => {
         }
 
         const response = await axios.get(
-          `http://localhost:8080/api/admin-rb/admin-affiliates-data/get-cv-data/${candDetails}`,
+          `http://192.168.29.235:8080/api/admin-rb/admin-affiliates-data/get-cv-data/${candDetails}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

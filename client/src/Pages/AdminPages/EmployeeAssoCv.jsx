@@ -42,7 +42,7 @@ const EmployeeAssoCv = () => {
 
         // Fetch associates data from the backend
         const response = await axios.get(
-          `http://localhost:8080/api/admin-rb/admin-associates-data/${id}`,
+          `http://192.168.29.235:8080/api/admin-rb/admin-associates-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -76,7 +76,7 @@ const EmployeeAssoCv = () => {
           <div className="flex flex-wrap items-center gap-10">
             {/* <img
               className="w-[100px] h-[100px] bg-indigo-400 rounded-full border-2 border-indigo-600"
-              src={`http://localhost:8080/` + details?.profileImage}
+              src={`http://192.168.29.235:8080/` + details?.profileImage}
               alt="Profile Image"
             /> */}
             <div className="flex flex-col items-left">

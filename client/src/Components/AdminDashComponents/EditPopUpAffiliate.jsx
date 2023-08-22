@@ -50,7 +50,7 @@ const EditPopUpAffiliate = () => {
       try {
         // Make a GET request to retrieve the user data
         const response = await axios.get(
-          `http://localhost:8080/api/admin-rb/admin-affiliates-data/get-cv-data/${id}`,
+          `http://192.168.29.235:8080/api/admin-rb/admin-affiliates-data/get-cv-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -84,7 +84,7 @@ const EditPopUpAffiliate = () => {
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/admin-rb/admin-affiliates-data/update-shortlisted-cv-sharing/${id}`,
+        `http://192.168.29.235:8080/api/admin-rb/admin-affiliates-data/update-shortlisted-cv-sharing/${id}`,
         { isShortlisted: formValues.isShortlisted },
         {
           headers: {
@@ -124,7 +124,7 @@ const EditPopUpAffiliate = () => {
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/admin-rb/admin-affiliates-data/update-joined-cv-sharing/${id}`,
+        `http://192.168.29.235:8080/api/admin-rb/admin-affiliates-data/update-joined-cv-sharing/${id}`,
         { isJoined: formValues.isJoined },
         {
           headers: {

@@ -38,6 +38,7 @@ import AdminForgotPassword from "./Components/AdminDashComponents/AdminForgotPas
 import AffiliateForgotPassword from "./Components/AuthsCan/AffiliateForgotPassword";
 import VerifyOTPAndUpdate from "./Components/AuthsCan/VerifyOTPAndUpdate";
 import HomeMain from "./Pages/HomePage/HomeMain";
+import AboutUs from "./Pages/HomePage/AboutUs";
 
 
 function App() {
@@ -47,6 +48,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home-main" element={<HomeMain/>} />
+          <Route path="/aboutus" element={<AboutUs/>} />
+          <Route path="/aboutus" element={<AboutUs/>} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/AssoAuth" element={<AssoAuthPage />} />
           <Route path="/login" element={<Login />} />

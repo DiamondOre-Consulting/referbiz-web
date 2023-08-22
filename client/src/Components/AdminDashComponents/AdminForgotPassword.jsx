@@ -29,7 +29,7 @@ const AdminForgotPassword = () => {
     // Perform signup logic here
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/admin-rb/forgot-password`,
+        `http://192.168.29.235:8080/api/admin-rb/forgot-password`,
         formValues,
       );
 

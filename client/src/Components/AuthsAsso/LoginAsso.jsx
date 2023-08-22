@@ -12,7 +12,7 @@ const AssoLogin = () => {
     e.preventDefault();
     // Perform login logic here
     try {
-      const response = await axios.post('http://localhost:8080/api/associates/login', {
+      const response = await axios.post('http://192.168.29.235:8080/api/associates/login', {
         email,
         password,
       });

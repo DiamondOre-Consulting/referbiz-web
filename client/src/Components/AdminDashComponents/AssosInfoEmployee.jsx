@@ -40,7 +40,7 @@ const AssosInfoEmployee = ({ candDetails }) => {
         }
 
         const response = await axios.get(
-          `http://localhost:8080/api/admin-rb/admin-associates-data/${candDetails}`,
+          `http://192.168.29.235:8080/api/admin-rb/admin-associates-data/${candDetails}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -69,7 +69,7 @@ const AssosInfoEmployee = ({ candDetails }) => {
             {candidate?.profileImage ? (
               <img
                 className="w-20 h-20 rounded-full border-2 border-indigo-600"
-                src={`http://localhost:8080/` + candidate?.profileImage}
+                src={`http://192.168.29.235:8080/` + candidate?.profileImage}
                 alt="avatar"
               />
             ) : (

@@ -9,7 +9,7 @@ const AssoBody = () => {
           Refer More, Earn More
         </h2>
         <div>
-            <CvSharing />
+            <CvSharingAsso />
         </div>
       </div>
     </section>

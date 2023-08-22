@@ -25,7 +25,7 @@ const AffiliateForgotPassword = () => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/candidates/forgot-password`,
+        `http://192.168.29.235:8080/api/candidates/forgot-password`,
         formValues,
       );
 
