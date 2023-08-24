@@ -6,6 +6,7 @@ import AdminHero from "../../Components/AdminDashComponents/AdminHero";
 import AdminFooter from "../../Components/AdminDashComponents/AdminFooter";
 import { useJwt } from "react-jwt";
 import CvInfoAffiliate from "../../Components/AdminDashComponents/CvInfoAffiliate";
+import FakeProfile from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/FakeProfile2.png";
 
 const EachAffiliate = () => {
   const [details, setDetails] = useState({});
@@ -53,9 +54,9 @@ const EachAffiliate = () => {
         console.log(response.data);
         // console.log(response.data.allCvInfo[0])
         setDetails(data);
-        const cvArr = response.data.allCvInfo
-        setAllCvs(cvArr)
-        console.log(allCvs)
+        const cvArr = response.data.allCvInfo;
+        setAllCvs(cvArr);
+        console.log(allCvs);
       } catch (error) {
         console.error("Error fetching associates:", error);
         // Handle error and show appropriate message
@@ -63,18 +64,25 @@ const EachAffiliate = () => {
     };
 
     fetchAffiliate();
-
   }, [decodedToken, navigate]);
   return (
     <>
       <AdminNav />
       <div className="px-[15rem] py-12 bg-gray-200 h-full">
         <div className="flex flex-wrap items-center gap-10">
-          <img
-            className="w-[100px] h-[100px] bg-indigo-400 rounded-full border-2 border-indigo-600"
-            src={`http://192.168.29.235:8080/` + details?.profileImage}
-            alt="Profile Image"
-          />
+          {details?.profileImage ? (
+            <img
+              className="w-[100px] h-[100px] bg-indigo-400 rounded-full border-2 border-indigo-600"
+              src={`http://192.168.29.235:8080/` + details?.profileImage}
+              alt="Profile Image"
+            />
+          ) : (
+            <img
+              className="w-[100px] h-[100px] rounded-full border-2 border-indigo-600"
+              src={FakeProfile}
+              alt="avatar"
+            />
+          )}
           <div className="flex flex-col items-left">
             <h1 className="text-4xl font-semibold text-indigo-600">
               {details.name}
@@ -123,12 +131,10 @@ const EachAffiliate = () => {
             </div>
           </div>
         </div>
-        <div
-          className="bg-gray-300 w-full shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg"
-        >
-        {allCvs.map((allCv) => (
-          <CvInfoAffiliate key={allCv} candDetails={allCv} />
-        ))}
+        <div className="bg-gray-300 w-full shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg">
+          {allCvs.map((allCv) => (
+            <CvInfoAffiliate key={allCv} candDetails={allCv} />
+          ))}
         </div>
       </div>
       <AdminFooter />

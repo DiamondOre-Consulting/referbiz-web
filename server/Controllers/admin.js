@@ -29,10 +29,11 @@ const randomKeyGen = (length) => {
 };
 
 // SIGNUP NEW ADMIN
-router.post("/admin-signup-rb", async (req, res) => {
+router.post("/admin-signup-rb", adminAuthToken, async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
+
     // Check if user already exists
     const userExists = await AdminUsers.exists({ email });
     if (userExists) {
@@ -84,7 +85,9 @@ router.post("/admin-login-rb", async (req, res) => {
       expiresIn: "1h",
     });
 
-    return res.status(200).json({ token });
+    const {key} = user;
+
+    return res.status(200).json({ token, key });
   } catch (error) {
     console.error("Error logging in:", error);
     return res.status(500).json({ message: "Internal server error" });
@@ -112,6 +115,7 @@ router.get("/admin-user-data", adminAuthToken, async (req, res) => {
       totalShortlisted,
       totalJoined,
       totalAmount,
+      key
     } = user;
     // console.log(user.totalShortlisted, " ", user.totalJoined)
 
@@ -124,6 +128,7 @@ router.get("/admin-user-data", adminAuthToken, async (req, res) => {
       totalShortlisted,
       totalJoined,
       totalAmount,
+      key
     });
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -694,7 +699,6 @@ router.get("/all-cv-admin", adminAuthToken, async (req, res) => {
     const allCv = await CvSharing.find({});
 
     // Extract the required fields from the user object
-    //   const { name, email, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
     console.log(allCv[1].refName, " and ", allCv[1].refUniqueEmailId);
     res.status(200).json(allCv);
   } catch (error) {
@@ -785,29 +789,40 @@ router.put(
       }
 
       // Find the associate by ID
-      const cvUserShortlist = await CvSharing.findByIdAndUpdate(id, {
-        $set: { isShortlisted: true },
-      });
+      const cvUserShortlist = await CvSharing.findByIdAndUpdate(
+        id,
+        {
+          $set: { isShortlisted: true },
+        },
+        { new: true }
+      );
       if (!cvUserShortlist) {
         return res.status(404).json({ message: "cv details not found" });
       }
 
+      await cvUserShortlist.save();
+      console.log(cvUserShortlist);
+
       console.log(cvUserShortlist.isShortlisted);
       if (cvUserShortlist.isShortlisted) {
         const assoUser = await AssoUsers.findOneAndUpdate(
-          { allCvInfo: cvId, totalShortlisted: { $ne: 1 } },
+          { allCvInfo: cvId },
           { $inc: { totalShortlisted: 1 } }
         );
+        await assoUser.save();
         console.log(assoUser);
         const empUser = await Employees.findOneAndUpdate(
-          { myAsso: assoUser._id, totalShortlisted: { $ne: 1 } },
+          { myAsso: assoUser._id },
           { $inc: { totalShortlisted: 1 } }
         );
+        await empUser.save();
         console.log(empUser);
       }
 
       // Save the updated associate
       await cvUserShortlist.save();
+
+      console.log(cvUserShortlist);
 
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {
@@ -837,68 +852,40 @@ router.put(
       }
 
       // Find the associate by ID
-      const cvUserJoined = await CvSharing.findByIdAndUpdate(id, {
-        $set: { isJoined: true },
-      });
+      const cvUserJoined = await CvSharing.findByIdAndUpdate(
+        id,
+        {
+          $set: { isJoined: true },
+        },
+        { new: true }
+      );
       if (!cvUserJoined) {
         return res.status(404).json({ message: "cv details not found" });
       }
 
-      // Update the cvSharing's fields
-      // if (!isShortlisted) {
-      //   cvUser.isShortlisted = cvUser.isShortlisted;
-      // } else {
-      //   cvUser.isShortlisted = isShortlisted;
-      //   const assoUser = await AssoUsers.findOneAndUpdate(
-      //     { "allCvInfo": cvId},
-      //     { $inc: { totalShortlisted: 1 } }
-      //   )
-      //   console.log(assoUser);
-      // }
+      await cvUserJoined.save();
+      console.log(cvUserJoined);
+
       console.log(cvUserJoined.isJoined);
       if (cvUserJoined.isJoined) {
         const assoUser = await AssoUsers.findOneAndUpdate(
-          { allCvInfo: cvId, totalJoined: { $ne: 1 } },
+          { allCvInfo: cvId },
           { $inc: { totalJoined: 1 } }
         );
+        await assoUser.save();
         console.log(assoUser);
         const empUser = await Employees.findOneAndUpdate(
-          { myAsso: assoUser._id, totalJoined: { $ne: 1 } },
+          { myAsso: assoUser._id },
           { $inc: { totalJoined: 1 } }
         );
+        await empUser.save();
         console.log(empUser);
       }
-
-      // if (!isJoined) {
-      //   cvUser.isJoined = cvUser.isJoined;
-      // } else {
-      //   cvUser.isJoined = isJoined;
-      //   const assoUser = await AssoUsers.find(
-      //     { allCvInfo: {$in: cvId} },
-      //     { $inc: { totalJoined: 1 } }
-      //   )
-      //   console.log(assoUser);
-      // }
 
       // Save the updated associate
       await cvUserJoined.save();
 
-      // const cvUserJoined = await CvSharing.findByIdAndUpdate(id, {
-      //   $set: { isJoined: true }
-      // });
-      // if (!cvUserJoined) {
-      //   return res.status(404).json({ message: "cv details not found" });
-      // }
-
-      // console.log(cvUserJoined.isJoined);
-      // if(cvUserJoined.isJoined) {
-      //   const assoUser = await AssoUsers.findOneAndUpdate(
-      //         { allCvInfo: cvId, totalJoined: { $ne: 1 } },
-      //         { $inc: { totalJoined: 1 } }
-      //       )
-      //       console.log(assoUser);
-      // }
-      // await cvUserJoined.save();
+      console.log(cvUserJoined);
 
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {
@@ -928,24 +915,35 @@ router.put(
       }
 
       // Find the associate by ID
-      const cvUserShortlist = await CvSharing.findByIdAndUpdate(id, {
-        $set: { isShortlisted: true },
-      });
-      if (!cvUserShortlist) {
-        return res.status(404).json({ message: "cv details not found" });
-      }
+      const cvUserShortlist = await CvSharing.findByIdAndUpdate(
+        id,
+        { $set: { isShortlisted: true } },
+        { new: true }
+      );
+
+      // Save the updated associate
+      await cvUserShortlist.save();
+      console.log(cvUserShortlist);
 
       console.log(cvUserShortlist.isShortlisted);
       if (cvUserShortlist.isShortlisted) {
         const affiUser = await Users.findOneAndUpdate(
-          { allCvInfo: cvId, totalShortlisted: { $ne: 1 } },
+          { allCvInfo: id },
           { $inc: { totalShortlisted: 1 } }
         );
-        console.log(affiUser);
+
+        if (affiUser) {
+          await affiUser.save();
+          console.log(affiUser);
+        } else {
+          console.log("No user found to update.");
+        }
       }
 
       // Save the updated associate
       await cvUserShortlist.save();
+
+      console.log(cvUserShortlist);
 
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {
@@ -975,24 +973,35 @@ router.put(
       }
 
       // Find the associate by ID
-      const cvUserJoined = await CvSharing.findByIdAndUpdate(id, {
-        $set: { isJoined: true },
-      });
-      if (!cvUserJoined) {
-        return res.status(404).json({ message: "cv details not found" });
-      }
+      const cvUserJoined = await CvSharing.findByIdAndUpdate(
+        id,
+        { $set: { isJoined: true } },
+        { new: true }
+      );
+
+      // Save the updated associate
+      await cvUserJoined.save();
+      console.log(cvUserJoined);
 
       console.log(cvUserJoined.isJoined);
       if (cvUserJoined.isJoined) {
         const affiUser = await Users.findOneAndUpdate(
-          { allCvInfo: cvId, totalJoined: { $ne: 1 } },
+          { allCvInfo: id },
           { $inc: { totalJoined: 1 } }
         );
-        console.log(affiUser);
+
+        if (affiUser) {
+          await affiUser.save();
+          console.log(affiUser);
+        } else {
+          console.log("No user found to update.");
+        }
       }
 
-      // Save the updated affiliate
+      // Save the updated associate
       await cvUserJoined.save();
+
+      console.log(cvUserJoined);
 
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {
@@ -1087,21 +1096,21 @@ router.put(
 
 // FORGOT PASSOWORD PROCESS
 router.put("/forgot-password", async (req, res) => {
-  const {email, key, password } = req.body;
+  const { email, key, password } = req.body;
 
   try {
     // const { id } = req.params;
-    console.log(key)
+    console.log(key);
 
     // Find the user in the database
-    const user = await AdminUsers.findOne({email});
+    const user = await AdminUsers.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "Admin not found" });
     }
 
-    console.log(user)
+    console.log(user);
 
-    if(user.key == key) {
+    if (user.key == key) {
       const hashedPassword = await bcrypt.hash(password, 10);
       user.password = hashedPassword;
     }

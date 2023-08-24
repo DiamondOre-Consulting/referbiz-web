@@ -59,7 +59,7 @@ const sendOTPByEmail = async (email, otp) => {
       to: `Recipient <${email}>`,
       subject: "One Time Password",
       text: `Your OTP is: ${otp}`,
-      html: `<h1 style="color: red;">Your OTP is: ${otp}</h1>`
+      html: `<h1 style="color: red;">Refer<span>Biz</span></h1>`,
     };
 
     const info = await transporter.sendMail(mailOptions);
@@ -72,16 +72,6 @@ const sendOTPByEmail = async (email, otp) => {
   }
 };
 
-// Verify OTP against stored OTP
-// const verifyOTP = (otpStore, otp) => {
-//   const storedOTP = otpStore[0];
-//   console.log("stored: ", storedOTP);
-//   if (storedOTP === otp) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// };
 
 // Initiate OTP sending
 router.post("/send-otp", uploadImg.single("profileImage"), async (req, res) => {
@@ -179,6 +169,15 @@ router.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
 
+    const updateUser = await User.findOneAndUpdate(
+      { email },
+      { $inc: { count: 1 } }
+    );
+
+    await updateUser.save();
+
+    console.log(updateUser)
+
     return res.status(200).json({ token });
   } catch (error) {
     console.error("Error logging in:", error);
@@ -207,7 +206,11 @@ router.get("/user-data", authenticateToken, async (req, res) => {
       totalShortlisted,
       totalJoined,
       totalAmount,
+      document,
+      count
     } = user;
+
+    console.log(user.count)
 
     res.status(200).json({
       id,
@@ -218,6 +221,8 @@ router.get("/user-data", authenticateToken, async (req, res) => {
       totalShortlisted,
       totalJoined,
       totalAmount,
+      document,
+      count
     });
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -352,7 +357,8 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     // Set the file name to be the original name of the uploaded file
-    cb(null, file.originalname);
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.originalname + "-" + uniqueSuffix + path.extname(file.originalname));
   },
 });
 

@@ -308,7 +308,7 @@ const Signup = ({ toggleForm }) => {
             </button>
           </form>
         ) : (
-          (<h1>LOADING...</h1>)
+          ""
         )}
       </div>
     </div>

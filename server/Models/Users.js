@@ -52,6 +52,10 @@ const userSchema = new mongoose.Schema({
   },
   otp: {
     type: String,
+  },
+  count: {
+    type: Number,
+    default: 0
   }
 });
 

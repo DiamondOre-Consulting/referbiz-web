@@ -1,11 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import HomeAbout from "../../Components/HomePageComponent/HomeAbout";
 import HomeFooter from "../../Components/HomePageComponent/HomeFooter";
 
 const AboutUs = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+    console.log(menuOpen)
+  };
   return (
-    <div className="px-12">
+    <div >
       {/* Navbar Start */}
       <div className="bg-white pb-1 sm:pb-1 lg:pb-1">
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
@@ -41,18 +47,18 @@ const AboutUs = () => {
               >
                 About Us
               </Link>
-              <a
-                href="#"
-                className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
-              >
-                Services
-              </a>
-              <a
-                href="#"
+              <Link
+                  to={'/services'}
+                  className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
+                >
+                  Services
+                </Link>
+              <Link
+                to={'/contactmain'}
                 className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
               >
                 Contact Us
-              </a>
+              </Link>
             </nav>
 
             <a
@@ -64,6 +70,7 @@ const AboutUs = () => {
 
             <button
               type="button"
+              onClick={toggleMenu}
               className="inline-flex items-center gap-2 rounded-lg bg-gray-200 px-2.5 py-2 text-sm font-semibold text-gray-500 ring-indigo-300 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:hidden"
             >
               <svg
@@ -81,6 +88,57 @@ const AboutUs = () => {
               Menu
             </button>
           </header>
+          <ul
+            className={`gap-10 ${
+              menuOpen ? "block" : "hidden"
+            } w-full flex flex-col items-center justify-center mb-14`}
+          >
+            <Link to={"/home-main"}>
+              <li
+                className={`${
+                  menuOpen ? "block" : "hidden"
+                } transition ease-in-out delay-150 px-32 py-3 text-gray-600 text-lg font-semibold hover:bg-indigo-500 hover:text-white hover:-translate-y-1 hover:scale-110 duration-250`}
+              >
+                Home
+              </li>
+            </Link>
+            <Link to={"/aboutus"}>
+              <li
+                className={`${
+                  menuOpen ? "block" : "hidden"
+                } px-32 py-3 text-gray-600 text-lg font-semibold hover:bg-indigo-500 hover:text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-250`}
+              >
+                About Us
+              </li>
+            </Link>
+            <Link to={"/services"}>
+              <li
+                className={`${
+                  menuOpen ? "block" : "hidden"
+                } px-32 py-3 text-gray-600 text-lg font-semibold hover:bg-indigo-500 hover:text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-250`}
+              >
+                Services
+              </li>
+            </Link>
+            <Link to={"/contactmain"}>
+              <li
+                className={`${
+                  menuOpen ? "block" : "hidden"
+                } px-32 py-3 text-gray-600 text-lg font-semibold hover:bg-indigo-500 hover:text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-250`}
+              >
+                Contact Us
+              </li>
+            </Link>
+            <Link to={"/home-main"}>
+              <li
+                className={`${
+                  menuOpen ? "block" : "hidden"
+                } px-32 py-3 text-lg font-semibold bg-indigo-500 text-white hover:bg-indigo-700 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-250`}
+              >
+                Signin
+              </li>
+            </Link>
+          </ul>
         </div>
       </div>
       {/* Navbar End */}

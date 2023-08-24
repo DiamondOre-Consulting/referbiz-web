@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useJwt } from "react-jwt";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import PopupCard from "../Components/Instructions/PopupCard";
 import AffNav from "../Components/AffDashComponents/AffNav";
 import AffHero from "../Components/AffDashComponents/AffHero";
@@ -8,6 +9,8 @@ import AffBody from "../Components/AffDashComponents/AffBody";
 import AffFooter from "../Components/AffDashComponents/AffFooter";
 
 const Dashboard = () => {
+  const [popUp, setPopUp] = useState(0);
+  const [popping, setPopping] = useState(false);
   const navigate = useNavigate();
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
@@ -26,14 +29,30 @@ const Dashboard = () => {
         localStorage.removeItem("token");
         navigate("/login");
       }
+      
+      const fetchUserData = async () => {
+        try {
+          // Make a GET request to retrieve the user data
+          const response = await axios.get('http://192.168.29.235:8080/api/candidates/user-data', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }); // Replace '/api/user' with the appropriate endpoint
+  
+          // Set the user data in state
+          setPopUp(response.data.count);
+          console.log(response.data)
+          
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  
+      fetchUserData();
     }
   }, [decodedToken, navigate]);
 
-  // const handleLogout = () => {
-  //   localStorage.removeItem("token");;
-  //   window.location.href = "/login";
-  //   console.log("Logging out");
-  // };
+  console.log(popUp)
 
   return (
     <>
@@ -43,7 +62,8 @@ const Dashboard = () => {
         <AffBody />
       </div>
       <AffFooter />
-      <PopupCard/>
+      <h1>{popUp}</h1>
+      {(popUp === 1) ? <PopupCard/> : "" }
     </>
   );
 };

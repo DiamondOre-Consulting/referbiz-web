@@ -9,7 +9,7 @@ import HomeFooter from "../../Components/HomePageComponent/HomeFooter";
 const HomeMain = () => {
   return (
     <>
-      <div className="px-12">
+      <div >
         {/* Header and Nav Section Start */}
         <HomeNav />
         {/* Header and Nav Section End */}

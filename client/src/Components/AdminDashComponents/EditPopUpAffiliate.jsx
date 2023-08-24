@@ -96,10 +96,11 @@ const EditPopUpAffiliate = () => {
 
       if (response.status === 200) {
         console.log("Updated Profile Successfully!!");
-        localStorage.removeItem("token");
-        window.location.href = "/auth-admin-login";
-        console.log("Logging out");
+        // localStorage.removeItem("token");
+        // window.location.href = "/auth-admin-login";
+        // console.log("Logging out");
         // Redirect to login page or perform other actions
+        navigate('/admin-panel-confi');
       } else {
         console.log("Signup failed");
         // Handle signup error
