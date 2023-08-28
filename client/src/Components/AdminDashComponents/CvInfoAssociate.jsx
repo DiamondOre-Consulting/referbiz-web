@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const CvInfoAssociate = ({ candDetails }) => {
   console.log(candDetails);
@@ -62,6 +63,11 @@ const CvInfoAssociate = ({ candDetails }) => {
     <div>
       <div className="bg-gray-300 shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg my-7">
         {candidate ? (
+          <Link
+          to={`/admin-all-associates/each-associate/cv-details/${candidate?._id}`}
+          key={candidate?._id}
+          className="flex justify-between gap-2 items-center mt-4"
+        >
           <div
             key={candidate?._id}
             className="flex justify-between gap-2 items-center mt-4"
@@ -127,6 +133,7 @@ const CvInfoAssociate = ({ candDetails }) => {
               </span>{" "}
             </div>
           </div>
+          </Link>
         ) : (
           <p>Loading...</p>
         )}

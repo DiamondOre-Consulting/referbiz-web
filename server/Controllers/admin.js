@@ -3,13 +3,15 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import adminAuthToken from "../Middlewares/adminAuthToken.js";
-
+import path from "path"
 import AdminUsers from "../Models/AdminUsers.js";
 import Users from "../Models/Users.js";
 import AssoUsers from "../Models/AssoUsers.js";
 import CvSharing from "../Models/CvSharing.js";
 import Employees from "../Models/Employees.js";
 dotenv.config();
+
+const __dirname = path.resolve(path.dirname(''));
 
 const secretKey = process.env.ADMIN_JWT_SECRET;
 
@@ -729,10 +731,10 @@ router.get(
       if (!cvById) {
         return res.status(404).json({ message: "Cv Details not found" });
       }
-
+  
       res.status(200).json(cvById);
     } catch (error) {
-      console.error("Error retrieving associate:", error);
+      console.error("Error retrieving affiliate:", error);
       res.status(500).json({ message: "Internal server error" });
     }
   }
@@ -1093,6 +1095,66 @@ router.put(
     }
   }
 );
+
+// PREVIEW CV BY ID
+router.get("/get-cv-preview/:id", async(req,res)=> {
+  console.log("This is CV Preview")
+  const {id} = req.params
+  console.log(__dirname)
+
+  try {
+    // Get the user's email from the decoded token
+    // const { email } = req.user;
+
+    // Find the user in the database
+    // const user = await AdminUsers.findOne({ email });
+    // if (!user) {
+    //   return res.status(404).json({ message: "Admin not found" });
+    // }
+
+    // Find the affiliate by ID
+    const cvById = await CvSharing.findById(id);
+    if (!cvById) {
+      return res.status(404).json({ message: "Cv Details not found" });
+    }
+
+    res.setHeader('Content-Type', 'application/pdf');
+    return res.sendFile(path.join(__dirname,"/Uploads",cvById?.PDF))
+  } catch (error) {
+    console.error("Error retrieving associate:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+})
+
+// PREVIEW ASSOCIATE CV BY ID
+router.get("/get-asso-cv-preview/:id", async(req,res)=> {
+  console.log("This is CV Preview")
+  const {id} = req.params;
+  console.log(__dirname)
+
+  try {
+    // Get the user's email from the decoded token
+    // const { email } = req.user;
+
+    // Find the user in the database
+    // const user = await AdminUsers.findOne({ email });
+    // if (!user) {
+    //   return res.status(404).json({ message: "Admin not found" });
+    // }
+
+    // Find the affiliate by ID
+    const cvById = await CvSharing.findById(id);
+    if (!cvById) {
+      return res.status(404).json({ message: "Cv Details not found" });
+    }
+
+    res.setHeader('Content-Type', 'application/pdf');
+    return res.sendFile(path.join(__dirname,"/AssociateCv",cvById?.PDF))
+  } catch (error) {
+    console.error("Error retrieving associate:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+})
 
 // FORGOT PASSOWORD PROCESS
 router.put("/forgot-password", async (req, res) => {

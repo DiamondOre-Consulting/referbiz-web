@@ -1,9 +1,9 @@
 import express, { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 import multer from "multer";
-import path from 'path';
+import path from "path";
 import authenticateToken from "../Middlewares/authenticateToken.js";
 
 import AssoUser from "../Models/AssoUsers.js";
@@ -19,20 +19,31 @@ const router = express.Router();
 const picStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     // Specify the directory where you want to store the uploaded files
-    cb(null, 'ProfileImgUploads');
+    cb(null, "ProfileImgUploads");
   },
   filename: function (req, file, cb) {
     // Set the file name to be the original name of the uploaded file
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(
+      null,
+      file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
+    );
     // cb(null, file.originalname);
-  }
+  },
 });
 
 const uploadImg = multer({ storage: picStorage });
 
-router.post("/signup", uploadImg.single('profileImage') ,async (req, res) => {
-  const { name, email, password, mentorName, mentorEmail, allCvInfo, document } = req.body;
+router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
+  const {
+    name,
+    email,
+    password,
+    mentorName,
+    mentorEmail,
+    allCvInfo,
+    document,
+  } = req.body;
   const profileImage = req.file;
 
   try {
@@ -60,13 +71,13 @@ router.post("/signup", uploadImg.single('profileImage') ,async (req, res) => {
     // Save the user to the database
     await newUser.save();
 
-    const emp =  await Employees.findOneAndUpdate(
+    const emp = await Employees.findOneAndUpdate(
       { EmpEmail: mentorEmail }, // Match the candidate ID
       {
         // $inc: { totalShared: 1 },
-        $push: { myAsso: newUser._id } 
+        $push: { myAsso: newUser._id },
       }
-      );
+    );
 
     console.log(emp);
 
@@ -97,9 +108,13 @@ router.post("/login", async (req, res) => {
 
     console.log(user._id);
     // Generate JWT token
-    const token = jwt.sign({ id: user._id, name: user.name, email: user.email }, secretKey, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { id: user._id, name: user.name, email: user.email },
+      secretKey,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     return res.status(200).json({ token });
   } catch (error) {
@@ -108,9 +123,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
-
-router.get('/user-data', authenticateToken, async (req, res) => {
+router.get("/user-data", authenticateToken, async (req, res) => {
   try {
     // Get the user's email from the decoded token
     const { email } = req.user;
@@ -118,57 +131,52 @@ router.get('/user-data', authenticateToken, async (req, res) => {
     // Find the user in the database
     const user = await AssoUser.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     // Extract the required fields from the user object
-    const {id, name, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+    const {
+      id,
+      name,
+      profileImage,
+      totalShared,
+      totalShortlisted,
+      totalJoined,
+      totalAmount,
+    } = user;
     // console.log(user.totalShortlisted, " ", user.totalJoined)
 
-    res.status(200).json({ id, name, email, profileImage ,totalShared, totalShortlisted, totalJoined, totalAmount });
+    res
+      .status(200)
+      .json({
+        id,
+        name,
+        email,
+        profileImage,
+        totalShared,
+        totalShortlisted,
+        totalJoined,
+        totalAmount,
+      });
   } catch (error) {
-    console.error('Error fetching user data:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
-
-// router.get('/user-data-me',  async (req, res) => {
-//   try {
-//     // Get the user's email from the decoded token
-//     const { email } = req.user;
-
-//     // Find the user in the database
-//     const user = await AssoUser.findOne({ email });
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     // Extract the required fields from the user object
-//     const {id, name, profileImage, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
-//     // console.log(user.totalShortlisted, " ", user.totalJoined)
-
-//     res.status(200).json({ id, name, email, profileImage ,totalShared, totalShortlisted, totalJoined, totalAmount });
-//   } catch (error) {
-//     console.error('Error fetching user data:', error);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
 
 // UPDATE A PARTICULAR AFFILIATE
 router.put(
   "/associates-user-data/update/:id",
-  authenticateToken, uploadImg.single('profileImage'),
+  authenticateToken,
+  uploadImg.single("profileImage"),
   async (req, res) => {
-    const {
-      name,
-      email,
-    } = req.body;
+    const { name, email } = req.body;
     const profileImage = req.file;
 
     try {
       // Get the user's email from the decoded token
       const { id } = req.params;
-      console.log(id)
+      console.log(id);
 
       // Find the affiliate by ID
       const associate = await AssoUser.findById(id);
@@ -206,85 +214,94 @@ router.put(
   }
 );
 
-
 // HANDLE CV SHARING FORM
 // Define storage options for Multer
-const storage = multer.diskStorage({
+const AssociateCVs = multer.diskStorage({
   destination: function (req, file, cb) {
     // Specify the directory where you want to store the uploaded files
-    cb(null, 'C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/server/Uploads/');
+    cb(null, "AssociateCv");
   },
   filename: function (req, file, cb) {
     // Set the file name to be the original name of the uploaded file
-    cb(null, file.originalname);
-  }
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(
+      null,
+      file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
+    );
+  },
 });
 
 // Create the Multer upload instance
-const upload = multer({ storage: storage });
+const uploadAssoCv = multer({ storage: AssociateCVs });
 
-router.post('/associate-contact-form', authenticateToken, upload.single('document'), async (req, res) => {
-  const { refName, refPhone, refUniqueEmailId, userEmail } = req.body;
+router.post(
+  "/associate-contact-form",
+  authenticateToken,
+  uploadAssoCv.single("document"),
+  async (req, res) => {
+    const { refName, refPhone, refUniqueEmailId, userEmail } = req.body;
 
-  const uploadedFile = req.file;
+    const uploadedFile = req.file;
 
-  const { email, id } = req.user;
-  console.log(id);
+    const { email, id } = req.user;
+    console.log(id);
 
-  // Handle form submission and file upload logic
-  if (!uploadedFile) {
-    return res.status(400).json({ error: 'No file uploaded' });
+    // Handle form submission and file upload logic
+    if (!uploadedFile) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    // Perform any necessary validation on the form fields
+    if (!refName || !refPhone || !refUniqueEmailId) {
+      return res
+        .status(400)
+        .json({ error: "Name, email, and phone number are required fields" });
+    }
+
+    // Save the file to the desired location
+    const filePath = uploadedFile.path; // Get the file path
+
+    try {
+      // Create a new contact form entry and save it to the database
+      const cvSharing = new CvSharing({
+        refName,
+        refPhone,
+        refUniqueEmailId,
+        userEmail: email,
+        PDF: uploadedFile?.filename,
+        // user: req.user.email, // Associate the form entry with the logged-in user
+      });
+      await cvSharing.save();
+
+      // Update totalShared count for the associated candidate
+      const asso = await AssoUser.findOneAndUpdate(
+        { email: email }, // Match the candidate ID
+        {
+          $inc: { totalShared: 1 },
+          $push: { allCvInfo: cvSharing._id },
+        }
+      );
+
+      console.log("req.user._id:", req.user.id);
+      const empMentor = await Employees.findOneAndUpdate(
+        { myAsso: { $in: [id] } }, // Match the candidate ID
+        {
+          $inc: { totalShared: 1 },
+          $push: { allCvInfo: cvSharing._id },
+        }
+      );
+
+      console.log("empMentor:", empMentor);
+
+      console.log(asso);
+
+      res.status(201).json({ message: "Form submitted successfully" });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
   }
-
-  // Perform any necessary validation on the form fields
-  if (!refName || !refPhone || !refUniqueEmailId) {
-    return res.status(400).json({ error: 'Name, email, and phone number are required fields' });
-  }
-
-  // Save the file to the desired location
-  const filePath = uploadedFile.path; // Get the file path
-
-  try {
-    // Create a new contact form entry and save it to the database
-    const cvSharing = new CvSharing({
-      refName,
-      refPhone,
-      refUniqueEmailId,
-      userEmail: email, // Save the user's email along with the form data
-      document: filePath,
-      // user: req.user.email, // Associate the form entry with the logged-in user
-    });
-    await cvSharing.save();
-
-    // Update totalShared count for the associated candidate
-    const asso = await AssoUser.findOneAndUpdate(
-      { email: email }, // Match the candidate ID
-      {
-        $inc: { totalShared: 1 },
-        $push: { allCvInfo: cvSharing._id } 
-      }
-    );
-
-    console.log("req.user._id:", req.user.id);
-    const empMentor = await Employees.findOneAndUpdate(
-      { myAsso: { $in: [id] } }, // Match the candidate ID
-      {
-        $inc: { totalShared: 1 },
-        $push: { allCvInfo: cvSharing._id }   
-      }
-    );
-
-    console.log("empMentor:", empMentor);
-
-      console.log(asso)
-
-    res.status(201).json({ message: 'Form submitted successfully' });
-  } catch (error) {
-    console.error('Error submitting form:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
-
+);
 
 router.post("/contactus", async (req, res) => {
   const { name, email, message } = req.body;
@@ -300,13 +317,11 @@ router.post("/contactus", async (req, res) => {
     // Save the user to the database
     await newMessage.save();
 
-    return res
-      .status(202)
-      .json({ message: "Message Sent Successfully!!!" });
+    return res.status(202).json({ message: "Message Sent Successfully!!!" });
   } catch (error) {
     console.error("Error creating user:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 });
- 
+
 export default router;

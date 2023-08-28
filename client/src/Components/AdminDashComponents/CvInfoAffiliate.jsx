@@ -63,7 +63,8 @@ const CvInfoAffiliate = ({ candDetails }) => {
     <div>
       <div className="bg-gray-300 shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg my-7">
         {candidate ? (
-          <div
+          <Link
+            to={`/admin-all-affiliates/each-affiliate/cv-details/${candidate?._id}`}
             key={candidate?._id}
             className="flex justify-between gap-2 items-center mt-4"
           >
@@ -117,22 +118,12 @@ const CvInfoAffiliate = ({ candDetails }) => {
             <div className="flex flex-col items-center">
               <p className="text-sm">Candidate Shortlisted </p>
               <span className="text-indigo-700 font-semibold">
-                {/* {candidate
-                  ? candidate &&
-                    candidate.isShortlisted &&
-                    candidate.isShortlisted.toString()
-                  : false} */}
                   {shortlisting}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
               <p className="text-sm">Candidate Joined </p>
               <span className="text-indigo-700 font-semibold">
-                {/* {candidate
-                  ? candidate &&
-                    candidate.isShortlisted &&
-                    candidate.isShortlisted.toString()
-                  : false} */}
                   {joining}
               </span>{" "}
             </div>
@@ -144,7 +135,7 @@ const CvInfoAffiliate = ({ candDetails }) => {
                 Edit
               </p> 
             </Link>
-          </div>
+          </Link>
         ) : (
           <p>Loading...</p>
         )}

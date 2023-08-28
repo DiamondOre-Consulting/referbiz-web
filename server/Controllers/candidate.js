@@ -98,6 +98,7 @@ router.post("/send-otp", uploadImg.single("profileImage"), async (req, res) => {
   }
 });
 
+// SIGNUP AS ADMIN
 router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
   const { otp, name, email, password } = req.body;
   const profileImage = req.file;
@@ -148,6 +149,7 @@ router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
   // }
 });
 
+// LOGIN AS ADMIN
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -352,13 +354,13 @@ const storage = multer.diskStorage({
     // Specify the directory where you want to store the uploaded files
     cb(
       null,
-      "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/server/Uploads/"
+      "Uploads"
     );
   },
   filename: function (req, file, cb) {
     // Set the file name to be the original name of the uploaded file
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.originalname + "-" + uniqueSuffix + path.extname(file.originalname));
+    cb(null, file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname));
   },
 });
 
@@ -398,8 +400,8 @@ router.post(
         refName,
         refPhone,
         refUniqueEmailId,
-        userEmail: email, // Save the user's email along with the form data
-        document: filePath,
+        userEmail: email, 
+        PDF: uploadedFile?.filename,
         // user: req.user.email, // Associate the form entry with the logged-in user
       });
       await cvSharing.save();

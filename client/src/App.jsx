@@ -41,6 +41,8 @@ import HomeMain from "./Pages/HomePage/HomeMain";
 import AboutUs from "./Pages/HomePage/AboutUs";
 import Services from "./Pages/HomePage/Services";
 import ContactUs from "./Pages/HomePage/ContactUs";
+import CvInfoPage from "./Pages/AdminPages/CvInfoPage";
+import CvInfoPageAsso from "./Pages/AdminPages/CvInfoPageAsso";
 
 
 function App() {
@@ -76,6 +78,8 @@ function App() {
           <Route path="/admin-all-cvs" element={<AllCVs />} />
           <Route path="/admin-all-affiliates/each-affiliate/:id" element={<EachAffiliate />} />
           <Route path="/admin-all-affiliates/each-affiliate/each-cv/:id" element={<EditPopUpAffiliate />} />
+          <Route path="/admin-all-affiliates/each-affiliate/cv-details/:id" element={<CvInfoPage />} />
+          <Route path="/admin-all-associates/each-associate/cv-details/:id" element={<CvInfoPageAsso />} />
           <Route path="/admin-all-associates/each-associate/:id" element={<EachAssociate />} />
           <Route path="/admin-all-associates/each-associate/update/:id" element={<EditPopUpAssociate />} />
           <Route path="/admin-all-employees/:id" element={<EachEmployee />} />
