@@ -4,6 +4,14 @@ import { useJwt } from "react-jwt";
 import Dropzone from "react-dropzone";
 
 const CvSharing = () => {
+  const [showPopup, setShowPopup] = useState(true);
+  const [submitted, setSubmitted] = useState(null);
+
+  const handleClose = () => {
+    setShowPopup(false);
+    setSubmitted(null);
+  };
+
   const [formValues, setFormValues] = useState({
     refName: "",
     refPhone: "",
@@ -56,6 +64,7 @@ const CvSharing = () => {
         refUniqueEmailId: "",
         document: null,
       });
+      setSubmitted(true);
     } catch (error) {
       console.error(error);
     }
@@ -140,6 +149,35 @@ const CvSharing = () => {
             </div>
 
           </form>
+          {submitted ? (
+            <div
+              className={`fixed inset-0 flex items-center justify-center ${
+                showPopup ? "visible" : "hidden"
+              }`}
+            >
+              <section className="rounded-3xl shadow-2xl bg-gray-200">
+                <div className="p-8 text-center sm:p-12">
+                  <p className="text-sm font-semibold uppercase tracking-widest text-pink-500">
+                    Submitted Successfully!!!
+                  </p>
+
+                  <h2 className="mt-6 text-3xl font-bold">
+                    Thanks for sharing resume, we'll get back to you soon!
+                  </h2>
+
+                  <button
+                    className="mt-8 inline-block w-full rounded-full bg-pink-600 py-4 text-sm font-bold text-white shadow-xl"
+                    onClick={handleClose}
+                  >
+                    OK
+                  </button>
+                </div>
+              </section>
+            </div>
+          ) : (
+            ""
+          )}
+          {submitted === false ? <h1>Something went wrong</h1> : ""}
         </div>
     </>
   );

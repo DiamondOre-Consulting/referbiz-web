@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 import axios from "axios";
-import Logo from "../AffDashComponents/RB_LOGO.png"
+import Logo from "../AffDashComponents/RB_LOGO.png";
+import RB_logo from "../../../src/assets/RB_100_New.png";
 import FakeProfile from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/FakeProfile2.png";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -76,8 +77,8 @@ const AffNav = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="flex-1 md:flex md:items-center md:gap-12">
             <a className="block text-teal-600" href="/">
-              <img className="block w-20 md:w-32 sm:w-24" src={Logo} alt="Logo" />
-            </a>
+              <img className="block w-20 md:w-32 sm:w-24" src={RB_logo} alt="Logo" />
+            </a> 
           </div>
 
           <div className="flex items-center gap-4">

@@ -3,21 +3,21 @@ import React from 'react'
 const HomeFooter = () => {
   return (
     <div>
-        <div class="bg-white pt-4 sm:pt-10 lg:pt-12">
-          <footer class="mx-auto max-w-screen-2xl px-4 md:px-8">
-            <div class="mb-16 grid grid-cols-2 gap-12 border-t pt-10 md:grid-cols-4 lg:grid-cols-6 lg:gap-8 lg:pt-12">
-              <div class="col-span-full lg:col-span-2">
-                <div class="mb-4 lg:-mt-2">
+        <div className="bg-white pt-4 sm:pt-10 lg:pt-12">
+          <footer className="mx-auto max-w-screen-2xl px-4 md:px-8">
+            <div className="mb-16 grid grid-cols-2 gap-12 border-t pt-10 md:grid-cols-4 lg:grid-cols-6 lg:gap-8 lg:pt-12">
+              <div className="col-span-full lg:col-span-2">
+                <div className="mb-4 lg:-mt-2">
                   <a
                     href="/"
-                    class="inline-flex items-center gap-2 text-xl font-bold text-black md:text-2xl"
+                    className="inline-flex items-center gap-2 text-xl font-bold text-black md:text-2xl"
                     aria-label="logo"
                   >
                     <svg
                       width="95"
                       height="94"
                       viewBox="0 0 95 94"
-                      class="h-auto w-5 text-indigo-500"
+                      className="h-auto w-5 text-indigo-500"
                       fill="currentColor"
                       xmlns="http://www.w3.org/2000/svg"
                     >
@@ -27,19 +27,19 @@ const HomeFooter = () => {
                   </a>
                 </div>
 
-                <p class="mb-6 text-gray-500 sm:pr-8">
+                <p className="mb-6 text-gray-500 sm:pr-8">
                   Filler text is dummy text which has no meaning however looks
                   very similar to real text.
                 </p>
 
-                <div class="flex gap-4">
+                <div className="flex gap-4">
                   <a
                     href="#"
                     target="_blank"
-                    class="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600"
+                    className="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600"
                   >
                     <svg
-                      class="h-5 w-5"
+                      className="h-5 w-5"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -53,10 +53,10 @@ const HomeFooter = () => {
                   <a
                     href="#"
                     target="_blank"
-                    class="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600"
+                    className="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600"
                   >
                     <svg
-                      class="h-5 w-5"
+                      className="h-5 w-5"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -70,10 +70,10 @@ const HomeFooter = () => {
                   <a
                     href="#"
                     target="_blank"
-                    class="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600"
+                    className="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600"
                   >
                     <svg
-                      class="h-5 w-5"
+                      className="h-5 w-5"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -87,10 +87,10 @@ const HomeFooter = () => {
                   <a
                     href="#"
                     target="_blank"
-                    class="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600"
+                    className="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600"
                   >
                     <svg
-                      class="h-5 w-5"
+                      className="h-5 w-5"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -104,15 +104,15 @@ const HomeFooter = () => {
               </div>
 
               <div>
-                <div class="mb-4 font-bold uppercase tracking-widest text-gray-800">
+                <div className="mb-4 font-bold uppercase tracking-widest text-gray-800">
                   Products
                 </div>
 
-                <nav class="flex flex-col gap-4">
+                <nav className="flex flex-col gap-4">
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Overview
                     </a>
@@ -121,7 +121,7 @@ const HomeFooter = () => {
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Solutions
                     </a>
@@ -130,7 +130,7 @@ const HomeFooter = () => {
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Pricing
                     </a>
@@ -139,7 +139,7 @@ const HomeFooter = () => {
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Customers
                     </a>
@@ -148,15 +148,15 @@ const HomeFooter = () => {
               </div>
 
               <div>
-                <div class="mb-4 font-bold uppercase tracking-widest text-gray-800">
+                <div className="mb-4 font-bold uppercase tracking-widest text-gray-800">
                   Company
                 </div>
 
-                <nav class="flex flex-col gap-4">
+                <nav className="flex flex-col gap-4">
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       About
                     </a>
@@ -165,7 +165,7 @@ const HomeFooter = () => {
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Investor Relations
                     </a>
@@ -174,7 +174,7 @@ const HomeFooter = () => {
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Jobs
                     </a>
@@ -183,7 +183,7 @@ const HomeFooter = () => {
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Press
                     </a>
@@ -192,7 +192,7 @@ const HomeFooter = () => {
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Blog
                     </a>
@@ -201,15 +201,15 @@ const HomeFooter = () => {
               </div>
 
               <div>
-                <div class="mb-4 font-bold uppercase tracking-widest text-gray-800">
+                <div className="mb-4 font-bold uppercase tracking-widest text-gray-800">
                   Support
                 </div>
 
-                <nav class="flex flex-col gap-4">
+                <nav className="flex flex-col gap-4">
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Contact
                     </a>
@@ -218,7 +218,7 @@ const HomeFooter = () => {
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Documentation
                     </a>
@@ -227,7 +227,7 @@ const HomeFooter = () => {
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Chat
                     </a>
@@ -236,7 +236,7 @@ const HomeFooter = () => {
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       FAQ
                     </a>
@@ -245,15 +245,15 @@ const HomeFooter = () => {
               </div>
 
               <div>
-                <div class="mb-4 font-bold uppercase tracking-widest text-gray-800">
+                <div className="mb-4 font-bold uppercase tracking-widest text-gray-800">
                   Legal
                 </div>
 
-                <nav class="flex flex-col gap-4">
+                <nav className="flex flex-col gap-4">
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Terms of Service
                     </a>
@@ -262,7 +262,7 @@ const HomeFooter = () => {
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Privacy Policy
                     </a>
@@ -271,7 +271,7 @@ const HomeFooter = () => {
                   <div>
                     <a
                       href="#"
-                      class="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                      className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
                       Cookie settings
                     </a>
@@ -280,7 +280,7 @@ const HomeFooter = () => {
               </div>
             </div>
 
-            <div class="border-t py-8 text-center text-sm text-gray-400">
+            <div className="border-t py-8 text-center text-sm text-gray-400">
               © 2021 - Present Flowrift. All rights reserved.
             </div>
           </footer>

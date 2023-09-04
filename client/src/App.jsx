@@ -43,6 +43,7 @@ import Services from "./Pages/HomePage/Services";
 import ContactUs from "./Pages/HomePage/ContactUs";
 import CvInfoPage from "./Pages/AdminPages/CvInfoPage";
 import CvInfoPageAsso from "./Pages/AdminPages/CvInfoPageAsso";
+import ResumeBuilding from "./Pages/HomePage/ResumeBuilding";
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home-main" element={<HomeMain/>} />
+          <Route path="/resume-building" element={<ResumeBuilding/>} />
           <Route path="/aboutus" element={<AboutUs/>} />
           <Route path="/services" element={<Services/>} />
           <Route path="/contactmain" element={<ContactUs/>} />

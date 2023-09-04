@@ -232,12 +232,12 @@ const Services = () => {
             </span>
           </h2>
 
-          <a
+          <Link
             className="mt-8 inline-block w-full bg-black py-4 text-sm font-bold uppercase tracking-widest text-white"
-            href=""
+            to={'/resume-building'}
           >
-            Get Discount
-          </a>
+            Fill Out The Form
+          </Link>
 
           <p className="mt-8 text-xs font-medium uppercase text-gray-400">
             Offer valid until 24th March, 2021 *
