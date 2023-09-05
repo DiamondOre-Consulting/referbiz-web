@@ -44,8 +44,9 @@ const HomeContactUs = () => {
             </h1>
 
             <p className="mt-4 text-gray-500">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Et libero
-              nulla eaque error neque ipsa culpa autem, at itaque nostrum!
+              Feel free to get in touch with us for any questions, concerns, or
+              feedback. We're here to assist you on your journey to career
+              success. Your success is our priority!
             </p>
           </div>
 
@@ -209,34 +210,34 @@ const HomeContactUs = () => {
           />
         </div>
         {submitted ? (
-            <div
-              className={`fixed inset-0 flex items-center justify-center ${
-                showPopup ? "visible" : "hidden"
-              }`}
-            >
-              <section className="rounded-3xl shadow-2xl bg-gray-200">
-                <div className="p-8 text-center sm:p-12">
-                  <p className="text-sm font-semibold uppercase tracking-widest text-pink-500">
-                    Submitted Successfully!!!
-                  </p>
+          <div
+            className={`fixed inset-0 flex items-center justify-center ${
+              showPopup ? "visible" : "hidden"
+            }`}
+          >
+            <section className="rounded-3xl shadow-2xl bg-gray-200">
+              <div className="p-8 text-center sm:p-12">
+                <p className="text-sm font-semibold uppercase tracking-widest text-pink-500">
+                  Submitted Successfully!!!
+                </p>
 
-                  <h2 className="mt-6 text-3xl font-bold">
-                    Thanks for contacting us, we'll get back to you soon!
-                  </h2>
+                <h2 className="mt-6 text-3xl font-bold">
+                  Thanks for contacting us, we'll get back to you soon!
+                </h2>
 
-                  <button
-                    className="mt-8 inline-block w-full rounded-full bg-pink-600 py-4 text-sm font-bold text-white shadow-xl"
-                    onClick={handleClose}
-                  >
-                    OK
-                  </button>
-                </div>
-              </section>
-            </div>
-          ) : (
-            ""
-          )}
-          {submitted === false ? <h1>Something went wrong</h1> : ""}
+                <button
+                  className="mt-8 inline-block w-full rounded-full bg-pink-600 py-4 text-sm font-bold text-white shadow-xl"
+                  onClick={handleClose}
+                >
+                  OK
+                </button>
+              </div>
+            </section>
+          </div>
+        ) : (
+          ""
+        )}
+        {submitted === false ? <h1>Something went wrong</h1> : ""}
       </section>
     </div>
   );

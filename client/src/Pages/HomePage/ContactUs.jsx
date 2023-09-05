@@ -5,6 +5,12 @@ import HomeFooter from "../../Components/HomePageComponent/HomeFooter";
 import RB_LOGO from "../../assets/RB_100_New.png";
 
 const ContactUs = () => {
+  const [showPopup, setShowPopup] = useState(true);
+
+  const handleClose = () => {
+    setShowPopup(false);
+  };
+  const [submitted, setSubmitted] = useState(null);
   const form = useRef();
 
   const sendEmail = (e) => {
@@ -386,6 +392,38 @@ const ContactUs = () => {
             className="absolute inset-0 h-full w-full object-cover rounded-lg"
           />
         </div>
+
+        {/* POP UP */}
+        {submitted ? (
+          <div
+            className={`fixed inset-0 flex items-center justify-center ${
+              showPopup ? "visible" : "hidden"
+            }`}
+          >
+            <section className="rounded-3xl shadow-2xl bg-gray-200">
+              <div className="p-8 text-center sm:p-12">
+                <p className="text-sm font-semibold uppercase tracking-widest text-pink-500">
+                  Submitted Successfully!!!
+                </p>
+
+                <h2 className="mt-6 text-3xl font-bold">
+                  Thanks for contacting us, we'll get back to you soon!
+                </h2>
+
+                <button
+                  className="mt-8 inline-block w-full rounded-full bg-pink-600 py-4 text-sm font-bold text-white shadow-xl"
+                  onClick={handleClose}
+                >
+                  OK
+                </button>
+              </div>
+            </section>
+          </div>
+        ) : (
+          ""
+        )}
+        {submitted === false ? <h1>Something went wrong</h1> : ""}
+        {/* POP UP END */}
       </section>
 
       <HomeFooter />

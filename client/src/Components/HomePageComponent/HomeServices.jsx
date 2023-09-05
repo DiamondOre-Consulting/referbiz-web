@@ -3,6 +3,7 @@ import InternPic from "../../assets/handshaking.jpg";
 import ResumeBuildingPic from "../../assets/resumeBuilding.jpg";
 import AssociateServicePic from "../../assets/associateModel.jpg";
 import AffiliateServicePic from "../../assets/affiliatePic.jpg";
+import { Link } from "react-router-dom";
  
 const HomeServices = () => {
   return (
@@ -38,12 +39,12 @@ const HomeServices = () => {
 
               <div class="flex flex-1 flex-col p-4 sm:p-6">
                 <h2 class="mb-2 text-2xl font-semibold text-gray-800">
-                  <a
-                    href="#"
+                  <Link
+                    to={'/services#affiliateModel'}
                     class="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     Refer & Earn Club
-                  </a>
+                  </Link>
                 </h2>
 
                 <p class="mb-8 text-gray-500">
@@ -93,12 +94,12 @@ const HomeServices = () => {
 
               <div class="flex flex-1 flex-col p-4 sm:p-6">
                 <h2 class="mb-2 text-2xl font-semibold text-gray-800">
-                  <a
-                    href="#"
+                  <Link
+                    to={'/services#associateModel'}
                     class="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     Pro Partnership
-                  </a>
+                  </Link>
                 </h2>
 
                 <p class="mb-8 text-gray-500">
@@ -148,12 +149,12 @@ const HomeServices = () => {
 
               <div class="flex flex-1 flex-col p-4 sm:p-6">
                 <h2 class="mb-2 text-2xl font-semibold text-gray-800">
-                  <a
-                    href="#"
+                  <Link
+                    to={'/services#resumeBuilding'}
                     class="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     CV Crafters
-                  </a>
+                  </Link>
                 </h2>
 
                 <p class="mb-8 text-gray-500">

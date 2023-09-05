@@ -147,7 +147,7 @@ const Services = () => {
       </div>
       {/* Navbar End */}
 
-      <section>
+      <section id="affiliateModel">
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:py-16 lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
             <div className="relative h-64 overflow-hidden rounded-lg sm:h-80 lg:order-last lg:h-full">
@@ -226,18 +226,18 @@ const Services = () => {
                 .
               </p>
 
-              <a
-                href="#"
+              <Link
+                to={'/auth'}
                 className="mt-8 inline-block rounded bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400"
               >
                 Get Started Today
-              </a>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mt-5">
+      <section id="associateModel" className="mt-5">
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:py-16 lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
             <div className="relative h-64 overflow-hidden rounded-lg sm:h-80 lg:h-full">
@@ -302,18 +302,18 @@ const Services = () => {
                 opportunities with MentorLink, the heart of our Associate Model.
               </p>
 
-              <a
-                href="#"
+              <Link
+                to={'/assoAuth'}
                 className="mt-8 inline-block rounded bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400"
               >
                 Get Started Today
-              </a>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="overflow-hidden lg:mx-32 sm:mx-10 mt-10 rounded-lg shadow-2xl md:grid md:grid-cols-3">
+      <section id="resumeBuidling" className="overflow-hidden lg:mx-32 sm:mx-10 mt-10 rounded-lg shadow-2xl md:grid md:grid-cols-3">
         <img
           alt="Trainer"
           src={ResumeService}
@@ -336,7 +336,7 @@ const Services = () => {
           </h2>
 
           <Link
-            className="mt-8 inline-block w-full bg-black py-4 text-sm font-bold uppercase tracking-widest text-white"
+            className="mt-8 inline-block w-full bg-gray-800 hover:bg-black py-4 text-sm font-bold uppercase tracking-widest text-white"
             to={"/resume-building"}
           >
             Fill Out The Form Now

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import HomeAbout from "../../Components/HomePageComponent/HomeAbout";
 import HomeFooter from "../../Components/HomePageComponent/HomeFooter";
 import RB_LOGO from "../../assets/RB_100_New.png";
+import AboutPic from "../../assets/AffiliateServicePic.jpg";
 import Somya from "../../assets/Somya-2.jpg";
 import Garima from "../../assets/Garima-2.jpg";
 import Sahil from "../../assets/Sahil.jpg";
@@ -388,9 +389,9 @@ const AboutUs = () => {
               </div>
 
               <div>
-                <div className="text-center font-bold text-indigo-500 sm:text-left md:text-lg">
+                <Link to={'https://in.linkedin.com/in/sakshi-jha-58861a225'} target="_blank" className="text-center font-bold text-indigo-500 sm:text-left md:text-lg hover:text-indigo-700">
                   Sakshi Jha
-                </div>
+                </Link>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
                   CFO
                 </p>
@@ -408,9 +409,9 @@ const AboutUs = () => {
               </div>
 
               <div>
-                <div className="text-center font-bold text-indigo-500 sm:text-left md:text-lg">
+                <Link to={'https://in.linkedin.com/in/garima-narula-097245187'} target="_blank" className="text-center font-bold text-indigo-500 sm:text-left md:text-lg hover:text-indigo-700">
                   Garima Narula
-                </div>
+                </Link>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
                   CTO
                 </p>
@@ -428,9 +429,9 @@ const AboutUs = () => {
               </div>
 
               <div>
-                <div className="text-center font-bold text-indigo-500 sm:text-left md:text-lg">
+                <Link to={'https://in.linkedin.com/in/sweety-jha-28a51b1aa?original_referer=https%3A%2F%2Fwww.google.com%2F'} target="_blank" className="text-center font-bold text-indigo-500 sm:text-left md:text-lg hover:text-indigo-700">
                   Sweety Jha
-                </div>
+                </Link>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
                   Creative Director
                 </p>
@@ -448,9 +449,9 @@ const AboutUs = () => {
               </div>
 
               <div>
-                <div className="text-center font-bold text-indigo-500 sm:text-left md:text-lg">
+                <Link to={'https://in.linkedin.com/in/somya-gupta-05a354204?original_referer=https%3A%2F%2Fwww.google.com%2F'} target="_blank" className="text-center font-bold text-indigo-500 sm:text-left md:text-lg hover:text-indigo-700">
                   Somya Gupta
-                </div>
+                </Link>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
                   Investor Relations
                 </p>
@@ -468,10 +469,10 @@ const AboutUs = () => {
               </div>
 
               <div>
-                <div className="text-center font-bold text-indigo-500 sm:text-left md:text-lg">
+                <Link to={'https://in.linkedin.com/in/sahil-gupta-a5570b212?original_referer=https%3A%2F%2Fwww.google.com%2F'} target="_blank" className="text-center font-bold text-indigo-500 sm:text-left md:text-lg hover:text-indigo-700">
                   Sahil Gupta
-                </div>
-                <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
+                </Link>
+                <p className="text-center text-sm text-gray-500 sm:text-left md:text-base ">
                   Senior Art Director
                 </p>
               </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import AboutPic from "../../assets/AffiliateServicePic.jpg";
 
 const HomeAbout = () => {
   return (
@@ -9,10 +10,10 @@ const HomeAbout = () => {
             <div>
               <div className="h-64 mx-10 my-10 flex justify-center items-center overflow-hidden rounded-lg bg-gray-200 shadow-2xl md:h-auto">
                 <img
-                  src="https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?auto=format&q=75&fit=crop&w=600&h=750"
+                  src={AboutPic}
                   loading="lazy"
                   alt="Photo by Martin Sanchez"
-                  className="h-full w-full rounded-lg object-none object-center"
+                  className="h-full w-full rounded-lg "
                 />
               </div>
             </div>
