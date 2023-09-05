@@ -1,26 +1,28 @@
-import React, {useState} from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import RB_LOGO from "../../assets/RB_100_New.png";
+import HomeMainPic from "../../assets/homeCTA.jpg";
 
 const HomeNav = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-    console.log(menuOpen)
+    console.log(menuOpen);
   };
 
   return (
     <div>
-        {/* Header and Nav Section Start */}
-        <div className="bg-white pb-6 sm:pb-8 lg:pb-12">
-          <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
-            <header className="mb-8 flex items-center justify-between py-4 md:mb-12 md:py-8 xl:mb-16">
-              <a
-                href="/"
-                className="text-black-800 inline-flex items-center gap-2.5 text-2xl font-bold md:text-3xl"
-                aria-label="logo"
-              >
-                <svg
+      {/* Header and Nav Section Start */}
+      <div className="bg-white pb-6 sm:pb-8 lg:pb-12">
+        <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
+          <header className="mb-8 flex items-center justify-between py-4 md:mb-12 md:py-8 xl:mb-16">
+            <a
+              href="/"
+              className="text-black-800 inline-flex items-center gap-2.5 text-2xl font-bold md:text-3xl"
+              aria-label="logo"
+            >
+              {/* <svg
                   width="95"
                   height="94"
                   viewBox="0 0 95 94"
@@ -29,62 +31,63 @@ const HomeNav = () => {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path d="M96 0V47L48 94H0V47L48 0H96Z" />
-                </svg>
-                Flowrift
+                </svg> */}
+              <img className="w-1/2" src={RB_LOGO} alt="" />
+              {/* ReferBiz */}
+            </a>
+
+            <nav className="hidden gap-12 lg:flex">
+              <a href="#" className="text-lg font-semibold text-indigo-500">
+                Home
               </a>
-
-              <nav className="hidden gap-12 lg:flex">
-                <a href="#" className="text-lg font-semibold text-indigo-500">
-                  Home
-                </a>
-                <Link
-                  to={'/aboutus'}
-                  className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
-                >
-                  About Us
-                </Link>
-                <Link
-                  to={'/services'}
-                  className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
-                >
-                  Services
-                </Link>
-                <Link
-                  to={'/contactmain'}
-                  className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
-                >
-                  Contact Us
-                </Link>
-              </nav>
-
-              <a
-                href="#"
-                className="hidden rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block"
+              <Link
+                to={"/aboutus"}
+                className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
               >
-                Signin
-              </a>
-
-              <button
-                type="button"
-                onClick={toggleMenu}
-                className="inline-flex items-center gap-2 rounded-lg bg-gray-200 px-2.5 py-2 text-sm font-semibold text-gray-500 ring-indigo-300 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:hidden"
+                About Us
+              </Link>
+              <Link
+                to={"/services"}
+                className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                Menu
-              </button>
-            </header>
-            <ul
+                Services
+              </Link>
+              <Link
+                to={"/contactmain"}
+                className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
+              >
+                Contact Us
+              </Link>
+            </nav>
+
+            <Link
+              to={'/'}
+              className="hidden rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block"
+            >
+              Signin
+            </Link>
+
+            <button
+              type="button"
+              onClick={toggleMenu}
+              className="inline-flex items-center gap-2 rounded-lg bg-gray-200 px-2.5 py-2 text-sm font-semibold text-gray-500 ring-indigo-300 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:hidden"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Menu
+            </button>
+          </header>
+          <ul
             className={`gap-10 ${
               menuOpen ? "block" : "hidden"
             } w-full flex flex-col items-center justify-center mb-14`}
@@ -125,7 +128,7 @@ const HomeNav = () => {
                 Contact Us
               </li>
             </Link>
-            <Link to={"/home-main"}>
+            <Link to={"/"}>
               <li
                 className={`${
                   menuOpen ? "block" : "hidden"
@@ -135,53 +138,53 @@ const HomeNav = () => {
               </li>
             </Link>
           </ul>
-            <section className="flex flex-col justify-between gap-6 sm:gap-10 md:gap-16 lg:flex-row">
-              <div className="flex flex-col justify-center sm:text-center lg:py-12 lg:text-left xl:w-5/12 xl:py-24">
-                <p className="mb-4 font-semibold text-indigo-500 md:mb-6 md:text-lg xl:text-xl">
-                  Very proud to introduce
-                </p>
+          <section className="flex flex-col justify-between gap-6 sm:gap-10 md:gap-16 lg:flex-row">
+            <div className="flex flex-col justify-center sm:text-center lg:py-12 lg:text-left xl:w-5/12 xl:py-24">
+              <p className="mb-4 font-semibold text-indigo-500 md:mb-6 md:text-lg xl:text-xl">
+                Very proud to introduce
+              </p>
 
-                <h1 className="text-black-800 mb-8 text-4xl font-bold sm:text-5xl md:mb-12 md:text-6xl">
-                  Revolutionary way to build the web
-                </h1>
+              <h1 className="text-black-800 mb-8 text-4xl font-bold sm:text-5xl md:mb-12 md:text-6xl">
+                Referral revolution where we play, earn, and learn
+              </h1>
 
-                <p className="mb-8 leading-relaxed text-gray-500 md:mb-12 lg:w-4/5 xl:text-lg">
-                  This is a section of some simple filler text, also known as
-                  placeholder text. It shares some characteristics of a real
-                  written text but is random.
-                </p>
+              <p className="mb-8 leading-relaxed text-gray-500 md:mb-12 lg:w-4/5 xl:text-lg">
+                Unleash the power of ReferBiz! It's not just a
+                platform, it's a lifestyle that lets you play, earn, and learn,
+                all in one place.
+              </p>
 
-                <div className="flex flex-col gap-2.5 sm:flex-row sm:justify-center lg:justify-start">
-                  <a
-                    href="#"
-                    className="inline-block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base"
-                  >
-                    Start now
-                  </a>
+              <div className="flex flex-col gap-2.5 sm:flex-row sm:justify-center lg:justify-start">
+                <Link
+                  to={'/'}
+                  className="inline-block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base"
+                >
+                  Get Started
+                </Link>
 
-                  <a
-                    href="#"
-                    className="inline-block rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base"
-                  >
-                    Take tour
-                  </a>
-                </div>
+                {/* <a
+                  href="#"
+                  className="inline-block rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base"
+                >
+                  Take tour
+                </a> */}
               </div>
+            </div>
 
-              <div className="h-48 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:h-auto xl:w-5/12">
-                <img
-                  src="https://images.unsplash.com/photo-1618004912476-29818d81ae2e?auto=format&q=75&fit=crop&w=1000"
-                  loading="lazy"
-                  alt="Photo by Fakurian Design"
-                  className="h-full w-full object-cover object-center"
-                />
-              </div>
-            </section>
-          </div>
+            <div className="h-40 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:h-auto xl:w-5/12">
+              <img
+                src={HomeMainPic}
+                loading="lazy"
+                alt="Photo by Fauxels"
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
+          </section>
         </div>
-        {/* Header and Nav Section End */}
+      </div>
+      {/* Header and Nav Section End */}
     </div>
-  )
-}
+  );
+};
 
-export default HomeNav
+export default HomeNav;

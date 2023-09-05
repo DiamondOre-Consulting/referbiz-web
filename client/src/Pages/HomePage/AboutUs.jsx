@@ -1,17 +1,24 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import HomeAbout from "../../Components/HomePageComponent/HomeAbout";
 import HomeFooter from "../../Components/HomePageComponent/HomeFooter";
+import RB_LOGO from "../../assets/RB_100_New.png";
+import Somya from "../../assets/Somya-2.jpg";
+import Garima from "../../assets/Garima-2.jpg";
+import Sahil from "../../assets/Sahil.jpg";
+import Sweety from "../../assets/Sweety.jpg";
+import Sakshi from "../../assets/Sakshi.jpg";
+import Utsav from "../../assets/Utsavsir.jpg";
 
 const AboutUs = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-    console.log(menuOpen)
+    console.log(menuOpen);
   };
   return (
-    <div >
+    <div>
       {/* Navbar Start */}
       <div className="bg-white pb-1 sm:pb-1 lg:pb-1">
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
@@ -21,7 +28,7 @@ const AboutUs = () => {
               className="text-black-800 inline-flex items-center gap-2.5 text-2xl font-bold md:text-3xl"
               aria-label="logo"
             >
-              <svg
+              {/* <svg
                 width="95"
                 height="94"
                 viewBox="0 0 95 94"
@@ -31,7 +38,8 @@ const AboutUs = () => {
               >
                 <path d="M96 0V47L48 94H0V47L48 0H96Z" />
               </svg>
-              Flowrift
+              Flowrift */}
+              <img className="w-1/2" src={RB_LOGO} alt="" />
             </a>
 
             <nav className="hidden gap-12 lg:flex">
@@ -48,13 +56,13 @@ const AboutUs = () => {
                 About Us
               </Link>
               <Link
-                  to={'/services'}
-                  className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
-                >
-                  Services
-                </Link>
+                to={"/services"}
+                className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
+              >
+                Services
+              </Link>
               <Link
-                to={'/contactmain'}
+                to={"/contactmain"}
                 className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
               >
                 Contact Us
@@ -149,12 +157,13 @@ const AboutUs = () => {
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
           <div className="mb-10 md:mb-16">
             <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">
-              Our Competitive Advantage
+              Our Competitive Advantages
             </h2>
 
             <p className="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">
-              Elevate your expectations as we pave the way for a brighter
-              tomorrow. Join our journey – where excellence meets results.
+              Discover Our Features: Dive into a realm of possibilities, from
+              referral rewards to mentorship connections. Supercharge your
+              career journey today.
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 md:gap-12 xl:grid-cols-3 xl:gap-16">
@@ -177,10 +186,11 @@ const AboutUs = () => {
               </div>
 
               <div>
-                <h3 className="mb-2 text-lg font-semibold md:text-xl">Growth</h3>
+                <h3 className="mb-2 text-lg font-semibold md:text-xl">
+                Referral Focus
+                </h3>
                 <p className="mb-2 text-gray-500">
-                  Filler text is dummy text which has no meaning however looks
-                  very similar to real text.
+                Our platform places a strong emphasis on harnessing the power of referrals for success.
                 </p>
                 {/* <a href="#" className="font-bold text-indigo-500 transition duration-100 hover:text-indigo-600 active:text-indigo-700">More</a> */}
               </div>
@@ -205,10 +215,11 @@ const AboutUs = () => {
               </div>
 
               <div>
-                <h3 className="mb-2 text-lg font-semibold md:text-xl">Security</h3>
+                <h3 className="mb-2 text-lg font-semibold md:text-xl">
+                Incentive Thrill
+                </h3>
                 <p className="mb-2 text-gray-500">
-                  Filler text is dummy text which has no meaning however looks
-                  very similar to real text.
+                Experience the excitement of earning rewards through our dopamine-inducing incentive system.
                 </p>
                 {/* <a href="#" className="font-bold text-indigo-500 transition duration-100 hover:text-indigo-600 active:text-indigo-700">More</a> */}
               </div>
@@ -233,10 +244,9 @@ const AboutUs = () => {
               </div>
 
               <div>
-                <h3 className="mb-2 text-lg font-semibold md:text-xl">Cloud</h3>
+                <h3 className="mb-2 text-lg font-semibold md:text-xl">Winning Spirit</h3>
                 <p className="mb-2 text-gray-500">
-                  Filler text is dummy text which has no meaning however looks
-                  very similar to real text.
+                Cultivate a mindset of victory and achievement within our community of users.
                 </p>
                 {/* <a href="#" className="font-bold text-indigo-500 transition duration-100 hover:text-indigo-600 active:text-indigo-700">More</a> */}
               </div>
@@ -261,10 +271,9 @@ const AboutUs = () => {
               </div>
 
               <div>
-                <h3 className="mb-2 text-lg font-semibold md:text-xl">Speed</h3>
+                <h3 className="mb-2 text-lg font-semibold md:text-xl">Leaderboard Rewards</h3>
                 <p className="mb-2 text-gray-500">
-                  Filler text is dummy text which has no meaning however looks
-                  very similar to real text.
+                Stay motivated as you climb quantifiable leaderboards for recognition and lucrative rewards.
                 </p>
                 {/* <a href="#" className="font-bold text-indigo-500 transition duration-100 hover:text-indigo-600 active:text-indigo-700">More</a> */}
               </div>
@@ -289,10 +298,11 @@ const AboutUs = () => {
               </div>
 
               <div>
-                <h3 className="mb-2 text-lg font-semibold md:text-xl">Support</h3>
+                <h3 className="mb-2 text-lg font-semibold md:text-xl">
+                Gamification
+                </h3>
                 <p className="mb-2 text-gray-500">
-                  Filler text is dummy text which has no meaning however looks
-                  very similar to real text.
+                Engage in a playful and rewarding experience while achieving your career goals.
                 </p>
                 {/* <a href="#" className="font-bold text-indigo-500 transition duration-100 hover:text-indigo-600 active:text-indigo-700">More</a> */}
               </div>
@@ -317,10 +327,11 @@ const AboutUs = () => {
               </div>
 
               <div>
-                <h3 className="mb-2 text-lg font-semibold md:text-xl">Dark Mode</h3>
+                <h3 className="mb-2 text-lg font-semibold md:text-xl">
+                Performance Dashboards
+                </h3>
                 <p className="mb-2 text-gray-500">
-                  Filler text is dummy text which has no meaning however looks
-                  very similar to real text.
+                Track and manage your progress efficiently with our user-friendly performance management dashboards.
                 </p>
                 {/* <a href="#" className="font-bold text-indigo-500 transition duration-100 hover:text-indigo-600 active:text-indigo-700">More</a> */}
               </div>
@@ -349,7 +360,7 @@ const AboutUs = () => {
             <div className="flex flex-col items-center gap-2 sm:flex-row md:gap-4">
               <div className="h-24 w-24 overflow-hidden rounded-full bg-gray-100 shadow-lg md:h-32 md:w-32">
                 <img
-                  src="https://images.unsplash.com/photo-1567515004624-219c11d31f2e??auto=format&q=75&fit=crop&w=256"
+                  src={Utsav}
                   loading="lazy"
                   alt="Photo by Radu Florin"
                   className="h-full w-full object-cover object-center"
@@ -357,9 +368,9 @@ const AboutUs = () => {
               </div>
 
               <div>
-                <div className="text-center font-bold text-indigo-500 sm:text-left md:text-lg">
-                  John McCulling
-                </div>
+                <Link to={"https://in.linkedin.com/in/utsav-mathur-38886780"} target="_blank" className="text-center font-bold text-indigo-500 sm:text-left md:text-lg hover:text-indigo-700">
+                  Utsav Mathur
+                </Link>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
                   Founder / CEO
                 </p>
@@ -369,7 +380,7 @@ const AboutUs = () => {
             <div className="flex flex-col items-center gap-2 sm:flex-row md:gap-4">
               <div className="h-24 w-24 overflow-hidden rounded-full bg-gray-100 shadow-lg md:h-32 md:w-32">
                 <img
-                  src="https://images.unsplash.com/photo-1532073150508-0c1df022bdd1?auto=format&q=75&fit=crop&w=256"
+                  src={Sakshi}
                   loading="lazy"
                   alt="Photo by christian ferrer"
                   className="h-full w-full object-cover object-center"
@@ -378,7 +389,7 @@ const AboutUs = () => {
 
               <div>
                 <div className="text-center font-bold text-indigo-500 sm:text-left md:text-lg">
-                  Kate Berg
+                  Sakshi Jha
                 </div>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
                   CFO
@@ -389,7 +400,7 @@ const AboutUs = () => {
             <div className="flex flex-col items-center gap-2 sm:flex-row md:gap-4">
               <div className="h-24 w-24 overflow-hidden rounded-full bg-gray-100 shadow-lg md:h-32 md:w-32">
                 <img
-                  src="https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&q=75&fit=crop&w=256"
+                  src={Garima}
                   loading="lazy"
                   alt="Photo by Ayo Ogunseinde"
                   className="h-full w-full object-cover object-center"
@@ -398,7 +409,7 @@ const AboutUs = () => {
 
               <div>
                 <div className="text-center font-bold text-indigo-500 sm:text-left md:text-lg">
-                  Greg Jackson
+                  Garima Narula
                 </div>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
                   CTO
@@ -409,7 +420,7 @@ const AboutUs = () => {
             <div className="flex flex-col items-center gap-2 sm:flex-row md:gap-4">
               <div className="h-24 w-24 overflow-hidden rounded-full bg-gray-100 shadow-lg md:h-32 md:w-32">
                 <img
-                  src="https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?auto=format&q=75&fit=crop&w=256"
+                  src={Sweety}
                   loading="lazy"
                   alt="Photo by Midas Hofstra"
                   className="h-full w-full object-cover object-center"
@@ -418,7 +429,7 @@ const AboutUs = () => {
 
               <div>
                 <div className="text-center font-bold text-indigo-500 sm:text-left md:text-lg">
-                  Robert Greyson
+                  Sweety Jha
                 </div>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
                   Creative Director
@@ -429,7 +440,7 @@ const AboutUs = () => {
             <div className="flex flex-col items-center gap-2 sm:flex-row md:gap-4">
               <div className="h-24 w-24 overflow-hidden rounded-full bg-gray-100 shadow-lg md:h-32 md:w-32">
                 <img
-                  src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&q=75&fit=crop&w=256"
+                  src={Somya}
                   loading="lazy"
                   alt="Photo by Elizeu Dias"
                   className="h-full w-full object-cover object-center"
@@ -438,7 +449,7 @@ const AboutUs = () => {
 
               <div>
                 <div className="text-center font-bold text-indigo-500 sm:text-left md:text-lg">
-                  John Roberts
+                  Somya Gupta
                 </div>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
                   Investor Relations
@@ -449,7 +460,7 @@ const AboutUs = () => {
             <div className="flex flex-col items-center gap-2 sm:flex-row md:gap-4">
               <div className="h-24 w-24 overflow-hidden rounded-full bg-gray-100 shadow-lg md:h-32 md:w-32">
                 <img
-                  src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&q=75&fit=crop&w=256"
+                  src={Sahil}
                   loading="lazy"
                   alt="Photo by Matheus Ferrero"
                   className="h-full w-full object-cover object-center"
@@ -458,7 +469,7 @@ const AboutUs = () => {
 
               <div>
                 <div className="text-center font-bold text-indigo-500 sm:text-left md:text-lg">
-                  Judy Amandez
+                  Sahil Gupta
                 </div>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
                   Senior Art Director

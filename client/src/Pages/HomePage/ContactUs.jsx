@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { Link } from "react-router-dom";
 import HomeFooter from "../../Components/HomePageComponent/HomeFooter";
+import RB_LOGO from "../../assets/RB_100_New.png";
 
 const ContactUs = () => {
   const form = useRef();
@@ -45,7 +46,7 @@ const ContactUs = () => {
               className="text-black-800 inline-flex items-center gap-2.5 text-2xl font-bold md:text-3xl"
               aria-label="logo"
             >
-              <svg
+              {/* <svg
                 width="95"
                 height="94"
                 viewBox="0 0 95 94"
@@ -55,7 +56,8 @@ const ContactUs = () => {
               >
                 <path d="M96 0V47L48 94H0V47L48 0H96Z" />
               </svg>
-              Flowrift
+              Flowrift */}
+              <img className="w-1/2" src={RB_LOGO} alt="" />
             </a>
 
             <nav className="hidden gap-12 lg:flex">
@@ -175,8 +177,9 @@ const ContactUs = () => {
             </h1>
 
             <p className="mt-4 text-gray-500">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Et libero
-              nulla eaque error neque ipsa culpa autem, at itaque nostrum!
+              Feel free to get in touch with us for any questions, concerns, or
+              feedback. We're here to assist you on your journey to career
+              success. Your success is our priority!
             </p>
           </div>
 
