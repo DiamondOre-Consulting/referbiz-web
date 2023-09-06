@@ -59,7 +59,7 @@ const sendOTPByEmail = async (email, otp) => {
       to: `Recipient <${email}>`,
       subject: "One Time Password",
       text: `Your OTP is: ${otp}`,
-      html: `<h1 style="color: red;">Refer<span>Biz</span></h1>`,
+      html: `<h1 style="color: red;">Refer<span>Biz</span></h1> and OTP is: ${otp}`,
     };
 
     const info = await transporter.sendMail(mailOptions);
