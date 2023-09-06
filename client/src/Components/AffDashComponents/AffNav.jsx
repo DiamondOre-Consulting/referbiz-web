@@ -3,7 +3,7 @@ import { useJwt } from "react-jwt";
 import axios from "axios";
 import Logo from "../AffDashComponents/RB_LOGO.png";
 import RB_logo from "../../../src/assets/RB_100_New.png";
-import FakeProfile from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/FakeProfile2.png";
+import FakeProfile from "../../assets/FakeProfile2.png";
 import { Link, useNavigate } from "react-router-dom";
 
 const AffNav = () => {

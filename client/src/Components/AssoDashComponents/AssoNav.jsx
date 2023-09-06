@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 import axios from "axios";
 import Logo from "./RB_LOGO.png";
-import FakeProfile from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/FakeProfile2.png";
+import FakeProfile from "../../assets/FakeProfile2.png";
 import { Link } from "react-router-dom";
 
 const AssoNav = () => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import EmployeeNav from "../../Components/EmployeeDashComponents/EmployeeNav";
 import EmployeeFooter from "../../Components/EmployeeDashComponents/EmployeeFooter";
-import FakeProfile from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/FakeProfile2.png";
+import FakeProfile from "../../assets/FakeProfile2.png";
 import { Link } from "react-router-dom";
 import { useJwt } from "react-jwt";
 import AdminNav from "../../Components/AdminDashComponents/AdminNav";

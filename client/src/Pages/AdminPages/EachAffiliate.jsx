@@ -6,7 +6,7 @@ import AdminHero from "../../Components/AdminDashComponents/AdminHero";
 import AdminFooter from "../../Components/AdminDashComponents/AdminFooter";
 import { useJwt } from "react-jwt";
 import CvInfoAffiliate from "../../Components/AdminDashComponents/CvInfoAffiliate";
-import FakeProfile from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/FakeProfile2.png";
+import FakeProfile from "../../assets/FakeProfile2.png";
 
 const EachAffiliate = () => {
   const [details, setDetails] = useState({});
