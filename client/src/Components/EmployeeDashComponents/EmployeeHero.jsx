@@ -3,7 +3,7 @@ import { useJwt } from "react-jwt";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Wave from "../../assets/wave.png";
-import Forward from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/fast-forward.png";
+import Forward from "../../assets/fast-forward.png";
 
 const EmployeeHero = () => {
   const [userData, setUserData] = useState(null);
