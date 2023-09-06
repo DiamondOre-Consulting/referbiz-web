@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import Wave from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/wave.png";
+import Wave from "../../assets/wave.png";
 import Forward from "C:/Users/Harsh Jha/Documents/RAS Portal Pilot/ReferBiz/client/src/assets/fast-forward.png";
 
 const AdminHero = () => {
