@@ -68,7 +68,7 @@ const ContactUs = () => {
 
             <nav className="hidden gap-12 lg:flex">
               <Link
-                to={"/home-main"}
+                to={"/"}
                 className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500"
               >
                 Home
@@ -93,12 +93,12 @@ const ContactUs = () => {
               </Link>
             </nav>
 
-            <a
-              href="#"
+            <Link
+              to={'/home-main'}
               className="hidden rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block"
             >
               Signin
-            </a>
+            </Link>
 
             <button
               type="button"
@@ -125,7 +125,7 @@ const ContactUs = () => {
               menuOpen ? "block" : "hidden"
             } w-full flex flex-col items-center justify-center mb-14`}
           >
-            <Link to={"/home-main"}>
+            <Link to={"/"}>
               <li
                 className={`${
                   menuOpen ? "block" : "hidden"
@@ -422,7 +422,7 @@ const ContactUs = () => {
         ) : (
           ""
         )}
-        {submitted === false ? <h1>Something went wrong</h1> : ""}
+        {submitted === false ? <h1 className="text-red-700 font-bold text-xl">Something went wrong</h1> : ""}
         {/* POP UP END */}
       </section>
 
