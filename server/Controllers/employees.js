@@ -342,27 +342,40 @@ router.put(
       // Find the associate by ID
       const cvUserShortlist = await CvSharing.findByIdAndUpdate(id, {
         $set: { isShortlisted: true },
-      });
-      if (!cvUserShortlist) {
-        return res.status(404).json({ message: "cv details not found" });
-      }
+      }, { new: true });
+
+      // if (!cvUserShortlist) {
+      //   return res.status(404).json({ message: "cv details not found" });
+      // }
+
+      // Save the updated associate
+      await cvUserShortlist.save();
+      console.log(cvUserShortlist);
 
       console.log(cvUserShortlist.isShortlisted);
       if (cvUserShortlist.isShortlisted) {
         const assoUser = await AssoUsers.findOneAndUpdate(
-          { allCvInfo: cvId, totalShortlisted: { $ne: 1 } },
+          { allCvInfo: id },
           { $inc: { totalShortlisted: 1 } }
         );
-        console.log(assoUser);
-        const empUser = await Employees.findOneAndUpdate(
-          { myAsso: assoUser?._id, totalShortlisted: { $ne: 1 } },
-          { $inc: { totalShortlisted: 1 } }
-        );
-        console.log(empUser);
+        // console.log(assoUser);
+        // const empUser = await Employees.findOneAndUpdate(
+        //   { myAsso: assoUser?._id, totalShortlisted: { $ne: 1 } },
+        //   { $inc: { totalShortlisted: 1 } }
+        // );
+        // console.log(empUser);
+        if (assoUser) {
+          await assoUser.save();
+          console.log(assoUser);
+        } else {
+          console.log("No user found to update.");
+        }
       }
 
       // Save the updated associate
       await cvUserShortlist.save();
+
+      console.log(cvUserShortlist);
 
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {
@@ -394,27 +407,39 @@ router.put(
       // Find the associate by ID
       const cvUserJoined = await CvSharing.findByIdAndUpdate(id, {
         $set: { isJoined: true },
-      });
-      if (!cvUserJoined) {
-        return res.status(404).json({ message: "cv details not found" });
-      }
+      }, { new: true });
+      // if (!cvUserJoined) {
+      //   return res.status(404).json({ message: "cv details not found" });
+      // }
+
+      // Save the updated associate
+      await cvUserJoined.save();
+      console.log(cvUserJoined);
 
       console.log(cvUserJoined.isJoined);
       if (cvUserJoined.isJoined) {
         const assoUser = await AssoUsers.findOneAndUpdate(
-          { allCvInfo: cvId, totalJoined: { $ne: 1 } },
+          { allCvInfo: id },
           { $inc: { totalJoined: 1 } }
         );
-        console.log(assoUser);
-        const empUser = await Employees.findOneAndUpdate(
-          { myAsso: assoUser?._id, totalJoined: { $ne: 1 } },
-          { $inc: { totalJoined: 1 } }
-        );
-        console.log(empUser);
+        // console.log(assoUser);
+        // const empUser = await Employees.findOneAndUpdate(
+        //   { myAsso: assoUser?._id, totalJoined: { $ne: 1 } },
+        //   { $inc: { totalJoined: 1 } }
+        // );
+        // console.log(empUser);
+        if (assoUser) {
+          await assoUser.save();
+          console.log(assoUser);
+        } else {
+          console.log("No user found to update.");
+        }
       }
 
       // Save the updated associate
       await cvUserJoined.save();
+
+      console.log(cvUserJoined);
 
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {

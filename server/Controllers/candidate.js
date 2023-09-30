@@ -7,7 +7,7 @@ import { dirname, join } from "path";
 import path from "path";
 import multer from "multer";
 import authenticateToken from "../Middlewares/authenticateToken.js";
-import twilio from "twilio";
+import cloudinary from "../Middlewares/cloudinaryConfig.js";
 import nodemailer from "nodemailer";
 import otpStore from "../server.js";
 import forgotOtp from "../server.js";
@@ -98,7 +98,7 @@ router.post("/send-otp", uploadImg.single("profileImage"), async (req, res) => {
   }
 });
 
-// SIGNUP AS ADMIN
+// SIGNUP AS CANDIDATE
 router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
   const { otp, name, email, password } = req.body;
   const profileImage = req.file;
@@ -120,12 +120,17 @@ router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
 
+      const result = await cloudinary.uploader.upload(profileImage.path, {
+        folder: 'ProfileImagesAffiliates'
+      });
+    const imageUrl = result.secure_url;
+
       // Create a new user object
       const newUser = new User({
         name,
         email,
         password: hashedPassword,
-        profileImage: profileImage?.filename,
+        profileImage: imageUrl,
       });
 
       // Save the user to the database
@@ -149,7 +154,7 @@ router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
   // }
 });
 
-// LOGIN AS ADMIN
+// LOGIN AS CANDIDATE
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -394,6 +399,11 @@ router.post(
     // Save the file to the desired location
     const filePath = uploadedFile.path; // Get the file path
 
+    const result = await cloudinary.uploader.upload(filePath, {
+      folder: 'AffiliatesCVs'
+    });
+  const cvUrl = result.secure_url;
+
     try {
       // Create a new contact form entry and save it to the database
       const cvSharing = new CvSharing({
@@ -401,7 +411,7 @@ router.post(
         refPhone,
         refUniqueEmailId,
         userEmail: email, 
-        PDF: uploadedFile?.filename,
+        PDF: cvUrl,
         // user: req.user.email, // Associate the form entry with the logged-in user
       });
       await cvSharing.save();

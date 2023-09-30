@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useJwt } from "react-jwt";
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 
 const EditPopUpAffiliate = () => {
   const [formValues, setFormValues] = useState({
@@ -100,7 +100,7 @@ const EditPopUpAffiliate = () => {
         // window.location.href = "/auth-admin-login";
         // console.log("Logging out");
         // Redirect to login page or perform other actions
-        navigate('/admin-panel-confi');
+        navigate("/admin-panel-confi");
       } else {
         console.log("Signup failed");
         // Handle signup error
@@ -137,9 +137,10 @@ const EditPopUpAffiliate = () => {
 
       if (response.status === 200) {
         console.log("Updated Profile Successfully!!");
-        localStorage.removeItem("token");
-        window.location.href = "/auth-admin-login";
-        console.log("Logging out");
+        // localStorage.removeItem("token");
+        // window.location.href = "/auth-admin-login";
+        // console.log("Logging out");
+        navigate("/admin-panel-confi");
         // Redirect to login page or perform other actions
       } else {
         console.log("Signup failed");
@@ -163,83 +164,95 @@ const EditPopUpAffiliate = () => {
           You can edit a particular field only once
         </p>
 
-        <form
-          onSubmit={handleSignup}
-          className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-gray-50"
-        >
-          <p className="text-center text-lg font-medium">
-            Update Shortlisting Status
-          </p>
-
-          <div>
-            <label htmlFor="isShortlisted" className="sr-only">
-              Shortlisted Status
-            </label>
-
-            <div className="relative">
-              <select
-                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                id="isShortlisted"
-                name="isShortlisted"
-                onChange={handleInputChange}
-              >
-                <option value={null}>
-                  {userData?.isJoined === true ? "True" : "False"}
-                </option>
-                <option value={false}>False</option>
-                <option value={true}>True</option>
-              </select>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={userData?.isShortlisted === formValues.isShortlisted}
-            className={`block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white`}
+        {userData?.isShortlisted ? (
+          <h1 className="text-center my-5 text-lg font-bold">
+            {userData?.refName} is already Shortlisted
+          </h1>
+        ) : (
+          <form
+            onSubmit={handleSignup}
+            className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-gray-50"
           >
-            Update
-          </button>
-        </form>
+            <p className="text-center text-lg font-medium">
+              Update Shortlisting Status
+            </p>
 
-        <form
-          onSubmit={handleJoined}
-          className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-gray-50"
-        >
-          <p className="text-center text-lg font-medium">
-            Update Joining Status
-          </p>
+            <div>
+              <label htmlFor="isShortlisted" className="sr-only">
+                Shortlisted Status
+              </label>
 
-          <div>
-            <label htmlFor="isJoined" className="sr-only">
-              Joined Status
-            </label>
-
-            <div className="relative">
-              <select
-                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                id="isJoined"
-                name="isJoined"
-                // placeholder={userData?.isJoined}
-                value={formValues?.isJoined}
-                onChange={handleInputChange}
-              >
-                <option value={null}>
-                  {userData?.isJoined === true ? "True" : "False"}
-                </option>
-                <option value={false}>False</option>
-                <option value={true}>True</option>
-              </select>
+              <div className="relative">
+                <select
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  id="isShortlisted"
+                  name="isShortlisted"
+                  onChange={handleInputChange}
+                >
+                  <option value={null}>
+                    {userData?.isJoined === true ? "True" : "False"}
+                  </option>
+                  <option value={false}>False</option>
+                  <option value={true}>True</option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          <button
-            type="submit"
-            disabled={userData?.isJoined === formValues.isJoined}
-            className={`block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white`}
+            <button
+              type="submit"
+              disabled={userData?.isShortlisted === formValues.isShortlisted}
+              className={`block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white`}
+            >
+              Update
+            </button>
+          </form>
+        )}
+
+        {userData?.isJoined ? (
+          <h1 className="text-center my-5 text-lg font-bold">
+            {userData?.refName} is already Joined
+          </h1>
+        ) : (
+          <form
+            onSubmit={handleJoined}
+            className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-gray-50"
           >
-            Update
-          </button>
-        </form>
+            <p className="text-center text-lg font-medium">
+              Update Joining Status
+            </p>
+
+            <div>
+              <label htmlFor="isJoined" className="sr-only">
+                Joined Status
+              </label>
+
+              <div className="relative">
+                <select
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  id="isJoined"
+                  name="isJoined"
+                  // placeholder={userData?.isJoined}
+                  // value={formValues?.isJoined}
+                  onChange={handleInputChange}
+                >
+                  <option value={null}>
+                    {userData?.isJoined === true ? "True" : "False"}
+                  </option>
+                  <option value={false}>False</option>
+                  <option value={true}>True</option>
+                </select>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={userData?.isJoined === formValues.isJoined}
+              className={`block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white`}
+            >
+              Update
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );

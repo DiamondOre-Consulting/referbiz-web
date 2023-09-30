@@ -358,42 +358,6 @@ const AssoNav = () => {
                 Logout
               </a>
             </li>
-
-            {/* <li>
-              <a
-                className="text-gray-500 transition hover:text-gray-500/75"
-                href="/history"
-              >
-                History
-              </a>
-            </li>
-
-            <li>
-              <a
-                className="text-gray-500 transition hover:text-gray-500/75"
-                href="/services"
-              >
-                Services
-              </a>
-            </li>
-
-            <li>
-              <a
-                className="text-gray-500 transition hover:text-gray-500/75"
-                href="/projects"
-              >
-                Projects
-              </a>
-            </li>
-
-            <li>
-              <a
-                className="text-gray-500 transition hover:text-gray-500/75"
-                href="/blog"
-              >
-                Blog
-              </a>
-            </li> */}
           </ul>
         </nav>
       )}
