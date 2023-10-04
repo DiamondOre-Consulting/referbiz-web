@@ -36,7 +36,7 @@ const Signup = ({ toggleForm }) => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        "https://referbiz-web.onrender.com:8080/api/candidates/send-otp",
+        "https://referbiz-web.onrender.com/api/candidates/send-otp",
         formData,
         {
           headers: {
@@ -70,7 +70,7 @@ const Signup = ({ toggleForm }) => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        "https://referbiz-web.onrender.com:8080/api/candidates/signup",
+        "https://referbiz-web.onrender.com/api/candidates/signup",
         formData,
         {
           headers: {

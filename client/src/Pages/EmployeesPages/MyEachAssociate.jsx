@@ -42,7 +42,7 @@ const MyEachAssociate = () => {
 
         // Fetch associates data from the backend
         const response = await axios.get(
-          `https://referbiz-web.onrender.com:8080/api/employee-rb/my-associates-data/${id}`,
+          `https://referbiz-web.onrender.com/api/employee-rb/my-associates-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -72,7 +72,7 @@ const MyEachAssociate = () => {
           <div className="flex flex-wrap items-center gap-10">
             <img
               className="w-[100px] h-[100px] bg-indigo-400 rounded-full border-2 border-indigo-600"
-              src={`https://referbiz-web.onrender.com:8080/` + details?.profileImage}
+              src={`https://referbiz-web.onrender.com/` + details?.profileImage}
               alt="Profile Image"
             />
             <div className="flex flex-col items-left">

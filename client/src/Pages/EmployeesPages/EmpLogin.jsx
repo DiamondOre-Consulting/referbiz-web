@@ -12,7 +12,7 @@ const LoginEmployee = () => {
     e.preventDefault();
     // Perform login logic here
     try {
-      const response = await axios.post('https://referbiz-web.onrender.com:8080/api/employee-rb/employee-login', {
+      const response = await axios.post('https://referbiz-web.onrender.com/api/employee-rb/employee-login', {
         EmpEmail,
         password,
       });

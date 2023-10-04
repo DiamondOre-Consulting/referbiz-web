@@ -49,7 +49,7 @@ const EditPopUpEmployee = () => {
       try {
         // Make a GET request to retrieve the user data
         const response = await axios.get(
-          `https://referbiz-web.onrender.com:8080/api/admin-rb/admin-employees-data/get-cv-data/${id}`,
+          `https://referbiz-web.onrender.com/api/admin-rb/admin-employees-data/get-cv-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -83,7 +83,7 @@ const EditPopUpEmployee = () => {
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `https://referbiz-web.onrender.com:8080/api/admin-rb/admin-employees-data/update/${id}`,
+        `https://referbiz-web.onrender.com/api/admin-rb/admin-employees-data/update/${id}`,
         { isShortlisted: formValues.isShortlisted },
         {
           headers: {
@@ -123,7 +123,7 @@ const EditPopUpEmployee = () => {
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `https://referbiz-web.onrender.com:8080/api/admin-rb/admin-employees-data/update/${id}`,
+        `https://referbiz-web.onrender.com/api/admin-rb/admin-employees-data/update/${id}`,
         { isJoined: formValues.isJoined },
         {
           headers: {

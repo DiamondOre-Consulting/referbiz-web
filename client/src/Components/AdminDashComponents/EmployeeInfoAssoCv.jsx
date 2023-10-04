@@ -37,7 +37,7 @@ const EmployeeInfoAssoCv = ({ cand }) => {
         }
 
         const response = await axios.get(
-          `https://referbiz-web.onrender.com:8080/api/admin-rb/admin-associates-data/get-cv-data/${cand}`,
+          `https://referbiz-web.onrender.com/api/admin-rb/admin-associates-data/get-cv-data/${cand}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

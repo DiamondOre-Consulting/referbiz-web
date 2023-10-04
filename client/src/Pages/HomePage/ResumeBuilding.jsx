@@ -44,7 +44,7 @@ const ResumeBuilding = () => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        "https://referbiz-web.onrender.com:8080/api/resume-submit/resume-building",
+        "https://referbiz-web.onrender.com/api/resume-submit/resume-building",
         formData,
         {
           headers: {
