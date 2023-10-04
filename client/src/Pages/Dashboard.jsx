@@ -33,7 +33,7 @@ const Dashboard = () => {
       const fetchUserData = async () => {
         try {
           // Make a GET request to retrieve the user data
-          const response = await axios.get('http://https://referbiz-web.onrender.com:8080/api/candidates/user-data', {
+          const response = await axios.get('https://referbiz-web.onrender.com:8080/api/candidates/user-data', {
             headers: {
               Authorization: `Bearer ${token}`
             }

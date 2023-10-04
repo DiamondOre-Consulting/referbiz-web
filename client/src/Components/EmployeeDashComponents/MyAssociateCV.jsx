@@ -45,7 +45,7 @@ const MyAssociateCV = ({ candDetails }) => {
         }
 
         const response = await axios.get(
-          `http://https://referbiz-web.onrender.com:8080/api/employee-rb/my-associates/get-cv-data/${candDetails}`,
+          `https://referbiz-web.onrender.com:8080/api/employee-rb/my-associates/get-cv-data/${candDetails}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

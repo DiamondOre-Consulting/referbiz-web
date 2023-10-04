@@ -39,7 +39,7 @@ const AddAssociate = () => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        "http://https://referbiz-web.onrender.com:8080/api/associates/signup",
+        "https://referbiz-web.onrender.com:8080/api/associates/signup",
         formData,
         {
           headers: {

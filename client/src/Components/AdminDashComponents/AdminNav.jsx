@@ -39,7 +39,7 @@ const AdminNav = () => {
     const fetchUserData = async () => {
       try {
         // Make a GET request to retrieve the user data
-        const response = await axios.get('http://https://referbiz-web.onrender.com:8080/api/admin-rb/admin-user-data', {
+        const response = await axios.get('https://referbiz-web.onrender.com:8080/api/admin-rb/admin-user-data', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -236,7 +236,7 @@ const AdminNav = () => {
                   {userData?.profileImage ? (
                     <img
                       className="w-10 h-10 rounded-full"
-                      src={`http://https://referbiz-web.onrender.com:8080/` + userData?.profileImage}
+                      src={`https://referbiz-web.onrender.com:8080/` + userData?.profileImage}
                       alt="avatar"
                     />
                   ) : (
@@ -292,7 +292,7 @@ const AdminNav = () => {
                 {userData?.profileImage ? (
                     <img
                       className="w-10 h-10 rounded-full"
-                      src={`http://https://referbiz-web.onrender.com:8080/` + userData?.profileImage}
+                      src={`https://referbiz-web.onrender.com:8080/` + userData?.profileImage}
                       alt="avatar"
                     />
                   ) : (

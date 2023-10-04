@@ -34,7 +34,7 @@ const SignupAdmin = () => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        "http://https://referbiz-web.onrender.com:8080/api/admin-rb/admin-signup-rb",
+        "https://referbiz-web.onrender.com:8080/api/admin-rb/admin-signup-rb",
         formValues
         // {
         //   headers: {

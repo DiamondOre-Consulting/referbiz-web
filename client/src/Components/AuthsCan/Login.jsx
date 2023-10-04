@@ -12,7 +12,7 @@ const Login = ({ toggleForm }) => {
     e.preventDefault();
     // Perform login logic here
     try {
-      const response = await axios.post('http://https://referbiz-web.onrender.com:8080/api/candidates/login', {
+      const response = await axios.post('https://referbiz-web.onrender.com:8080/api/candidates/login', {
         email,
         password,
       });

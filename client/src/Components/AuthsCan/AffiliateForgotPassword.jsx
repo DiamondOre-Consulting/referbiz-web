@@ -25,7 +25,7 @@ const AffiliateForgotPassword = () => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        `http://https://referbiz-web.onrender.com:8080/api/candidates/forgot-password`,
+        `https://referbiz-web.onrender.com:8080/api/candidates/forgot-password`,
         formValues,
       );
 
