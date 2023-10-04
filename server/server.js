@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
 })
 
 // Start the server
-app.listen(8080, "54.191.253.12", () => {
+app.listen(8080, () => {
   console.log(`Server running on ${process.env.IP}:8080`);
 });
 
