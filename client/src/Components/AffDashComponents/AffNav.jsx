@@ -141,7 +141,7 @@ const AffNav = () => {
                 {userData?.profileImage ? (
                     <img
                       className="w-10 h-10 rounded-full"
-                      src={`https://referbiz-web.onrender.com/` + userData?.profileImage}
+                      src={userData?.profileImage}
                       alt="avatar"
                     />
                   ) : (
