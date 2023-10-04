@@ -46,7 +46,7 @@ const CvInfoPageAsso = () => {
         }
 
         const response = await axios.get(
-          `http://192.168.29.235:8080/api/admin-rb/admin-affiliates-data/get-cv-data/${cvId.id}`,
+          `http://https://referbiz-web.onrender.com:8080/api/admin-rb/admin-affiliates-data/get-cv-data/${cvId.id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -70,7 +70,7 @@ const CvInfoPageAsso = () => {
   const handlePreview = async () => {
     try {
       const preview = await axios.get(
-        `http://192.168.29.235:8080/api/admin-rb/get-cv-preview/${cvId.id}`,
+        `http://https://referbiz-web.onrender.com:8080/api/admin-rb/get-cv-preview/${cvId.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -84,7 +84,7 @@ const CvInfoPageAsso = () => {
     }
   };
 
-  const pdfUrl = `http://192.168.29.235:8080/api/admin-rb/get-asso-cv-preview/${cvId.id}`;
+  const pdfUrl = `http://https://referbiz-web.onrender.com:8080/api/admin-rb/get-asso-cv-preview/${cvId.id}`;
   return (
     <div>
       <AdminNav />

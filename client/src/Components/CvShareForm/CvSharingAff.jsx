@@ -47,7 +47,7 @@ const CvSharing = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.29.235:8080/api/candidates/affiliate-contact-form",
+        "http://https://referbiz-web.onrender.com:8080/api/candidates/affiliate-contact-form",
         formData,
         {
           headers: {

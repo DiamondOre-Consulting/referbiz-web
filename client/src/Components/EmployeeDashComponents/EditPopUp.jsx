@@ -49,7 +49,7 @@ const EditPopUp = () => {
       try {
         // Make a GET request to retrieve the user data
         const response = await axios.get(
-          `http://192.168.29.235:8080/api/employee-rb/my-associates/get-cv-data/${id}`,
+          `http://https://referbiz-web.onrender.com:8080/api/employee-rb/my-associates/get-cv-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -83,7 +83,7 @@ const EditPopUp = () => {
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `http://192.168.29.235:8080/api/employee-rb/my-associates-data/update-shortlisted-cv-sharing/${id}`,
+        `http://https://referbiz-web.onrender.com:8080/api/employee-rb/my-associates-data/update-shortlisted-cv-sharing/${id}`,
         { isShortlisted: formValues.isShortlisted },
         {
           headers: {
@@ -124,7 +124,7 @@ const EditPopUp = () => {
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `http://192.168.29.235:8080/api/employee-rb/my-associates-data/update-joined-cv-sharing/${id}`,
+        `http://https://referbiz-web.onrender.com:8080/api/employee-rb/my-associates-data/update-joined-cv-sharing/${id}`,
         { isJoined: formValues.isJoined },
         {
           headers: {

@@ -47,7 +47,7 @@ const UpdateProfileAdmin = () => {
       try {
         // Make a GET request to retrieve the user data
         const response = await axios.get(
-          "http://192.168.29.235:8080/api/admin-rb/admin-user-data",
+          "http://https://referbiz-web.onrender.com:8080/api/admin-rb/admin-user-data",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -82,7 +82,7 @@ const UpdateProfileAdmin = () => {
     // Perform signup logic here
     try {
       const response = await axios.put(
-        `http://192.168.29.235:8080/api/admin-rb/admin-user-data/update/${id}`,
+        `http://https://referbiz-web.onrender.com:8080/api/admin-rb/admin-user-data/update/${id}`,
         formValues,
         {
           headers: {

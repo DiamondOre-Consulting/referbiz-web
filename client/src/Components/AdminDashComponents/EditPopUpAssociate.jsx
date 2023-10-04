@@ -47,7 +47,7 @@ const EditPopUpAssociate = () => {
       try {
         // Make a GET request to retrieve the user data
         const response = await axios.get(
-          `http://192.168.29.235:8080/api/admin-rb/admin-associates-data/${id}`,
+          `http://https://referbiz-web.onrender.com:8080/api/admin-rb/admin-associates-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -81,7 +81,7 @@ const EditPopUpAssociate = () => {
     // Perform signup logic here
     try {
       const response = await axios.put(
-        `http://192.168.29.235:8080/api/admin-rb/admin-associates-data/update/${id}`,
+        `http://https://referbiz-web.onrender.com:8080/api/admin-rb/admin-associates-data/update/${id}`,
         formValues,
         {
           headers: {

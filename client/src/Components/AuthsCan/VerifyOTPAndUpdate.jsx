@@ -29,7 +29,7 @@ const VerifyOTPAndUpdate = () => {
     // Perform signup logic here
     try {
       const response = await axios.put(
-        `http://192.168.29.235:8080/api/candidates/update-password`,
+        `http://https://referbiz-web.onrender.com:8080/api/candidates/update-password`,
         formValues,
       );
 
