@@ -39,7 +39,7 @@ const AssoNav = () => {
       try {
         // Make a GET request to retrieve the user data
         const response = await axios.get(
-          "https://referbiz-web.onrender.com/api/associates/user-data",
+          "api.referbiz.in/api/associates/user-data",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -78,7 +78,7 @@ const AssoNav = () => {
     //               {userData?.profileImage ? (
     //                 <img
     //                   className="w-10 h-10 rounded-full"
-    //                   src={`https://referbiz-web.onrender.com/` + userData?.profileImage}
+    //                   src={`api.referbiz.in/` + userData?.profileImage}
     //                   alt="avatar"
     //                 />
     //               ) : (
@@ -133,7 +133,7 @@ const AssoNav = () => {
     //             {userData?.profileImage ? (
     //                 <img
     //                   className="w-10 h-10 rounded-full"
-    //                   src={`https://referbiz-web.onrender.com/` + userData?.profileImage}
+    //                   src={`api.referbiz.in/` + userData?.profileImage}
     //                   alt="avatar"
     //                 />
     //               ) : (
@@ -240,7 +240,7 @@ const AssoNav = () => {
                   {userData?.profileImage ? (
                     <img
                       className="w-10 h-10 rounded-full"
-                      src={`https://referbiz-web.onrender.com/` + userData?.profileImage}
+                      src={`api.referbiz.in/` + userData?.profileImage}
                       alt="avatar"
                     />
                   ) : (
@@ -289,7 +289,7 @@ const AssoNav = () => {
                 {userData?.profileImage ? (
                     <img
                       className="w-10 h-10 rounded-full"
-                      src={`https://referbiz-web.onrender.com/` + userData?.profileImage}
+                      src={`api.referbiz.in/` + userData?.profileImage}
                       alt="avatar"
                     />
                   ) : (

@@ -53,7 +53,7 @@ const CvInfoPage = () => {
         }
 
         const response = await axios.get(
-          `https://referbiz-web.onrender.com/api/admin-rb/admin-affiliates-data/get-cv-data/${cvId.id}`,
+          `api.referbiz.in/api/admin-rb/admin-affiliates-data/get-cv-data/${cvId.id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -77,7 +77,7 @@ const CvInfoPage = () => {
   const handlePreview = async () => {
     try{
       const preview = await axios.get(
-        `https://referbiz-web.onrender.com/api/admin-rb/get-cv-preview/${cvId.id}`,
+        `api.referbiz.in/api/admin-rb/get-cv-preview/${cvId.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -91,7 +91,7 @@ const CvInfoPage = () => {
     }
   }
 
-  const pdfUrl = `https://referbiz-web.onrender.com/api/admin-rb/get-cv-preview/${cvId.id}`;
+  const pdfUrl = `api.referbiz.in/api/admin-rb/get-cv-preview/${cvId.id}`;
   return (
     <div>
       <AdminNav />

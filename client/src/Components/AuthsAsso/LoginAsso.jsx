@@ -12,7 +12,7 @@ const AssoLogin = () => {
     e.preventDefault();
     // Perform login logic here
     try {
-      const response = await axios.post('https://referbiz-web.onrender.com/api/associates/login', {
+      const response = await axios.post('api.referbiz.in/api/associates/login', {
         email,
         password,
       });

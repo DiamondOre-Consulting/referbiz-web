@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 const app = express();
-// const ip = "https://referbiz-web.onrender.com";
+// const ip = "api.referbiz.in";
 dotenv.config();
 app.use(express.json());
 app.use(cors());
