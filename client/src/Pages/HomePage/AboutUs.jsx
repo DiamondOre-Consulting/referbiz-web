@@ -373,7 +373,7 @@ const AboutUs = () => {
                   Utsav Mathur
                 </Link>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
-                  Founder / CEO
+                  Director
                 </p>
               </div>
             </div>
@@ -393,7 +393,7 @@ const AboutUs = () => {
                   Sakshi Jha
                 </Link>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
-                  CFO
+                  Project Head
                 </p>
               </div>
             </div>
@@ -413,12 +413,12 @@ const AboutUs = () => {
                   Garima Narula
                 </Link>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
-                  CTO
+                  Sr. HR Executive
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-col items-center gap-2 sm:flex-row md:gap-4">
+            {/* <div className="flex flex-col items-center gap-2 sm:flex-row md:gap-4">
               <div className="h-24 w-24 overflow-hidden rounded-full bg-gray-100 shadow-lg md:h-32 md:w-32">
                 <img
                   src={Sweety}
@@ -436,7 +436,7 @@ const AboutUs = () => {
                   Creative Director
                 </p>
               </div>
-            </div>
+            </div> */}
 
             <div className="flex flex-col items-center gap-2 sm:flex-row md:gap-4">
               <div className="h-24 w-24 overflow-hidden rounded-full bg-gray-100 shadow-lg md:h-32 md:w-32">
@@ -453,7 +453,7 @@ const AboutUs = () => {
                   Somya Gupta
                 </Link>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base">
-                  Investor Relations
+                  HR Executive
                 </p>
               </div>
             </div>
@@ -473,7 +473,7 @@ const AboutUs = () => {
                   Sahil Gupta
                 </Link>
                 <p className="text-center text-sm text-gray-500 sm:text-left md:text-base ">
-                  Senior Art Director
+                  Marketing & Operations Co-ordinator
                 </p>
               </div>
             </div>
