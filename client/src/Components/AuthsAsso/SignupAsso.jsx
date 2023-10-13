@@ -37,7 +37,7 @@ const AssoSignup = ({toggleForm}) => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        "api.referbiz.in/api/associates/signup",
+        "https://api.referbiz.in/api/associates/signup",
         formData,
         {
           headers: {

@@ -12,7 +12,7 @@ const LoginAdmin = () => {
     e.preventDefault();
     // Perform login logic here
     try {
-      const response = await axios.post('api.referbiz.in/api/admin-rb/admin-login-rb', {
+      const response = await axios.post('https://api.referbiz.in/api/admin-rb/admin-login-rb', {
         email,
         password,
       });

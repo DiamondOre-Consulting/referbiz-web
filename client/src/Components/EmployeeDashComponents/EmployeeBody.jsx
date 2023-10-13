@@ -19,7 +19,7 @@ const EmployeeBody = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "api.referbiz.in/api/employee-rb/user-data",
+          "https://api.referbiz.in/api/employee-rb/user-data",
           {
             headers: {
               Authorization: `Bearer ${token}`,

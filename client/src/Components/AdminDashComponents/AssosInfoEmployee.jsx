@@ -40,7 +40,7 @@ const AssosInfoEmployee = ({ candDetails }) => {
         }
 
         const response = await axios.get(
-          `api.referbiz.in/api/admin-rb/admin-associates-data/${candDetails}`,
+          `https://api.referbiz.in/api/admin-rb/admin-associates-data/${candDetails}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -69,7 +69,7 @@ const AssosInfoEmployee = ({ candDetails }) => {
             {candidate?.profileImage ? (
               <img
                 className="w-20 h-20 rounded-full border-2 border-indigo-600"
-                src={`api.referbiz.in/` + candidate?.profileImage}
+                src={`https://api.referbiz.in/` + candidate?.profileImage}
                 alt="avatar"
               />
             ) : (

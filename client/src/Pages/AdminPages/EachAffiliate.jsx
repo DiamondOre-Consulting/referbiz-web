@@ -43,7 +43,7 @@ const EachAffiliate = () => {
 
         // Fetch associates data from the backend
         const response = await axios.get(
-          `api.referbiz.in/api/admin-rb/admin-affiliates-data/${id}`,
+          `https://api.referbiz.in/api/admin-rb/admin-affiliates-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -73,7 +73,7 @@ const EachAffiliate = () => {
           {details?.profileImage ? (
             <img
               className="w-[100px] h-[100px] bg-indigo-400 rounded-full border-2 border-indigo-600"
-              src={`api.referbiz.in/` + details?.profileImage}
+              src={`https://api.referbiz.in/` + details?.profileImage}
               alt="Profile Image"
             />
           ) : (
