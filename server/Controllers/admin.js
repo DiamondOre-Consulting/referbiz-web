@@ -31,7 +31,7 @@ const randomKeyGen = (length) => {
 };
 
 // SIGNUP NEW ADMIN
-router.post("/admin-signup-rb", adminAuthToken, async (req, res) => {
+router.post("/admin-signup-rb", async (req, res) => {
   const { name, email, password } = req.body;
 
   try {

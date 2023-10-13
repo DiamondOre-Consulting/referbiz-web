@@ -3,6 +3,9 @@ import RB_LOGO from "../../assets/RB_100_New.png";
 import { Link } from "react-router-dom";
 
 const HomeFooter = () => {
+  const redirectWebsite = () => {
+    window.location.href = 'https://www.diamondore.in/'
+  }
   return (
     <div>
       <div className="bg-white pt-4 sm:pt-10 lg:pt-12">
@@ -157,30 +160,40 @@ const HomeFooter = () => {
 
               <nav className="flex flex-col gap-4">
                 <div>
-                  <a
-                    href="#"
+                  <Link
+                    to={'/aboutus'}
                     className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     About
-                  </a>
+                  </Link>
                 </div>
 
                 <div>
-                  <a
-                    href="#"
+                  <Link
+                    to={'/aboutus'}
                     className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     Team
-                  </a>
+                  </Link>
                 </div>
 
                 <div>
                   <a
-                    href="#"
-                    className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                    target="_blank"
+                    onClick={redirectWebsite}
+                    className="cursor-pointer text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     Jobs
                   </a>
+                </div>
+
+                <div>
+                  <Link
+                    to={'/auth-admin-login'}
+                    className="cursor-pointer text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                  >
+                    Admin Login
+                  </Link>
                 </div>
 
                 {/* <div>
