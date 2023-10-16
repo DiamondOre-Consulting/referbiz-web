@@ -25,7 +25,7 @@ const HomeServices = () => {
           </div>
 
           <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
-            <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
+            <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border bg-white">
               <a
                 href="#"
                 class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64"
@@ -56,7 +56,7 @@ const HomeServices = () => {
               </div>
             </div>
 
-            <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
+            <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border bg-white">
               <a
                 href="#"
                 class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64"
@@ -87,7 +87,7 @@ const HomeServices = () => {
               </div>
             </div>
 
-            <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
+            <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border bg-white">
               <a
                 href="#"
                 class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64"
@@ -123,7 +123,7 @@ const HomeServices = () => {
         <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
           <div class="mb-10 md:mb-16">
             <h2 class="mb-4 text-left text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">
-              Our Partner Vendors
+              Our Vendor Partners
             </h2>
 
             <p class="max-w-screen-md text-left text-gray-500 md:text-lg">
@@ -133,19 +133,7 @@ const HomeServices = () => {
 
           <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
 
-            <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
-              {/* <a
-                href="#"
-                class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64"
-              >
-                <img
-                  src={ResumeBuildingPic}
-                  loading="lazy"
-                  alt="Photo by Magicle"
-                  class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
-                />
-              </a> */}
-
+            <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
               <div class="flex flex-1 flex-col p-4 sm:p-6">
                 <h2 class="mb-2 text-2xl font-semibold text-gray-800">
                   <Link
@@ -156,26 +144,18 @@ const HomeServices = () => {
                   </Link>
                 </h2>
 
-                <p class="mb-8 text-gray-500">
+                <p class="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200">
+                    Service Based
+                </p>
+
+                {/* <p class="mb-8 text-gray-500">
                   CV Crafters is our prominent partner vendor who help you sculpt your career story into a
                   masterpiece, making your resume your strongest advocate. 
-                </p>
+                </p> */}
               </div>
             </div>
 
-            <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
-              {/* <a
-                href="#"
-                class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64"
-              >
-                <img
-                  src={InternPic}
-                  loading="lazy"
-                  alt="Photo by Pavel Danilyuk"
-                  class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
-                />
-              </a> */}
-
+            <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
               <div class="flex flex-1 flex-col p-4 sm:p-6">
                 <h2 class="mb-2 text-2xl font-semibold text-gray-800">
                   <a
@@ -186,111 +166,135 @@ const HomeServices = () => {
                   </a>
                 </h2>
 
-                <p class="mb-8 text-gray-500">
+                <p class="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200">
+                    Job Consultancy
+                </p>
+
+                {/* <p class="mb-8 text-gray-500">
                   Intern Linker bridges the gap between aspiring interns and
                   forward-thinking providers. Share your resume or share your
                   internship needs with them today to unlock your brightest future.
-                </p>
+                </p> */}
               </div>
             </div>
 
-            <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
+            <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
               <div class="flex flex-1 flex-col p-4 sm:p-6">
                 <h2 class="mb-2 text-2xl font-semibold text-gray-800">
                   <a
                     href="#"
                     class="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
-                    Commodities
+                    AgroBiz
                   </a>
                 </h2>
 
-                <p class="mb-8 text-gray-500">
+                <p class="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200">
+                    FMCG Commodities
+                </p>
+
+                {/* <p class="mb-8 text-gray-500">
                   Intern Linker bridges the gap between aspiring interns and
                   forward-thinking providers. Share your resume or share your
                   internship needs with them today to unlock your brightest future.
-                </p>
+                </p> */}
               </div>
             </div>
 
-            <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
+            <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
               <div class="flex flex-1 flex-col p-4 sm:p-6">
                 <h2 class="mb-2 text-2xl font-semibold text-gray-800">
                   <a
                     href="#"
                     class="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
-                    Restaurants
+                    Dimaond Ore Consulting 
                   </a>
                 </h2>
 
-                <p class="mb-8 text-gray-500">
+                <p class="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200">
+                    SME
+                </p>
+
+                {/* <p class="mb-8 text-gray-500">
                   Intern Linker bridges the gap between aspiring interns and
                   forward-thinking providers. Share your resume or share your
                   internship needs with them today to unlock your brightest future.
-                </p>
+                </p> */}
               </div>
             </div>
 
-            <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
+            <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
               <div class="flex flex-1 flex-col p-4 sm:p-6">
                 <h2 class="mb-2 text-2xl font-semibold text-gray-800">
                   <a
                     href="#"
                     class="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
-                    Bikes & Cars
+                    SwiftLane Motors
                   </a>
                 </h2>
 
-                <p class="mb-8 text-gray-500">
+                <p class="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200">
+                    Automobile Dealers
+                </p>
+
+                {/* <p class="mb-8 text-gray-500">
                   Intern Linker bridges the gap between aspiring interns and
                   forward-thinking providers. Share your resume or share your
                   internship needs with them today to unlock your brightest future.
-                </p>
+                </p> */}
               </div>
             </div>
 
-            <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
+            <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
               <div class="flex flex-1 flex-col p-4 sm:p-6">
                 <h2 class="mb-2 text-2xl font-semibold text-gray-800">
                   <a
                     href="#"
                     class="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
+                    Midas Finserve
+                  </a>
+                </h2>
+
+                <p class="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200">
                     Financial Products
-                  </a>
-                </h2>
+                </p>
 
-                <p class="mb-8 text-gray-500">
+                {/* <p class="mb-8 text-gray-500">
                   Intern Linker bridges the gap between aspiring interns and
                   forward-thinking providers. Share your resume or share your
                   internship needs with them today to unlock your brightest future.
-                </p>
+                </p> */}
               </div>
             </div>
 
-            <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
+            <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border bg-gray-100 hover:shadow-lg">
               <div class="flex flex-1 flex-col p-4 sm:p-6">
                 <h2 class="mb-2 text-2xl font-semibold text-gray-800">
                   <a
                     href="#"
                     class="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
-                    Real Estate
+                    Oasis Homes
                   </a>
                 </h2>
 
-                <p class="mb-8 text-gray-500">
+                <p class="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200">
+                    Real Estate
+                </p>
+
+                {/* <p class="mb-8 text-gray-500">
                   Intern Linker bridges the gap between aspiring interns and
                   forward-thinking providers. Share your resume or share your
                   internship needs with them today to unlock your brightest future.
-                </p>
+                </p> */}
               </div>
             </div>
 
-            <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
-              <div class="flex flex-1 flex-col p-4 sm:p-6">
+            <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
+              <div class="flex flex-1 flex-col justify-center items-center p-4 sm:p-6">
                 <h2 class="mb-2 text-2xl font-semibold text-gray-800">
                   <a
                     href="#"
@@ -299,12 +303,6 @@ const HomeServices = () => {
                     And many more...
                   </a>
                 </h2>
-
-                <p class="mb-8 text-gray-500">
-                  Intern Linker bridges the gap between aspiring interns and
-                  forward-thinking providers. Share your resume or share your
-                  internship needs with them today to unlock your brightest future.
-                </p>
               </div>
             </div>
           </div>
