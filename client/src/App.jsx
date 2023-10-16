@@ -98,7 +98,7 @@ function App() {
           {/* ------------------------------------------------------------------------------- */}
 
           <Route path="/top-lists" element={<TopLists />} />
-          <Route path="*" element={<div>Error 404 Page not found!</div>} />
+          {/* <Route path="*" element={<div>Error 404 Page not found!</div>} /> */}
         </Routes>
       </Router>
     </>
