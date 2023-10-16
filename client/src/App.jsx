@@ -51,7 +51,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/#" element={<HomeMain/>} />
+          <Route path="/" element={<HomeMain/>} />
           <Route path="/home-main" element={<Home />} />
           <Route path="/resume-building" element={<ResumeBuilding/>} />
           <Route path="/aboutus" element={<AboutUs/>} />
@@ -98,7 +98,7 @@ function App() {
           {/* ------------------------------------------------------------------------------- */}
 
           <Route path="/top-lists" element={<TopLists />} />
-          {/* <Route path="*" element={<div>Error 404 Page not found!</div>} /> */}
+          {/* <Route path="*" element={<inde} /> */}
         </Routes>
       </Router>
     </>
