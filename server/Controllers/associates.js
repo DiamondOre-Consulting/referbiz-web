@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import multer from "multer";
 import path from "path";
 import authenticateToken from "../Middlewares/authenticateToken.js";
-
+import cloudinary from "../Middlewares/cloudinaryConfig.js";
 import AssoUser from "../Models/AssoUsers.js";
 import CvSharing from "../Models/CvSharing.js";
 import ContactUs from "../Models/ContactUs.js";
@@ -239,7 +239,7 @@ router.post(
   authenticateToken,
   uploadAssoCv.single("document"),
   async (req, res) => {
-    const { refName, refPhone, refUniqueEmailId, userEmail } = req.body;
+    const { refName, refPhone, refUniqueEmailId, referredBy } = req.body;
 
     const uploadedFile = req.file;
 
@@ -261,6 +261,15 @@ router.post(
     // Save the file to the desired location
     const filePath = uploadedFile.path; // Get the file path
 
+    const result = await cloudinary.uploader.upload(filePath, {
+      folder: "AssociatesCVs",
+    });
+    const cvUrl = result.secure_url;
+    const ext = path.extname(cvUrl); // Get the file extension (e.g., '.pdf')
+
+    // Change the file extension from pdf to png
+    const modifiedUrl = cvUrl.replace(ext, ".png");
+
     try {
       // Create a new contact form entry and save it to the database
       const cvSharing = new CvSharing({
@@ -268,7 +277,8 @@ router.post(
         refPhone,
         refUniqueEmailId,
         userEmail: email,
-        PDF: uploadedFile?.filename,
+        PDF: modifiedUrl,
+        referredBy
         // user: req.user.email, // Associate the form entry with the logged-in user
       });
       await cvSharing.save();

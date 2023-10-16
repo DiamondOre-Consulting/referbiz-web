@@ -38,6 +38,10 @@ const CvSharingFormSchema = new mongoose.Schema({
   PDF: {
     type: String,
   },
+  referredBy: {
+    type: String,
+    default: "None"
+  },
   createdAt: {
     type: Date,
     default: Date.now,
