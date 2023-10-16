@@ -154,23 +154,17 @@ const CvSharing = () => {
                 htmlFor="referredBy"
                 className="mb-2 inline-block text-xl text-indigo-600 sm:text-xl"
               >
-                Referred By (If any)
+                Referred By (If any) 
+                <span className="text-gray-200 text-md">Leave blank or just type "None" if you are not referred by anyone</span>
               </label>
-              <select
-                name="referredBy"
+              <input
+                type="text"
                 id="referredBy"
+                name="referredBy"
                 value={formValues.referredBy}
                 onChange={handleInputChange}
                 className="w-full rounded border bg-gray-400 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
-              >
-                <option value="Swati  Chauhan">Swati Chauhan</option>
-                <option value="Pinky Yadav">Pinky Yadav</option>
-                <option value="Manpreet">Manpreet</option>
-                <option value="Mohd Amaan">Mohd Amaan</option>
-                <option value="Sooraj Samrat">Sooraj Samrat</option>
-                <option value="Ashwini Bhaskar">Ashwini Bhaskar</option>
-                <option value="None">None</option>
-              </select>
+              />
             </div>
 
             <button className="block rounded-lg mt-4 bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base">
