@@ -169,6 +169,7 @@ const CvSharing = () => {
                 <option value="Mohd Amaan">Mohd Amaan</option>
                 <option value="Sooraj Samrat">Sooraj Samrat</option>
                 <option value="Ashwini Bhaskar">Ashwini Bhaskar</option>
+                <option value="None">None</option>
               </select>
             </div>
 
