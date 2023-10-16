@@ -45,7 +45,7 @@ const CvSharing = () => {
     formData.append("refPhone", formValues.refPhone);
     formData.append("refUniqueEmailId", formValues.refUniqueEmailId);
     formData.append("document", formValues.document);
-    formData.append("document", formValues.referredBy);
+    formData.append("referredBy", formValues.referredBy);
 
     try {
       const response = await axios.post(
@@ -155,8 +155,8 @@ const CvSharing = () => {
                 className="mb-2 inline-block text-xl text-indigo-600 sm:text-xl"
               >
                 Referred By (If any) 
-                <span className="text-gray-200 text-md">Leave blank or just type "None" if you are not referred by anyone</span>
               </label>
+              <span className="text-red-600 inline-block text-xs mb-4 font-semibold">Leave blank or just type "None" if you are not referred by anyone</span>
               <input
                 type="text"
                 id="referredBy"
