@@ -169,13 +169,13 @@ const CvInfoPage = () => {
             type="button"
             className="px-5 py-3 w-2/3 rounded-md bg-red-400 text-gray-100 hover:bg-red-600"
           >
-            <a className="text-lg" target="_blank" href={pdfUrl}>
+            <a className="text-lg" target="_blank" href="https://res.cloudinary.com/dfsv5iyep/image/upload/f_auto,q_auto/v1/AffiliatesCVs/cjej4gzwu4qiyrm09vkr">
               Download Resume
             </a>
           </button>
         </div>
       </div>
-      {/* <iframe title="PDF Viewer" src={pdfUrl} width="100%" height="600px"></iframe> */}
+      <iframe title="PDF Viewer" src={pdfUrl} width="100%" height="600px"></iframe>
       <AdminFooter />
     </div>
   );
