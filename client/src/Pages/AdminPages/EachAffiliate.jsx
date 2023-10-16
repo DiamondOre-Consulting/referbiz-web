@@ -73,7 +73,7 @@ const EachAffiliate = () => {
           {details?.profileImage ? (
             <img
               className="w-[100px] h-[100px] bg-indigo-400 rounded-full border-2 border-indigo-600"
-              src={`https://api.referbiz.in/` + details?.profileImage}
+              src={details?.profileImage}
               alt="Profile Image"
             />
           ) : (
