@@ -72,7 +72,6 @@ const sendOTPByEmail = async (email, otp) => {
   }
 };
 
-
 // Initiate OTP sending
 router.post("/send-otp", uploadImg.single("profileImage"), async (req, res) => {
   try {
@@ -121,9 +120,9 @@ router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const result = await cloudinary.uploader.upload(profileImage.path, {
-        folder: 'ProfileImagesAffiliates'
+        folder: "ProfileImagesAffiliates",
       });
-    const imageUrl = result.secure_url;
+      const imageUrl = result.secure_url;
 
       // Create a new user object
       const newUser = new User({
@@ -183,7 +182,7 @@ router.post("/login", async (req, res) => {
 
     await updateUser.save();
 
-    console.log(updateUser)
+    console.log(updateUser);
 
     return res.status(200).json({ token });
   } catch (error) {
@@ -214,10 +213,10 @@ router.get("/user-data", authenticateToken, async (req, res) => {
       totalJoined,
       totalAmount,
       document,
-      count
+      count,
     } = user;
 
-    console.log(user.count)
+    console.log(user.count);
 
     res.status(200).json({
       id,
@@ -229,7 +228,7 @@ router.get("/user-data", authenticateToken, async (req, res) => {
       totalJoined,
       totalAmount,
       document,
-      count
+      count,
     });
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -357,15 +356,15 @@ router.put("/update-password", async (req, res) => {
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // Specify the directory where you want to store the uploaded files
-    cb(
-      null,
-      "Uploads"
-    );
+    cb(null, "Uploads");
   },
   filename: function (req, file, cb) {
     // Set the file name to be the original name of the uploaded file
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname));
+    cb(
+      null,
+      file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
+    );
   },
 });
 
@@ -400,9 +399,13 @@ router.post(
     const filePath = uploadedFile.path; // Get the file path
 
     const result = await cloudinary.uploader.upload(filePath, {
-      folder: 'AffiliatesCVs'
+      folder: "AffiliatesCVs",
     });
-  const cvUrl = result.optimized_url;
+    const cvUrl = result.secure_url;
+    const ext = path.extname(cvUrl); // Get the file extension (e.g., '.pdf')
+
+    // Change the file extension from pdf to png
+    const modifiedUrl = cvUrl.replace(ext, ".png");
 
     try {
       // Create a new contact form entry and save it to the database
@@ -410,8 +413,8 @@ router.post(
         refName,
         refPhone,
         refUniqueEmailId,
-        userEmail: email, 
-        PDF: cvUrl,
+        userEmail: email,
+        PDF: modifiedUrl,
         // user: req.user.email, // Associate the form entry with the logged-in user
       });
       await cvSharing.save();
