@@ -402,7 +402,7 @@ router.post(
     const result = await cloudinary.uploader.upload(filePath, {
       folder: 'AffiliatesCVs'
     });
-  const cvUrl = result.secure_url;
+  const cvUrl = result.optimized_url;
 
     try {
       // Create a new contact form entry and save it to the database
