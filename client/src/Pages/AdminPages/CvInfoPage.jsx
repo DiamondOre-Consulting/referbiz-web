@@ -175,7 +175,7 @@ const CvInfoPage = () => {
           </button>
         </div>
       </div>
-      <iframe title="PDF Viewer" src={pdfUrl} width="100%" height="600px"></iframe>
+      {/* <iframe title="PDF Viewer" src={candidate?.PDF} width="100%" height="600px"></iframe> */}
       <AdminFooter />
     </div>
   );
