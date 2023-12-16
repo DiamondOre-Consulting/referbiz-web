@@ -641,10 +641,12 @@ router.put(
           { EmpEmail: mentorEmail },
           { $pull: { myAsso: associate._id } } // Use $pull to remove associate._id from myAsso
         );
+        await previousUser.save();
         const emp = await Employees.findOneAndUpdate(
           { EmpEmail: mentorEmail },
           { $push: { myAsso: associate._id } }
         );
+        await emp.save();
       }
 
       res.status(200).json({ message: "associate updated successfully" });
