@@ -22,7 +22,7 @@ const AffNav = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");;
-    window.location.href = "/login";
+    navigate("/login");
     console.log("Logging out");
   };
 
