@@ -37,6 +37,13 @@ const transporter = nodemailer.createTransport({
 
 router.post("/resume-building", upload.single("document"), async (req, res) => {
   try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
     const userName = req.body.name;
     const userEmailAddress = req.body.email; // Assuming the form has an email input
     const userPhone = req.body.phone;
@@ -44,8 +51,8 @@ router.post("/resume-building", upload.single("document"), async (req, res) => {
 
     // Compose the email
     const mailOptions = {
-      from: "Harsh Jha <harsh.diamondore@gmail.com>",
-      to: "gajendrasinghbhandari333@gmail.com",
+      from: "Diamond Ore Consulting <harshkr2709@gmail.com>",
+      to: "ayushgupta141001@gmail.com",
       subject: `New CV Received from ${userName}`,
       text: `A new Resume has been submitted by ${userName}. Email id is ${userEmailAddress}`,
       html: `<h3 style="font-size:1.7rem; display:flex; justify-content: center;">A new Resume has been submitted by <span style="font-size:2rem;">"${userName}"</span></h3> </br>
@@ -59,18 +66,21 @@ router.post("/resume-building", upload.single("document"), async (req, res) => {
       ],
     };
 
-    // Send the email
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error(error);
-        res.status(500).send("Error sending email");
-      } else {
-        console.log("Email sent:", info.response);
-        res.status(201).send({message: "Email sent successfully!!!"});
-      }
-    });
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
 
-    // res.status(201).json({ message: "CV Sent Successfully!!!" });
+    // Send the email
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //   if (error) {
+    //     console.error(error);
+    //     res.status(500).send("Error sending email");
+    //   } else {
+    //     console.log("Email sent:", info.response);
+    //     res.status(201).send({message: "Email sent successfully!!!"});
+    //   }
+    // });
+
+    res.status(201).json({ message: "CV Sent Successfully!!!" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred" });
