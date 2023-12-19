@@ -102,11 +102,7 @@ const Signup = ({ toggleForm }) => {
       console.error("Error signing up:", error);
       setError("Some details are wrong!!");
       // Handle error
-    } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000); // Turn off loading after 2 seconds
-    }
+    } 
   };
 
   const handleShowPassword = () => {
@@ -125,7 +121,7 @@ const Signup = ({ toggleForm }) => {
             onSubmit={handleSendOtp}
             className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-gray-50"
           >
-            {loading && (
+            {/* {loading && (
               <div className="absolute inset-0 bg-gray-800 text-gray-300 text-5xl font-bold opacity-75 flex items-center justify-center">
                 <svg
                   aria-hidden="true"
@@ -145,7 +141,7 @@ const Signup = ({ toggleForm }) => {
                 </svg>
                 <span class="sr-only">Loading...</span>
               </div>
-            )}
+            )} */}
             <p className="text-center text-lg font-medium">
               Sign up to your account
             </p>
@@ -356,7 +352,7 @@ const Signup = ({ toggleForm }) => {
             onSubmit={handleSignup}
             className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-gray-50"
           >
-            {loading && (
+            {/* {loading && (
               <div className="absolute inset-0 bg-gray-800 text-gray-300 text-5xl font-bold opacity-75 flex items-center justify-center">
                 <svg
                   aria-hidden="true"
@@ -376,7 +372,7 @@ const Signup = ({ toggleForm }) => {
                 </svg>
                 <span class="sr-only">Loading...</span>
               </div>
-            )}
+            )} */}
             <div>
               <h3 className="text-center text-indigo-700 font-semibold">
                 OTP Has been sent to your email id

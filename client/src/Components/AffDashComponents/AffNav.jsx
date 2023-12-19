@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 import axios from "axios";
-import Logo from "../AffDashComponents/RB_LOGO.png";
 import RB_logo from "../../../src/assets/RB_100_New.png";
 import FakeProfile from "../../assets/FakeProfile2.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -71,6 +70,17 @@ const AffNav = () => {
     fetchUserData();
   }, []);
 
+  // Uploaded Affiliate Model PDF at Tebi website
+  const onButtonClick = () => {
+    const pdfUrl = "https://s3.tebi.io/modelspdf/Affiliate%20model.docx";
+    const link = document.createElement("a");
+    link.href = pdfUrl;
+    link.download = "AffiliateModel.pdf"; // specify the filename
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+};
+
   return (
     <header className="bg-white">
       <div className="mx-auto max-w-screen-2xl px-4 py-3 sm:px-6 sm:py-3 lg:px-8">
@@ -126,8 +136,8 @@ const AffNav = () => {
               </div>
 
               <a
-                className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-teal-800"
-                href="/"
+                className="cursor-pointer rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-teal-800"
+                onClick={onButtonClick}
               >
                 Download Instructions
               </a>

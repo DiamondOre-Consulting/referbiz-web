@@ -62,7 +62,6 @@ const Dashboard = () => {
         <AffBody />
       </div>
       <AffFooter />
-      <h1>{popUp}</h1>
       {(popUp === 1) ? <PopupCard/> : "" }
     </>
   );
