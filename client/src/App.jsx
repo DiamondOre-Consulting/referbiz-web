@@ -45,59 +45,109 @@ import CvInfoPage from "./Pages/AdminPages/CvInfoPage";
 import CvInfoPageAsso from "./Pages/AdminPages/CvInfoPageAsso";
 import ResumeBuilding from "./Pages/HomePage/ResumeBuilding";
 
-
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<HomeMain/>} />
-          <Route path="/home-main" element={<Home />} />
-          <Route path="/resume-building" element={<ResumeBuilding/>} />
-          <Route path="/aboutus" element={<AboutUs/>} />
-          <Route path="/services" element={<Services/>} />
-          <Route path="/contactmain" element={<ContactUs/>} />
-          <Route path="/auth" element={<AuthPage />} />
-          <Route path="/AssoAuth" element={<AssoAuthPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/AssoLogin" element={<AssoLogin />} />
-          <Route path="/affiliate-forgot-password" element={<AffiliateForgotPassword />} />
-          <Route path="/affiliate-update-password" element={<VerifyOTPAndUpdate />} />
-          <Route path="/contactus" element={<AssoContact />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/update-profile/:id" element={<UpdateProfile />} />
-          <Route path="/AssoDashboard" element={<AssoDashboard />} />
-          <Route path="/update-profile-asso/:id" element={<UpdateProfileAsso />} />
-          <Route path="/auth-admin-signup-confi" element={<SignupAdmin />} />
-          <Route path="/auth-admin-login" element={<LoginAdmin />} />
-          <Route path="/admin-panel-confi" element={<AdminPanelDashbaord />} />
-          <Route path="/update-profile-admin/:id" element={<UpdateProfileAdmin />} />
-          <Route path="/admin-forgot-password" element={<AdminForgotPassword />} />
-          <Route path="/add-new-associate" element={<AddAssociate />} />
-          <Route path="/admin-all-associates" element={<AllAssociates />} />
-          <Route path="/admin-all-affiliates" element={<AllAffiliates />} />
-          <Route path="/admin-all-employees" element={<AllEmployees />} />
-          <Route path="/admin-all-cvs" element={<AllCVs />} />
-          <Route path="/admin-all-affiliates/each-affiliate/:id" element={<EachAffiliate />} />
-          <Route path="/admin-all-affiliates/each-affiliate/each-cv/:id" element={<EditPopUpAffiliate />} />
-          <Route path="/admin-all-affiliates/each-affiliate/cv-details/:id" element={<CvInfoPage />} />
-          <Route path="/admin-all-associates/each-associate/cv-details/:id" element={<CvInfoPageAsso />} />
-          <Route path="/admin-all-associates/each-associate/:id" element={<EachAssociate />} />
-          <Route path="/admin-all-associates/each-associate/update/:id" element={<EditPopUpAssociate />} />
-          <Route path="/admin-all-employees/:id" element={<EachEmployee />} />
-          <Route path="/admin-all-employees/update/:id" element={<EditPopUpEmployee />} />
-          <Route path="/admin-all-employees/each-associate/:id" element={<EmployeeAssoCv />} />
-          <Route path="/employee-signup-confi" element={<SignupEmployee />} />
-          <Route path="/employee-login-confi" element={<LoginEmployee />} />
-          <Route path="/employee-panel-confi" element={<EmployeePanelDashboard />} />
-          <Route path="/update-profile-employee/:id" element={<UpdateProfileEmployee />} />
-          <Route path="/my-associates" element={<MyAssociates />} />
-          <Route path="/my-associates/:id" element={<MyEachAssociate />} />
-          <Route path="/my-associates/each-cv/:id" element={<EditPopUp />} />
+          <Route path="/">
+            <Route index element={<HomeMain />} />
+            <Route path="/home-main" element={<Home />} />
+            <Route path="/resume-building" element={<ResumeBuilding />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/contactmain" element={<ContactUs />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/AssoAuth" element={<AssoAuthPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/AssoLogin" element={<AssoLogin />} />
+            <Route
+              path="/affiliate-forgot-password"
+              element={<AffiliateForgotPassword />}
+            />
+            <Route
+              path="/affiliate-update-password"
+              element={<VerifyOTPAndUpdate />}
+            />
+            <Route path="/contactus" element={<AssoContact />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/update-profile/:id" element={<UpdateProfile />} />
+            <Route path="/AssoDashboard" element={<AssoDashboard />} />
+            <Route
+              path="/update-profile-asso/:id"
+              element={<UpdateProfileAsso />}
+            />
+            <Route path="/auth-admin-signup-confi" element={<SignupAdmin />} />
+            <Route path="/auth-admin-login" element={<LoginAdmin />} />
+            <Route
+              path="/admin-panel-confi"
+              element={<AdminPanelDashbaord />}
+            />
+            <Route
+              path="/update-profile-admin/:id"
+              element={<UpdateProfileAdmin />}
+            />
+            <Route
+              path="/admin-forgot-password"
+              element={<AdminForgotPassword />}
+            />
+            <Route path="/add-new-associate" element={<AddAssociate />} />
+            <Route path="/admin-all-associates" element={<AllAssociates />} />
+            <Route path="/admin-all-affiliates" element={<AllAffiliates />} />
+            <Route path="/admin-all-employees" element={<AllEmployees />} />
+            <Route path="/admin-all-cvs" element={<AllCVs />} />
+            <Route
+              path="/admin-all-affiliates/each-affiliate/:id"
+              element={<EachAffiliate />}
+            />
+            <Route
+              path="/admin-all-affiliates/each-affiliate/each-cv/:id"
+              element={<EditPopUpAffiliate />}
+            />
+            <Route
+              path="/admin-all-affiliates/each-affiliate/cv-details/:id"
+              element={<CvInfoPage />}
+            />
+            <Route
+              path="/admin-all-associates/each-associate/cv-details/:id"
+              element={<CvInfoPageAsso />}
+            />
+            <Route
+              path="/admin-all-associates/each-associate/:id"
+              element={<EachAssociate />}
+            />
+            <Route
+              path="/admin-all-associates/each-associate/update/:id"
+              element={<EditPopUpAssociate />}
+            />
+            <Route path="/admin-all-employees/:id" element={<EachEmployee />} />
+            <Route
+              path="/admin-all-employees/update/:id"
+              element={<EditPopUpEmployee />}
+            />
+            <Route
+              path="/admin-all-employees/each-associate/:id"
+              element={<EmployeeAssoCv />}
+            />
+            <Route path="/employee-signup-confi" element={<SignupEmployee />} />
+            <Route path="/employee-login-confi" element={<LoginEmployee />} />
+            <Route
+              path="/employee-panel-confi"
+              element={<EmployeePanelDashboard />}
+            />
+            <Route
+              path="/update-profile-employee/:id"
+              element={<UpdateProfileEmployee />}
+            />
+            <Route path="/my-associates" element={<MyAssociates />} />
+            <Route path="/my-associates/:id" element={<MyEachAssociate />} />
+            <Route path="/my-associates/each-cv/:id" element={<EditPopUp />} />
 
-          {/* ------------------------------------------------------------------------------- */}
+            {/* ------------------------------------------------------------------------------- */}
 
-          <Route path="/top-lists" element={<TopLists />} />
+            <Route path="/top-lists" element={<TopLists />} />
+          </Route>
+
           {/* <Route path="*" element={<inde} /> */}
         </Routes>
       </Router>
