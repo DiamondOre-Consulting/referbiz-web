@@ -33,7 +33,8 @@ const Dashboard = () => {
       const fetchUserData = async () => {
         try {
           // Make a GET request to retrieve the user data
-          const response = await axios.get('https://api.referbiz.in/api/candidates/user-data', {
+          const response = await axios.get('https://api.referbiz.in/api/candidates/user-data', 
+          {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -62,7 +63,7 @@ const Dashboard = () => {
         <AffBody />
       </div>
       <AffFooter />
-      {(popUp === 1) ? <PopupCard/> : "" }
+      {(popUp === 1) ? <PopupCard/> : " " }
     </>
   );
 };
