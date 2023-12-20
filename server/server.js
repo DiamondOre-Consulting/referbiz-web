@@ -4,11 +4,18 @@ import mongoose from 'mongoose';
 // import { fileURLToPath } from 'url';
 // import { dirname, join } from 'path';
 // import multer from 'multer';
+import { fileURLToPath } from 'url';
+import path from "path";
 import dotenv from 'dotenv';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 // const ip = "https://api.referbiz.in";
 dotenv.config();
+// Serve static files from the 'build' folder
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
 app.use(cors());
 app.use(express.static('ProfileImgUploads'))
@@ -46,6 +53,11 @@ const forgotOtp = {};
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
+
+// For any other request, serve the React app's HTML file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // Start the server
 app.listen(8080, () => {
