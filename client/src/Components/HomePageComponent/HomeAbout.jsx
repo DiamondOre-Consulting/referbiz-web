@@ -18,7 +18,7 @@ const HomeAbout = () => {
               </div>
             </div>
 
-            <div className="md:pt-8">
+            <div className="md:pt-8 my-auto">
               <p className="text-center font-bold text-indigo-500 md:text-left">
                 Who we are
               </p>
