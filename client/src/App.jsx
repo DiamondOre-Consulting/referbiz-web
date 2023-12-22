@@ -44,6 +44,8 @@ import ContactUs from "./Pages/HomePage/ContactUs";
 import CvInfoPage from "./Pages/AdminPages/CvInfoPage";
 import CvInfoPageAsso from "./Pages/AdminPages/CvInfoPageAsso";
 import ResumeBuilding from "./Pages/HomePage/ResumeBuilding";
+import FAQ from "./Pages/FAQ";
+import Error from "./Pages/Error";
 
 function App() {
   return (
@@ -69,6 +71,7 @@ function App() {
               path="/affiliate-update-password"
               element={<VerifyOTPAndUpdate />}
             />
+            <Route path="/FAQ" element={<FAQ/>}/>
             <Route path="/contactus" element={<AssoContact />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/update-profile/:id" element={<UpdateProfile />} />
@@ -146,6 +149,7 @@ function App() {
             {/* ------------------------------------------------------------------------------- */}
 
             <Route path="/top-lists" element={<TopLists />} />
+            <Route path="*" element={<Error />} />
           </Route>
 
           {/* <Route path="*" element={<inde} /> */}
