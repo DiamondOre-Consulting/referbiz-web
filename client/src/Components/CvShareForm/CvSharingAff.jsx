@@ -4,6 +4,32 @@ import { useJwt } from "react-jwt";
 import Dropzone from "react-dropzone";
 
 const CvSharing = () => {
+
+  const referredByOptions = [
+    'Swati Chauhan',
+    'Gayatri Rawat',
+    'Nidhi Srivastva',
+    'Priyanka Vishwakrma',
+    'Pinky Yadav',
+    'Megha Rajput',
+    'Jyoti Malakar',
+    'Alpna Bharti',
+    'Anjali Sharma',
+    'Bhavya Thakur',
+    'Manpreet Kaur',
+    'Sakshi Singh',
+    'Mohd Amaan',
+    'Sarfarz Alvi',
+    'Sourav Sivach',
+    'Muskan Jain',
+    'Kesreen Saifi',
+    'Ashwini Bhaskar',
+    'Saksham Sharma',
+  ];
+
+  const sortedReferredByOptions = referredByOptions.sort();
+
+
   const [showPopup, setShowPopup] = useState(true);
   const [submitted, setSubmitted] = useState(null);
 
@@ -150,22 +176,30 @@ const CvSharing = () => {
             </div>
 
             <div>
-              <label
-                htmlFor="referredBy"
-                className="mb-2 inline-block text-xl text-indigo-600 sm:text-xl"
-              >
-                Referred By (If any) 
-              </label>
-              <span className="text-red-600 inline-block text-xs mb-4 font-semibold">Leave blank or just type "None" if you are not referred by anyone</span>
-              <input
-                type="text"
-                id="referredBy"
-                name="referredBy"
-                value={formValues.referredBy}
-                onChange={handleInputChange}
-                className="w-full rounded border bg-gray-400 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
-              />
-            </div>
+          <label
+            htmlFor="referredBy"
+            className="mb-2 inline-block text-xl text-indigo-600 sm:text-xl"
+          >
+            Referred By
+          </label>
+          <span className="text-red-600 inline-block text-xs mb-4 font-semibold">
+            Leave blank or just type "None" if you are not referred by anyone
+          </span>
+          <select
+            id="referredBy"
+            name="referredBy"
+            value={formValues.referredBy}
+            onChange={handleInputChange}
+            className="w-full rounded border bg-gray-400 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+          >
+            <option value="">Select</option>
+            {sortedReferredByOptions.map((referral) => (
+              <option key={referral} value={referral}>
+                {referral}
+              </option>
+            ))}
+          </select>
+        </div>
 
             <button className="block rounded-lg mt-4 bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base">
               Submit
