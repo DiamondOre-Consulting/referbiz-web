@@ -83,7 +83,7 @@ const HomeNav = () => {
               <button
                 type="button"
                 onClick={toggleDropdown}
-                className="rounded-lg bg-gray-200 px-4 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block flex items-center"
+                className="rounded-lg bg-gray-200 px-4 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base inline-flex items-center"
                 style={{ display: 'inline-flex', alignItems: 'center' }}
               >
               <svg 

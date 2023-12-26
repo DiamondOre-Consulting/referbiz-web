@@ -269,6 +269,7 @@ const HomeFooter = () => {
                 <div>
                   <a
                     href="/terms-and-conditions"
+                    target="blank"
                     className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     Terms of Service
@@ -278,6 +279,7 @@ const HomeFooter = () => {
                 <div>
                   <a
                     href="/privacy-policy"
+                    target="blank"
                     className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     Privacy Policy
