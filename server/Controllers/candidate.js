@@ -14,6 +14,7 @@ import forgotOtp from "../server.js";
 
 import User from "../Models/Users.js";
 import CvSharing from "../Models/CvSharing.js";
+import Employees from "../Models/Employees.js";
 dotenv.config();
 
 const secretKey = process.env.JWT_SECRET;
@@ -381,7 +382,7 @@ router.post(
     const uploadedFile = req.file;
 
     // Get the user's email from the decoded token
-    const { email } = req.user;
+    const { email, name } = req.user;
 
     // Handle form submission and file upload logic
     if (!uploadedFile) {
@@ -429,7 +430,16 @@ router.post(
         }
       );
 
-      res.status(201).json({ message: "Form submitted successfully" });
+      const updatedEmp = await Employees.findOneAndUpdate(
+        { EmpName: referredBy },
+        {
+          $inc: { totalShared: 1 },
+          $push: { allCvInfo: cvSharing._id },
+          $push: { myAffil: name }
+        }
+      )
+
+      res.status(201).json({ message: "Form submitted successfully", updatedEmp });
     } catch (error) {
       console.error("Error submitting form:", error);
       res.status(500).json({ message: "Internal server error" });
