@@ -310,10 +310,12 @@ const Signup = ({ toggleForm }) => {
 
             <button
               type="submit"
-              className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
+              className={`block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white ${!formValues.name || !formValues.email || !formValues.password ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={!formValues.name || !formValues.email || !formValues.password}
             >
               Sign up
             </button>
+
 
             <p className="text-center text-sm text-gray-500">
               Have account already?
