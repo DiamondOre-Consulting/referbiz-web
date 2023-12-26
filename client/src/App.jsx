@@ -46,6 +46,8 @@ import CvInfoPageAsso from "./Pages/AdminPages/CvInfoPageAsso";
 import ResumeBuilding from "./Pages/HomePage/ResumeBuilding";
 import FAQ from "./Pages/FAQ";
 import Error from "./Pages/Error";
+import TermsAndConditions from "./Pages/TermsConditions";
+import PrivacyPolicy from "./Pages/PrivacyPolicy"
 
 function App() {
   return (
@@ -149,6 +151,9 @@ function App() {
             {/* ------------------------------------------------------------------------------- */}
 
             <Route path="/top-lists" element={<TopLists />} />
+            <Route path="/terms-and-conditions" element={<TermsAndConditions/>}/>
+            <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
+
             <Route path="*" element={<Error />} />
           </Route>
 

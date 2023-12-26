@@ -268,7 +268,7 @@ const HomeFooter = () => {
               <nav className="flex flex-col gap-4">
                 <div>
                   <a
-                    href="#"
+                    href="/terms-and-conditions"
                     className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     Terms of Service
@@ -277,7 +277,7 @@ const HomeFooter = () => {
 
                 <div>
                   <a
-                    href="#"
+                    href="/privacy-policy"
                     className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     Privacy Policy
