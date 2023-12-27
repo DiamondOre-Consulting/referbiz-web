@@ -53,7 +53,7 @@ const AllAssociates = () => {
     };
 
     fetchAssociates();
-  }, []);
+  }, [decodedToken,navigate]);
 
   return (
     <>

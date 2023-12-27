@@ -72,7 +72,7 @@ const CvInfoPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [decodedToken,navigate]);
 
   const handlePreview = async () => {
     try{

@@ -55,7 +55,7 @@ const AllEmployees = () => {
     };
 
     fetchAssociates();
-  }, []);
+  }, [decodedToken,navigate]);
 
   return (
     <>
