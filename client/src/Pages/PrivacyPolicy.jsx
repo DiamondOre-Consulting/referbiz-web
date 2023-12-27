@@ -1,4 +1,6 @@
 import React from 'react';
+import Navbar from '../Components/HomePageComponent/Navbar';
+import HomeFooter from '../Components/HomePageComponent/HomeFooter';
 
 const boxesData = [
   {
@@ -34,7 +36,12 @@ const boxesData = [
 const TermsAndConditions = () => {
   return (
     <div>
-        <div className="container" style={{ maxWidth: '1200px', margin: '100px auto', padding: '20px'}}>
+
+        {/* Navbar Starts  */}
+          <Navbar/>
+        {/* Navbar Ends  */}
+
+        <div className="container" style={{ maxWidth: '1200px', margin: '0px auto 100px', padding: '20px'}}>
             <h1 style={{ textAlign: 'center', marginBottom: '10px', fontSize:'60px', fontWeight:'bold'}}>Privacy Policy</h1>
         </div>
         {boxesData.map((box, index) => (
@@ -45,6 +52,10 @@ const TermsAndConditions = () => {
             </div>
             </div>
         ))}
+
+        {/* Footer Starts  */}
+          <HomeFooter/>
+        {/* Footer Ends  */}
     </div>
   );
 };

@@ -250,12 +250,13 @@ const HomeFooter = () => {
                 </div> */}
 
                 <div>
-                  <a
-                    href={'/FAQ'}
+                  
+                  <Link
+                    to={'/FAQ'}
                     className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     FAQ
-                  </a>
+                  </Link>
                 </div>
               </nav>
             </div>
@@ -267,23 +268,23 @@ const HomeFooter = () => {
 
               <nav className="flex flex-col gap-4">
                 <div>
-                  <a
-                    href="/terms-and-conditions"
+                  <Link
+                    to="/terms-and-conditions"
                     target="blank"
                     className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     Terms of Service
-                  </a>
+                  </Link>
                 </div>
 
                 <div>
-                  <a
-                    href="/privacy-policy"
+                  <Link
+                    to="/privacy-policy"
                     target="blank"
                     className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     Privacy Policy
-                  </a>
+                  </Link>
                 </div>
 
                 {/* <div>
