@@ -25,6 +25,7 @@ const CvSharing = () => {
     'Kesreen Saifi',
     'Ashwini Bhaskar',
     'Saksham Sharma',
+    'Harsh Kumar Jha',
   ];
 
   const sortedReferredByOptions = referredByOptions.sort();
