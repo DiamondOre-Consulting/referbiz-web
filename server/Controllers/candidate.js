@@ -373,7 +373,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post(
-  "/affiliate-contact-form",
+  "/affiliate-contact-form/:id",
   authenticateToken,
   upload.single("document"),
   async (req, res) => {
@@ -409,6 +409,9 @@ router.post(
     const modifiedUrl = cvUrl.replace(ext, ".png");
 
     try {
+      const { id } = req.params;
+      console.log(id);
+
       // Create a new contact form entry and save it to the database
       const cvSharing = new CvSharing({
         refName,
@@ -416,7 +419,8 @@ router.post(
         refUniqueEmailId,
         userEmail: email,
         PDF: modifiedUrl,
-        referredBy
+        referredBy,
+        
         // user: req.user.email, // Associate the form entry with the logged-in user
       });
       await cvSharing.save();
@@ -435,11 +439,13 @@ router.post(
         {
           $inc: { totalShared: 1 },
           $push: { allCvInfo: cvSharing._id },
-          $push: { myAffil: name }
+          $push: { myAffil: name },
         }
-      )
+      );
 
-      res.status(201).json({ message: "Form submitted successfully", updatedEmp });
+      res
+        .status(201)
+        .json({ message: "Form submitted successfully", updatedEmp });
     } catch (error) {
       console.error("Error submitting form:", error);
       res.status(500).json({ message: "Internal server error" });
