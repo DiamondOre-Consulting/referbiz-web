@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useJwt } from "react-jwt";
 import axios from "axios";
 import Logo from "./RB_LOGO.png";
+import RB_LOGO from "../../assets/RB_100_New.png";
 import FakeProfile from "../../assets/FakeProfile2.png";
 
 const AdminNav = () => {
   const navigate = useNavigate();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const [userData, setUserData] = useState(null);
 
@@ -55,6 +57,19 @@ const AdminNav = () => {
     };
 
     fetchUserData();
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
   }, []);
 
   return (
@@ -221,14 +236,14 @@ const AdminNav = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="flex-1 md:flex md:items-center md:gap-12">
             <a className="block text-teal-600" href="/">
-              <img className="block w-20 md:w-32 sm:w-24" src={Logo} alt="Logo" />
+              <img className="block w-20 md:w-32 sm:w-24" src={RB_LOGO} alt="Logo" />
             </a>
           </div>
 
           <div className="flex items-center gap-4">
             <div className="hidden sm:flex sm:gap-4">
               
-              <div className="sm:flex">
+              <div className="sm:flex" ref={dropdownRef}>
                 <button
                   onClick={toggleDropdown}
                   className="flex items-center justify-between rounded-md gap-2 px-5 text-sm font-medium text-teal-600 hover:bg-gray-100"

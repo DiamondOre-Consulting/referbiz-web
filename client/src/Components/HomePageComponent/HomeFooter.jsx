@@ -177,7 +177,7 @@ const HomeFooter = () => {
                   </Link>
                 </div>
 
-                <div>
+                {/* <div>
                   <a
                     target="_blank"
                     onClick={redirectWebsite}
@@ -185,7 +185,7 @@ const HomeFooter = () => {
                   >
                     Jobs
                   </a>
-                </div>
+                </div> */}
 
                 <div>
                   <Link
@@ -251,7 +251,7 @@ const HomeFooter = () => {
 
                 <div>
                   <a
-                    href="#"
+                    href={'/FAQ'}
                     className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     FAQ
@@ -268,7 +268,8 @@ const HomeFooter = () => {
               <nav className="flex flex-col gap-4">
                 <div>
                   <a
-                    href="#"
+                    href="/terms-and-conditions"
+                    target="blank"
                     className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     Terms of Service
@@ -277,7 +278,8 @@ const HomeFooter = () => {
 
                 <div>
                   <a
-                    href="#"
+                    href="/privacy-policy"
+                    target="blank"
                     className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
                     Privacy Policy

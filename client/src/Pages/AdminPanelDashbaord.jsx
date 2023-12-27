@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useJwt } from "react-jwt";
 import { useNavigate } from "react-router-dom";
 import AdminNav from "../Components/AdminDashComponents/AdminNav";
@@ -7,11 +7,12 @@ import AdminBody from "../Components/AdminDashComponents/AdminBody";
 import AdminFooter from "../Components/AdminDashComponents/AdminFooter";
 import PopupCard from "../Components/Instructions/PopupCard";
 
-const AdminPanelDashbaord = () => {
+const AdminPanelDashboard = () => {
   const navigate = useNavigate();
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
   const userName = decodedToken ? decodedToken.name : "No Name Found";
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -29,10 +30,22 @@ const AdminPanelDashbaord = () => {
     }
   }, [decodedToken, navigate]);
 
+  useEffect(() => {
+    const hasShownPopup = localStorage.getItem("hasShownPopup");
+    if (!hasShownPopup) {
+      setShowPopup(true); // Popup hasn't been shown before, show it
+      localStorage.setItem("hasShownPopup", "true");
+    }
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/auth-admin-login";
     console.log("Logging out");
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
   };
 
   return (
@@ -43,9 +56,9 @@ const AdminPanelDashbaord = () => {
         <AdminBody />
       </div>
       <AdminFooter />
-      <PopupCard />
+      {showPopup && <PopupCard onClose={closePopup} />}
     </>
   );
 };
 
-export default AdminPanelDashbaord;
+export default AdminPanelDashboard;

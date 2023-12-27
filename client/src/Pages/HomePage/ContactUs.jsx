@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { Link } from "react-router-dom";
 import HomeFooter from "../../Components/HomePageComponent/HomeFooter";
@@ -6,6 +6,12 @@ import RB_LOGO from "../../assets/RB_100_New.png";
 
 const ContactUs = () => {
   const [showPopup, setShowPopup] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
   const handleClose = () => {
     setShowPopup(false);
@@ -41,6 +47,20 @@ const ContactUs = () => {
     setMenuOpen(!menuOpen);
     console.log(menuOpen);
   };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
     <div>
       {/* Navbar Start */}
@@ -93,12 +113,37 @@ const ContactUs = () => {
               </Link>
             </nav>
 
-            <Link
-              to={'/home-main'}
-              className="hidden rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base lg:inline-block"
-            >
-              Signin
-            </Link>
+            <div className="hidden md:inline-block relative text-left" ref={dropdownRef}>
+              <button
+                type="button"
+                onClick={toggleDropdown}
+                className="rounded-lg bg-gray-200 px-4 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base inline-flex items-center"
+                style={{ display: 'inline-flex', alignItems: 'center' }}
+              >
+              <svg 
+                className="w-4 h-4 text-gray-500 dark:text-white" 
+                aria-hidden="true" 
+                xmlns="http://www.w3.org/2000/svg" 
+                fill="currentColor" 
+                viewBox="0 0 14 18">
+                <path d="M7 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2 1H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
+              </svg>
+
+              <span className="ml-2">Sign in</span>
+              </button>
+              {isOpen && (
+                <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none">
+                  <div className="py-1" role="none">
+                    <Link to={"/AssoAuth"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                      Associate
+                    </Link>
+                    <Link to={"/auth"} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                      Affiliate
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
 
             <button
               type="button"
@@ -385,7 +430,7 @@ const ContactUs = () => {
           </form>
         </div>
 
-        <div className="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
+        <div className="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2 mb-auto">
           <img
             alt="Welcome"
             src="https://images.unsplash.com/photo-1630450202872-e0829c9d6172?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"

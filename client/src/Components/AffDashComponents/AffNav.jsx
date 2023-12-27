@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import { useJwt } from "react-jwt";
 import axios from "axios";
 import RB_logo from "../../../src/assets/RB_100_New.png";
@@ -9,6 +9,8 @@ const AffNav = () => {
   const navigate = useNavigate();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const dropdownRef = useRef(null);
 
   const [userData, setUserData] = useState(null);
 
@@ -81,6 +83,19 @@ const AffNav = () => {
     document.body.removeChild(link);
 };
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
     <header className="bg-white">
       <div className="mx-auto max-w-screen-2xl px-4 py-3 sm:px-6 sm:py-3 lg:px-8">
@@ -94,10 +109,11 @@ const AffNav = () => {
           <div className="flex items-center gap-4">
             <div className="hidden sm:flex sm:gap-4">
               
-              <div className="sm:flex">
+              <div className="sm:flex" ref={dropdownRef}>
                 <button
                   onClick={toggleDropdown}
                   className="flex items-center justify-between rounded-md gap-2 px-5 text-sm font-medium text-teal-600 hover:bg-gray-100"
+
                 >
                   {userData?.profileImage ? (
                     <img

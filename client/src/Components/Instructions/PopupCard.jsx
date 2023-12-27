@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 const PopupCard = () => {
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setshowPopup] = useState(true);
 
   const handleClose = () => {
-    setShowPopup(false);
+    setshowPopup(false);
   };
 
   return (

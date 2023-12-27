@@ -24,10 +24,10 @@ const HomeServices = () => {
             </p>
           </div>
 
-          <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
+          <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-3 xl:gap-8">
             <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border bg-white">
               <a
-                href="#"
+                href={'/services#affiliateModel'}
                 class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64"
               >
                 <img
@@ -58,7 +58,7 @@ const HomeServices = () => {
 
             <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border bg-white">
               <a
-                href="#"
+                href={'/services#associateModel'}
                 class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64"
               >
                 <img
@@ -89,7 +89,7 @@ const HomeServices = () => {
 
             <div class="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border bg-white">
               <a
-                href="#"
+                href={'/services#resumeBuilding'}
                 class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64"
               >
                 <img
@@ -303,6 +303,11 @@ const HomeServices = () => {
                     And many more...
                   </a>
                 </h2>
+                <p class="rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200 ">
+                  <svg className="w-6 h-6 dark:text-white mx-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                  </svg>
+                </p>
               </div>
             </div>
           </div>
