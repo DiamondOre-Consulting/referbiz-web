@@ -38,12 +38,7 @@ const EmployeeSchema = new mongoose.Schema({
     type: String,
   },
   allCvInfo: {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'CvSharing'
-      }
-    ],
+    type: [],
     default: [],
   },
   myAsso: {
@@ -51,6 +46,15 @@ const EmployeeSchema = new mongoose.Schema({
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'AssoUser'
+      }
+    ],
+    default: [],
+  },
+  myAffil: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
       }
     ],
     default: [],

@@ -52,7 +52,7 @@ router.post("/resume-building", upload.single("document"), async (req, res) => {
     // Compose the email
     const mailOptions = {
       from: "Diamond Ore Consulting <harshkr2709@gmail.com>",
-      to: "ayushgupta141001@gmail.com",
+      to: "hr@diamondore.in",
       subject: `New CV Received from ${userName}`,
       text: `A new Resume has been submitted by ${userName}. Email id is ${userEmailAddress}`,
       html: `<h3 style="font-size:1.7rem; display:flex; justify-content: center;">A new Resume has been submitted by <span style="font-size:2rem;">"${userName}"</span></h3> </br>

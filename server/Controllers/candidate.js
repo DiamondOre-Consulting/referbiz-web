@@ -14,6 +14,7 @@ import forgotOtp from "../server.js";
 
 import User from "../Models/Users.js";
 import CvSharing from "../Models/CvSharing.js";
+import Employees from "../Models/Employees.js";
 dotenv.config();
 
 const secretKey = process.env.JWT_SECRET;
@@ -372,7 +373,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post(
-  "/affiliate-contact-form",
+  "/affiliate-contact-form/:id",
   authenticateToken,
   upload.single("document"),
   async (req, res) => {
@@ -381,7 +382,7 @@ router.post(
     const uploadedFile = req.file;
 
     // Get the user's email from the decoded token
-    const { email } = req.user;
+    const { email, name } = req.user;
 
     // Handle form submission and file upload logic
     if (!uploadedFile) {
@@ -408,6 +409,9 @@ router.post(
     const modifiedUrl = cvUrl.replace(ext, ".png");
 
     try {
+      const { id } = req.params;
+      console.log(id);
+
       // Create a new contact form entry and save it to the database
       const cvSharing = new CvSharing({
         refName,
@@ -415,7 +419,8 @@ router.post(
         refUniqueEmailId,
         userEmail: email,
         PDF: modifiedUrl,
-        referredBy
+        referredBy,
+        
         // user: req.user.email, // Associate the form entry with the logged-in user
       });
       await cvSharing.save();
@@ -429,7 +434,18 @@ router.post(
         }
       );
 
-      res.status(201).json({ message: "Form submitted successfully" });
+      const updatedEmp = await Employees.findOneAndUpdate(
+        { EmpName: referredBy },
+        {
+          $inc: { totalShared: 1 },
+          $push: { allCvInfo: cvSharing._id },
+          $push: { myAffil: name },
+        }
+      );
+
+      res
+        .status(201)
+        .json({ message: "Form submitted successfully", updatedEmp });
     } catch (error) {
       console.error("Error submitting form:", error);
       res.status(500).json({ message: "Internal server error" });
