@@ -49,11 +49,13 @@ import Error from "./Pages/Error";
 import TermsAndConditions from "./Pages/TermsConditions";
 import PrivacyPolicy from "./Pages/PrivacyPolicy"
 
+
 function App() {
   return (
     <>
       <Router>
         <Routes>
+
           <Route path="/">
             <Route index element={<HomeMain />} />
             <Route path="/home-main" element={<Home />} />
@@ -156,8 +158,6 @@ function App() {
 
             <Route path="*" element={<Error />} />
           </Route>
-
-          {/* <Route path="*" element={<inde} /> */}
         </Routes>
       </Router>
     </>

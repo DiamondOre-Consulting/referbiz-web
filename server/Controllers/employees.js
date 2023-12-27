@@ -17,7 +17,7 @@ const router = express.Router();
 
 // EMPLOYEE SIGN-UP
 router.post("/employee-signup", async (req, res) => {
-  const { EmpName, EmpEmail, password, myAsso } = req.body;
+  const { EmpName, EmpEmail, password } = req.body;
 
   try {
     // Check if user already exists
