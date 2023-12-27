@@ -3,11 +3,12 @@ import axios from "axios";
 import AdminNav from "../../Components/AdminDashComponents/AdminNav";
 import AdminFooter from "../../Components/AdminDashComponents/AdminFooter";
 import FakeProfile from "../../assets/FakeProfile2.png";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { useJwt } from "react-jwt";
 
 const AllAssociates = () => {
   const [associates, setAssociates] = useState([]);
+  const navigate = useNavigate();
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
   useEffect(() => {

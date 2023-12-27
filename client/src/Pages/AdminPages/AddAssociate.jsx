@@ -303,7 +303,7 @@ const AddAssociate = () => {
               type="submit"
               className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
             >
-              Sign up
+              Add New Associate
             </button>
 
             {/* <p className="text-center text-sm text-gray-500">

@@ -246,7 +246,7 @@ const AdminNav = () => {
               <div className="sm:flex" ref={dropdownRef}>
                 <button
                   onClick={toggleDropdown}
-                  className="flex items-center justify-between rounded-md gap-2 px-5 text-sm font-medium text-teal-600 hover:bg-gray-100"
+                  className="flex items-center justify-between rounded-md gap-2 px-5 text-sm font-medium text-indigo-600 hover:bg-gray-100"
                 >
                   {userData?.profileImage ? (
                     <img
@@ -285,13 +285,13 @@ const AdminNav = () => {
               </div>
 
               <Link
-                className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-teal-800"
+                className="rounded-md bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-teal-800"
                 to={'/add-new-associate'}
               >
                 Add New Associate
               </Link>
               <Link
-                className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-teal-800"
+                className="rounded-md bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-teal-800"
                 to={'/add-new-employee'}
               >
                 Add New Employees
