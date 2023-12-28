@@ -9,6 +9,7 @@ import employeeAuthToken from "../Middlewares/employeeAuthToken.js";
 import AssoUsers from "../Models/AssoUsers.js";
 import CvSharing from "../Models/CvSharing.js";
 import adminAuthToken from "../Middlewares/adminAuthToken.js";
+import Users from "../Models/Users.js";
 dotenv.config();
 
 const secretKey = process.env.EMPLOYEE_JWT_SECRET;
@@ -477,6 +478,219 @@ router.get(
       res.status(200).json(cvById);
     } catch (error) {
       console.error("Error retrieving associate:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+// AFFILIATES SECTION
+// FETCHING ALL AFFILIATES DATA
+router.get("/my-affiliates-data", employeeAuthToken, async (req, res) => {
+  try {
+    // Get the user's email from the decoded token
+    const { EmpEmail, myAffil } = req.user;
+
+    // Find the user in the database
+    const user = await Employees.findOne({ EmpEmail });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    console.log(user);
+
+    const myAffiliates = await AssoUsers.find({ _id: { $in: user.myAffil } }, { password: 0 });
+
+    res.status(200).json(myAffiliates);
+  } catch (error) {
+    console.error("Error fetching all affiliates:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// FETCHING AN AFFILAITE BY ID
+router.get("/my-affiliate-data/:id", employeeAuthToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Get the user's email from the decoded token
+    const { EmpEmail } = req.user;
+
+    // Find the user in the database
+    const user = await Employees.findOne({ EmpEmail });
+    if (!user) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+
+    // Find the affiliate by ID
+    const affiliate = await Users.findById(id, { password: 0 });
+    if (!affiliate) {
+      return res.status(404).json({ message: "Affiliate not found" });
+    }
+
+    console.log(affiliate);
+
+    res.status(200).json(affiliate);
+  } catch (error) {
+    console.error("Error retrieving affiliate:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// FETCHING AFFILIATE'S CV DETAILS BY ID
+router.get(
+  "/my-affiliates/get-cv-data/:id",
+  employeeAuthToken,
+  async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      // Get the user's email from the decoded token
+      const { email } = req.user;
+
+      // Find the user in the database
+      const user = await Employees.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: "Employee not found" });
+      }
+
+      // Find the affiliate by ID
+      const cvById = await CvSharing.findById(id);
+      if (!cvById) {
+        return res.status(404).json({ message: "Cv Details not found" });
+      }
+
+      res.status(200).json(cvById);
+    } catch (error) {
+      console.error("Error retrieving associate:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+// UPDATE ASSOCIATE CV-SHARE SHORTLISTED BY ID
+router.put(
+  "/my-affiliates-data/update-shortlisted-cv-sharing/:id",
+  employeeAuthToken,
+  async (req, res) => {
+    const { id } = req.params;
+    const { isShortlisted, isJoined } = req.body;
+    const cvId = id;
+
+    try {
+      // Get the user's email from the decoded token
+      const { EmpEmail } = req.user;
+
+      // Find the user in the database
+      const user = await Employees.findOne({ EmpEmail });
+      if (!user) {
+        return res.status(404).json({ message: "Employee not found" });
+      }
+
+      // Find the associate by ID
+      const cvUserShortlist = await CvSharing.findByIdAndUpdate(id, {
+        $set: { isShortlisted: true },
+      }, { new: true });
+
+      // if (!cvUserShortlist) {
+      //   return res.status(404).json({ message: "cv details not found" });
+      // }
+
+      // Save the updated associate
+      await cvUserShortlist.save();
+      console.log(cvUserShortlist);
+
+      console.log(cvUserShortlist.isShortlisted);
+      if (cvUserShortlist.isShortlisted) {
+        const affilUser = await Users.findOneAndUpdate(
+          { allCvInfo: id },
+          { $inc: { totalShortlisted: 1 } }
+        );
+        // console.log(assoUser);
+        // const empUser = await Employees.findOneAndUpdate(
+        //   { myAsso: assoUser?._id, totalShortlisted: { $ne: 1 } },
+        //   { $inc: { totalShortlisted: 1 } }
+        // );
+        // console.log(empUser);
+        if (affilUser) {
+          await affilUser.save();
+          console.log(affilUser);
+        } else {
+          console.log("No user found to update.");
+        }
+      }
+
+      // Save the updated associate
+      await cvUserShortlist.save();
+
+      console.log(cvUserShortlist);
+
+      res.status(200).json({ message: "cv details updated successfully" });
+    } catch (error) {
+      console.error("Error updating cv details:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+// UPDATE ASSOCIATE CV-SHARE JOINED BY ID
+router.put(
+  "/my-affiliates-data/update-joined-cv-sharing/:id",
+  employeeAuthToken,
+  async (req, res) => {
+    const { id } = req.params;
+    const { isShortlisted, isJoined } = req.body;
+    const cvId = id;
+
+    try {
+      // Get the user's email from the decoded token
+      const { EmpEmail } = req.user;
+
+      // Find the user in the database
+      const user = await Employees.findOne({ EmpEmail });
+      if (!user) {
+        return res.status(404).json({ message: "Employee not found" });
+      }
+
+      // Find the associate by ID
+      const cvUserJoined = await CvSharing.findByIdAndUpdate(id, {
+        $set: { isJoined: true },
+      }, { new: true });
+      // if (!cvUserJoined) {
+      //   return res.status(404).json({ message: "cv details not found" });
+      // }
+
+      // Save the updated associate
+      await cvUserJoined.save();
+      console.log(cvUserJoined);
+
+      console.log(cvUserJoined.isJoined);
+      if (cvUserJoined.isJoined) {
+        const affilUser = await Users.findOneAndUpdate(
+          { allCvInfo: id },
+          { $inc: { totalJoined: 1 } }
+        );
+        // console.log(assoUser);
+        // const empUser = await Employees.findOneAndUpdate(
+        //   { myAsso: assoUser?._id, totalJoined: { $ne: 1 } },
+        //   { $inc: { totalJoined: 1 } }
+        // );
+        // console.log(empUser);
+        if (affilUser) {
+          await affilUser.save();
+          console.log(affilUser);
+        } else {
+          console.log("No user found to update.");
+        }
+      }
+
+      // Save the updated associate
+      await cvUserJoined.save();
+
+      console.log(cvUserJoined);
+
+      res.status(200).json({ message: "cv details updated successfully" });
+    } catch (error) {
+      console.error("Error updating cv details:", error);
       res.status(500).json({ message: "Internal server error" });
     }
   }
