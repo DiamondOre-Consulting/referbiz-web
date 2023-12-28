@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useJwt } from "react-jwt";
 import axios from "axios";
-import EditPopUp from "./EditPopUp";
+import EditPopUp from "./EditPopUpAssociateCV";
 
 const MyAssociateCV = ({ candDetails }) => {
   console.log(candDetails);

@@ -9,7 +9,7 @@ import employeeAuthToken from "../Middlewares/employeeAuthToken.js";
 import AssoUsers from "../Models/AssoUsers.js";
 import CvSharing from "../Models/CvSharing.js";
 import adminAuthToken from "../Middlewares/adminAuthToken.js";
-import Users from "../Models/Users.js";
+import User from "../Models/Users.js";
 dotenv.config();
 
 const secretKey = process.env.EMPLOYEE_JWT_SECRET;
@@ -497,8 +497,9 @@ router.get("/my-affiliates-data", employeeAuthToken, async (req, res) => {
     }
 
     console.log(user);
+    console.log(user.myAffil);
 
-    const myAffiliates = await AssoUsers.find({ _id: { $in: user.myAffil } }, { password: 0 });
+    const myAffiliates = await User.find({ _id: { $in: user.myAffil } }, { password: 0 });
 
     res.status(200).json(myAffiliates);
   } catch (error) {

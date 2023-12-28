@@ -53,7 +53,7 @@ const MyAffiliates = () => {
     };
 
     fetchAffiliates();
-  }, [decodedToken, navigate]);
+  }, [decodedToken]);
 
   return (
     <>
