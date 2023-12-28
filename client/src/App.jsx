@@ -150,6 +150,10 @@ function App() {
             <Route path="/my-associates/:id" element={<MyEachAssociate />} />
             <Route path="/my-associates/each-cv/:id" element={<EditPopUp />} />
 
+            <Route path="/my-affiliates" element={<MyAssociates />} />
+            <Route path="/my-affiliates/:id" element={<MyEachAssociate />} />
+            <Route path="/my-affiliates/each-cv/:id" element={<EditPopUp />} />
+
             {/* ------------------------------------------------------------------------------- */}
 
             <Route path="/top-lists" element={<TopLists />} />
