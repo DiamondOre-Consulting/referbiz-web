@@ -26,13 +26,20 @@ const EmployeeHero = () => {
       </div>
       <div className="py-6 sm:py-8 lg:py-12">
         <div className="mx-auto max-w-screen-md px-4 md:px-8">
-          {/* <div className="grid grid-cols-1 gap-6 md:grid-cols-1 lg:gap-4"> */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-4">
             <Link to={'/my-associates'} className="flex items-center justify-center cursor-pointer rounded-lg gap-3 bg-gray-100 p-4 lg:p-8 hover:bg-gray-300 hover:gap-5">
               <div className="text-sm font-semibold sm:text-base">
                 Check Associates Activities
               </div>
               <img className="w-4 h-4" src={Forward} alt="click to go" />
             </Link>
+            <Link to={'/my-associates'} className="flex items-center justify-center cursor-pointer rounded-lg gap-3 bg-gray-100 p-4 lg:p-8 hover:bg-gray-300 hover:gap-5">
+              <div className="text-sm font-semibold sm:text-base">
+                Check Affiliates Activities
+              </div>
+              <img className="w-4 h-4" src={Forward} alt="click to go" />
+            </Link>
+            </div>
         </div>
       </div>
     </section>  
