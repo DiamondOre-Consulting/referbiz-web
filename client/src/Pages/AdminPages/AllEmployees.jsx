@@ -3,13 +3,14 @@ import axios from "axios";
 import EmployeeNav from "../../Components/EmployeeDashComponents/EmployeeNav";
 import EmployeeFooter from "../../Components/EmployeeDashComponents/EmployeeFooter";
 import FakeProfile from "../../assets/FakeProfile2.png";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import { useJwt } from "react-jwt";
 import AdminNav from "../../Components/AdminDashComponents/AdminNav";
 import AdminFooter from "../../Components/AdminDashComponents/AdminFooter";
 
 const AllEmployees = () => {
   const [associates, setAssociates] = useState([]);
+  const navigate = useNavigate();
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
   useEffect(() => {
@@ -55,7 +56,7 @@ const AllEmployees = () => {
     };
 
     fetchAssociates();
-  }, []);
+  }, [decodedToken,navigate]);
 
   return (
     <>

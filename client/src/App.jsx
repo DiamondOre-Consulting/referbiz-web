@@ -33,7 +33,7 @@ import EditPopUp from "./Components/EmployeeDashComponents/EditPopUp";
 import EditPopUpAffiliate from "./Components/AdminDashComponents/EditPopUpAffiliate";
 import EditPopUpAssociate from "./Components/AdminDashComponents/EditPopUpAssociate";
 import EditPopUpEmployee from "./Components/AdminDashComponents/EditPopUpEmployee";
-import TopLists from "./Components/Instructions/TopList";
+import AddEmployee from "./Pages/AdminPages/AddEmployee";
 import AdminForgotPassword from "./Components/AdminDashComponents/AdminForgotPassword";
 import AffiliateForgotPassword from "./Components/AuthsCan/AffiliateForgotPassword";
 import VerifyOTPAndUpdate from "./Components/AuthsCan/VerifyOTPAndUpdate";
@@ -156,7 +156,7 @@ function App() {
 
             {/* ------------------------------------------------------------------------------- */}
 
-            <Route path="/top-lists" element={<TopLists />} />
+            <Route path="/add-new-employee" element={<AddEmployee />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions/>}/>
             <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
 
