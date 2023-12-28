@@ -39,7 +39,7 @@ const AddAssociate = () => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        "https://api.referbiz.in/api/associates/signup",
+        "https://api.referbiz.in/api/employee-rb/employee-signup",
         formData,
         {
           headers: {
@@ -76,12 +76,12 @@ const AddAssociate = () => {
             className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-gray-50"
           >
             <p className="text-center text-lg font-medium">
-              Register New Associate
+              Register New Employee
             </p>
 
             <div>
               <label htmlFor="name" className="sr-only">
-                Assosiate's Full Name
+                Employee's Full Name
               </label>
 
               <div className="relative">
@@ -116,7 +116,7 @@ const AddAssociate = () => {
 
             <div>
               <label htmlFor="email" className="sr-only">
-                Associate's Email
+                Employee's Email
               </label>
 
               <div className="relative">
@@ -190,9 +190,9 @@ const AddAssociate = () => {
               </div>
             </div>
 
-            <div>
+            {/* <div>
               <label htmlFor="mentorName" className="sr-only">
-                Mentor Name
+                Mentor's Name
               </label>
 
               <div className="relative">
@@ -223,9 +223,9 @@ const AddAssociate = () => {
                   </svg>
                 </span>
               </div>
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <label htmlFor="mentorEmail" className="sr-only">
                 Mentor's Email
               </label>
@@ -258,9 +258,9 @@ const AddAssociate = () => {
                   </svg>
                 </span>
               </div>
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <label htmlFor="document" className="sr-only">
                 Your Profile Image
               </label>
@@ -274,7 +274,7 @@ const AddAssociate = () => {
                   onChange={handleFileChange}
                 />
 
-                {/* <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
+                <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-4 w-4 text-gray-400"
@@ -295,15 +295,15 @@ const AddAssociate = () => {
                       d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                     />
                   </svg>
-                </span> */}
+                </span>
               </div>
-            </div>
+            </div> */}
 
             <button
               type="submit"
               className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
             >
-              Add New Associate
+              Add New Employee
             </button>
 
             {/* <p className="text-center text-sm text-gray-500">
