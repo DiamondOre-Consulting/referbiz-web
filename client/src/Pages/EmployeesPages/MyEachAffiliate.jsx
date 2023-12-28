@@ -6,12 +6,14 @@ import AdminFooter from "../../Components/AdminDashComponents/AdminFooter";
 import { useJwt } from "react-jwt";
 import MyAssociateCV from "../../Components/EmployeeDashComponents/MyAssociateCV";
 import EmployeeNav from "../../Components/EmployeeDashComponents/EmployeeNav";
+import MyAffiliateCV from "../../Components/EmployeeDashComponents/MyAffiliateCV";
 
 const MyEachAffiliate = () => {
   const [details, setDetails] = useState({});
   const [allCvs, setAllCvs] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
+  console.log(id);
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
   useEffect(() => {
@@ -42,7 +44,7 @@ const MyEachAffiliate = () => {
 
         // Fetch associates data from the backend
         const response = await axios.get(
-          `https://api.referbiz.in/api/employee-rb/my-affiliates-data/${id}`,
+          `http://localhost:8080/api/employee-rb/my-affiliates-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -57,7 +59,7 @@ const MyEachAffiliate = () => {
         // console.log(allCvs);
         // console.log(data.totalJoined);
       } catch (error) {
-        console.error("Error fetching associates:", error);
+        console.error("Error fetching affiliate:", error);
         // Handle error and show appropriate message
       }
     };
@@ -72,7 +74,7 @@ const MyEachAffiliate = () => {
           <div className="flex flex-wrap items-center gap-10">
             <img
               className="w-[100px] h-[100px] bg-indigo-400 rounded-full border-2 border-indigo-600"
-              src={`https://api.referbiz.in/` + details?.profileImage}
+              src={details?.profileImage}
               alt="Profile Image"
             />
             <div className="flex flex-col items-left">
@@ -127,7 +129,7 @@ const MyEachAffiliate = () => {
         </div>
         <div className="bg-gray-300 w-full shadow-md rounded-md p-4 hover:shadow-lg">
           {allCvs.map((allCv) => (
-            <MyAssociateCV key={allCv} candDetails={allCv} />
+            <MyAffiliateCV key={allCv} candDetails={allCv} />
           ))}
         </div>
       </div>

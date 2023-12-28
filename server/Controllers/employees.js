@@ -509,8 +509,9 @@ router.get("/my-affiliates-data", employeeAuthToken, async (req, res) => {
 });
 
 // FETCHING AN AFFILAITE BY ID
-router.get("/my-affiliate-data/:id", employeeAuthToken, async (req, res) => {
+router.get("/my-affiliates-data/:id", employeeAuthToken, async (req, res) => {
   const { id } = req.params;
+  console.log(id);
 
   try {
     // Get the user's email from the decoded token
@@ -523,7 +524,7 @@ router.get("/my-affiliate-data/:id", employeeAuthToken, async (req, res) => {
     }
 
     // Find the affiliate by ID
-    const affiliate = await Users.findById(id, { password: 0 });
+    const affiliate = await User.findById(id, { password: 0 });
     if (!affiliate) {
       return res.status(404).json({ message: "Affiliate not found" });
     }
@@ -602,7 +603,7 @@ router.put(
 
       console.log(cvUserShortlist.isShortlisted);
       if (cvUserShortlist.isShortlisted) {
-        const affilUser = await Users.findOneAndUpdate(
+        const affilUser = await User.findOneAndUpdate(
           { allCvInfo: id },
           { $inc: { totalShortlisted: 1 } }
         );
@@ -666,7 +667,7 @@ router.put(
 
       console.log(cvUserJoined.isJoined);
       if (cvUserJoined.isJoined) {
-        const affilUser = await Users.findOneAndUpdate(
+        const affilUser = await User.findOneAndUpdate(
           { allCvInfo: id },
           { $inc: { totalJoined: 1 } }
         );
