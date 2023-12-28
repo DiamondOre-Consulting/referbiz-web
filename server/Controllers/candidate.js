@@ -172,7 +172,7 @@ router.post("/login", async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ name: user.name, email: user.email }, secretKey, {
+    const token = jwt.sign({ userId: user._id, name: user.name, email: user.email }, secretKey, {
       expiresIn: "1h",
     });
 
@@ -373,16 +373,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post(
-  "/affiliate-contact-form/:id",
+  "/affiliate-contact-form",
   authenticateToken,
   upload.single("document"),
   async (req, res) => {
-    const { refName, refPhone, refUniqueEmailId, referredBy } = req.body;
+    const { refName, refPhone, refUniqueEmailId, referredById } = req.body;
 
     const uploadedFile = req.file;
 
     // Get the user's email from the decoded token
-    const { email, name } = req.user;
+    const { email, userId } = req.user;
 
     // Handle form submission and file upload logic
     if (!uploadedFile) {
@@ -409,8 +409,8 @@ router.post(
     const modifiedUrl = cvUrl.replace(ext, ".png");
 
     try {
-      const { id } = req.params;
-      console.log(id);
+      // const { id } = req.params;
+      // console.log(id);
 
       // Create a new contact form entry and save it to the database
       const cvSharing = new CvSharing({
@@ -419,7 +419,7 @@ router.post(
         refUniqueEmailId,
         userEmail: email,
         PDF: modifiedUrl,
-        referredBy,
+        referredById,
         
         // user: req.user.email, // Associate the form entry with the logged-in user
       });
@@ -434,18 +434,31 @@ router.post(
         }
       );
 
-      const updatedEmp = await Employees.findOneAndUpdate(
-        { EmpName: referredBy },
-        {
-          $inc: { totalShared: 1 },
-          $push: { allCvInfo: cvSharing._id },
-          $push: { myAffil: name },
-        }
-      );
+      const affiExist = await Employees.findOne({myAffil: userId})
+      if (affiExist) {
+        const updatedEmp = await Employees.findByIdAndUpdate(
+          { _id: referredById },
+          {
+            $inc: { totalShared: 1 },
+            $push: { allCvInfo: cvSharing._id },
+          }
+        );
+        console.log(updatedEmp);
+      } else {
+        const updatedEmp = await Employees.findByIdAndUpdate(
+          { _id: referredById },
+          {
+            $inc: { totalShared: 1 },
+            $push: { allCvInfo: cvSharing._id },
+            $push: { myAffil: userId},
+          }
+        );
+        console.log(updatedEmp);
+      }
 
       res
         .status(201)
-        .json({ message: "Form submitted successfully", updatedEmp });
+        .json({ message: "Form submitted successfully" });
     } catch (error) {
       console.error("Error submitting form:", error);
       res.status(500).json({ message: "Internal server error" });
