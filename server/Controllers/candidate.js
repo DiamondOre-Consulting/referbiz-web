@@ -287,6 +287,30 @@ router.put(
   }
 );
 
+// GET ALL EMPLOYEES DATA
+router.get("/employees-data", authenticateToken, async (req, res) => {
+  try {
+    // Get the user's email from the decoded token
+    const { email } = req.user;
+
+    // Find the user in the database
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const employees = await Employees.find({}, { password: 0 });
+
+    // Extract the required fields from the user object
+    //   const { name, email, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+    // console.log(employees[15].name, " and ", employees[15].email);
+    res.status(200).json(employees);
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // FORGOT PASSWORD FOR AFFILIATE
 // SEND-OTP
 router.post("/forgot-password", async (req, res) => {

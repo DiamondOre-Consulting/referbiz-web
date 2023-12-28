@@ -101,6 +101,7 @@ router.get("/user-data", employeeAuthToken, async (req, res) => {
       totalJoined,
       totalAmount,
       myAsso,
+      myAffil
     } = user;
     // console.log(user.totalShortlisted, " ", user.totalJoined)
 
@@ -116,6 +117,7 @@ router.get("/user-data", employeeAuthToken, async (req, res) => {
         totalJoined,
         totalAmount,
         myAsso,
+        myAffil
       });
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -123,7 +125,7 @@ router.get("/user-data", employeeAuthToken, async (req, res) => {
   }
 });
 
-// UPDATE A PARTICULAR AFFILIATE
+// UPDATE
 router.put(
   "/employee-user-data/update/:id",
   employeeAuthToken,

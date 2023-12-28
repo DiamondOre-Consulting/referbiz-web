@@ -42,6 +42,7 @@ const CvSharingFormSchema = new mongoose.Schema({
     type: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      default: null
     },
   },
   createdAt: {
