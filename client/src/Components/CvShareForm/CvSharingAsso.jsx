@@ -18,7 +18,7 @@ const CvSharingAsso = () => {
     refPhone: "",
     refUniqueEmailId: "",
     document: null,
-    referredBy: "",
+    // referredBy: "",
   });
   //   const [message, setMessage] = useState('');
 
@@ -46,7 +46,7 @@ const CvSharingAsso = () => {
     formData.append("refPhone", formValues.refPhone);
     formData.append("refUniqueEmailId", formValues.refUniqueEmailId);
     formData.append("document", formValues.document);
-    formData.append("referredBy", formValues.referredBy);
+    // formData.append("referredBy", formValues.referredBy);
 
     try {
       const response = await axios.post(
@@ -66,7 +66,7 @@ const CvSharingAsso = () => {
         refPhone: "",
         refUniqueEmailId: "",
         document: null,
-        referredBy: "",
+        // referredBy: "",
       });
       setSubmitted(true);
     } catch (error) {
@@ -147,7 +147,7 @@ const CvSharingAsso = () => {
                 />
               </div>
 
-              <div>
+              {/* <div>
               <label
                 htmlFor="referredBy"
                 className="mb-2 inline-block text-xl text-indigo-600 sm:text-xl"
@@ -163,7 +163,7 @@ const CvSharingAsso = () => {
                 onChange={handleInputChange}
                 className="w-full rounded border bg-gray-400 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
               />
-            </div>
+            </div> */}
 
               <button className="block rounded-lg mt-4 bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base">
                 Submit

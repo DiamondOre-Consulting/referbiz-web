@@ -239,7 +239,7 @@ router.post(
   authenticateToken,
   uploadAssoCv.single("document"),
   async (req, res) => {
-    const { refName, refPhone, refUniqueEmailId, referredBy } = req.body;
+    const { refName, refPhone, refUniqueEmailId } = req.body;
 
     const uploadedFile = req.file;
 
@@ -278,7 +278,7 @@ router.post(
         refUniqueEmailId,
         userEmail: email,
         PDF: modifiedUrl,
-        referredBy
+        // referredBy
         // user: req.user.email, // Associate the form entry with the logged-in user
       });
       await cvSharing.save();

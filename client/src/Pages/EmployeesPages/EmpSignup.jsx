@@ -39,7 +39,7 @@ const SignupEmployee = () => {
 
       if (response.status === 201) {
         console.log("Signup successful as Employee");
-        navigate("/employee-login-confi");
+        navigate("/admin-panel-confi");
         // Redirect to login page or perform other actions
       } else {
         console.log("Signup failed");
