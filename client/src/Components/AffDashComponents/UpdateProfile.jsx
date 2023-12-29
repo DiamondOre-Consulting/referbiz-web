@@ -115,11 +115,11 @@ const UpdateProfile = () => {
         <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
           Update Your Info As Affiliate
         </h1>
-
+{/* 
         <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati
           sunt dolores deleniti inventore quaerat mollitia?
-        </p>
+        </p> */}
 
         <form
           onSubmit={handleSignup}

@@ -116,10 +116,10 @@ const UpdateProfileEmployee = () => {
           Update Your Info As Employee
         </h1>
 
-        <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
+        {/* <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati
           sunt dolores deleniti inventore quaerat mollitia?
-        </p>
+        </p> */}
 
         <form
           onSubmit={handleSignup}
