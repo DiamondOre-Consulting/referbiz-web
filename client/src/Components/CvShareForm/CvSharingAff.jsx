@@ -1,38 +1,87 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
+import { Navigate,useNavigate } from "react-router";
 import { useJwt } from "react-jwt";
 import Dropzone from "react-dropzone";
 
 const CvSharing = () => {
 
-  const referredByOptions = [
-    'Swati Chauhan',
-    'Gayatri Rawat',
-    'Nidhi Srivastva',
-    'Priyanka Vishwakrma',
-    'Pinky Yadav',
-    'Megha Rajput',
-    'Jyoti Malakar',
-    'Alpna Bharti',
-    'Anjali Sharma',
-    'Bhavya Thakur',
-    'Manpreet Kaur',
-    'Sakshi Singh',
-    'Mohd Amaan',
-    'Sarfarz Alvi',
-    'Sourav Sivach',
-    'Muskan Jain',
-    'Kesreen Saifi',
-    'Ashwini Bhaskar',
-    'Saksham Sharma',
-    'Harsh Kumar Jha',
-  ];
+  // const referredByOptions = [
+  //   'Swati Chauhan',
+  //   'Gayatri Rawat',
+  //   'Nidhi Srivastva',
+  //   'Priyanka Vishwakrma',
+  //   'Pinky Yadav',
+  //   'Megha Rajput',
+  //   'Jyoti Malakar',
+  //   'Alpna Bharti',
+  //   'Anjali Sharma',
+  //   'Bhavya Thakur',
+  //   'Manpreet Kaur',
+  //   'Sakshi Singh',
+  //   'Mohd Amaan',
+  //   'Sarfarz Alvi',
+  //   'Sourav Sivach',
+  //   'Muskan Jain',
+  //   'Kesreen Saifi',
+  //   'Ashwini Bhaskar',
+  //   'Saksham Sharma',
+  //   'Harsh Kumar Jha',
+  // ];
 
-  const sortedReferredByOptions = referredByOptions.sort();
+  // const sortedReferredByOptions = referredByOptions.sort();
 
+  const [empData,setEmpData]=useState([])
 
   const [showPopup, setShowPopup] = useState(true);
   const [submitted, setSubmitted] = useState(null);
+
+
+  const navigate = useNavigate();
+  const { decodedToken } = useJwt(localStorage.getItem("token"));
+
+  const userEmail = decodedToken ? decodedToken.name : "No Name Found";
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // No token found, redirect to login page
+      navigate("/login");
+    } else {
+      const tokenExpiration = decodedToken ? decodedToken.exp * 1000 : 0; // Convert expiration time to milliseconds
+
+      if (tokenExpiration && tokenExpiration < Date.now()) {
+        // Token expired, remove from local storage and redirect to login page
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
+      
+      const fetchUserData = async () => {
+        try {
+          // Make a GET request to retrieve the user data
+          const response = await axios.get('https://api.referbiz.in/api/candidates/employees-data', 
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }); // Replace '/api/user' with the appropriate endpoint
+  
+          // Set the user data in state
+          // setPopUp(response.data.count);
+          console.log(response.data[0])
+          setEmpData(response.data);
+          
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  
+      fetchUserData();
+    }
+  }, [decodedToken, navigate])
+
+
+
 
   const handleClose = () => {
     setShowPopup(false);
@@ -44,7 +93,7 @@ const CvSharing = () => {
     refPhone: "",
     refUniqueEmailId: "",
     document: null,
-    referredBy: "",
+    referredById: "",
   });
   //   const [message, setMessage] = useState('');
 
@@ -72,7 +121,7 @@ const CvSharing = () => {
     formData.append("refPhone", formValues.refPhone);
     formData.append("refUniqueEmailId", formValues.refUniqueEmailId);
     formData.append("document", formValues.document);
-    formData.append("referredBy", formValues.referredBy);
+    formData.append("referredById", formValues.referredById);
 
     try {
       const response = await axios.post(
@@ -92,7 +141,7 @@ const CvSharing = () => {
         refPhone: "",
         refUniqueEmailId: "",
         document: null,
-        referredBy: "",
+        referredById: "",
       });
       setSubmitted(true);
     } catch (error) {
@@ -178,7 +227,7 @@ const CvSharing = () => {
 
             <div>
           <label
-            htmlFor="referredBy"
+            htmlFor="referredById"
             className="mb-2 inline-block text-xl text-indigo-600 sm:text-xl"
           >
             Referred By
@@ -187,16 +236,16 @@ const CvSharing = () => {
             Leave blank or just type "None" if you are not referred by anyone
           </span>
           <select
-            id="referredBy"
-            name="referredBy"
-            value={formValues.referredBy}
+            id="referredById"
+            name="referredById"
+            value={formValues.referredById}
             onChange={handleInputChange}
             className="w-full rounded border bg-gray-400 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
           >
             <option value="">Select</option>
-            {sortedReferredByOptions.map((referral) => (
-              <option key={referral} value={referral}>
-                {referral}
+            {empData.map((emp) => (
+              <option key={emp._id} value={emp._id}>
+                {emp.EmpName}, {emp._id}
               </option>
             ))}
           </select>

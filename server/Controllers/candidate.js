@@ -402,6 +402,7 @@ router.post(
   upload.single("document"),
   async (req, res) => {
     const { refName, refPhone, refUniqueEmailId, referredById } = req.body;
+    console.log(referredById);
 
     const uploadedFile = req.file;
 
@@ -465,6 +466,7 @@ router.post(
           {
             $inc: { totalShared: 1 },
             $push: { allCvInfo: cvSharing._id },
+            $push: { myAffil: userId},
           }
         );
         console.log(updatedEmp);

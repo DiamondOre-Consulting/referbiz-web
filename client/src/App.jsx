@@ -159,7 +159,7 @@ function App() {
 
             {/* ------------------------------------------------------------------------------- */}
 
-            <Route path="/add-new-employee" element={<AddEmployee />} />
+            <Route path="/add-new-employee" element={<SignupEmployee/>} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions/>}/>
             <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
 
