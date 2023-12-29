@@ -28,7 +28,7 @@ const HomeFooter = () => {
                     >
                       <path d="M96 0V47L48 94H0V47L48 0H96Z" />
                     </svg> */}
-                  <img className="w-1/2" src={RB_LOGO} alt="" />
+                  <img className="w-1/2" src={RB_LOGO} alt="Logo Here" />
                   {/* Flowrift */}
                 </a>
               </div>
@@ -196,14 +196,14 @@ const HomeFooter = () => {
                   </Link>
                 </div>
 
-                {/* <div>
-                  <a
-                    href="#"
+                <div>
+                  <Link
+                    to={'/employee-login-confi'}
                     className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
-                    Press
-                  </a>
-                </div> */}
+                    Employee Login
+                  </Link>
+                </div>
 
                 {/* <div>
                   <a
