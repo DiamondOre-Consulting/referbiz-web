@@ -44,10 +44,10 @@ const AdminBody = () => {
   return (
     <section>
       <div className="w-max-auto flex flex-col items-center mt-10">
-        <h2 className="text-4xl text-center sm:text-5xl md:text-6xl font-semibold text-gray-100 px-4 sm:px-6 lg:px-10 py-6 sm:py-8 md:py-10">
+        {/* <h2 className="text-4xl text-center sm:text-5xl md:text-6xl font-semibold text-gray-100 px-4 sm:px-6 lg:px-10 py-6 sm:py-8 md:py-10">
           Your Numbers
-        </h2>
-        <div className="py-6 sm:py-8 lg:py-12">
+        </h2> */}
+        {/* <div className="py-6 sm:py-8 lg:py-12">
           <div className="mx-auto max-w-screen-xl px-4 md:px-8">
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-8">
               <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 lg:p-8">
@@ -90,10 +90,10 @@ const AdminBody = () => {
         </div>
         <h2 className="text-4xl text-center sm:text-5xl md:text-6xl font-semibold text-gray-100 px-4 sm:px-6 lg:px-10 py-6 sm:py-8 md:py-10">
           Refer More, Earn More
-        </h2>
-        <div>
+        </h2> */}
+        {/* <div>
           <CvSharing />
-        </div>
+        </div> */}
       </div>
     </section>
   );
