@@ -4,7 +4,7 @@ import axios from "axios";
 import FakeProfile from "../../assets/FakeProfile2.png";
 import { Link } from "react-router-dom";
 
-const AssosInfoEmployee = ({ candDetails }) => {
+const AffilInfoEmployee = ({ candDetails }) => {
   console.log(candDetails);
   const [candidate, setCandidate] = useState({});
   const [shortlisting, setShortlisting] = useState("");
@@ -40,7 +40,7 @@ const AssosInfoEmployee = ({ candDetails }) => {
         }
 
         const response = await axios.get(
-          `https://api.referbiz.in/api/admin-rb/admin-associates-data/${candDetails}`,
+          `https://api.referbiz.in/api/admin-rb/admin-affiliates-data/${candDetails}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -63,31 +63,31 @@ const AssosInfoEmployee = ({ candDetails }) => {
         {candidate ? (
           <Link
             key={candidate?._id}
-            to={`/admin-all-employees/each-associate/${candidate?._id}`}
+            to={`/admin-all-employees/each-affiliate/${candidate?._id}`}
             className="flex justify-between gap-1 items-center mt-4 px-5"
           >
             {candidate?.profileImage ? (
               <img
                 className="w-20 h-20 rounded-full border-2 border-indigo-600"
-                src="https://cdn3.iconfinder.com/data/icons/web-design-and-development-2-6/512/87-1024.png"
+                src={candidate?.profileImage}
                 alt="avatar"
               />
             ) : (
               <img
                 className="w-20 h-20 bg-gray-100 rounded-full border-2 border-indigo-600"
-                src="https://cdn3.iconfinder.com/data/icons/web-design-and-development-2-6/512/87-1024.png"
+                src={FakeProfile}
                 alt="avatar"
               />
             )}
 
             <div className="flex flex-col items-center">
-              <p className="text-sm">Assosiate Name </p>
+              <p className="text-sm">Affiliate Name </p>
               <span className="text-indigo-700 font-semibold">
                 {candidate?.name}
               </span>{" "}
             </div>
             <div className="flex flex-col items-center">
-              <p className="text-sm">Assosiate Email </p>
+              <p className="text-sm">Affiliate Email </p>
               <span className="text-indigo-700 font-semibold">
                 {candidate?.email}
               </span>{" "}
@@ -119,4 +119,4 @@ const AssosInfoEmployee = ({ candDetails }) => {
   );
 };
 
-export default AssosInfoEmployee;
+export default AffilInfoEmployee;

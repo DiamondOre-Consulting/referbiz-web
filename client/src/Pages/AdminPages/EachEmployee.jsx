@@ -3,6 +3,7 @@ import axios, { all } from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useJwt } from "react-jwt";
 import AssocInfoEmployee from "../../Components/AdminDashComponents/AssosInfoEmployee";
+import AffiInfoEmployee from "../../Components/AdminDashComponents/AffiInfoEmployee";
 import AdminNav from "../../Components/AdminDashComponents/AdminNav";
 import AdminFooter from "../../Components/AdminDashComponents/AdminFooter";
 import CvInfoEmployee from "../../Components/AdminDashComponents/CvInfoEmployee";
@@ -10,6 +11,7 @@ import CvInfoEmployee from "../../Components/AdminDashComponents/CvInfoEmployee"
 const EachEmployee = () => {
   const [details, setDetails] = useState({});
   const [allAssos, setAllAssos] = useState([]);
+  const [allAffils,setAllAffils]=useState([]);
   const [allCvs, setAllCvs] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -54,6 +56,8 @@ const EachEmployee = () => {
         console.log(response.data);
         setDetails(data);
         const empAssos = response.data.myAsso;
+        const empAffil = response.data.myAffil;
+        setAllAffils(empAffil);
         setAllAssos(empAssos);
         console.log(allAssos);
         console.log(empAssos);
@@ -142,6 +146,13 @@ const EachEmployee = () => {
           <div className="bg-gray-300 w-full shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg">
             {allAssos.map((allAsso) => (
               <AssocInfoEmployee key={allAsso} candDetails={allAsso} />
+            ))}
+          </div>
+
+          <h1 className="text-3xl font-semibold text-gray-800 my-5">Affiliates</h1>
+          <div className="bg-gray-300 w-full shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg">
+            {allAffils.map((allAffil) => (
+              <AffiInfoEmployee key={allAffil} candDetails={allAffil} />
             ))}
           </div>
         </div>
