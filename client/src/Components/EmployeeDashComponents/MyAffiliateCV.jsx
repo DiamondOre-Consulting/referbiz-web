@@ -4,7 +4,7 @@ import { useJwt } from "react-jwt";
 import axios from "axios";
 import EditPopUp from "./EditPopUpAssociateCV";
 
-const MyAssociateCV = ({ candDetails }) => {
+const MyAffiliateCV = ({ candDetails }) => {
   console.log(candDetails);
   const [candidate, setCandidate] = useState({});
   const [shortlisting, setShortlisting] = useState("");
@@ -45,7 +45,7 @@ const MyAssociateCV = ({ candDetails }) => {
         }
 
         const response = await axios.get(
-          `https://api.referbiz.in/api/employee-rb/my-associates/get-cv-data/${candDetails}`,
+          `https://api.referbiz.in/api/employee-rb/my-affiliates/get-cv-data/${candDetails}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -143,7 +143,7 @@ const MyAssociateCV = ({ candDetails }) => {
                 {joining}
               </span>{" "}
             </div>
-            <Link to={`/my-associates/each-cv/${candDetails}`} className="flex flex-col items-center bg-indigo-500 px-5 py-2 rounded-md cursor-pointer hover:bg-indigo-700">
+            <Link to={`/my-affiliates/each-cv/${candDetails}`} className="flex flex-col items-center bg-indigo-500 px-5 py-2 rounded-md cursor-pointer hover:bg-indigo-700">
               <p
                 onClick={handleEditClick}
                 className="text-sm flex justify-center text-gray-100"
@@ -168,4 +168,4 @@ const MyAssociateCV = ({ candDetails }) => {
   );
 };
 
-export default MyAssociateCV;
+export default MyAffiliateCV;

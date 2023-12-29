@@ -29,7 +29,7 @@ import UpdateProfile from "./Components/AffDashComponents/UpdateProfile";
 import UpdateProfileAsso from "./Components/AssoDashComponents/UpdateProfile";
 import UpdateProfileAdmin from "./Components/AdminDashComponents/UpdateProfile";
 import UpdateProfileEmployee from "./Components/EmployeeDashComponents/UpdateProfile";
-import EditPopUp from "./Components/EmployeeDashComponents/EditPopUp";
+import EditPopUpAssociateCV from "./Components/EmployeeDashComponents/EditPopUpAssociateCV";
 import EditPopUpAffiliate from "./Components/AdminDashComponents/EditPopUpAffiliate";
 import EditPopUpAssociate from "./Components/AdminDashComponents/EditPopUpAssociate";
 import EditPopUpEmployee from "./Components/AdminDashComponents/EditPopUpEmployee";
@@ -48,6 +48,9 @@ import FAQ from "./Pages/FAQ";
 import Error from "./Pages/Error";
 import TermsAndConditions from "./Pages/TermsConditions";
 import PrivacyPolicy from "./Pages/PrivacyPolicy"
+import MyAffiliates from "./Pages/EmployeesPages/MyAffiliates";
+import MyEachAffiliate from "./Pages/EmployeesPages/MyEachAffiliate";
+import EditPopUpAffiliateCV from "./Components/EmployeeDashComponents/EditPopUpAffiliateCV";
 
 
 function App() {
@@ -148,7 +151,11 @@ function App() {
             />
             <Route path="/my-associates" element={<MyAssociates />} />
             <Route path="/my-associates/:id" element={<MyEachAssociate />} />
-            <Route path="/my-associates/each-cv/:id" element={<EditPopUp />} />
+            <Route path="/my-associates/each-cv/:id" element={<EditPopUpAssociateCV />} />
+
+            <Route path="/my-affiliates" element={<MyAffiliates />} />
+            <Route path="/my-affiliates/:id" element={<MyEachAffiliate />} />
+            <Route path="/my-affiliates/each-cv/:id" element={<EditPopUpAffiliateCV />} />
 
             {/* ------------------------------------------------------------------------------- */}
 

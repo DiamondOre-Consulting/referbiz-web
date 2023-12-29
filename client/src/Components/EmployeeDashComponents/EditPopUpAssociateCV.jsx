@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useJwt } from "react-jwt";
 
-const EditPopUp = () => {
+const EditPopUpAssociateCV = () => {
   const [formValues, setFormValues] = useState({
     isShortlisted: null,
     isJoined: null,
@@ -257,4 +257,4 @@ const EditPopUp = () => {
   );
 };
 
-export default EditPopUp;
+export default EditPopUpAssociateCV;

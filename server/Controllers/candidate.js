@@ -172,7 +172,7 @@ router.post("/login", async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ name: user.name, email: user.email }, secretKey, {
+    const token = jwt.sign({ userId: user._id, name: user.name, email: user.email }, secretKey, {
       expiresIn: "1h",
     });
 
@@ -287,6 +287,30 @@ router.put(
   }
 );
 
+// GET ALL EMPLOYEES DATA
+router.get("/employees-data", authenticateToken, async (req, res) => {
+  try {
+    // Get the user's email from the decoded token
+    const { email } = req.user;
+
+    // Find the user in the database
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const employees = await Employees.find({}, { password: 0 });
+
+    // Extract the required fields from the user object
+    //   const { name, email, totalShared, totalShortlisted, totalJoined, totalAmount } = user;
+    // console.log(employees[15].name, " and ", employees[15].email);
+    res.status(200).json(employees);
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // FORGOT PASSWORD FOR AFFILIATE
 // SEND-OTP
 router.post("/forgot-password", async (req, res) => {
@@ -373,16 +397,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post(
-  "/affiliate-contact-form/:id",
+  "/affiliate-contact-form",
   authenticateToken,
   upload.single("document"),
   async (req, res) => {
-    const { refName, refPhone, refUniqueEmailId, referredBy } = req.body;
+    const { refName, refPhone, refUniqueEmailId, referredById } = req.body;
 
     const uploadedFile = req.file;
 
     // Get the user's email from the decoded token
-    const { email, name } = req.user;
+    const { email, userId } = req.user;
 
     // Handle form submission and file upload logic
     if (!uploadedFile) {
@@ -409,8 +433,8 @@ router.post(
     const modifiedUrl = cvUrl.replace(ext, ".png");
 
     try {
-      const { id } = req.params;
-      console.log(id);
+      // const { id } = req.params;
+      // console.log(id);
 
       // Create a new contact form entry and save it to the database
       const cvSharing = new CvSharing({
@@ -419,7 +443,7 @@ router.post(
         refUniqueEmailId,
         userEmail: email,
         PDF: modifiedUrl,
-        referredBy,
+        referredById,
         
         // user: req.user.email, // Associate the form entry with the logged-in user
       });
@@ -434,18 +458,31 @@ router.post(
         }
       );
 
-      const updatedEmp = await Employees.findOneAndUpdate(
-        { EmpName: referredBy },
-        {
-          $inc: { totalShared: 1 },
-          $push: { allCvInfo: cvSharing._id },
-          $push: { myAffil: name },
-        }
-      );
+      const affiExist = await Employees.findOne({myAffil: userId})
+      if (affiExist) {
+        const updatedEmp = await Employees.findByIdAndUpdate(
+          { _id: referredById },
+          {
+            $inc: { totalShared: 1 },
+            $push: { allCvInfo: cvSharing._id },
+          }
+        );
+        console.log(updatedEmp);
+      } else {
+        const updatedEmp = await Employees.findByIdAndUpdate(
+          { _id: referredById },
+          {
+            $inc: { totalShared: 1 },
+            $push: { allCvInfo: cvSharing._id },
+            $push: { myAffil: userId},
+          }
+        );
+        console.log(updatedEmp);
+      }
 
       res
         .status(201)
-        .json({ message: "Form submitted successfully", updatedEmp });
+        .json({ message: "Form submitted successfully" });
     } catch (error) {
       console.error("Error submitting form:", error);
       res.status(500).json({ message: "Internal server error" });

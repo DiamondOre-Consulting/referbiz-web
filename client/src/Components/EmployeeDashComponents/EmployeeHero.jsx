@@ -33,7 +33,7 @@ const EmployeeHero = () => {
               </div>
               <img className="w-4 h-4" src={Forward} alt="click to go" />
             </Link>
-            <Link to={'/my-associates'} className="flex items-center justify-center cursor-pointer rounded-lg gap-3 bg-gray-100 p-4 lg:p-8 hover:bg-gray-300 hover:gap-5">
+            <Link to={'/my-affiliates'} className="flex items-center justify-center cursor-pointer rounded-lg gap-3 bg-gray-100 p-4 lg:p-8 hover:bg-gray-300 hover:gap-5">
               <div className="text-sm font-semibold sm:text-base">
                 Check Affiliates Activities
               </div>
