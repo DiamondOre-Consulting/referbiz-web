@@ -232,8 +232,9 @@ const CvSharing = () => {
           >
             Referred By
           </label>
+          <br />
           <span className="text-red-600 inline-block text-xs mb-4 font-semibold">
-            Leave blank or just type "None" if you are not referred by anyone
+            Leave blank if you are not referred by anyone
           </span>
           <select
             id="referredById"

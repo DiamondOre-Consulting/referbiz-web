@@ -51,6 +51,7 @@ import PrivacyPolicy from "./Pages/PrivacyPolicy"
 import MyAffiliates from "./Pages/EmployeesPages/MyAffiliates";
 import MyEachAffiliate from "./Pages/EmployeesPages/MyEachAffiliate";
 import EditPopUpAffiliateCV from "./Components/EmployeeDashComponents/EditPopUpAffiliateCV";
+import EmployeeAffiCv from "./Pages/AdminPages/EmployeeAffiCv";
 
 
 function App() {
@@ -138,6 +139,10 @@ function App() {
             <Route
               path="/admin-all-employees/each-associate/:id"
               element={<EmployeeAssoCv />}
+            />
+            <Route
+              path="/admin-all-employees/each-affiliate/:id"
+              element={<EmployeeAffiCv />}
             />
             <Route path="/employee-signup-confi" element={<SignupEmployee />} />
             <Route path="/employee-login-confi" element={<LoginEmployee />} />
