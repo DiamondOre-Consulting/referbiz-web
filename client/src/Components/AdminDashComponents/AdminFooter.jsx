@@ -11,7 +11,7 @@ const AdminFooter = () => {
     </div>
 
     <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500">
-      Bas Refer Kar, Phal Ki Chinta Mat kar
+      Bas Refer Karo, Phal Ki Chinta Mat karo
     </p>
 
     <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
