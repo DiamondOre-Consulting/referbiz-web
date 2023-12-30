@@ -375,10 +375,25 @@ router.put(
         }
       }
 
-      // Save the updated associate
-      await cvUserShortlist.save();
+      if (cvUserShortlist.isShortlisted) {
+        console.log(cvUserShortlist.isShortlisted);
+        const mentorUser = await Employees.findOneAndUpdate(
+          { EmpEmail },
+          { $inc: { totalShortlisted: 1 }}
+        );
 
-      console.log(cvUserShortlist);
+        if (mentorUser) {
+          await mentorUser.save();
+          console.log(mentorUser);
+        } else {
+          console.log("No mentor to update");
+        }
+      }
+
+      // Save the updated associate
+      // await cvUserShortlist.save();
+
+      // console.log(cvUserShortlist);
 
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {
@@ -436,6 +451,21 @@ router.put(
           console.log(assoUser);
         } else {
           console.log("No user found to update.");
+        }
+      }
+
+      if (cvUserJoined.isJoined) {
+        console.log(cvUserJoined.isJoined);
+        const mentorUser = await Employees.findOneAndUpdate(
+          { EmpEmail },
+          { $inc: { totalJoined: 1 }}
+        );
+
+        if (mentorUser) {
+          await mentorUser.save();
+          console.log(mentorUser);
+        } else {
+          console.log("No mentor to update");
         }
       }
 
@@ -621,6 +651,21 @@ router.put(
         }
       }
 
+      if (cvUserShortlist.isShortlisted) {
+        console.log(cvUserShortlist.isShortlisted);
+        const mentorUser = await Employees.findOneAndUpdate(
+          { EmpEmail },
+          { $inc: { totalShortlisted: 1 }}
+        );
+
+        if (mentorUser) {
+          await mentorUser.save();
+          console.log(mentorUser);
+        } else {
+          console.log("No mentor to update");
+        }
+      }
+
       // Save the updated associate
       await cvUserShortlist.save();
 
@@ -682,6 +727,21 @@ router.put(
           console.log(affilUser);
         } else {
           console.log("No user found to update.");
+        }
+      }
+
+      if (cvUserJoined.isJoined) {
+        console.log(cvUserJoined.isJoined);
+        const mentorUser = await Employees.findOneAndUpdate(
+          { EmpEmail },
+          { $inc: { totalJoined: 1 }}
+        );
+
+        if (mentorUser) {
+          await mentorUser.save();
+          console.log(mentorUser);
+        } else {
+          console.log("No mentor to update");
         }
       }
 

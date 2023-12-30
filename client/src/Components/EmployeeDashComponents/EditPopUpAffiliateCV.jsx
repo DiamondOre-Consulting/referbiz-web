@@ -124,7 +124,7 @@ const EditPopUpAffiliateCV = () => {
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/employee-rb/my-affiliates-data/update-joined-cv-sharing/${id}`,
+        `https://api.referbiz.in/api/employee-rb/my-affiliates-data/update-joined-cv-sharing/${id}`,
         { isJoined: formValues.isJoined },
         {
           headers: {
