@@ -70,10 +70,11 @@ const MyAffiliateCV = ({ candDetails }) => {
     <div>
       <div className="bg-gray-300 shadow-md rounded-md p-4 hover:shadow-lg my-7">
         {candidate ? (
-          <div
-            key={candidate?._id}
-            className="flex justify-between gap-2 items-center mt-4"
-          >
+          <Link
+          to={`/my-affiliates/each-cv/cv-details/${candidate?._id}`}
+          key={candidate?._id}
+          className="flex justify-between gap-2 items-center mt-4"
+        >
             <div className="flex flex-col items-center">
               <p className="text-sm">Candidate Name </p>
               <span className="text-indigo-700 font-semibold">
@@ -151,7 +152,7 @@ const MyAffiliateCV = ({ candDetails }) => {
                 Edit
               </p> 
             </Link>
-          </div>
+          </Link>
         ) : (
           <p>Loading...</p>
         )}

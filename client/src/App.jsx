@@ -52,6 +52,10 @@ import MyAffiliates from "./Pages/EmployeesPages/MyAffiliates";
 import MyEachAffiliate from "./Pages/EmployeesPages/MyEachAffiliate";
 import EditPopUpAffiliateCV from "./Components/EmployeeDashComponents/EditPopUpAffiliateCV";
 import EmployeeAffiCv from "./Pages/AdminPages/EmployeeAffiCv";
+import CvInfoAssociate from "./Components/AdminDashComponents/CvInfoAssociate";
+import CvInfoAffiliate from "./Components/AdminDashComponents/CvInfoAffiliate";
+import CvInfoPageMyAsso from "./Pages/EmployeesPages/CvInfoPageMyAsso";
+import CvInfoPageMyAffil from "./Pages/EmployeesPages/CvInfoPageMyAffil";
 
 
 function App() {
@@ -157,10 +161,12 @@ function App() {
             <Route path="/my-associates" element={<MyAssociates />} />
             <Route path="/my-associates/:id" element={<MyEachAssociate />} />
             <Route path="/my-associates/each-cv/:id" element={<EditPopUpAssociateCV />} />
+            <Route path="/my-associates/each-cv/cv-details/:id" element={<CvInfoPageMyAsso />} />
 
             <Route path="/my-affiliates" element={<MyAffiliates />} />
             <Route path="/my-affiliates/:id" element={<MyEachAffiliate />} />
             <Route path="/my-affiliates/each-cv/:id" element={<EditPopUpAffiliateCV />} />
+            <Route path="/my-affiliates/each-cv/cv-details/:id" element={<CvInfoPageMyAffil />} />
 
             {/* ------------------------------------------------------------------------------- */}
 

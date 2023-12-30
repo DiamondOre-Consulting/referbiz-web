@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios, { all } from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import AdminNav from "../../Components/AdminDashComponents/AdminNav";
 import AdminFooter from "../../Components/AdminDashComponents/AdminFooter";
 import { useJwt } from "react-jwt";
@@ -82,7 +82,6 @@ const MyEachAssociate = () => {
               <p className="text-xl text-gray-700">{details.email}</p>
             </div>
           </div>
-
         </div>
         <div className="py-6 sm:py-8 lg:py-12">
           <div className="mx-auto max-w-screen-xl px-4 md:px-8">
@@ -127,7 +126,13 @@ const MyEachAssociate = () => {
         </div>
         <div className="bg-gray-300 w-full shadow-md rounded-md p-4 hover:shadow-lg">
           {allCvs.map((allCv) => (
-            <MyAssociateCV key={allCv} candDetails={allCv} />
+            // <Link
+            //   to={`my-associates/each-cv/cv-details/${allCv}`}
+            //   key={allCv}
+            //   className="flex justify-between gap-2 items-center mt-4"
+            // >
+              <MyAssociateCV key={allCv} candDetails={allCv} />
+            // </Link>
           ))}
         </div>
       </div>
