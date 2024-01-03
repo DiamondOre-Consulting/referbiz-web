@@ -27,6 +27,17 @@ router.post("/employee-signup", async (req, res) => {
       return res.status(409).json({ message: "User already exists" });
     }
 
+        // Get the total count of employees
+        const totalCount = await Employees.countDocuments();
+        console.log(totalCount);
+
+        // Format the count with leading zeros if needed
+        const formattedCount = `0${totalCount + 1}`.slice(-2);
+    
+        // Generate UniqueCode
+        const firstThreeLetters = EmpName.slice(0, 3).toLowerCase();
+        const uniqueCode = `${firstThreeLetters}${formattedCount}`;
+
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -34,6 +45,7 @@ router.post("/employee-signup", async (req, res) => {
     const newEmp = new Employees({
       EmpName,
       EmpEmail,
+      UniqueCode: uniqueCode,
       password: hashedPassword,
     });
 
@@ -637,12 +649,7 @@ router.put(
           { allCvInfo: id },
           { $inc: { totalShortlisted: 1 } }
         );
-        // console.log(assoUser);
-        // const empUser = await Employees.findOneAndUpdate(
-        //   { myAsso: assoUser?._id, totalShortlisted: { $ne: 1 } },
-        //   { $inc: { totalShortlisted: 1 } }
-        // );
-        // console.log(empUser);
+
         if (affilUser) {
           await affilUser.save();
           console.log(affilUser);

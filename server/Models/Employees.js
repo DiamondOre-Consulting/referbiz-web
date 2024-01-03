@@ -10,6 +10,10 @@ const EmployeeSchema = new mongoose.Schema({
     required: true,
     // unique: true,
   },
+  UniqueCode: {
+    type: String,
+    required: true,
+  },
   password: {
     type: String,
     required: true,
