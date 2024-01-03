@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import moment from 'moment-timezone';
 
 const CvInfoAffiliate = ({ candDetails }) => {
   console.log(candDetails);
@@ -104,6 +105,16 @@ const CvInfoAffiliate = ({ candDetails }) => {
                 {candidate &&
                   candidate.createdAt &&
                   (() => {
+                    const utcTime = moment.utc(candidate.createdAt); // Creating moment object for UTC timestamp
+                    const istTime = utcTime.tz('Asia/Kolkata'); // Converting to IST timezone
+                    const formattedISTTime = istTime.format('hh:mm A'); // Formatting IST time
+                    return formattedISTTime;
+                  })()}
+              </span>
+              {/* <span className="text-indigo-700 font-semibold">
+                {candidate &&
+                  candidate.createdAt &&
+                  (() => {
                     const utcTime = new Date(candidate.createdAt);
                     const istTime = new Date(utcTime.getTime() + 19800000);
                     const formattedISTTime = istTime.toLocaleString("en-IN", {
@@ -113,7 +124,7 @@ const CvInfoAffiliate = ({ candDetails }) => {
                     });
                     return formattedISTTime;
                   })()}
-              </span>{" "}
+              </span>{" "} */}
             </div>
             <div className="flex flex-col items-center">
               <p className="text-sm">Candidate Shortlisted </p>
