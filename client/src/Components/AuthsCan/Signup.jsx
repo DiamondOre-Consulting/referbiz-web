@@ -17,6 +17,14 @@ const Signup = ({ toggleForm }) => {
   const [showPass, setShowPass] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
 
+  const handleRemoveImage = () => {
+    setFormValues({ ...formValues, profileImage: null });
+    const input = document.getElementById('profileImage');
+    if (input) {
+      input.value = ''; // Reset the input field value
+    }
+  };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
@@ -271,41 +279,37 @@ const Signup = ({ toggleForm }) => {
             </div>
 
             <div>
-  {/* <label className="text-sm text-indigo-700 font-semibold" htmlFor="document">
-    Upload Your Profile Image
-  </label> */}
-
-  <div className="mt-1 flex items-center space-x-4">
-    <label className="relative overflow-hidden">
-      <span className="w-full h-12 bg-gray-200 rounded-md flex items-center justify-center text-center text-gray-400 px-40">
-        {formValues.profileImage ? (
-          <img
-            src={URL.createObjectURL(formValues.profileImage)}
-            alt="Selected file"
-            className="w-full h-full object-cover rounded-md"
-          />
-        ) : (
-          <span>Choose Profile Image</span>
-        )}
-      </span>
-      <input
-        type="file"
-        id="profileImage"
-        name="profileImage"
-        className="sr-only"
-        onChange={handleFileChange}
-      />
-    </label>
-    {formValues.profileImage && (
-      <button
-        onClick={() => setFormValues({ ...formValues, profileImage: null })}
-        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-      >
-        Remove
-      </button>
-    )}
-  </div>
-</div>
+        <div className="mt-1 flex items-center space-x-4">
+          <label className="relative overflow-hidden">
+            <span className="w-full h-12 bg-gray-200 rounded-md flex items-center justify-center text-center text-gray-400 px-40">
+              {formValues.profileImage ? (
+                <img
+                  src={URL.createObjectURL(formValues.profileImage)}
+                  alt="Selected file"
+                  className="w-full h-full object-cover rounded-md"
+                />
+              ) : (
+                <span>Choose Profile Image</span>
+              )}
+            </span>
+            <input
+              type="file"
+              id="profileImage"
+              name="profileImage"
+              className="sr-only"
+              onChange={handleFileChange}
+            />
+          </label>
+          {formValues.profileImage && (
+            <button
+              onClick={handleRemoveImage}
+              className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            >
+              Remove
+            </button>
+          )}
+        </div>
+      </div>
 
 
             <button
