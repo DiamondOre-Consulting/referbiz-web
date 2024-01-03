@@ -246,7 +246,7 @@ const CvSharing = () => {
             <option value="">Select</option>
             {empData.map((emp) => (
               <option key={emp._id} value={emp._id}>
-                {emp.EmpName}, {emp._id}
+                {emp.UniqueCode ? `${emp.UniqueCode}` : `${emp.EmpName}, ${emp._id}`} 
               </option>
             ))}
           </select>
