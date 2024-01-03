@@ -11,6 +11,7 @@ const MyAssociateCV = ({ candDetails }) => {
   const [joining, setJoining] = useState("");
   const [showEditForm, setShowEditForm] = useState(false);
   const [update, setUpdate] = useState(false);
+  const navigate = useNavigate();
 
   const handleEditClick = () => {
     setShowEditForm(true);
@@ -70,99 +71,114 @@ const MyAssociateCV = ({ candDetails }) => {
     <div>
       <div className="bg-gray-300 shadow-md rounded-md p-4 hover:shadow-lg my-7">
         {candidate ? (
-          <div
+        //    <Link
+        //    to={`my-associates/each-cv/cv-details/${candidate?._id}`}
+        //    key={candidate?._id}
+        //    className="flex justify-between gap-2 items-center mt-4"
+        //  >
+          <Link
+            to={`/my-associates/each-cv/cv-details/${candidate?._id}`}
             key={candidate?._id}
             className="flex justify-between gap-2 items-center mt-4"
           >
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Name </p>
-              <span className="text-indigo-700 font-semibold">
-                {candidate?.refName}
-              </span>{" "}
-            </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Email </p>
-              <span className="text-indigo-700 font-semibold">
-                {candidate?.refUniqueEmailId}
-              </span>{" "}
-            </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Phone </p>
-              <span className="text-indigo-700 font-semibold">
-                {candidate?.refPhone}
-              </span>{" "}
-            </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Submission Date </p>
-              <span className="text-indigo-700 font-semibold">
-                {candidate &&
-                  candidate.createdAt &&
-                  candidate.createdAt.slice(8, 10) +
-                    "-" +
-                    candidate.createdAt.slice(5, 7) +
-                    "-" +
-                    candidate.createdAt.slice(0, 4)}
-              </span>{" "}
-            </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Submission Time </p>
-              <span className="text-indigo-700 font-semibold">
-                {candidate &&
-                  candidate.createdAt &&
-                  (() => {
-                    const utcTime = new Date(candidate.createdAt);
-                    const istTime = new Date(utcTime.getTime() + 19800000);
-                    const formattedISTTime = istTime.toLocaleString("en-IN", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: true,
-                    });
-                    return formattedISTTime;
-                  })()}
-              </span>{" "}
-            </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Shortlisted </p>
-              <span className="text-indigo-700 font-semibold">
-                {/* {candidate
+           
+              <div className="flex flex-col items-center">
+                <p className="text-sm">Candidate Name </p>
+                <span className="text-indigo-700 font-semibold">
+                  {candidate?.refName}
+                </span>{" "}
+              </div>
+
+              <div className="flex flex-col items-center">
+                <p className="text-sm">Candidate Email </p>
+                <span className="text-indigo-700 font-semibold">
+                  {candidate?.refUniqueEmailId}
+                </span>{" "}
+              </div>
+              <div className="flex flex-col items-center">
+                <p className="text-sm">Candidate Phone </p>
+                <span className="text-indigo-700 font-semibold">
+                  {candidate?.refPhone}
+                </span>{" "}
+              </div>
+              <div className="flex flex-col items-center">
+                <p className="text-sm">Submission Date </p>
+                <span className="text-indigo-700 font-semibold">
+                  {candidate &&
+                    candidate.createdAt &&
+                    candidate.createdAt.slice(8, 10) +
+                      "-" +
+                      candidate.createdAt.slice(5, 7) +
+                      "-" +
+                      candidate.createdAt.slice(0, 4)}
+                </span>{" "}
+              </div>
+              <div className="flex flex-col items-center">
+                <p className="text-sm">Submission Time </p>
+                <span className="text-indigo-700 font-semibold">
+                  {candidate &&
+                    candidate.createdAt &&
+                    (() => {
+                      const utcTime = new Date(candidate.createdAt);
+                      const istTime = new Date(utcTime.getTime() + 19800000);
+                      const formattedISTTime = istTime.toLocaleString("en-IN", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true,
+                      });
+                      return formattedISTTime;
+                    })()}
+                </span>{" "}
+              </div>
+              <div className="flex flex-col items-center">
+                <p className="text-sm">Candidate Shortlisted </p>
+                <span className="text-indigo-700 font-semibold">
+                  {/* {candidate
                   ? candidate &&
                     candidate.isShortlisted &&
                     candidate.isShortlisted.toString()
                   : false}  */}
-                {shortlisting}
-              </span>{" "}
-            </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Joined </p>
-              <span className="text-indigo-700 font-semibold">
-                {/* {candidate
+                  {shortlisting}
+                </span>{" "}
+              </div>
+              <div className="flex flex-col items-center">
+                <p className="text-sm">Candidate Joined </p>
+                <span className="text-indigo-700 font-semibold">
+                  {/* {candidate
                   ? candidate &&
                     candidate.isShortlisted &&
                     candidate.isShortlisted.toString()
                   : false} */}
-                {joining}
-              </span>{" "}
-            </div>
-            <Link to={`/my-associates/each-cv/${candDetails}`} className="flex flex-col items-center bg-indigo-500 px-5 py-2 rounded-md cursor-pointer hover:bg-indigo-700">
+                  {joining}
+                </span>{" "}
+              </div>
+            
+            <div
+              
+              className="flex flex-col items-center bg-indigo-500 px-5 py-2 rounded-md cursor-pointer hover:bg-indigo-700"
+            >
               <p
                 onClick={handleEditClick}
                 className="text-sm flex justify-center text-gray-100"
               >
                 Edit
-              </p> 
-            </Link>
-          </div>
+              </p>
+            </div>
+          </Link>
+          // </Link>
         ) : (
           <p>Loading...</p>
         )}
       </div>
       {showEditForm && (
         <div className="modal">
-        <div className="modal-content">
-          <span className="close" onClick={() => setShowEditForm(false)}>&times;</span>
-          <EditPopUp candDetails={candDetails} update={update}  />
+          <div className="modal-content">
+            <span className="close" onClick={() => setShowEditForm(false)}>
+              &times;
+            </span>
+            <EditPopUp candDetails={candDetails} update={update} />
+          </div>
         </div>
-      </div>
       )}
     </div>
   );
