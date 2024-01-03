@@ -1,12 +1,13 @@
 import React from 'react';
 import Logo from '../AffDashComponents/Referbiz.png'
+import RB_LOGO from "../../assets/RB_100_New.png"
 
 const EmployeeFooter = () => {
   return (
     <footer className="bg-gray-100">
   <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
     <div className="flex justify-center text-5xl font-semibold">
-      <h2 className='text-gray-800'>Refer<span className='text-indigo-700'>Biz</span></h2>
+      <img src={RB_LOGO} alt="Logo Here" />
     </div>
 
     <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500">
