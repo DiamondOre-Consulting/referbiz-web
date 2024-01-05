@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useJwt } from "react-jwt";
 import axios from "axios";
-import Logo from "./RB_LOGO.png";
+import RB_Logo from "../../assets/RB_100_New.png"
 import FakeProfile from "../../assets/FakeProfile2.png";
 
 const EmployeeNav = () => {
@@ -227,7 +227,7 @@ const EmployeeNav = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="flex-1 md:flex md:items-center md:gap-12">
             <a className="block text-teal-600" href="/">
-              <img className="block w-20 md:w-32 sm:w-24" src={Logo} alt="Logo" />
+              <img className="block w-20 md:w-32 sm:w-24" src={RB_Logo} alt="Logo" />
             </a>
           </div>
 

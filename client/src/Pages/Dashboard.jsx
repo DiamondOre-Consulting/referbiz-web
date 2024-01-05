@@ -10,7 +10,6 @@ import AffFooter from "../Components/AffDashComponents/AffFooter";
 
 const Dashboard = () => {
   const [popUp, setPopUp] = useState(0);
-  const [popping, setPopping] = useState(false);
   const navigate = useNavigate();
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 

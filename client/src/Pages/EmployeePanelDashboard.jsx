@@ -12,6 +12,7 @@ const EmployeePanelDashboard = () => {
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
   const userEmail = decodedToken ? decodedToken.EmpName : "No Name Found";
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -29,6 +30,18 @@ const EmployeePanelDashboard = () => {
     }
   }, [decodedToken, navigate]);
 
+  useEffect(() => {
+    const hasShownPopup = localStorage.getItem("hasShownPopup");
+    if (!hasShownPopup) {
+      setShowPopup(true); // Popup hasn't been shown before, show it
+      localStorage.setItem("hasShownPopup", "true");
+    }
+  }, []);
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+
   return (
     <>
       <EmployeeNav />
@@ -37,7 +50,8 @@ const EmployeePanelDashboard = () => {
         <EmployeeBody />
       </div>
       <EmployeeFooter />
-      <PopupCard />
+
+      {showPopup && <PopupCard onClose={closePopup} />}
     </>
   );
 };
