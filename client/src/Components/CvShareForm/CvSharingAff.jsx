@@ -68,7 +68,7 @@ const CvSharing = () => {
   
           // Set the user data in state
           // setPopUp(response.data.count);
-          console.log(response.data[0])
+          console.log(response.data)
           setEmpData(response.data);
           
         } catch (error) {
