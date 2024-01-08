@@ -358,7 +358,7 @@ const Services = () => {
         </div>
       </section>
 
-      <section id="resumeBuidling" className="overflow-hidden lg:mx-32 sm:mx-10 mt-10 rounded-lg shadow-2xl md:grid md:grid-cols-3">
+      {/* <section id="resumeBuidling" className="overflow-hidden lg:mx-32 sm:mx-10 mt-10 rounded-lg shadow-2xl md:grid md:grid-cols-3">
         <img
           alt="Trainer"
           src={ResumeService}
@@ -391,7 +391,7 @@ const Services = () => {
             * This is a Paid Service *
           </p>
         </div>
-      </section>
+      </section> */}
 
       <HomeFooter />
     </div>
