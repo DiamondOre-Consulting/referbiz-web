@@ -234,7 +234,7 @@ const CvSharing = () => {
           </label>
           <br />
           <span className="text-red-600 inline-block text-xs mb-4 font-semibold">
-            Leave blank if you are not referred by anyone
+            Please choose "var19" if you are not in contact with any of our team member
           </span>
           <select
             id="referredById"
