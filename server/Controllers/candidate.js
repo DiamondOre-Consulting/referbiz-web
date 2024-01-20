@@ -120,12 +120,12 @@ router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      const result = await cloudinary.uploader.upload(profileImage.path, {
-        folder: "ProfileImagesAffiliates",
-      });
-      const imageUrl = result.secure_url;
+      if (profileImage) {
+        const result = await cloudinary.uploader.upload(profileImage.path, {
+          folder: "ProfileImagesAffiliates",
+        });
+        const imageUrl = result.secure_url;
 
-      if (imageUrl) {
         // Create a new user object
         const newUser = new User({
           name,
@@ -142,7 +142,8 @@ router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
           name,
           email,
           password: hashedPassword,
-          profileImage: "https://cdn3.iconfinder.com/data/icons/login-5/512/LOGIN_6-512.png",
+          profileImage:
+            "https://cdn3.iconfinder.com/data/icons/login-5/512/LOGIN_6-512.png",
         });
 
         // Save the user to the database
