@@ -125,16 +125,29 @@ router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
       });
       const imageUrl = result.secure_url;
 
-      // Create a new user object
-      const newUser = new User({
-        name,
-        email,
-        password: hashedPassword,
-        profileImage: imageUrl,
-      });
+      if (imageUrl) {
+        // Create a new user object
+        const newUser = new User({
+          name,
+          email,
+          password: hashedPassword,
+          profileImage: imageUrl,
+        });
 
-      // Save the user to the database
-      await newUser.save();
+        // Save the user to the database
+        await newUser.save();
+      } else {
+        // Create a new user object
+        const newUser = new User({
+          name,
+          email,
+          password: hashedPassword,
+          profileImage: "https://cdn3.iconfinder.com/data/icons/login-5/512/LOGIN_6-512.png",
+        });
+
+        // Save the user to the database
+        await newUser.save();
+      }
 
       delete otpStore[email];
 
@@ -172,9 +185,13 @@ router.post("/login", async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ userId: user._id, name: user.name, email: user.email }, secretKey, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { userId: user._id, name: user.name, email: user.email },
+      secretKey,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     const updateUser = await User.findOneAndUpdate(
       { email },
@@ -445,7 +462,7 @@ router.post(
         userEmail: email,
         PDF: modifiedUrl,
         referredById,
-        
+
         // user: req.user.email, // Associate the form entry with the logged-in user
       });
       await cvSharing.save();
@@ -459,14 +476,14 @@ router.post(
         }
       );
 
-      const affiExist = await Employees.findOne({myAffil: userId})
+      const affiExist = await Employees.findOne({ myAffil: userId });
       if (affiExist) {
         const updatedEmp = await Employees.findByIdAndUpdate(
           { _id: referredById },
           {
             $inc: { totalShared: 1 },
             $push: { allCvInfo: cvSharing._id },
-            $push: { myAffil: userId},
+            $push: { myAffil: userId },
           }
         );
         console.log(updatedEmp);
@@ -476,15 +493,13 @@ router.post(
           {
             $inc: { totalShared: 1 },
             $push: { allCvInfo: cvSharing._id },
-            $push: { myAffil: userId},
+            $push: { myAffil: userId },
           }
         );
         console.log(updatedEmp);
       }
 
-      res
-        .status(201)
-        .json({ message: "Form submitted successfully" });
+      res.status(201).json({ message: "Form submitted successfully" });
     } catch (error) {
       console.error("Error submitting form:", error);
       res.status(500).json({ message: "Internal server error" });
