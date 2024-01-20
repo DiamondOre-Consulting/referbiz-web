@@ -68,7 +68,7 @@ const CvSharing = () => {
   
           // Set the user data in state
           // setPopUp(response.data.count);
-          console.log(response.data[0])
+          console.log(response.data)
           setEmpData(response.data);
           
         } catch (error) {
@@ -246,7 +246,7 @@ const CvSharing = () => {
             <option value="">Select</option>
             {empData.map((emp) => (
               <option key={emp._id} value={emp._id}>
-                {emp.EmpName}, {emp._id}
+                {emp.UniqueCode ? `${emp.UniqueCode}` : `${emp.EmpName}, ${emp._id}`} 
               </option>
             ))}
           </select>
