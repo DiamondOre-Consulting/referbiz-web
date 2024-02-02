@@ -6,31 +6,6 @@ import Dropzone from "react-dropzone";
 
 const CvSharing = () => {
 
-  // const referredByOptions = [
-  //   'Swati Chauhan',
-  //   'Gayatri Rawat',
-  //   'Nidhi Srivastva',
-  //   'Priyanka Vishwakrma',
-  //   'Pinky Yadav',
-  //   'Megha Rajput',
-  //   'Jyoti Malakar',
-  //   'Alpna Bharti',
-  //   'Anjali Sharma',
-  //   'Bhavya Thakur',
-  //   'Manpreet Kaur',
-  //   'Sakshi Singh',
-  //   'Mohd Amaan',
-  //   'Sarfarz Alvi',
-  //   'Sourav Sivach',
-  //   'Muskan Jain',
-  //   'Kesreen Saifi',
-  //   'Ashwini Bhaskar',
-  //   'Saksham Sharma',
-  //   'Harsh Kumar Jha',
-  // ];
-
-  // const sortedReferredByOptions = referredByOptions.sort();
-
   const [empData,setEmpData]=useState([])
 
   const [showPopup, setShowPopup] = useState(true);
@@ -109,6 +84,7 @@ const CvSharing = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitted(false);
 
     const token = localStorage.getItem("token");
     if (!token) {
