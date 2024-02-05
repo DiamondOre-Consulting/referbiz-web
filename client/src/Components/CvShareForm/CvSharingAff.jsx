@@ -261,7 +261,7 @@ const CvSharing = () => {
         ) : (
           ""
         )}
-        {submitted === false ? <h1>Something went wrong</h1> : ""}
+        {!submitted && <h1>Something went wrong</h1>}
       </div>
     </>
   );
