@@ -189,11 +189,12 @@ const EditPopUpAffiliate = () => {
                   name="isShortlisted"
                   onChange={handleInputChange}
                 >
-                  <option value={null}>
-                    {userData?.isJoined === true ? "True" : "False"}
+                  <option >
+                    Select
                   </option>
 
                   <option value={true}>True</option>
+                  {/* <option value={true}>False</option> */}
                 </select>
               </div>
             </div>
@@ -235,9 +236,10 @@ const EditPopUpAffiliate = () => {
                   // value={formValues?.isJoined}
                   onChange={handleInputChange}
                 >
-                  <option value={null}>
-                    {userData?.isJoined === true ? "True" : "False"}
+                  <option >
+                    Select
                   </option>
+
                   <option value={true}>True</option>
                 </select>
               </div>
