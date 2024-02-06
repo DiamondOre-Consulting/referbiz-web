@@ -122,6 +122,7 @@ const CvSharing = () => {
       setSubmitted(true);
     } catch (error) {
       console.error(error);
+      setSubmitted(false);
     }
   };
 
@@ -261,7 +262,8 @@ const CvSharing = () => {
         ) : (
           ""
         )}
-        {!submitted && <h1>Something went wrong</h1>}
+        {/* {!submitted && <h1>Something went wrong</h1>} */}
+        {(submitted === false) && <h1>Something went wrong</h1>}
       </div>
     </>
   );
