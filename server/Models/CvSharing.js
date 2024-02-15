@@ -23,13 +23,21 @@ const CvSharingFormSchema = new mongoose.Schema({
       return this.userEmail + this.refName;
     },
   },
+  isAppeared: {
+    type: Boolean,
+    default: null,
+  },
   isShortlisted: {
     type: Boolean,
-    default: false,
+    default: null,
+  },
+  isOffered: {
+    type: Boolean,
+    default: null,
   },
   isJoined: {
     type: Boolean,
-    default: false,
+    default: null,
   },
   count: {
     type: Number,
@@ -41,7 +49,7 @@ const CvSharingFormSchema = new mongoose.Schema({
   referredById: {
     type: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Employees",
       default: null
     },
   },
