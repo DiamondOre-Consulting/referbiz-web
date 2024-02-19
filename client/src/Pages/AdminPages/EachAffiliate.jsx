@@ -43,7 +43,7 @@ const EachAffiliate = () => {
 
         // Fetch associates data from the backend
         const response = await axios.get(
-          `https://api.referbiz.in/api/admin-rb/admin-affiliates-data/${id}`,
+          `http://localhost:8080/api/admin-rb/admin-affiliates-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -54,6 +54,7 @@ const EachAffiliate = () => {
         console.log(response.data);
         // console.log(response.data.allCvInfo[0])
         setDetails(data);
+       
         const cvArr = response.data.allCvInfo;
         setAllCvs(cvArr);
         console.log(allCvs);
@@ -68,7 +69,7 @@ const EachAffiliate = () => {
   return (
     <>
       <AdminNav />
-      <div className="px-[15rem] py-12 bg-gray-200 h-full">
+      <div className="px-8 sm:px-2 lg:px-20 md:px-28 py-12 bg-gray-200 h-full">
         <div className="flex flex-wrap items-center gap-10">
           {details?.profileImage ? (
             <img
@@ -92,13 +93,22 @@ const EachAffiliate = () => {
         </div>
         <div className="py-6 sm:py-8 lg:py-12">
           <div className="mx-auto max-w-screen-xl px-4 md:px-8">
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-8">
-              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 lg:p-8">
+            <div className="grid grid-cols-2 gap-2 md:grid-cols-6 lg:gap-2">
+              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 ">
                 <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                   {details?.totalShared}
                 </div>
                 <div className="text-sm font-semibold sm:text-base">
                   Total Referrals
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 lg:p-8">
+                <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                  {details?.totalAppeared}
+                </div>
+                <div className="text-sm font-semibold sm:text-base">
+                  Total Appeared
                 </div>
               </div>
 
@@ -110,7 +120,15 @@ const EachAffiliate = () => {
                   Total Shortlisted
                 </div>
               </div>
-
+              
+              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 lg:p-8">
+                <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                  {details?.totalOffered}
+                </div>
+                <div className="text-sm font-semibold sm:text-base">
+                  Total Offered
+                </div>
+              </div>
               <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">
                 <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                   {details?.totalJoined}
@@ -131,7 +149,7 @@ const EachAffiliate = () => {
             </div>
           </div>
         </div>
-        <div className="bg-gray-300 w-full shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg">
+        <div className="bg-gray-200 w-full shadow-md rounded-md p-3 cursor-pointer hover:shadow-lg">
           {allCvs.map((allCv) => (
             <CvInfoAffiliate key={allCv} candDetails={allCv} />
           ))}

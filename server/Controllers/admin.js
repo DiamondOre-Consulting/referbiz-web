@@ -115,6 +115,8 @@ router.get("/admin-user-data", adminAuthToken, async (req, res) => {
       profileImage,
       totalShared,
       totalShortlisted,
+      totalAppeared,
+      totalOffered,
       totalJoined,
       totalAmount,
       key
@@ -128,6 +130,8 @@ router.get("/admin-user-data", adminAuthToken, async (req, res) => {
       profileImage,
       totalShared,
       totalShortlisted,
+      totalAppeared,
+      totalOffered,
       totalJoined,
       totalAmount,
       key
@@ -239,6 +243,8 @@ router.put(
       EmpEmail,
       totalShared,
       totalShortlisted,
+      totalAppeared,
+      totalOffered,
       totalAmount,
       totalJoined,
       myAsso,
@@ -278,11 +284,22 @@ router.put(
       } else {
         employee.totalShared = totalShared;
       }
-
       if (!totalShortlisted) {
         employee.totalShortlisted = employee.totalShortlisted;
       } else {
         employee.totalShortlisted = totalShortlisted;
+      }
+
+      if (!totalAppeared) {
+        employee.totalAppeared = employee.totalAppeared;
+      } else {
+        employee.totalAppeared = totalAppeared;
+      }
+
+      if (!totalOffered) {
+        employee.totalOffered = employee.totalOffered;
+      } else {
+        employee.totalOffered = totalOffered;
       }
 
       if (!totalJoined) {
@@ -401,6 +418,8 @@ router.put(
       email,
       totalShared,
       totalShortlisted,
+      totalAppeared,
+      totalOffered,
       totalAmount,
       totalJoined,
     } = req.body;
@@ -444,6 +463,18 @@ router.put(
         affiliate.totalShortlisted = affiliate.totalShortlisted;
       } else {
         affiliate.totalShortlisted = totalShortlisted;
+      }
+
+      if (!totalAppeared) {
+        affiliate.totalAppeared = affiliate.totalAppeared;
+      } else {
+        affiliate.totalAppeared = totalAppeared;
+      }
+
+      if (!totalOffered) {
+        affiliate.totalOffered = affiliate.totalOffered;
+      } else {
+        affiliate.totalOffered = totalOffered;
       }
 
       if (!totalJoined) {
@@ -562,6 +593,8 @@ router.put(
       email,
       totalShared,
       totalShortlisted,
+      totalAppeared,
+      totalOffered,
       totalAmount,
       totalJoined,
       mentorName,
@@ -608,6 +641,21 @@ router.put(
       } else {
         associate.totalShortlisted = totalShortlisted;
       }
+
+      if(!totalAppeared){
+        associate.totalAppeared= associate.totalAppeared;
+      }
+      else{
+        associate.totalAppeared=totalAppeared;
+      }
+
+      if(!totalOffered){
+        associate.totalOffered= associate.totalOffered;
+      }
+      else{
+        associate.totalOffered=totalAppeared;
+      }
+
 
       if (!totalJoined) {
         associate.totalJoined = associate.totalJoined;
@@ -779,7 +827,7 @@ router.put(
   adminAuthToken,
   async (req, res) => {
     const { id } = req.params;
-    const { isShortlisted, isJoined } = req.body;
+    const { isShortlisted, isJoined,isAppeared,isOffered } = req.body;
     const cvId = id;
 
     try {
@@ -1081,10 +1129,10 @@ router.put(
       console.log(cvUserOffered);
 
       console.log(cvUserOffered.isOffered);
-      if (cvUserOffered.isAppeared) {
+      if (cvUserOffered.isOffered) {
         const affilUser = await Users.findOneAndUpdate(
           { allCvInfo: id },
-          { $inc: { totalAppeared: 1 } }
+          { $inc: { totalOffered: 1 } }
         );
 
         if (affilUser) {

@@ -5,7 +5,7 @@ import AssociateServicePic from "../../assets/associateModel.jpg";
 import AffiliateServicePic from "../../assets/affiliatePic.jpg";
 import Employees from "../../assets/Employees.jpg";
 import { Link } from "react-router-dom";
- 
+
 const HomeServices = () => {
   return (
     <div>
@@ -127,41 +127,52 @@ const HomeServices = () => {
             </h2>
 
             <p className="max-w-screen-md text-left text-gray-500 md:text-lg">
-              We have onboarded many vendors from different domains to be the partner of this fun way of lead generation. Refer and Earn for everyone. 
+              We have onboarded many vendors from different domains to be the partner of this fun way of lead generation. Refer and Earn for everyone.
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
 
-          <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
+            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col justify-center items-center p-4 sm:p-6">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">
                   <a
                     href="#"
-                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
-                    CV Crafters
+                    CV~Genie
                   </a>
                 </h2>
-                <p className="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200 text-center">
-                    Service Based
+                <div className="flex items-center justify-around mb-4">
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="2" />  <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />  <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" /></svg><span>(300)</span></div>
+                  <div className="flex items-center mx-3"><svg class="h-5 w-5 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />  <circle cx="9" cy="7" r="4" />  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg><span>(50)</span></div>
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>1020,40/-</span></div>
+                </div>
+                <p className="w-1/2 rounded-md bg-indigo-500 px-1 py-1 text-sm font-semibold text-gray-200 text-center">
+                  Service Based
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
+            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-3xl  shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col p-4 sm:p-6 justify-center items-center">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">
                   <a
                     href="#"
-                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
                     Intern Linker
                   </a>
                 </h2>
 
+                <div className="flex items-center justify-around mb-4">
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="2" />  <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />  <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" /></svg><span>(300)</span></div>
+                  <div className="flex items-center mx-3"><svg class="h-5 w-5 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />  <circle cx="9" cy="7" r="4" />  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg><span>(50)</span></div>
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>1020,40/-</span></div>
+                </div>
+
                 <p className="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200 text-center">
-                    Job Consultancy
+                  Job Consultancy
                 </p>
 
                 {/* <p className="mb-8 text-gray-500">
@@ -172,19 +183,24 @@ const HomeServices = () => {
               </div>
             </div>
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
+            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg  shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col p-4 sm:p-6 justify-center items-center">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">
                   <a
                     href="#"
-                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
                     AgroBiz
                   </a>
                 </h2>
+                <div className="flex items-center justify-around mb-4">
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="2" />  <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />  <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" /></svg><span>(300)</span></div>
+                  <div className="flex items-center mx-3"><svg class="h-5 w-5 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />  <circle cx="9" cy="7" r="4" />  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg><span>(50)</span></div>
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>1020,40/-</span></div>
+                </div>
 
-                <p className="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200 text-center">
-                    FMCG Commodities
+                <p className=" rounded-md bg-indigo-500 py-1 px-2 text-sm font-semibold text-gray-200 text-center">
+                  FMCG Commodities
                 </p>
 
                 {/* <p className="mb-8 text-gray-500">
@@ -195,19 +211,24 @@ const HomeServices = () => {
               </div>
             </div>
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
+            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg  shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col p-4 sm:p-6 justify-center items-center">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800 text-center">
                   <a
                     href="#"
-                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
-                    Diamond Ore Consulting 
+                    Diamond Ore Consulting
                   </a>
                 </h2>
+                <div className="flex items-center justify-around mb-4">
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="2" />  <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />  <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" /></svg><span>(300)</span></div>
+                  <div className="flex items-center mx-3"><svg class="h-5 w-5 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />  <circle cx="9" cy="7" r="4" />  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg><span>(50)</span></div>
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>1020,40/-</span></div>
+                </div>
 
-                <p className="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200 text-center">
-                    Management Consulting
+                <p className="rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200 text-center">
+                  Management Consulting
                 </p>
 
                 {/* <p className="mb-8 text-gray-500">
@@ -218,19 +239,24 @@ const HomeServices = () => {
               </div>
             </div>
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
+            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col p-4 sm:p-6 justify-center items-center">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">
                   <a
                     href="#"
-                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
                     SwiftLane Motors
                   </a>
                 </h2>
+                <div className="flex items-center justify-around mb-4">
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="2" />  <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />  <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" /></svg><span>(300)</span></div>
+                  <div className="flex items-center mx-3"><svg class="h-5 w-5 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />  <circle cx="9" cy="7" r="4" />  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg><span>(50)</span></div>
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>1020,40/-</span></div>
+                </div>
 
-                <p className="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200 text-center">
-                    Automobile Dealers
+                <p className="rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200 text-center">
+                  Automobile Dealers
                 </p>
 
                 {/* <p className="mb-8 text-gray-500">
@@ -241,19 +267,24 @@ const HomeServices = () => {
               </div>
             </div>
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
+            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col p-4 sm:p-6 justify-center items-center">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">
                   <a
                     href="#"
-                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
                     Midas Finserve
                   </a>
                 </h2>
+                <div className="flex items-center justify-around mb-4">
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="2" />  <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />  <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" /></svg><span>(300)</span></div>
+                  <div className="flex items-center mx-3"><svg class="h-5 w-5 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />  <circle cx="9" cy="7" r="4" />  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg><span>(50)</span></div>
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>1020,40/-</span></div>
+                </div>
 
-                <p className="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200 text-center">
-                    Financial Products
+                <p className=" rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200 text-center">
+                  Financial Products
                 </p>
 
                 {/* <p className="mb-8 text-gray-500">
@@ -264,19 +295,24 @@ const HomeServices = () => {
               </div>
             </div>
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg border">
+            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shdow-lg shadow-gray-300">
               <div className="flex flex-1 flex-col p-4 sm:p-6 justify-center items-center">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">
                   <a
                     href="#"
-                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
                     Oasis Homes
                   </a>
                 </h2>
+                <div className="flex items-center justify-around mb-4">
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="2" />  <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />  <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" /></svg><span>(300)</span></div>
+                  <div className="flex items-center mx-3"><svg class="h-5 w-5 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />  <circle cx="9" cy="7" r="4" />  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg><span>(50)</span></div>
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>1020,40/-</span></div>
+                </div>
 
-                <p className="w-1/2 rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200 text-center">
-                    Real Estate
+                <p className=" rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200 text-center">
+                  Real Estate
                 </p>
 
                 {/* <p className="mb-8 text-gray-500">
@@ -299,7 +335,7 @@ const HomeServices = () => {
                 </h2>
                 <p className="rounded-md bg-indigo-500 px-2 py-1 text-sm font-semibold text-gray-200 ">
                   <svg className="w-6 h-6 dark:text-white mx-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
                   </svg>
                 </p>
               </div>

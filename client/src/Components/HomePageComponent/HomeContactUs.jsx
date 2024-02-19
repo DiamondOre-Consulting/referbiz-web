@@ -36,17 +36,15 @@ const HomeContactUs = () => {
 
   return (
     <div>
-      <section className="relative my-12 flex flex-wrap lg:h-screen lg:items-center">
+      <section className="relative my-12 flex flex-wrap lg:h-screen lg:items-center" id='contact'>
         <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-lg text-center">
             <h1 className="text-2xl font-bold sm:text-3xl">
-              Get started today!
+              Reach Out to Us!
             </h1>
 
             <p className="mt-4 text-gray-500">
-              Feel free to get in touch with us for any questions, concerns, or
-              feedback. We're here to assist you on your journey to career
-              success. Your success is our priority!
+               Your feedback matters to us! Feel free to drop us a message with any inquiries, comments, or suggestions, and we'll get back to you promptly.
             </p>
           </div>
 

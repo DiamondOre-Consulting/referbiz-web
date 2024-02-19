@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import moment from 'moment-timezone';
 
 const CvInfoAffiliate = ({ candDetails }) => {
-  console.log(candDetails);
+  console.log("desh details",candDetails);
   const [candidate, setCandidate] = useState({});
-  const [shortlisting, setShortlisting] = useState("");
-  const [joining, setJoining] = useState("");
+  const [shortlisting, setShortlisting] = useState("No");
+  const[offering,setOffering]=useState("NO");
+  const [appearing, setAppearing] = useState("No");
+  const [joining, setJoining] = useState("No");
 
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
@@ -39,7 +41,7 @@ const CvInfoAffiliate = ({ candDetails }) => {
         }
 
         const response = await axios.get(
-          `https://api.referbiz.in/api/admin-rb/admin-affiliates-data/get-cv-data/${candDetails}`,
+          `http://localhost:8080/api/admin-rb/admin-affiliates-data/get-cv-data/${candDetails}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -48,10 +50,16 @@ const CvInfoAffiliate = ({ candDetails }) => {
         );
         setCandidate(response.data); // Assuming the response data contains the card details
         console.log(response.data);
-        const shorting = response.data.isShortlisted.toString();
-        const joint = response.data.isJoined.toString();
-        setShortlisting(shorting);
-        setJoining(joint);
+        const shorting = response.data.isShortlisted;
+        const appear = response.data.isAppeared;
+        console.log("isAppeared:", appear);
+        const offer=response.data.isOffered;
+        const joint = response.data.isJoined;
+        setAppearing(appear ? "Yes" : "No");
+        setShortlisting(shorting ? "Yes": "No");
+        setJoining(joint ? "Yes": "No");
+        setOffering(offer? "Yes" : "No");
+        console.log("isOffered",offer)
       } catch (error) {
         console.error("Error fetching card data:", error);
       }
@@ -62,44 +70,44 @@ const CvInfoAffiliate = ({ candDetails }) => {
 
   return (
     <div>
-      <div className="bg-gray-300 shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg my-7">
+      <div className="shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg my-7">
         {candidate ? (
           <Link
             to={`/admin-all-affiliates/each-affiliate/cv-details/${candidate?._id}`}
             key={candidate?._id}
-            className="flex justify-between gap-2 items-center mt-4"
+            className="flex flex-wrap justify-between gap-2 mt-4"
           >
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Name </p>
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm">Name </p>
               <span className="text-indigo-700 font-semibold">
                 {candidate?.refName}
               </span>{" "}
             </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Email </p>
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm">Email </p>
               <span className="text-indigo-700 font-semibold">
                 {candidate?.refUniqueEmailId}
               </span>{" "}
             </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Phone </p>
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm">Phone </p>
               <span className="text-indigo-700 font-semibold">
                 {candidate?.refPhone}
               </span>{" "}
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center w-full sm:w-auto">
               <p className="text-sm">Submission Date </p>
               <span className="text-indigo-700 font-semibold">
                 {candidate &&
                   candidate.createdAt &&
                   candidate.createdAt.slice(8, 10) +
-                    "-" +
-                    candidate.createdAt.slice(5, 7) +
-                    "-" +
-                    candidate.createdAt.slice(0, 4)}
+                  "-" +
+                  candidate.createdAt.slice(5, 7) +
+                  "-" +
+                  candidate.createdAt.slice(0, 4)}
               </span>{" "}
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center w-full sm:w-auto">
               <p className="text-sm">Submission Time </p>
               <span className="text-indigo-700 font-semibold">
                 {candidate &&
@@ -111,46 +119,44 @@ const CvInfoAffiliate = ({ candDetails }) => {
                     return formattedISTTime;
                   })()}
               </span>
-              {/* <span className="text-indigo-700 font-semibold">
-                {candidate &&
-                  candidate.createdAt &&
-                  (() => {
-                    const utcTime = new Date(candidate.createdAt);
-                    const istTime = new Date(utcTime.getTime() + 19800000);
-                    const formattedISTTime = istTime.toLocaleString("en-IN", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: true,
-                    });
-                    return formattedISTTime;
-                  })()}
-              </span>{" "} */}
             </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Shortlisted </p>
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm">Appered </p>
               <span className="text-indigo-700 font-semibold">
-                  {shortlisting}
+                 {appearing} 
+              </span>{" "}  
+            </div>
+
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm">Shortlisted </p>
+              <span className="text-indigo-700 font-semibold">
+                {shortlisting}
               </span>{" "}
             </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Joined </p>
+
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm">Offered </p>
               <span className="text-indigo-700 font-semibold">
-                  {joining}
+                {offering}
               </span>{" "}
             </div>
-            <Link to={`/admin-all-affiliates/each-affiliate/each-cv/${candDetails}`} className="flex flex-col items-center bg-indigo-500 px-5 py-2 rounded-md cursor-pointer hover:bg-indigo-700">
-              <p
-                
-                className="text-sm flex justify-center text-gray-100"
-              >
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm">Joined </p>
+              <span className="text-indigo-700 font-semibold">
+                {joining}
+              </span>{" "}
+            </div>
+            <Link to={`/admin-all-affiliates/each-affiliate/each-cv/${candDetails}`} className="flex flex-col items-center bg-indigo-500 px-5 py-2 rounded-md cursor-pointer hover:bg-indigo-700 w-full sm:w-auto">
+              <p className="text-sm flex justify-center text-gray-100">
                 Edit
-              </p> 
+              </p>
             </Link>
           </Link>
         ) : (
           <p>Loading...</p>
         )}
       </div>
+
       {/* <h3 className="text-4xl">{candDetails}</h3> */}
     </div>
   );

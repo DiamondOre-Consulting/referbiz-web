@@ -8,6 +8,8 @@ const MyAffiliateCV = ({ candDetails }) => {
   console.log(candDetails);
   const [candidate, setCandidate] = useState({});
   const [shortlisting, setShortlisting] = useState("");
+   const[offering,setOffering]=useState("");
+  const [appearing, setAppearing] = useState("");
   const [joining, setJoining] = useState("");
   const [showEditForm, setShowEditForm] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -54,10 +56,14 @@ const MyAffiliateCV = ({ candDetails }) => {
         );
         setCandidate(response.data); // Assuming the response data contains the card details
         console.log(response.data);
-        const shorting = response.data.isShortlisted.toString();
-        const joint = response.data.isJoined.toString();
-        setShortlisting(shorting);
-        setJoining(joint);
+        const shorting = response.data.isShortlisted;
+        const joint = response.data.isJoined;
+        const appear=response.data.isAppeared;
+        const offer=response.data.isOffered;
+        setShortlisting(shorting ? "Yes" :"No");
+        setJoining(joint ? "Yes" :"No");
+        setOffering(offer ? "Yes" :"No");
+        setAppearing(appear ? "Yes" :"No");
       } catch (error) {
         console.error("Error fetching card data:", error);
       }
@@ -68,32 +74,32 @@ const MyAffiliateCV = ({ candDetails }) => {
 
   return (
     <div>
-      <div className="bg-gray-300 shadow-md rounded-md p-4 hover:shadow-lg my-7">
+      <div className="shadow-md rounded-md p-4 cursor-pointer hover:shadow-lg my-7">
         {candidate ? (
           <Link
           to={`/my-affiliates/each-cv/cv-details/${candidate?._id}`}
           key={candidate?._id}
-          className="flex justify-between gap-2 items-center mt-4"
+          className="flex flex-wrap justify-between gap-2 mt-4"
         >
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Name </p>
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm">Name </p>
               <span className="text-indigo-700 font-semibold">
                 {candidate?.refName}
               </span>{" "}
             </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Email </p>
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm">Email </p>
               <span className="text-indigo-700 font-semibold">
                 {candidate?.refUniqueEmailId}
               </span>{" "}
             </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Phone </p>
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm">Phone </p>
               <span className="text-indigo-700 font-semibold">
                 {candidate?.refPhone}
               </span>{" "}
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center w-full sm:w-auto">
               <p className="text-sm">Submission Date </p>
               <span className="text-indigo-700 font-semibold">
                 {candidate &&
@@ -105,7 +111,7 @@ const MyAffiliateCV = ({ candDetails }) => {
                     candidate.createdAt.slice(0, 4)}
               </span>{" "}
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center w-full sm:w-auto">
               <p className="text-sm">Submission Time </p>
               <span className="text-indigo-700 font-semibold">
                 {candidate &&
@@ -122,8 +128,22 @@ const MyAffiliateCV = ({ candDetails }) => {
                   })()}
               </span>{" "}
             </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Shortlisted </p>
+
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm"> Appeared</p>
+              <span className="text-indigo-700 font-semibold">
+                {/* {candidate
+                  ? candidate &&
+                    candidate.isShortlisted &&
+                    candidate.isShortlisted.toString()
+                  : false}  */}
+                {appearing}
+              </span>{" "}
+            </div>
+
+            
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm">Shortlisted </p>
               <span className="text-indigo-700 font-semibold">
                 {/* {candidate
                   ? candidate &&
@@ -133,8 +153,21 @@ const MyAffiliateCV = ({ candDetails }) => {
                 {shortlisting}
               </span>{" "}
             </div>
-            <div className="flex flex-col items-center">
-              <p className="text-sm">Candidate Joined </p>
+
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm"> Offered </p>
+              <span className="text-indigo-700 font-semibold">
+                {/* {candidate
+                  ? candidate &&
+                    candidate.isShortlisted &&
+                    candidate.isShortlisted.toString()
+                  : false}  */}
+                {offering}
+              </span>{" "}
+            </div>
+
+            <div className="flex flex-col items-center w-full sm:w-auto">
+              <p className="text-sm"> Joined </p>
               <span className="text-indigo-700 font-semibold">
                 {/* {candidate
                   ? candidate &&
@@ -144,7 +177,7 @@ const MyAffiliateCV = ({ candDetails }) => {
                 {joining}
               </span>{" "}
             </div>
-            <Link to={`/my-affiliates/each-cv/${candDetails}`} className="flex flex-col items-center bg-indigo-500 px-5 py-2 rounded-md cursor-pointer hover:bg-indigo-700">
+            <Link to={`/my-affiliates/each-cv/${candDetails}`} className="flex flex-col items-center bg-indigo-500 px-5 py-2 rounded-md cursor-pointer hover:bg-indigo-700 w-full sm:w-auto">
               <p
                 onClick={handleEditClick}
                 className="text-sm flex justify-center text-gray-100"

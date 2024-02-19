@@ -33,9 +33,9 @@ const HomeNav = () => {
   return (
     <div>
       {/* Header and Nav Section Start */}
-      <div className="bg-white pb-6 sm:pb-8 lg:pb-12">
+      <div className="bg-white">
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
-          <header className="mb-8 flex items-center justify-between py-4 md:mb-12 md:py-8 xl:mb-16">
+          <header className=" flex items-center justify-between py-4 md:mb-12 md:py-8 xl:mb-16">
             <a
               href="/"
               className="text-black-800 inline-flex items-center gap-2.5 text-2xl font-bold md:text-3xl"

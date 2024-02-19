@@ -111,6 +111,8 @@ router.get("/user-data", employeeAuthToken, async (req, res) => {
       profileImage,
       totalShared,
       totalShortlisted,
+      totalAppeared,
+      totalOffered,
       totalJoined,
       totalAmount,
       myAsso,
@@ -127,6 +129,8 @@ router.get("/user-data", employeeAuthToken, async (req, res) => {
         profileImage,
         totalShared,
         totalShortlisted,
+        totalAppeared,
+        totalOffered,
         totalJoined,
         totalAmount,
         myAsso,
@@ -253,6 +257,8 @@ router.put(
       email,
       totalShared,
       totalShortlisted,
+      totalAppeared,
+      totalOffered,
       totalAmount,
       totalJoined,
       mentorName,
@@ -299,6 +305,21 @@ router.put(
       } else {
         associate.totalShortlisted = totalShortlisted;
       }
+
+      
+      if (!totalOffered) {
+        associate.totalOffered = associate.totalOffered;
+      } else {
+        associate.totalOffered = totalOffered;
+      }
+
+      if (!totalAppeared) {
+        associate.totalAppeared = associate.totalAppeared;
+      } else {
+        associate.totalAppeared = totalAppeared;
+      }
+
+      
 
       if (!totalJoined) {
         associate.totalJoined = associate.totalJoined;

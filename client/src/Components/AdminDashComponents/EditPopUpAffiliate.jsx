@@ -8,6 +8,8 @@ const EditPopUpAffiliate = () => {
   const [formValues, setFormValues] = useState({
     isShortlisted: null,
     isJoined: null,
+    isOffered: null,
+    isAppeared: null,
   });
 
   const [userData, setUserData] = useState(null);
@@ -50,7 +52,7 @@ const EditPopUpAffiliate = () => {
       try {
         // Make a GET request to retrieve the user data
         const response = await axios.get(
-          `https://api.referbiz.in/api/admin-rb/admin-affiliates-data/get-cv-data/${id}`,
+          `http://localhost:8080/api/admin-rb/admin-affiliates-data/get-cv-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -81,11 +83,15 @@ const EditPopUpAffiliate = () => {
 
     const formData = new FormData();
     formData.append("isShortlisted", formValues.isShortlisted);
+    // formData.append("isAppered", formValues.isAppeared);
+    // formData.append("isOffered",formValues.isOffered);
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
         `https://api.referbiz.in/api/admin-rb/admin-affiliates-data/update-shortlisted-cv-sharing/${id}`,
         { isShortlisted: formValues.isShortlisted },
+        // { isAppeared: formValues.isAppeared },
+        // {isOffered:formValues.isOffered},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -122,10 +128,11 @@ const EditPopUpAffiliate = () => {
 
     const formData = new FormData();
     formData.append("isSJoined", formValues.isShortlisted);
+    // formData.append("isAppeared",formValues.is)
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `https://api.referbiz.in/api/admin-rb/admin-affiliates-data/update-joined-cv-sharing/${id}`,
+        `http://localhost:8080/api/admin-rb/admin-affiliates-data/update-joined-cv-sharing/${id}`,
         { isJoined: formValues.isJoined },
         {
           headers: {
@@ -152,6 +159,70 @@ const EditPopUpAffiliate = () => {
     }
   };
 
+  //isappeared
+  const handleappeared = async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // No token found, redirect to login page
+      navigate("/auth-admin-login");
+    }
+
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/admin-rb/admin-affiliates-data/update-appeared-cv-sharing/${id}`,
+        { isAppeared: formValues.isAppeared },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Updated Profile Successfully!!");
+        navigate("/admin-panel-confi");
+      } else {
+        console.log("Update failed");
+      }
+    } catch (error) {
+      console.error("Error updating:", error);
+    }
+  };
+
+
+  // isOffered
+  const handleoffered = async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // No token found, redirect to login page
+      navigate("/auth-admin-login");
+    }
+
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/admin-rb/admin-affiliates-data/update-offered-cv-sharing/${id}`,
+        { isOffered: formValues.isOffered },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Updated Profile Successfully!!");
+        navigate("/admin-panel-confi");
+      } else {
+        console.log("Update failed");
+      }
+    } catch (error) {
+      console.error("Error updating:", error);
+    }
+  };
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
@@ -163,6 +234,53 @@ const EditPopUpAffiliate = () => {
         <p className="mx-auto mt-4 max-w-md text-center text-red-500 font-semibold">
           You can edit a particular field only once
         </p>
+
+
+        {userData?.isAppeared ? (
+          <h1 className="text-center my-5 text-lg font-bold">
+            {userData?.refName} is already Appeared
+          </h1>
+        ) : (
+          <form
+            onSubmit={handleappeared}
+            className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-gray-50"
+          >
+            <p className="text-center text-lg font-medium">
+              Update Appeared Status
+            </p>
+
+            <div>
+              <label htmlFor="isAppeared" className="sr-only">
+                Appeared Status
+              </label>
+
+              <div className="relative">
+                <select
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  id="isAppeared"
+                  name="isAppeared"
+                  onChange={handleInputChange}
+                >
+                  <option >
+                    Select
+                  </option>
+
+                  <option value={true}>True</option>
+                  {/* <option value={true}>False</option> */}
+                </select>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={userData?.isAppeared === formValues.isAppeared}
+              className={`block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white`}
+            >
+              Update
+            </button>
+          </form>
+        )}
+
 
         {userData?.isShortlisted ? (
           <h1 className="text-center my-5 text-lg font-bold">
@@ -208,6 +326,52 @@ const EditPopUpAffiliate = () => {
             </button>
           </form>
         )}
+
+        {userData?.isOffered ? (
+          <h1 className="text-center my-5 text-lg font-bold">
+            {userData?.refName} is already offered
+          </h1>
+        ) : (
+          <form
+            onSubmit={handleoffered}
+            className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-gray-50"
+          >
+            <p className="text-center text-lg font-medium">
+              Update Offered Status
+            </p>
+
+            <div>
+              <label htmlFor="isOffered" className="sr-only">
+                offered Status
+              </label>
+
+              <div className="relative">
+                <select
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  id="isOffered"
+                  name="isOffered"
+                  onChange={handleInputChange}
+                >
+                  <option >
+                    Select
+                  </option>
+
+                  <option value={true}>True</option>
+                  {/* <option value={true}>False</option> */}
+                </select>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={userData?.isOffered === formValues.isOffered}
+              className={`block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white`}
+            >
+              Update
+            </button>
+          </form>
+        )}
+
 
         {userData?.isJoined ? (
           <h1 className="text-center my-5 text-lg font-bold">

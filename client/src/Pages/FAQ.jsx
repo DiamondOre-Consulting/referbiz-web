@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Navbar from '../Components/HomePageComponent/Navbar'
 import HomeFooter from '../Components/HomePageComponent/HomeFooter';
 
@@ -7,20 +7,20 @@ function FAQ() {
 
   const questions = {
     0: {
-      question: 'How does the product work?',
-      answer: 'The product works by leveraging cutting-edge technology that...',
+      question: 'What is ReferBiz?',
+      answer: 'ReferBiz is a unique platform that offers an Affiliate Model for individuals to turn their network connections into a source of income and professional advancement. Through our innovative referral-focused approach, users can refer qualified candidates to job opportunities and earn incentives for their successful referrals.',
     },
     1: {
-      question: 'What are the features?',
-      answer: 'Our product comes with a range of features, including...',
+      question: 'How does the Affiliate Model work?',
+      answer: 'Our Affiliate Model revolves around referrals, where users introduce suitable candidates to open job positions within our network. Upon successful placement, affiliates receive incentives as rewards for their contributions.',
     },
     2: {
-      question: 'What about integrations?',
-      answer: 'Integrations are a key aspect of our product, enabling...',
+      question: 'Who can participate in the Affiliate Model?',
+      answer: 'Our Affiliate Model is open to individuals from all backgrounds, including industry professionals, students, and well-connected individuals. Whether youre actively involved in recruiting or simply have a vast network, you can join our Affiliate Model and start referring candidates today',
     },
     3: {
-      question: 'Is support available?',
-      answer: 'Yes, we provide comprehensive support through various channels...',
+      question: 'What are the incentives for affiliates?',
+      answer: 'Affiliates earn incentives for each successful referral that leads to a candidate placement. These incentives are designed to motivate affiliates to grow their referral network and enhance their earning potential. Additionally, top performers may qualify for special rewards and recognition',
     },
   };
 
@@ -34,27 +34,25 @@ function FAQ() {
 
   return (
     <div>
-      
+
       {/* Nav Section Start */}
-      {<Navbar/>}
+      {<Navbar />}
       {/* Nav Section Ends */}
 
-
-
       {/* FAQ Section Start */}
-      <div className="bg-white py-6 sm:py-8 lg:py-12">
+      <div className="bg-white">
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
           <div className="mb-10 md:mb-16">
             <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">
-              Frequently asked questions
+            Frequently Asked Questions (FAQ)
             </h2>
             <p className="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">
-              This is a section of some simple filler text, also known as placeholder text. It shares some characteristics of a real written text but is random or otherwise generated.
+              Discover answers to commonly asked questions about ReferBiz and our Affiliate Model below. Find out how you can turn your network into a source of income and professional growth.
             </p>
           </div>
         </div>
       </div>
-      <div className="mx-auto max-w-screen-md border-t">
+      <div className="mx-auto max-w-screen-md border-t px-8">
         {Object.keys(questions).map((index) => (
           <div className="border-b" key={index}>
             <div
@@ -65,9 +63,8 @@ function FAQ() {
                 {questions[index].question}
               </span>
               <span
-                className={`transform ${
-                  openQuestions.includes(parseInt(index)) ? 'rotate-180' : ''
-                } text-indigo-500`}
+                className={`transform ${openQuestions.includes(parseInt(index)) ? 'rotate-180' : ''
+                  } text-indigo-500`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -82,9 +79,8 @@ function FAQ() {
             </div>
 
             <p
-              className={`mb-4 ${
-                openQuestions.includes(parseInt(index)) ? 'block' : 'hidden'
-              } text-gray-500`}
+              className={`mb-4 ${openQuestions.includes(parseInt(index)) ? 'block' : 'hidden'
+                } text-gray-500`}
             >
               {questions[index].answer}
             </p>
@@ -96,7 +92,7 @@ function FAQ() {
 
 
       {/* Footer Section Start */}
-      {<HomeFooter/>}
+      {<HomeFooter />}
       {/* Footer Section Ends */}
     </div>
   );

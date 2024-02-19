@@ -14,9 +14,15 @@ const CvInfoPageMyAffil = () => {
   const [pdfPath, setPdfPath] = useState('');
   const [shortlisting, setShortlisting] = useState("");
   const [joining, setJoining] = useState("");
+  const [appearing, setAppearing]=useState("");
+  const[offering,setOffering]=useState("");
+  const [showEditForm, setShowEditForm] = useState(false);
 
   const token = localStorage.getItem("token");
 
+  const handleEditClick = () => {
+    setShowEditForm(true);
+  };
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
   const downloadPdf = () => {
@@ -62,10 +68,15 @@ const CvInfoPageMyAffil = () => {
         );
         setCandidate(response.data); // Assuming the response data contains the card details
         console.log(response.data);
-        const shorting = response.data.isShortlisted.toString();
-        const joint = response.data.isJoined.toString();
-        setShortlisting(shorting);
-        setJoining(joint);
+        const shorting = response.data.isShortlisted;
+        const joint = response.data.isJoined;
+        const appear=response.data.isAppeared;
+        const offer=response.data.isOffered;
+        setShortlisting(shorting ? "Yes" : "No");
+        setJoining(joint ? "Yes" : "No");
+        setAppearing(appear ? "Yes" : "No");
+        setOffering(offer ? "Yes" : "No");
+        console.log("apper details",appearing);
       } catch (error) {
         console.error("Error fetching card data:", error);
       }
@@ -77,7 +88,7 @@ const CvInfoPageMyAffil = () => {
   const handlePreview = async () => {
     try{
       const preview = await axios.get(
-        `https://api.referbiz.in/api/employee-rb/my-affiliates/get-cv-data/${cvId.id}`,
+        `http://localhost:8080/api/employee-rb/my-affiliates/get-cv-data/${cvId.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -145,13 +156,31 @@ const CvInfoPageMyAffil = () => {
         </div>
 
         <div className="mx-auto max-w-screen-lg px-4 md:px-8 py-4 md:py-6">
-          <div className="grid grid-cols-3 gap-4 md:grid-cols-3 lg:gap-8">
+          <div className="grid grid-cols-4 gap-4 md:grid-cols-4 lg:gap-8">
+
+          <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4 lg:p-8">
+              <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                {appearing}
+              </div>
+              <div className="text-sm font-semibold sm:text-base">
+               Appeared
+              </div>
+            </div>
             <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4 lg:p-8">
               <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                 {shortlisting}
               </div>
               <div className="text-sm font-semibold sm:text-base">
                 Shortlisted
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4 lg:p-8">
+              <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                {offering}
+              </div>
+              <div className="text-sm font-semibold sm:text-base">
+                Offered
               </div>
             </div>
 
@@ -163,7 +192,27 @@ const CvInfoPageMyAffil = () => {
             </div>
           </div>
         </div>
-        {/* <Link onClick={handlePreview}>Preview</Link> */}
+
+        <Link to={`/my-affiliates/each-cv/${candidate?._id}`} className="flex justify-center">
+              <p
+                onClick={handleEditClick}
+                className="px-5 py-3 w-2/3 rounded-md bg-blue-400 text-gray-100 text-center hover:bg-red-600"
+              >
+                Edit
+              </p> 
+            </Link>
+    
+
+        {showEditForm && (
+        <div className="modal">
+        <div className="modal-content">
+          <span className="close" onClick={() => setShowEditForm(false)}>&times;</span>
+          <EditPopUp candDetails={candDetails} update={update}  />
+        </div>
+      </div>
+      )}
+        {/* <Link 
+        onClick={handlePreview}>Preview</Link> */}
         <div className="flex justify-center py-10">
           <button
             type="button"

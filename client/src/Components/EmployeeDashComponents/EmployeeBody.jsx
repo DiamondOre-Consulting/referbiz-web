@@ -19,7 +19,7 @@ const EmployeeBody = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://api.referbiz.in/api/employee-rb/user-data",
+          "http://localhost:8080/api/employee-rb/user-data",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ const EmployeeBody = () => {
         </h2>
         <div className="py-6 sm:py-8 lg:py-12">
           <div className="mx-auto max-w-screen-xl px-4 md:px-8">
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-8">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-2  lg:gap-8">
               <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 lg:p-8">
                 <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                   {userData?.totalShared}
@@ -59,12 +59,30 @@ const EmployeeBody = () => {
                 </div>
               </div>
 
+              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 lg:p-8">
+                <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                  {userData?.totalAppeared}
+                </div>
+                <div className="text-sm font-semibold sm:text-base">
+                  Total Appeared
+                </div>
+              </div>
+
               <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">
                 <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                   {userData?.totalShortlisted}
                 </div>
                 <div className="text-sm font-semibold sm:text-base">
                   Total Shortlisted
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 lg:p-8">
+                <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                  {userData?.totalOffered}
+                </div>
+                <div className="text-sm font-semibold sm:text-base">
+                  Total Offered
                 </div>
               </div>
 

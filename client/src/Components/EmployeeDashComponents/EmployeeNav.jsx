@@ -39,7 +39,7 @@ const EmployeeNav = () => {
     const fetchUserData = async () => {
       try {
         // Make a GET request to retrieve the user data
-        const response = await axios.get('https://api.referbiz.in/api/employee-rb/user-data', {
+        const response = await axios.get('http://localhost:8080/api/employee-rb/user-data', {
           headers: {
             Authorization: `Bearer ${token}`
           }

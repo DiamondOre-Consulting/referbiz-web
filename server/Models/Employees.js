@@ -26,7 +26,15 @@ const EmployeeSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  totalAppeared: {
+    type: Number,
+    default: 0,
+  },
   totalShortlisted: {
+    type: Number,
+    default: 0,
+  },
+  totalOffered: {
     type: Number,
     default: 0,
   },

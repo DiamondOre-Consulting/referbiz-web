@@ -44,7 +44,7 @@ const MyEachAffiliate = () => {
 
         // Fetch associates data from the backend
         const response = await axios.get(
-          `https://api.referbiz.in/api/employee-rb/my-affiliates-data/${id}`,
+          `http://localhost:8080/api/employee-rb/my-affiliates-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -69,7 +69,7 @@ const MyEachAffiliate = () => {
   return (
     <>
       <EmployeeNav />
-      <div className="px-[15rem] py-12 bg-gray-200 h-full">
+      <div className="px-8 sm:px-2 lg:px-20 md:px-28 py-12 bg-gray-200 h-full">
         <div className="flex justify-between">
           <div className="flex flex-wrap items-center gap-10">
             <img
@@ -88,8 +88,8 @@ const MyEachAffiliate = () => {
         </div>
         <div className="py-6 sm:py-8 lg:py-12">
           <div className="mx-auto max-w-screen-xl px-4 md:px-8">
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-8">
-              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 lg:p-8">
+            <div className="grid grid-cols-2 gap-2 md:grid-cols-6 lg:gap-2">
+              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-2 lg:p-2">
                 <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                   {details?.totalShared}
                 </div>
@@ -98,12 +98,30 @@ const MyEachAffiliate = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">
+              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-2 md:p-2">
+                <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                  {details?.totalAppeared}
+                </div>
+                <div className="text-sm font-semibold sm:text-base">
+                  Total Appeared
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-2 md:p-2">
                 <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                   {details?.totalShortlisted}
                 </div>
                 <div className="text-sm font-semibold sm:text-base">
                   Total Shortlisted
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">
+                <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                  {details?.totalOffered}
+                </div>
+                <div className="text-sm font-semibold sm:text-base">
+                  Total Offered
                 </div>
               </div>
 
@@ -116,7 +134,7 @@ const MyEachAffiliate = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">
+              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-2 md:p-2">
                 <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                   &#8377; {details?.totalAmount}
                 </div>
@@ -127,7 +145,7 @@ const MyEachAffiliate = () => {
             </div>
           </div>
         </div>
-        <div className="bg-gray-300 w-full shadow-md rounded-md p-4 hover:shadow-lg">
+        <div className="bg-gray-200 w-full shadow-md rounded-md p-3 cursor-pointer hover:shadow-lg">
           {allCvs.map((allCv) => (
             <MyAffiliateCV key={allCv} candDetails={allCv} />
           ))}

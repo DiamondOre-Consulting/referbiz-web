@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useJwt } from "react-jwt";
+import Signup from "../AuthsCan/Signup";
 
 const EditPopUpAffiliateCV = () => {
   const [formValues, setFormValues] = useState({
     isShortlisted: null,
     isJoined: null,
+    isAppeared: null,
+    isOffered: null,
   });
 
   const [userData, setUserData] = useState(null);
+
 
   const { decodedToken } = useJwt(localStorage.getItem("token"));
 
@@ -49,7 +53,7 @@ const EditPopUpAffiliateCV = () => {
       try {
         // Make a GET request to retrieve the user data
         const response = await axios.get(
-          `https://api.referbiz.in/api/employee-rb/my-associates/get-cv-data/${id}`,
+          `http://localhost:8080/api/employee-rb/my-associates/get-cv-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -71,6 +75,10 @@ const EditPopUpAffiliateCV = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    if (!userData.isAppeared) {
+      alert("Please fill the Appeared field first.");
+      return;
+    }
 
     const token = localStorage.getItem("token");
     if (!token) {
@@ -83,7 +91,7 @@ const EditPopUpAffiliateCV = () => {
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `https://api.referbiz.in/api/employee-rb/my-affiliates-data/update-shortlisted-cv-sharing/${id}`,
+        `http://localhost:8080/api/employee-rb/my-affiliates-data/update-shortlisted-cv-sharing/${id}`,
         { isShortlisted: formValues.isShortlisted },
         {
           headers: {
@@ -95,10 +103,11 @@ const EditPopUpAffiliateCV = () => {
 
       if (response.status === 200) {
         console.log("Updated Profile Successfully!!");
+        window.alert(`${userData?.refName} is shortlisted`)
         // localStorage.removeItem("token");
         // window.location.href = "/employee-login-confi";
         // console.log("Logging out");
-        navigate('/employee-panel-confi')
+        navigate(`/my-affiliates/each-cv/cv-details/${userId}`)
         // Redirect to login page or perform other actions
       } else {
         console.log("Signup failed");
@@ -112,6 +121,10 @@ const EditPopUpAffiliateCV = () => {
 
   const handleJoined = async (e) => {
     e.preventDefault();
+    if (!userData.isOffered) {
+      alert("Please fill the Offered field first.");
+      return;
+    }
 
     const token = localStorage.getItem("token");
     if (!token) {
@@ -124,7 +137,7 @@ const EditPopUpAffiliateCV = () => {
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `https://api.referbiz.in/api/employee-rb/my-affiliates-data/update-joined-cv-sharing/${id}`,
+        `http://localhost:8080/api/employee-rb/my-affiliates-data/update-joined-cv-sharing/${id}`,
         { isJoined: formValues.isJoined },
         {
           headers: {
@@ -135,11 +148,12 @@ const EditPopUpAffiliateCV = () => {
       );
 
       if (response.status === 200) {
+        window.alert(`${userData?.refName} is Joined`)
         // console.log("Updated Profile Successfully!!");
         // localStorage.removeItem("token");
         // window.location.href = "/employee-login-confi";
         // console.log("Logging out");
-        navigate('/employee-panel-confi')
+        navigate(`/my-affiliates/each-cv/cv-details/${userId}`)
         // Redirect to login page or perform other actions
       } else {
         console.log("Signup failed");
@@ -151,6 +165,80 @@ const EditPopUpAffiliateCV = () => {
     }
   };
 
+  //isappeared
+  const handleappeared = async (e) => {
+    e.preventDefault();
+
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // No token found, redirect to login page
+      navigate("/employee-login-confi");
+    }
+
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/employee-rb/my-affiliates-data/update-appeared-cv-sharing/${id}`,
+        { isAppeared: formValues.isAppeared },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        window.alert(`${userData?.refName} is Appeared`)
+        console.log("Updated Profile Successfully!!");
+        navigate(`/my-affiliates/each-cv/cv-details/${userId}`)
+      } else {
+        console.log("Update failed");
+      }
+    } catch (error) {
+      console.error("Error updating:", error);
+    }
+  };
+
+
+
+  // isOfferedf
+  const handleoffered = async (e) => {
+    e.preventDefault();
+    if (!userData.isShortlisted) {
+      alert("Please fill the Shortlisted field first.");
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // No token found, redirect to login page
+      navigate("/employee-login-confi");
+    }
+
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/employee-rb/my-affiliates-data/update-offering-cv-sharing/${id}`,
+        { isOffered: formValues.isOffered },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        window.alert(`${userData?.refName} is Offered`)
+        console.log("Updated Profile Successfully!!");
+        navigate(`/my-affiliates/each-cv/cv-details/${userId}`)
+      } else {
+        console.log("Update failed");
+      }
+    } catch (error) {
+      console.error("Error updating:", error);
+    }
+  };
+
+  console.log()
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
@@ -162,6 +250,51 @@ const EditPopUpAffiliateCV = () => {
         <p className="mx-auto mt-4 max-w-md text-center text-red-500 font-semibold">
           You can edit a particular field only once
         </p>
+
+        {userData?.isAppeared ? (
+          <h1 className="text-center my-5 text-lg font-bold">
+            {userData?.refName} is already Appeared
+          </h1>
+        ) : (
+          <form
+            onSubmit={handleappeared}
+            className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-gray-50"
+          >
+            <p className="text-center text-lg font-medium">
+              Update Appeared Status
+            </p>
+
+            <div>
+              <label htmlFor="isShortlisted" className="sr-only">
+                Appeared Status
+              </label>
+
+              <div className="relative">
+                <select
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  id="isAppeared"
+                  name="isAppeared"
+                  onChange={handleInputChange}
+                >
+                  <option >
+                    Select
+                  </option>
+
+                  <option value={true}>True</option>
+                </select>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={userData?.isAppeared === formValues.isAppeared}
+              className={`block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white `}
+            >
+              Update
+            </button>
+          </form>
+        )}
+
 
         {userData?.isShortlisted ? (
           <h1 className="text-center my-5 text-lg font-bold">
@@ -188,7 +321,7 @@ const EditPopUpAffiliateCV = () => {
                   name="isShortlisted"
                   onChange={handleInputChange}
                 >
-                                    <option >
+                  <option >
                     Select
                   </option>
 
@@ -196,14 +329,88 @@ const EditPopUpAffiliateCV = () => {
                 </select>
               </div>
             </div>
+            {
 
-            <button
-              type="submit"
-              disabled={userData?.isShortlisted === formValues.isShortlisted}
-              className={`block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white`}
-            >
-              Update
-            </button>
+
+              (!userData?.isAppeared) ? (
+
+                <button
+                  type="submit"
+                  disabled={userData?.isShortlisted === formValues.isShortlisted}
+                  className={`block w-full rounded-lg bg-gray-600 px-5 py-3 text-sm font-medium text-white`}
+                >
+                  Update
+                </button>
+              )
+
+                : (
+
+                  <button
+                    type="submit"
+                    disabled={userData?.isShortlisted === formValues.isShortlisted}
+                    className={`block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white`}
+                  >
+                    Update
+                  </button>
+
+                )
+            }
+
+
+          </form>
+        )}
+
+        {userData?.isOffered ? (
+          <h1 className="text-center my-5 text-lg font-bold">
+            {userData?.refName} is already Offered
+          </h1>
+        ) : (
+          <form
+            onSubmit={handleoffered}
+            className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-gray-50"
+          >
+            <p className="text-center text-lg font-medium">
+              Update Offered Status
+            </p>
+
+            <div>
+              <label htmlFor="isOffered" className="sr-only">
+                Offered Status
+              </label>
+
+              <div className="relative">
+                <select
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  id="isOffered"
+                  name="isOffered"
+                  onChange={handleInputChange}
+                >
+                  <option >
+                    Select
+                  </option>
+
+                  <option value={true}>True</option>
+                </select>
+              </div>
+            </div>
+            {
+              (!userData?.isShortlisted) ? (
+                <button
+                  type="submit"
+                  disabled={userData?.isOffered === formValues.isOffered}
+                  className={`block w-full rounded-lg bg-gray-600 px-5 py-3 text-sm font-medium text-white`}
+                >
+                  Update
+                </button>) : (
+                <button
+                  type="submit"
+                  disabled={userData?.isOffered === formValues.isOffered}
+                  className={`block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white`}
+                >Update</button>
+              )
+
+            }
+
           </form>
         )}
 
@@ -234,7 +441,7 @@ const EditPopUpAffiliateCV = () => {
                   // value={formValues?.isJoined}
                   onChange={handleInputChange}
                 >
-                                    <option >
+                  <option >
                     Select
                   </option>
 
@@ -243,13 +450,27 @@ const EditPopUpAffiliateCV = () => {
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={userData?.isJoined === formValues.isJoined}
-              className={`block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white`}
-            >
-              Update
-            </button>
+            {
+              (!userData?.isOffered) ? (
+                <button
+                  type="submit"
+                  disabled={userData?.isJoined === formValues.isJoined}
+                  className={`block w-full rounded-lg bg-gray-600 px-5 py-3 text-sm font-medium text-white`}
+                >
+                  Update
+                </button>
+              )
+                : (
+                  <button
+                    type="submit"
+                    disabled={userData?.isJoined === formValues.isJoined}
+                    className={`block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white`}
+                  >
+                    Update
+                  </button>
+                )
+            }
+
           </form>
         )}
       </div>

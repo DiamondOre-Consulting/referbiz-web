@@ -72,10 +72,10 @@ const CvInfoPage = () => {
     };
 
     fetchData();
-  }, [decodedToken,navigate]);
+  }, [decodedToken, navigate]);
 
   const handlePreview = async () => {
-    try{
+    try {
       const preview = await axios.get(
         `https://api.referbiz.in/api/admin-rb/get-cv-preview/${cvId.id}`,
         {
@@ -85,8 +85,8 @@ const CvInfoPage = () => {
         }
       );
       setPdfPath(preview.data);
-      console.log("This is Path: ",pdfPath)
-    } catch(error) {
+      console.log("This is Path: ", pdfPath)
+    } catch (error) {
       console.log("Error fetching CV Preview: ", error)
     }
   }
@@ -100,7 +100,7 @@ const CvInfoPage = () => {
           <div className="grid grid-cols-3 gap-4 md:grid-cols-3 lg:gap-8">
             <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4 lg:p-8">
               <div className="flex flex-col items-center justify-center h-full">
-                <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                <div className="text-sm font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                   {candidate?.refName}
                 </div>
                 <div className="text-sm font-semibold sm:text-base">
@@ -111,7 +111,7 @@ const CvInfoPage = () => {
 
             <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4 md:p-8">
               <div className="flex flex-col items-center justify-center h-full">
-                <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                <div className="text-sm font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                   {candidate?.refUniqueEmailId}
                 </div>
                 <div className="text-sm font-semibold sm:text-base">
@@ -122,7 +122,7 @@ const CvInfoPage = () => {
 
             <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4 md:p-8">
               <div className="flex flex-col items-center justify-center h-full">
-                <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                <div className="text-sm font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                   {candidate?.refPhone}
                 </div>
                 <div className="text-sm font-semibold sm:text-base">

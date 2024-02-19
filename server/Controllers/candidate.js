@@ -229,6 +229,8 @@ router.get("/user-data", authenticateToken, async (req, res) => {
       profileImage,
       totalShared,
       totalShortlisted,
+      totalAppeared,
+      totalOffered,
       totalJoined,
       totalAmount,
       document,
@@ -244,11 +246,14 @@ router.get("/user-data", authenticateToken, async (req, res) => {
       profileImage,
       totalShared,
       totalShortlisted,
+      totalAppeared,
+      totalOffered,
       totalJoined,
       totalAmount,
       document,
       count,
     });
+
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).json({ message: "Internal server error" });
