@@ -88,7 +88,7 @@ const CvInfoPageMyAffil = () => {
   const handlePreview = async () => {
     try{
       const preview = await axios.get(
-        `http://localhost:8080/api/employee-rb/my-affiliates/get-cv-data/${cvId.id}`,
+        `https://api.referbiz.in/api/employee-rb/my-affiliates/get-cv-data/${cvId.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

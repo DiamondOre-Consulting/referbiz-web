@@ -52,7 +52,7 @@ const EditPopUpAffiliate = () => {
       try {
         // Make a GET request to retrieve the user data
         const response = await axios.get(
-          `http://localhost:8080/api/admin-rb/admin-affiliates-data/get-cv-data/${id}`,
+          `https://api.referbiz.in/api/admin-rb/admin-affiliates-data/get-cv-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -132,7 +132,7 @@ const EditPopUpAffiliate = () => {
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/admin-rb/admin-affiliates-data/update-joined-cv-sharing/${id}`,
+        `https://api.referbiz.in/api/admin-rb/admin-affiliates-data/update-joined-cv-sharing/${id}`,
         { isJoined: formValues.isJoined },
         {
           headers: {
@@ -171,7 +171,7 @@ const EditPopUpAffiliate = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/admin-rb/admin-affiliates-data/update-appeared-cv-sharing/${id}`,
+        `https://api.referbiz.in/api/admin-rb/admin-affiliates-data/update-appeared-cv-sharing/${id}`,
         { isAppeared: formValues.isAppeared },
         {
           headers: {
@@ -204,7 +204,7 @@ const EditPopUpAffiliate = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/admin-rb/admin-affiliates-data/update-offered-cv-sharing/${id}`,
+        `https://api.referbiz.in/api/admin-rb/admin-affiliates-data/update-offered-cv-sharing/${id}`,
         { isOffered: formValues.isOffered },
         {
           headers: {

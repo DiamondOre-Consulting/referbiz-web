@@ -23,7 +23,7 @@ const AffHero = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/candidates/user-data",
+          "https://api.referbiz.in/api/candidates/user-data",
           {
             headers: {
               Authorization: `Bearer ${token}`,
