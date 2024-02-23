@@ -70,7 +70,7 @@ const CvSharing = () => {
     document: null,
     referredById: "",
   });
-  //   const [message, setMessage] = useState('');
+ 
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -80,10 +80,12 @@ const CvSharing = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setFormValues({ ...formValues, document: file });
+    
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setShowPopup(false);
     setSubmitted(false);
 
     const token = localStorage.getItem("token");
@@ -120,9 +122,12 @@ const CvSharing = () => {
         referredById: "",
       });
       setSubmitted(true);
+      setShowPopup(true);
+      document.getElementById('document').value = ''; 
     } catch (error) {
       console.error(error);
-      setSubmitted(false);
+      setSubmitted(false);  
+      setShowPopup(false);
     }
   };
 
