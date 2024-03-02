@@ -47,11 +47,7 @@ const CvSharingFormSchema = new mongoose.Schema({
     type: String,
   },
   referredById: {
-    type: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Employees",
-      default: null
-    },
+    type: mongoose.Schema.Types.ObjectId,
   },
   createdAt: {
     type: Date,
