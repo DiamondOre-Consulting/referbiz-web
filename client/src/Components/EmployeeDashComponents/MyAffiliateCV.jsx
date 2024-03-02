@@ -4,8 +4,8 @@ import { useJwt } from "react-jwt";
 import axios from "axios";
 import EditPopUp from "./EditPopUpAssociateCV";
 
-const MyAffiliateCV = ({ candDetails }) => {
-  console.log(candDetails);
+const MyAffiliateCV = ({ candDetails}) => {
+  console.log("details",candDetails);
   const [candidate, setCandidate] = useState({});
   const [shortlisting, setShortlisting] = useState("");
    const[offering,setOffering]=useState("");
@@ -19,6 +19,8 @@ const MyAffiliateCV = ({ candDetails }) => {
   };
 
   const { decodedToken } = useJwt(localStorage.getItem("token"));
+  console.log("token console",decodedToken)
+  // const userid = decodedToken ? decodedToken.EmpName : "No Name Found";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -64,6 +66,8 @@ const MyAffiliateCV = ({ candDetails }) => {
         setJoining(joint ? "Yes" :"No");
         setOffering(offer ? "Yes" :"No");
         setAppearing(appear ? "Yes" :"No");
+        console.log("reffered by id",response.data.referredById
+        )
       } catch (error) {
         console.error("Error fetching card data:", error);
       }

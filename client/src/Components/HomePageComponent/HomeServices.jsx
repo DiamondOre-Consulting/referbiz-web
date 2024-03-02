@@ -154,6 +154,27 @@ const HomeServices = () => {
               </div>
             </div>
 
+            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shadow-lg shadow-gray-300 mb-4">
+              <div className="flex flex-1 flex-col justify-center items-center p-4 sm:p-6">
+                <h2 className="mb-2 text-2xl font-semibold text-gray-800">
+                  <a
+                    href="#"
+                    className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
+                  >
+                    DOC_Labz
+                  </a>
+                </h2>
+                <div className="flex items-center justify-around mb-4">
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="2" />  <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />  <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" /></svg><span>(300)</span></div>
+                  <div className="flex items-center mx-3"><svg class="h-5 w-5 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />  <circle cx="9" cy="7" r="4" />  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg><span>(50)</span></div>
+                  <div className="flex items-center"> <svg class="h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>1020,40/-</span></div>
+                </div>
+                <p className=" rounded-md bg-indigo-500 px-4 py-1 text-sm font-semibold text-gray-200 text-center">
+                  IT Cunsulting Service
+                </p>
+              </div>
+            </div>
+
             <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-3xl  shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col p-4 sm:p-6 justify-center items-center">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">

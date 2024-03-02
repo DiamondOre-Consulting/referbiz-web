@@ -43,7 +43,7 @@ const CvSharing = () => {
   
           // Set the user data in state
           // setPopUp(response.data.count);
-          console.log(response.data)
+          console.log("employeedata",response.data)
           setEmpData(response.data);
           
         } catch (error) {
@@ -100,6 +100,8 @@ const CvSharing = () => {
     formData.append("refUniqueEmailId", formValues.refUniqueEmailId);
     formData.append("document", formValues.document);
     formData.append("referredById", formValues.referredById);
+
+    console.log("employee id ",formValues.referredById)
 
     try {
       const response = await axios.post(
