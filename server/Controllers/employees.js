@@ -4,12 +4,14 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import multer from "multer";
 import path from "path";
+import nodemailer from "nodemailer";
 import Employees from "../Models/Employees.js";
 import employeeAuthToken from "../Middlewares/employeeAuthToken.js";
 import AssoUsers from "../Models/AssoUsers.js";
 import CvSharing from "../Models/CvSharing.js";
 import adminAuthToken from "../Middlewares/adminAuthToken.js";
 import User from "../Models/Users.js";
+
 dotenv.config();
 
 const secretKey = process.env.EMPLOYEE_JWT_SECRET;
@@ -785,7 +787,7 @@ router.get(
 // mail go to affiliate when his refereal status updated of appeared
 
 
-const mailtoaffiupdatedappearingstatus = async (candidatedetails) => {
+const mailtoaffiupdatedappearingstatus = async ( affirefdet ) => {
 
   try {
     const transporter = nodemailer.createTransport({
@@ -800,8 +802,13 @@ const mailtoaffiupdatedappearingstatus = async (candidatedetails) => {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <${candidatedetails.email}>`,
       subject: "appeared status has been updated",
-      text: `Congratulations! `,
+      text: `Congratulations! ${candidatedetails.name}`,
       html: `<p>Refferd Details</p>
+      <p>refname: ${affirefdet.refName}</p>
+      <p>refPhone: ${affirefdet.refPhone}</p>
+      <p>refemailid: ${affirefdet.refUniqueEmailId}
+      <p>refresume: ${affirefdet.modifiedUrl} </p>
+      <p>Your referral is Appeared</p>
       `,
     };
 
@@ -830,8 +837,8 @@ router.put(
       const { EmpEmail } = req.user;
 
       // Find the user in the database
-      const candidatedetails = await User.findById({_id : id})
-
+      const affiemail =await Users.findOne({email : id })
+      const affirefdet =await Users.findOne({allCvInfo : id });
       const user = await Employees.findOne({ EmpEmail });
     
       if (!user) {
@@ -885,6 +892,8 @@ router.put(
       await cvUserAppeared.save();
 
       console.log(cvUserAppeared);
+
+      await mailtoaffiupdatedappearingstatus(candidatedetails , affirefdet);
       
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {

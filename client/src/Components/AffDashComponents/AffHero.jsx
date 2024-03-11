@@ -35,6 +35,7 @@ const AffHero = () => {
         const { data } = response;
         setUserData(data);
         console.log(data);
+        console.log("usersdata ",userData)
         console.log(userData?.totalAmount);
       } catch (error) {
         console.error("Error fetching user data:", error);
