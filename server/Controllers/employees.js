@@ -782,6 +782,40 @@ router.get(
   }
 );
 
+// mail go to affiliate when his refereal status updated of appeared
+
+
+const mailtoaffiupdatedappearingstatus = async (candidatedetails) => {
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <${candidatedetails.email}>`,
+      subject: "appeared status has been updated",
+      text: `Congratulations! `,
+      html: `<p>Refferd Details</p>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+
+}
+
 // UPDATE AFFILIATE CV-SHARE APPEARED BY ID
 router.put(
   "/my-affiliates-data/update-appeared-cv-sharing/:id",
@@ -796,7 +830,10 @@ router.put(
       const { EmpEmail } = req.user;
 
       // Find the user in the database
+      const candidatedetails = await User.findById({_id : id})
+
       const user = await Employees.findOne({ EmpEmail });
+    
       if (!user) {
         return res.status(404).json({ message: "Employee not found" });
       }
@@ -848,7 +885,7 @@ router.put(
       await cvUserAppeared.save();
 
       console.log(cvUserAppeared);
-
+      
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {
       console.error("Error updating cv details:", error);

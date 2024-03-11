@@ -98,6 +98,40 @@ router.post("/send-otp", uploadImg.single("profileImage"), async (req, res) => {
   }
 });
 
+  //  when new affiliate added mail will go to the affiliate 
+  const sendConfirmationByEmail = async (email, name) => {
+    try {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "harshkr2709@gmail.com",
+          pass: "frtohlwnukisvrzh",
+        },
+      });
+
+      const mailOptions = {
+        from: "ReferBiz.in <harshkr2709@gmail.com>",
+        to: `Recipient <${email}>`,
+        subject: "Welcome to Referbiz!",
+        text: `Congratulations! We are thrilled to have you as a new member of our community. By joining us, you've taken the first step towards unlocking a world of opportunities.`,
+        html: `
+        <p>Dear ${name} ,</p>
+        <p font-size: 1rem">We're thrilled to welcome you to ReferBiz, your gateway to exciting job opportunities! Your recent registration marks the beginning of an enriching journey where you can discover and refer talented individuals for rewarding career prospects.</p>
+        <p>Thank you for joining our platform. We're excited to have you onboard and look forward to your active participation.</p>
+        <p>Best Regards</p>
+        <p>Referbiz</p>`,
+      };
+
+      const info = await transporter.sendMail(mailOptions);
+      console.log("Email sent: " + info.response);
+
+
+    } catch (error) {
+      console.error("Error sending Mail:", error);
+      throw error;
+    }
+  };
+
 // SIGNUP AS CANDIDATE
 router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
   const { otp, name, email, password } = req.body;
@@ -136,6 +170,9 @@ router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
 
         // Save the user to the database
         await newUser.save();
+        await sendConfirmationByEmail(email, name);
+        
+
       } else {
         // Create a new user object
         const newUser = new User({
@@ -150,13 +187,15 @@ router.post("/signup", uploadImg.single("profileImage"), async (req, res) => {
         await newUser.save();
       }
 
+      
       delete otpStore[email];
-
+      await sendConfirmationByEmail(email, name);
+     
       return res
         .status(201)
         .json({ message: "Candidate User created successfully" });
     } else {
-      return res.status(400).json({ message: "Invalid Token" });
+      return res.status(400).json({ message: "Invalid OTP" });
     }
     // Check if user already exists
   } catch (error) {
@@ -416,6 +455,113 @@ const storage = multer.diskStorage({
   },
 });
 
+ // mail when affliate reffer someone 
+
+ const sendrefferdetailstoaffliate = async ( email,refName, refPhone, refUniqueEmailId, employeedetails,modifiedUrl) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <${email}>`,
+      subject: "Thank You for Referring",
+      text: `Congratulations! `,
+      html: `<p>Refferd Details</p>
+      <p>refname: ${refName}</p>
+      <p>refPhone: ${refPhone}</p>
+      <p>refemailid: ${refUniqueEmailId}
+      <p>refresume: ${modifiedUrl} </p>
+      <p>You are in touch with : ${employeedetails?.EmpName}`,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+};
+
+//mail go to employee when affileate reffer someone
+const sendmailtoemployeeofitsaffiliate = async ( refName, refPhone, refUniqueEmailId, employeedetails,modifiedUrl,affidetails) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <${employeedetails.EmpEmail}>`,
+      subject: "affiliate reffer",
+      text: `Congratulations! `,
+      html: `<p>Refferd Details</p>
+      <p>refname: ${refName}</p>
+      <p>refPhone: ${refPhone}</p>
+      <p>refemailid: ${refUniqueEmailId}
+      <p>refresume: ${modifiedUrl} </p>
+      <p>affiliatename: ${affidetails.name}`,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+};
+
+
+//mail go to employee when affileate reffer someone
+const sendmailtoAdminaffiliatereffer = async ( refName, refPhone, refUniqueEmailId, employeedetails,modifiedUrl,affidetails) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <info.codifiers@gmail.com>`,
+      subject: "New CV has been shared",
+      text: ``,
+      html: `<p>CV details</p>
+      <p>cv Shared by: ${affidetails.name}</p>
+      <p>refname: ${refName}</p>
+      <p>refPhone: ${refPhone}</p>
+      <p>refemailid: ${refUniqueEmailId}
+      <p>refresume: ${modifiedUrl} </p>
+      <p>Employee name :${employeedetails.EmpName}
+      <p>Thankyou</p>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+};
+
 // Create the Multer upload instance
 const upload = multer({ storage: storage });
 
@@ -426,17 +572,17 @@ router.post(
   async (req, res) => {
     const { refName, refPhone, refUniqueEmailId, referredById } = req.body;
     console.log(referredById);
-
+    const employeedetails = await Employees.findById({_id : referredById})
+    
     const uploadedFile = req.file;
 
     // Get the user's email from the decoded token
     const { email, userId } = req.user;
-
+    const affidetails=await User.findById({_id : userId});
     // Handle form submission and file upload logic
     if (!uploadedFile) {
       return res.status(400).json({ error: "No file uploaded" });
     }
-
     // Perform any necessary validation on the form fields
     if (!refName || !refPhone || !refUniqueEmailId) {
       return res
@@ -472,7 +618,6 @@ router.post(
         // user: req.user.email, // Associate the form entry with the logged-in user
       });
       await cvSharing.save();
-
       // Update totalShared count for the associated candidate
       await User.findOneAndUpdate(
         { email: email }, // Match the candidate ID
@@ -505,8 +650,12 @@ router.post(
         console.log(updatedEmp);
       }
 
-      res.status(201).json({ message: "Form submitted successfully" });
-    } catch (error) {
+      await sendrefferdetailstoaffliate(email,refName, refPhone, refUniqueEmailId, employeedetails ,modifiedUrl);
+      await sendmailtoemployeeofitsaffiliate( refName, refPhone, refUniqueEmailId, employeedetails,modifiedUrl,affidetails);
+      await sendmailtoAdminaffiliatereffer( refName, refPhone, refUniqueEmailId, employeedetails,modifiedUrl,affidetails)
+      res.status(201).json({message: "Form submitted successfully" });
+    }
+    catch (error) {
       console.error("Error submitting form:", error);
       res.status(500).json({ message: "Internal server error" });
     }

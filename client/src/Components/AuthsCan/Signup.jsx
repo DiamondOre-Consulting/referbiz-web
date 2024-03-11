@@ -109,6 +109,19 @@ const Signup = ({ toggleForm }) => {
     } catch (error) {
       console.error("Error signing up:", error);
       setError("Some details are wrong!!");
+      if (error.response) {
+        const status = error.response.status;
+        if (status === 409) {
+          setError("Affliate already Exist");
+        } else {
+          setError("An error occurred while in signup. Please try again later.");
+        }
+      } else {
+        setError("An error occurred while signup. Please try again later.");
+      }
+    
+
+
       // Handle error
     } 
   };
@@ -388,10 +401,10 @@ const Signup = ({ toggleForm }) => {
         ) : (
           ""
         )}
-
+ 
         {error && (
-          <div className="flex items-center justify-center bg-red-300 p-4 rounded-md">
-            <p className="text-center text-sm text-red-500">{error}</p>
+          <div className="flex items-center justify-center bg-blue-200 p-4 rounded-md">
+            <p className="text-center text-xl text-blue-800 uppercase font-bold">{error}</p>
           </div>
         )}
       </div>

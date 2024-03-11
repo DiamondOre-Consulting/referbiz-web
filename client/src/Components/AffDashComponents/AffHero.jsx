@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useJwt } from "react-jwt";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Wave from "../../assets/wave.png";
 
 const AffHero = () => {
+
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
   const { decodedToken } = useJwt(localStorage.getItem("token"));
@@ -59,7 +60,8 @@ const AffHero = () => {
       <div className="py-6 sm:py-8 lg:py-12">
         <div className="mx-auto max-w-screen-xl px-4 md:px-8">
           <div className="grid grid-cols-2 gap-4 md:grid-cols-6 lg:gap-8">
-            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 lg:p-8">
+            <Link to={'/affi/total-referal'}>
+            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-2 lg:p-8">
               <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                 {userData?.totalShared}
               </div>
@@ -67,8 +69,10 @@ const AffHero = () => {
                 Total Referrals
               </div>
             </div>
+            </Link>
 
-            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4  md:p-2">
+            <Link to ={'/affi/total-appeared'}>
+            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4  md:p-2 lg:py-8">
               <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                 {userData?.totalAppeared}
               </div>
@@ -76,8 +80,10 @@ const AffHero = () => {
                 Total Appeared
               </div>
             </div>
+            </Link>
 
-            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-2">
+            <Link to={'/affi/total-shortlisted'}>
+            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-2 lg:py-8">
               <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                 {userData?.totalShortlisted}
               </div>
@@ -85,8 +91,11 @@ const AffHero = () => {
                 Total Shortlisted
               </div>
             </div>
+            </Link>
 
-            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 lg:p-8">
+
+          <Link to={'/affi/total-offered'}>
+            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-2 lg:py-8">
               <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                 {userData?.totalOffered}
               </div>
@@ -94,8 +103,10 @@ const AffHero = () => {
                 Total Offered
               </div>
             </div>
+            </Link>
 
-            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">
+            <Link to={'/affi/total-joined'}>
+            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-2 lg:py-8">
               <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                 {userData?.totalJoined}
               </div>
@@ -103,8 +114,8 @@ const AffHero = () => {
                 Total Joined
               </div>
             </div>
-
-            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-2">
+            </Link>
+            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-2 lg:py-8">
               <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
                 &#8377; {userData?.totalAmount}
               </div>

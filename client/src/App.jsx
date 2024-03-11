@@ -56,6 +56,11 @@ import CvInfoAssociate from "./Components/AdminDashComponents/CvInfoAssociate";
 import CvInfoAffiliate from "./Components/AdminDashComponents/CvInfoAffiliate";
 import CvInfoPageMyAsso from "./Pages/EmployeesPages/CvInfoPageMyAsso";
 import CvInfoPageMyAffil from "./Pages/EmployeesPages/CvInfoPageMyAffil";
+import AffTotalReferal from "./Components/AffDashComponents/AffTotalReferal";
+import AffTotalAppeared from "./Components/AffDashComponents/AffTotalAppeared";
+import AffTotalShortlisted from "./Components/AffDashComponents/AffTotalShortlisted";
+import AffTotalOffered from "./Components/AffDashComponents/AffTotalOffered";
+import AffTotalJoined from "./Components/AffDashComponents/AffTotalJoined";
 
 
 function App() {
@@ -86,6 +91,11 @@ function App() {
             <Route path="/FAQ" element={<FAQ/>}/>
             <Route path="/contactus" element={<AssoContact />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path='/affi/total-referal' element={<AffTotalReferal/>}/>
+            <Route path='/affi/total-appeared' element={<AffTotalAppeared/>}/>
+            <Route path='/affi/total-shortlisted' element={<AffTotalShortlisted/>}/>
+            <Route path="/affi/total-offered" element={<AffTotalOffered/>}/>
+            <Route path='/affi/total-joined' element={<AffTotalJoined/>}/>
             <Route path="/update-profile/:id" element={<UpdateProfile />} />
             <Route path="/AssoDashboard" element={<AssoDashboard />} />
             <Route
