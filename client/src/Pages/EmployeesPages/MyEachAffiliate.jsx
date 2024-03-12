@@ -9,8 +9,10 @@ import EmployeeNav from "../../Components/EmployeeDashComponents/EmployeeNav";
 import MyAffiliateCV from "../../Components/EmployeeDashComponents/MyAffiliateCV";
 
 const MyEachAffiliate = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [details, setDetails] = useState({});
   const [allCvs, setAllCvs] = useState([]);
+  const [amount, setAmount] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
   console.log(id);
@@ -66,6 +68,47 @@ const MyEachAffiliate = () => {
 
     fetchAffiliate();
   }, [decodedToken, navigate]);
+
+  //update amount 
+
+  const updateamount = async (e) => {
+    e.preventDefault();
+   
+    try {
+      
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        // Token not found in local storage, handle the error or redirect to the login page
+        console.error("No token found");
+        navigate("/employee-login-confi");
+        return;
+      }
+      const updatedAmount = parseFloat(amount);
+      const response = await axios.put(
+        `https://api.referbiz.in/api/employee-rb/affiliate-amount-update/${id}`,
+        {
+          addAmount: updatedAmount,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        alert("affiliate amount has been updated sucessfully")
+        setAmount(amount)
+        setIsOpen(false);
+      }
+    }
+    catch (error) {
+      console.log("error in updating amount", error)
+    }
+
+
+  }
   return (
     <>
       <EmployeeNav />
@@ -141,6 +184,23 @@ const MyEachAffiliate = () => {
                 <div className="text-sm font-semibold sm:text-base">
                   Your Total Amount
                 </div>
+              </div>
+              <div>
+                <button onClick={() => setIsOpen(true)} className="p-2 bg-blue-900 text-white rounded-md">Update Amount</button>
+                {isOpen && (
+                  <form onSubmit={updateamount}>
+                    <label>
+                      Enter Amount:
+                      <input
+                        type="number"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                      />
+                    </label>
+                    <button className="p-1 bg-green-400 rounded-md mt-2 text-gray-900">Update Amount</button>
+                    <button onClick={() => setIsOpen(false)} className="p-1 bg-red-400 rounded-md mt-2 mr-2 text-gray-900">Cancel</button>
+                  </form>
+                )}
               </div>
             </div>
           </div>

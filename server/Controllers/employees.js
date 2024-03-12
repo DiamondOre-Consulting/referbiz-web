@@ -11,6 +11,7 @@ import AssoUsers from "../Models/AssoUsers.js";
 import CvSharing from "../Models/CvSharing.js";
 import adminAuthToken from "../Middlewares/adminAuthToken.js";
 import User from "../Models/Users.js";
+import Users from "../Models/Users.js";
 
 dotenv.config();
 
@@ -787,7 +788,54 @@ router.get(
 // mail go to affiliate when his refereal status updated of appeared
 
 
-const mailtoaffiupdatedappearingstatus = async ( affirefdet ) => {
+const mailtoaffiupdatedappearingstatus = async (affirefdet, cvDetails ,user) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <${affirefdet.email}>`,
+      subject: "🎉 Congratulations! Your Referred CV is Now Appeared 🎉",
+      text: `Congratulations, ${cvDetails.name}! Your referral is now Appeared.`,
+      html: `
+        <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+          <h2 style="color: #2E86C1; text-align: center;">🎉 Congratulations, ${affirefdet.name}! 🎉</h2>
+          <p style="text-align: center;">Your referral is now Appeared.</p>
+          <div style="margin-top: 20px;">
+            <h3 style="color: #2E86C1;">Referred CV Details:</h3>
+            <ul>
+              <li><strong>Name:</strong> ${cvDetails.refName}</li>
+              <li><strong>Phone:</strong> ${cvDetails.refPhone}</li>
+              <li><strong>Email:</strong> ${cvDetails.refUniqueEmailId}</li>
+              <li><strong>Resume:</strong> ${cvDetails.PDF}</li>
+            </ul>
+          </div>
+          <p>Best Regards,<br/>${user.EmpName}</p>
+          <p style="font-style: italic; text-align: center;">Thank you for your referral!</p>
+        </div>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+}
+
+
+// mail go to admin the that referel refrence is appeared 
+
+const mailtoadminupdatedappearingstatus = async ( affirefdet ,cvDetails ,user ) => {
 
   try {
     const transporter = nodemailer.createTransport({
@@ -800,15 +848,26 @@ const mailtoaffiupdatedappearingstatus = async ( affirefdet ) => {
 
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
-      to: `Recipient <${candidatedetails.email}>`,
-      subject: "appeared status has been updated",
-      text: `Congratulations! ${candidatedetails.name}`,
-      html: `<p>Refferd Details</p>
-      <p>refname: ${affirefdet.refName}</p>
-      <p>refPhone: ${affirefdet.refPhone}</p>
-      <p>refemailid: ${affirefdet.refUniqueEmailId}
-      <p>refresume: ${affirefdet.modifiedUrl} </p>
-      <p>Your referral is Appeared</p>
+      to: `Recipient <info.codifiers@gmail.com>`,
+      subject: "Appeared status has been updated",
+      text: ``,
+      html: `
+        <div style="font-family: Arial, sans-serif; color: #333; background-color: #f5f5f5; padding: 20px;">
+          <h2 style="color: #2E86C1; margin-bottom: 20px;">Appeared Status Update</h2>
+          <p>Hello Admin,</p>
+          <p>This is to inform you that the appeared status of an affiliate${affirefdet.name}  who refer  ${cvDetails.refName} has been updated.</p>
+          <h3 style="color: #2E86C1; margin-top: 30px;">Referred CV Details:</h3>
+          <ul style="list-style-type: none; padding-left: 0;">
+            <li><strong>Name:</strong> ${cvDetails.refName}</li>
+            <li><strong>Phone:</strong> ${cvDetails.refPhone}</li>
+            <li><strong>Email:</strong> ${cvDetails.refUniqueEmailId}</li>
+            <li><strong>Resume:</strong> ${cvDetails.PDF}</li>
+            <li><strong>Employee name:</strong> ${user.EmpName}</li>
+            <li><strong>isAppeared:</strong>True</li>
+          </ul>
+          <p>Please take necessary actions as required.</p>
+          <p>Best Regards,<br/>Referbiz Team</p>
+        </div>
       `,
     };
 
@@ -822,6 +881,47 @@ const mailtoaffiupdatedappearingstatus = async ( affirefdet ) => {
   }
 
 }
+
+// mail go to employee that his /her appeared has been updated
+
+const mailtoemployeeupdatedappearingstatus = async (affirefdet, cvDetails, user) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <${user.EmpEmail}>`,
+      subject: "Appeared status has been updated",
+      text: `Hello ${user.EmpName}, Your affiliate's appeared status has been updated.`,
+      html: `
+        <p>Hello ${user.EmpName},</p>
+        <p>We're writing to inform you that your affiliate, ${affirefdet.name}, has had their appeared status updated.</p>
+        <h3>Referred CV Details:</h3>
+        <ul>
+          <li><b>Name:</b> ${cvDetails.refName}</li>
+          <li><b>Phone:</b> ${cvDetails.refPhone}</li>
+          <li><b>Email:</b> ${cvDetails.refUniqueEmailId}</li>
+          <li><b>Resume:</b> ${cvDetails.PDF}</li>
+        </ul>
+        <p>Thank you for your attention.</p>
+        <p>Best Regards,<br/>Referbiz Team</p>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+}
+
 
 // UPDATE AFFILIATE CV-SHARE APPEARED BY ID
 router.put(
@@ -837,7 +937,7 @@ router.put(
       const { EmpEmail } = req.user;
 
       // Find the user in the database
-      const affiemail =await Users.findOne({email : id })
+      const cvDetails = await CvSharing.findById(id);
       const affirefdet =await Users.findOne({allCvInfo : id });
       const user = await Employees.findOne({ EmpEmail });
     
@@ -893,8 +993,9 @@ router.put(
 
       console.log(cvUserAppeared);
 
-      await mailtoaffiupdatedappearingstatus(candidatedetails , affirefdet);
-      
+      await mailtoaffiupdatedappearingstatus(affirefdet ,cvDetails,user);
+      await mailtoadminupdatedappearingstatus(affirefdet ,cvDetails ,user)
+      await mailtoemployeeupdatedappearingstatus( affirefdet ,cvDetails ,user)
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {
       console.error("Error updating cv details:", error);
@@ -902,6 +1003,150 @@ router.put(
     }
   }
 );
+
+//mail to affilite that his refferel sv is shorlisted
+
+const mailtoaffiupdatedShotlistingstatus = async ( affirefdet ,cvDetails,user ) => {
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <${affirefdet.email}>`,
+      subject: "🎉 Congratulations! Your Referred CV is Now Shortlisted🎉",
+      text: `Congratulations, ${cvDetails.name}! Your referral is now Shortlisted.`,
+      html: `
+        <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+          <h2 style="color: #2E86C1; text-align: center;">🎉 Congratulations, ${affirefdet.name}! 🎉</h2>
+          <p style="text-align: center;">Your referral is now Shortlisted.</p>
+          <div style="margin-top: 20px;">
+            <h3 style="color: #2E86C1;">Referred CV Details:</h3>
+            <ul>
+              <li><strong>Name:</strong> ${cvDetails.refName}</li>
+              <li><strong>Phone:</strong> ${cvDetails.refPhone}</li>
+              <li><strong>Email:</strong> ${cvDetails.refUniqueEmailId}</li>
+              <li><strong>Resume:</strong> ${cvDetails.PDF}</li>
+            </ul>
+          </div>
+          <p>Best Regards,<br/>${user.EmpName}</p>
+          <p style="font-style: italic; text-align: center;">Thank you for your referral!</p>
+        </div>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+
+}
+
+
+// mail go to admin the that referel refrence is Shortlisted 
+
+const mailtoadminupdatedShortlistingstatus = async ( affirefdet ,cvDetails ,user ) => {
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <info.codifiers@gmail.com>`,
+      subject: "Shortlisting status has been updated",
+      text: ``,
+      html: `
+      <div style="font-family: Arial, sans-serif; color: #333; background-color: #f5f5f5; padding: 20px;">
+      <h2 style="color: #2E86C1; margin-bottom: 20px;">Shortlisting Status Update</h2>
+      <p>Hello Admin,</p>
+      <p>This is to inform you that the shortlisting status of an affiliate${affirefdet.name}  who refer  ${cvDetails.refName} has been updated.</p>
+      <h3 style="color: #2E86C1; margin-top: 30px;">Referred CV Details:</h3>
+      <ul style="list-style-type: none; padding-left: 0;">
+        <li><strong>Name:</strong> ${cvDetails.refName}</li>
+        <li><strong>Phone:</strong> ${cvDetails.refPhone}</li>
+        <li><strong>Email:</strong> ${cvDetails.refUniqueEmailId}</li>
+        <li><strong>Resume:</strong> ${cvDetails.PDF}</li>
+        <li><strong>Employee name:</strong> ${user.EmpName}</li>
+        <li><strong>isShortlisted:</strong>True</li>
+      </ul>
+      <p>Please take necessary actions as required.</p>
+      <p>Best Regards,<br/>Referbiz Team</p>
+    </div>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+
+}
+
+// mail go to employee that his /her shortlisting has been updated
+
+const mailtoemployeeupdatedShorlistingstatus = async ( affirefdet ,cvDetails ,user ) => {
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <${user.EmpEmail}>`,
+      subject: "Shortlisting status has been updated",
+      text: `Hello ${user.EmpName}, Your affiliate's Shortlisting status has been updated.`,
+      html: `
+        <p>Hello ${user.EmpName},</p>
+        <p>We're writing to inform you that your affiliate, ${affirefdet.name}, has had their Shortlisting status updated.</p>
+        <h3>Referred CV Details:</h3>
+        <ul>
+          <li><b>Name:</b> ${cvDetails.refName}</li>
+          <li><b>Phone:</b> ${cvDetails.refPhone}</li>
+          <li><b>Email:</b> ${cvDetails.refUniqueEmailId}</li>
+          <li><b>Resume:</b> ${cvDetails.PDF}</li>
+        </ul>
+        <p>Thank you for your attention.</p>
+        <p>Best Regards,<br/>Referbiz Team</p>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+
+}
+
+
 
 // UPDATE AFFILIATE CV-SHARE SHORTLISTED BY ID
 router.put(
@@ -915,6 +1160,9 @@ router.put(
     try {
       // Get the user's email from the decoded token
       const { EmpEmail } = req.user;
+
+      const cvDetails = await CvSharing.findById(id);
+      const affirefdet =await Users.findOne({allCvInfo : id });
 
       // Find the user in the database
       const user = await Employees.findOne({ EmpEmail });
@@ -969,7 +1217,9 @@ router.put(
       await cvUserShortlist.save();
 
       console.log(cvUserShortlist);
-
+      await mailtoaffiupdatedShotlistingstatus(affirefdet ,cvDetails ,user);
+      await mailtoadminupdatedShortlistingstatus( affirefdet ,cvDetails ,user);
+      await mailtoemployeeupdatedShorlistingstatus( affirefdet ,cvDetails ,user ) ;
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {
       console.error("Error updating cv details:", error);
@@ -977,6 +1227,150 @@ router.put(
     }
   }
 );
+
+// mail to affiliate that his cv is offered
+
+
+const mailtoaffiupdatedOfferedstatus = async ( affirefdet ,cvDetails ,user) => {
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <${affirefdet.email}>`,
+      subject: "🎉 Congratulations! Your Referred CV is Now Offered🎉",
+      text: `Congratulations, ${cvDetails.name}! Your referral is now Offered.`,
+      html: `
+        <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+          <h2 style="color: #2E86C1; text-align: center;">🎉 Congratulations, ${affirefdet.name}! 🎉</h2>
+          <p style="text-align: center;">Your referral is now Offered.</p>
+          <div style="margin-top: 20px;">
+            <h3 style="color: #2E86C1;">Referred CV Details:</h3>
+            <ul>
+              <li><strong>Name:</strong> ${cvDetails.refName}</li>
+              <li><strong>Phone:</strong> ${cvDetails.refPhone}</li>
+              <li><strong>Email:</strong> ${cvDetails.refUniqueEmailId}</li>
+              <li><strong>Resume:</strong> ${cvDetails.PDF}</li>
+            </ul>
+          </div>
+          <p>Best Regards,<br/>${user.EmpName}</p>
+          <p style="font-style: italic; text-align: center;">Thank you for your referral!</p>
+        </div>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+
+}
+
+
+// mail go to admin the that referel refrence is Offered
+
+const mailtoadminupdatedOfferedstatus = async ( affirefdet ,cvDetails ,user ) => {
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <info.codifiers@gmail.com>`,
+      subject: "Offered status has been updated",
+      text: ``,
+      html: `
+      <div style="font-family: Arial, sans-serif; color: #333; background-color: #f5f5f5; padding: 20px;">
+      <h2 style="color: #2E86C1; margin-bottom: 20px;">Offered Status Update</h2>
+      <p>Hello Admin,</p>
+      <p>This is to inform you that the Offered status of an affiliate${affirefdet.name}  who refer  ${cvDetails.refName} has been updated.</p>
+      <h3 style="color: #2E86C1; margin-top: 30px;">Referred CV Details:</h3>
+      <ul style="list-style-type: none; padding-left: 0;">
+        <li><strong>Name:</strong> ${cvDetails.refName}</li>
+        <li><strong>Phone:</strong> ${cvDetails.refPhone}</li>
+        <li><strong>Email:</strong> ${cvDetails.refUniqueEmailId}</li>
+        <li><strong>Resume:</strong> ${cvDetails.PDF}</li>
+        <li><strong>Employee name:</strong> ${user.EmpName}</li>
+        <li><strong>isOffered:</strong>True</li>
+      </ul>
+      
+      <p>Please take necessary actions as required.</p>
+      <p>Best Regards,<br/>Referbiz Team</p>
+    </div>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+
+}
+
+// mail go to employee that his /her offered has been updated
+
+const mailtoemployeeupdatedOfferedstatus = async ( affirefdet ,cvDetails ,user ) => {
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <${user.EmpEmail}>`,
+      subject: "Offered status has been updated",
+      text: `Hello ${user.EmpName}, Your affiliate's Offered status has been updated.`,
+      html: `
+        <p>Hello ${user.EmpName},</p>
+        <p>We're writing to inform you that your affiliate, ${affirefdet.name}, has had their offered status updated.</p>
+        <h3>Referred CV Details:</h3>
+        <ul>
+          <li><b>Name:</b> ${cvDetails.refName}</li>
+          <li><b>Phone:</b> ${cvDetails.refPhone}</li>
+          <li><b>Email:</b> ${cvDetails.refUniqueEmailId}</li>
+          <li><b>Resume:</b> ${cvDetails.PDF}</li>
+        </ul>
+        <p>Thank you for your attention.</p>
+        <p>Best Regards,<br/>Referbiz Team</p>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+
+}
 
 // UPDATE AFFILIATE CV-SHARE OFFERED BY ID
 router.put(
@@ -990,6 +1384,9 @@ router.put(
     try {
       // Get the user's email from the decoded token
       const { EmpEmail } = req.user;
+
+      const cvDetails = await CvSharing.findById(id);
+      const affirefdet =await Users.findOne({allCvInfo : id });
 
       // Find the user in the database
       const user = await Employees.findOne({ EmpEmail });
@@ -1044,7 +1441,9 @@ router.put(
       await cvUserOffered.save();
 
       console.log(cvUserOffered);
-
+      await mailtoaffiupdatedOfferedstatus(affirefdet ,cvDetails,user);
+      await mailtoadminupdatedOfferedstatus( affirefdet ,cvDetails ,user );
+      await mailtoemployeeupdatedOfferedstatus( affirefdet ,cvDetails ,user )
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {
       console.error("Error updating cv details:", error);
@@ -1052,6 +1451,149 @@ router.put(
     }
   }
 );
+
+
+//mail to affilate that his referal has been joined
+
+const mailtoaffiupdatedJoiningstatus = async ( affirefdet ,cvDetails,user ) => {
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <${affirefdet.email}>`,
+      subject: "🎉 Congratulations! Your Referred CV is Now Joined🎉",
+      text: `Congratulations, ${cvDetails.name}! Your referral is now Joined.`,
+      html: `
+        <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+          <h2 style="color: #2E86C1; text-align: center;">🎉 Congratulations, ${affirefdet.name}! 🎉</h2>
+          <p style="text-align: center;">Your referral is now Joined.</p>
+          <div style="margin-top: 20px;">
+            <h3 style="color: #2E86C1;">Referred CV Details:</h3>
+            <ul>
+              <li><strong>Name:</strong> ${cvDetails.refName}</li>
+              <li><strong>Phone:</strong> ${cvDetails.refPhone}</li>
+              <li><strong>Email:</strong> ${cvDetails.refUniqueEmailId}</li>
+              <li><strong>Resume:</strong> ${cvDetails.PDF}</li>
+            </ul>
+          </div>
+          <p>Best Regards,<br/>${user.EmpName}</p>
+          <p style="font-style: italic; text-align: center;">Thank you for your referral!</p>
+        </div>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+
+}
+
+
+// mail go to admin the that referel refrence is joined
+
+const mailtoadminupdatedJoinedstatus = async ( affirefdet ,cvDetails ,user ) => {
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+  
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <info.codifiers@gmail.com>`,
+      subject: "Joining status has been updated",
+      text: ``,
+      html: `
+      <div style="font-family: Arial, sans-serif; color: #333; background-color: #f5f5f5; padding: 20px;">
+      <h2 style="color: #2E86C1; margin-bottom: 20px;">Joining Status Update</h2>
+      <p>Hello Admin,</p>
+      <p>This is to inform you that the Joining status of an affiliate${affirefdet.name}  who refer  ${cvDetails.refName} has been updated.</p>
+      <h3 style="color: #2E86C1; margin-top: 30px;">Referred CV Details:</h3>
+      <ul style="list-style-type: none; padding-left: 0;">
+        <li><strong>Name:</strong> ${cvDetails.refName}</li>
+        <li><strong>Phone:</strong> ${cvDetails.refPhone}</li>
+        <li><strong>Email:</strong> ${cvDetails.refUniqueEmailId}</li>
+        <li><strong>Resume:</strong> ${cvDetails.PDF}</li>
+        <li><strong>Employee name:</strong> ${user.EmpName}</li>
+        <li><strong>isShortlisted:</strong>True</li>
+      </ul>
+      <p>Please take necessary actions as required.</p>
+      <p>Best Regards,<br/>Referbiz Team</p>
+    </div>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+
+}
+
+// mail go to employee that his /her Joining  has been updated
+
+const mailtoemployeeupdatedJoiningstatus = async ( affirefdet ,cvDetails ,user ) => {
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <${user.EmpEmail}>`,
+      subject: "Joining status has been updated",
+      text: `Hello ${user.EmpName}, Your affiliate's Joining status has been updated.`,
+      html: `
+        <p>Hello ${user.EmpName},</p>
+        <p>We're writing to inform you that your affiliate, ${affirefdet.name}, has had their Joining status updated.</p>
+        <h3>Referred CV Details:</h3>
+        <ul>
+          <li><b>Name:</b> ${cvDetails.refName}</li>
+          <li><b>Phone:</b> ${cvDetails.refPhone}</li>
+          <li><b>Email:</b> ${cvDetails.refUniqueEmailId}</li>
+          <li><b>Resume:</b> ${cvDetails.PDF}</li>
+        </ul>
+        <p>Thank you for your attention.</p>
+        <p>Best Regards,<br/>Referbiz Team</p>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+
+}
 
 // UPDATE AFFILIATE CV-SHARE JOINED BY ID
 router.put(
@@ -1065,6 +1607,9 @@ router.put(
     try {
       // Get the user's email from the decoded token
       const { EmpEmail } = req.user;
+
+      const cvDetails = await CvSharing.findById(id);
+      const affirefdet =await Users.findOne({allCvInfo : id });
 
       // Find the user in the database
       const user = await Employees.findOne({ EmpEmail });
@@ -1123,7 +1668,9 @@ router.put(
       await cvUserJoined.save();
 
       console.log(cvUserJoined);
-
+      await mailtoaffiupdatedJoiningstatus( affirefdet ,cvDetails ,user)
+      await mailtoadminupdatedJoinedstatus ( affirefdet ,cvDetails ,user );
+      await mailtoemployeeupdatedJoiningstatus( affirefdet ,cvDetails ,user)
       res.status(200).json({ message: "cv details updated successfully" });
     } catch (error) {
       console.error("Error updating cv details:", error);
@@ -1131,5 +1678,46 @@ router.put(
     }
   }
 );
+
+
+// amonut apdation of an affiliate dashbord
+router.put('/affiliate-amount-update/:id',
+  employeeAuthToken,
+  async(req,res)=>{
+    const { id } = req.params;
+    const { addAmount } = req.body;
+
+    try {
+      // Get the user's email from the decoded token
+      const { EmpEmail } = req.user;
+
+      // Find the user in the database
+      const user = await Employees.findOne({ EmpEmail });
+      if (!user) {
+        return res.status(404).json({ message: "Employee not found" });
+      }
+
+      // Find the affiliate by ID
+      const affiliate = await Users.findById(id);
+      if (!affiliate) {
+        return res.status(404).json({ message: "Affiliate not found" });
+      }
+
+      // Update the affiliate's fields
+
+      affiliate.totalAmount += addAmount;
+
+      // Save the updated affiliate
+      await affiliate.save();
+
+      res.status(200).json({ message: "Affiliate amount has been updated successfully" });
+    } catch (error) {
+      console.error("Error updating affiliate:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+
 
 export default router;
