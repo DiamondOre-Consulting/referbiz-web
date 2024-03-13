@@ -662,4 +662,128 @@ router.post(
   }
 );
 
+// GET ALL THE REFERRALS
+router.get('/my-refs', authenticateToken, async (req, res) => {
+  try {
+    const {email} = req.user;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const cvDetailsPromises = user.allCvInfo.map(async (cvId) => {
+      return await CvSharing.findById(cvId);
+    });
+
+    // Resolve all promises
+    const allCvDetails = await Promise.all(cvDetailsPromises);
+
+    res.status(200).json(allCvDetails);
+  } catch(error) {
+    console.log(error);
+    res.status(500).json({message: "Internal server error", error})
+  }
+});
+
+// GET TOATAL APPEARED REFERRALS
+router.get('/my-appeared-refs', authenticateToken, async (req, res) => {
+  try {
+    const {email} = req.user;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const cvDetailsPromises = user.allCvInfo.map(async (cvId) => {
+      // Fetch CV details only if isAppeared is true
+      return await CvSharing.findOne({ _id: cvId, isAppeared: true });
+    });
+
+    // Resolve all promises
+    const allCvDetails = await Promise.all(cvDetailsPromises);
+
+    res.status(200).json(allCvDetails.filter(cv => cv !== null));
+  } catch(error) {
+    console.log(error);
+    res.status(500).json({message: "Internal server error", error})
+  }
+})
+
+// GET TOATAL SHORTLISTED REFERRALS
+router.get('/my-shortlisted-refs', authenticateToken, async (req, res) => {
+  try {
+    const {email} = req.user;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const cvDetailsPromises = user.allCvInfo.map(async (cvId) => {
+      // Fetch CV details only if isShortlisted is true
+      return await CvSharing.findOne({ _id: cvId, isAppeared: true, isShortlisted: true });
+    });
+
+    // Resolve all promises
+    const allCvDetails = await Promise.all(cvDetailsPromises);
+
+    res.status(200).json(allCvDetails.filter(cv => cv !== null));
+  } catch(error) {
+    console.log(error);
+    res.status(500).json({message: "Internal server error", error})
+  }
+})
+
+// GET TOATAL OFFERED REFERRALS
+router.get('/my-offered-refs', authenticateToken, async (req, res) => {
+  try {
+    const {email} = req.user;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const cvDetailsPromises = user.allCvInfo.map(async (cvId) => {
+      // Fetch CV details only if isShortlisted is true
+      return await CvSharing.findOne({ _id: cvId, isAppeared: true, isShortlisted: true, isOffered: true });
+    });
+
+    // Resolve all promises
+    const allCvDetails = await Promise.all(cvDetailsPromises);
+
+    res.status(200).json(allCvDetails.filter(cv => cv !== null));
+  } catch(error) {
+    console.log(error);
+    res.status(500).json({message: "Internal server error", error})
+  }
+})
+
+// GET TOATAL JOINED REFERRALS
+router.get('/my-joined-refs', authenticateToken, async (req, res) => {
+  try {
+    const {email} = req.user;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const cvDetailsPromises = user.allCvInfo.map(async (cvId) => {
+      // Fetch CV details only if isShortlisted is true
+      return await CvSharing.findOne({ _id: cvId, isAppeared: true, isShortlisted: true, isOffered: true, isJoined: true });
+    });
+
+    // Resolve all promises
+    const allCvDetails = await Promise.all(cvDetailsPromises);
+
+    res.status(200).json(allCvDetails.filter(cv => cv !== null));
+  } catch(error) {
+    console.log(error);
+    res.status(500).json({message: "Internal server error", error})
+  }
+})
+
 export default router;
