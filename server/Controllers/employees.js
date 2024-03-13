@@ -1679,6 +1679,47 @@ router.put(
   }
 );
 
+// mail go to affiliate when amout is updated
+const mailforamountincreementupdate= async ( affdetails , user ) => {
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <${affdetails.email}>`,
+      subject: "🎉 Congratulations! Commission Increment Notification🎉",
+      text:'',
+      html: `
+        <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+          <h2 style="color: #2E86C1; text-align: center;">🎉 Congratulations, ${affdetails.name}! 🎉</h2>
+          <div style="margin-top: 20px;">
+            <p>We're thrilled to inform you that due to your outstanding performance and contribution to our affiliate model, we're increasing your commission rates, effective immediately. We truly appreciate your hard work and dedication .</p>
+            <h4 style=" color: green ;">Now your total amount is <span style="color:red">${affdetails.totalAmount} </span></h4>
+          </div>
+          <p>Best Regards,<br/>${user.EmpName}</p>
+        </div>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+
+}
+
+
 
 // amonut apdation of an affiliate dashbord
 router.put('/affiliate-amount-update/:id',
@@ -1690,6 +1731,7 @@ router.put('/affiliate-amount-update/:id',
     try {
       // Get the user's email from the decoded token
       const { EmpEmail } = req.user;
+      const affdetails =await Users.findById({_id :id})
 
       // Find the user in the database
       const user = await Employees.findOne({ EmpEmail });
@@ -1704,12 +1746,13 @@ router.put('/affiliate-amount-update/:id',
       }
 
       // Update the affiliate's fields
-
-      affiliate.totalAmount += addAmount;
+      const updatedamount = parseFloat(addAmount);
+      affiliate.totalAmount += updatedamount;
 
       // Save the updated affiliate
       await affiliate.save();
 
+      await mailforamountincreementupdate( affdetails , user ) 
       res.status(200).json({ message: "Affiliate amount has been updated successfully" });
     } catch (error) {
       console.error("Error updating affiliate:", error);

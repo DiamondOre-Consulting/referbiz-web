@@ -7,10 +7,9 @@ import Dropzone from "react-dropzone";
 const CvSharing = () => {
 
   const [empData,setEmpData]=useState([])
-
   const [showPopup, setShowPopup] = useState(true);
   const [submitted, setSubmitted] = useState(null);
-
+  const [error,setError] =useState(null)
 
   const navigate = useNavigate();
   const { decodedToken } = useJwt(localStorage.getItem("token"));
@@ -58,7 +57,9 @@ const CvSharing = () => {
 
 
 
-  const handleClose = () => {
+
+  const handleClose = ()=> {
+
     setShowPopup(false);
     setSubmitted(null);
   };
@@ -87,6 +88,7 @@ const CvSharing = () => {
     e.preventDefault();
     setShowPopup(false);
     setSubmitted(false);
+    setError(null);
 
     const token = localStorage.getItem("token");
     if (!token) {
@@ -130,6 +132,14 @@ const CvSharing = () => {
       console.error(error);
       setSubmitted(false);  
       setShowPopup(false);
+      if (error.response) {
+        const status = error.response.status;
+        if (status === 400) {
+          setError("Error occured in form submitting try again!");
+        } 
+      } else {
+        setError("Error occured in form submitting try again!");
+      }
     }
   };
 
@@ -268,9 +278,14 @@ const CvSharing = () => {
           </div>
         ) : (
           ""
+        )}      
+       {error && (
+          <div className="flex items-center justify-center bg-red-500 p-4 rounded-md">
+            <p className="text-center text-xl uppercase font-bold text-red-50">{error}</p>
+          </div>
         )}
         {/* {!submitted && <h1>Something went wrong</h1>} */}
-        {(submitted === false) && <h1>Something went wrong</h1>}
+        {/* {(submitted === false) && <h1>Something went wrong</h1>} */}
       </div>
     </>
   );

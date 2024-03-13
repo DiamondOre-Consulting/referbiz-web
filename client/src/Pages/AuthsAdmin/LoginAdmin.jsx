@@ -6,7 +6,7 @@ const LoginAdmin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
-
+  const [error, setError] = useState(null);
   
 
   const navigate = useNavigate();
@@ -33,6 +33,18 @@ const LoginAdmin = () => {
       }
     } catch (error) {
       console.error('Error logging in:', error);
+      if (error.response) {
+        const status = error.response.status;
+        if (status === 401) {
+          setError("Email or Password Doesn't Match")
+          setEmail("");
+          setPassword("");
+        } else {
+          console.log("user Not Found")
+        }
+      } else {
+        console.log("User not Found");
+      }
       // Handle error
     }
   };
@@ -156,6 +168,11 @@ const LoginAdmin = () => {
             Forgot Password?
           </Link>
         </form>
+        {error && (
+          <div className="flex items-center justify-center bg-red-400 p-4 rounded-md">
+            <p className="text-center text-sm text-red-100">{error}</p>
+          </div>
+        )}
       </div>
     </div>
   );

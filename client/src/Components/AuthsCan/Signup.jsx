@@ -65,6 +65,7 @@ const Signup = ({ toggleForm }) => {
         setOtpSent(true);
       } else {
         console.log("Signup failed");
+        setError("Error sending OTP. Please try again.");
         // Handle signup error
       }
     } catch (error) {
@@ -403,8 +404,8 @@ const Signup = ({ toggleForm }) => {
         )}
  
         {error && (
-          <div className="flex items-center justify-center bg-blue-200 p-4 rounded-md">
-            <p className="text-center text-xl text-blue-800 uppercase font-bold">{error}</p>
+          <div className="flex items-center justify-center bg-red-500 p-4 rounded-md">
+            <p className="text-center text-xl uppercase font-bold text-red-50">{error}</p>
           </div>
         )}
       </div>

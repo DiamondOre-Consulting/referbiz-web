@@ -11,7 +11,7 @@ const SignupEmployee = () => {
   });
 
   const [showPass, setShowPass] = useState(false);
-
+  const [error, setError] = useState(null);
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
@@ -26,7 +26,7 @@ const SignupEmployee = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
+    setError(null);
     // Perform signup logic here
     try {
       const response = await axios.post(
@@ -49,9 +49,18 @@ const SignupEmployee = () => {
       }
     } catch (error) {
       console.error("Error signing up:", error);
-      // Handle error
+      if (error.response) {
+        const status = error.response.status;
+        if (status === 409) {
+          setError("Employee already Exist");
+        } else {
+          setError("An error occurred while in signup. Please try again later.");
+        }
+      } else {
+        setError("An error occurred while signup. Please try again later.");
+      }
     }
-  };
+  }
 
   const handleShowPassword = () => {
     return setShowPass(!showPass);
@@ -251,6 +260,11 @@ const SignupEmployee = () => {
             </a>
           </p> */}
         </form>
+        {error && (
+          <div className="flex items-center justify-center bg-red-500 p-4 rounded-md">
+            <p className="text-center text-xl uppercase font-bold text-red-50">{error}</p>
+          </div>
+        )}
       </div>
     </div>
   );
