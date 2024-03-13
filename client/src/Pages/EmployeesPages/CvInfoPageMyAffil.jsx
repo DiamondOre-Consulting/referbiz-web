@@ -108,10 +108,10 @@ const CvInfoPageMyAffil = () => {
       <EmployeeNav />
       <div className="my-7">
         <div className="mx-auto max-w-screen-lg px-4 md:px-8 py-4 md:py-6">
-          <div className="grid grid-cols-3 gap-4 md:grid-cols-3 lg:gap-8">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 sm:grid-cols-1 lg:gap-8">
             <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4 lg:p-8">
               <div className="flex flex-col items-center justify-center h-full">
-                <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                <div className="text-sm font-bold text-indigo-500 sm:text-xl md:text-xl">
                   {candidate?.refName}
                 </div>
                 <div className="text-sm font-semibold sm:text-base">
@@ -122,7 +122,7 @@ const CvInfoPageMyAffil = () => {
 
             <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4 md:p-8">
               <div className="flex flex-col items-center justify-center h-full">
-                <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                <div className="text-sm font-bold text-indigo-500 sm:text-xl md:text-xl text-wrap">
                   {candidate?.refUniqueEmailId}
                 </div>
                 <div className="text-sm font-semibold sm:text-base">
@@ -133,7 +133,7 @@ const CvInfoPageMyAffil = () => {
 
             <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4 md:p-8">
               <div className="flex flex-col items-center justify-center h-full">
-                <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                <div className="text-sm font-bold text-indigo-500 sm:text-xl md:text-xl">
                   {candidate?.refPhone}
                 </div>
                 <div className="text-sm font-semibold sm:text-base">
@@ -159,7 +159,7 @@ const CvInfoPageMyAffil = () => {
           <div className="grid grid-cols-4 gap-4 md:grid-cols-4 lg:gap-8">
 
           <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4 lg:p-8">
-              <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+              <div className="text-sm font-bold text-indigo-500 sm:text-xl md:text-xl">
                 {appearing}
               </div>
               <div className="text-sm font-semibold sm:text-base">
@@ -167,7 +167,7 @@ const CvInfoPageMyAffil = () => {
               </div>
             </div>
             <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4 lg:p-8">
-              <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+              <div className="text-sm font-bold text-indigo-500 sm:text-xl md:text-xl">
                 {shortlisting}
               </div>
               <div className="text-sm font-semibold sm:text-base">
@@ -176,7 +176,7 @@ const CvInfoPageMyAffil = () => {
             </div>
 
             <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4 lg:p-8">
-              <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+              <div className="text-sm font-bold text-indigo-500 sm:text-xl md:text-xl">
                 {offering}
               </div>
               <div className="text-sm font-semibold sm:text-base">
@@ -185,7 +185,7 @@ const CvInfoPageMyAffil = () => {
             </div>
 
             <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4 md:p-8">
-              <div className="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+              <div className="text-sm font-bold text-indigo-500 sm:text-xl md:text-xl">
                 {joining}
               </div>
               <div className="text-sm font-semibold sm:text-base">Joined</div>
@@ -213,7 +213,7 @@ const CvInfoPageMyAffil = () => {
       )}
         {/* <Link 
         onClick={handlePreview}>Preview</Link> */}
-        <div className="flex justify-center py-10">
+        <div className="flex justify-center py-2">
           <button
             type="button"
             className="px-5 py-3 w-2/3 rounded-md bg-red-400 text-gray-100 hover:bg-red-600"
