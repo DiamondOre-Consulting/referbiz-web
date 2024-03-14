@@ -754,6 +754,83 @@ router.get("/my-affiliates-data/:id", employeeAuthToken, async (req, res) => {
   }
 });
 
+// FETCHING AN AFFILAITE BY ID
+router.get("/my-affiliates-data/update/:id", employeeAuthToken, async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+
+  try {
+    // Get the user's email from the decoded token
+    const { EmpEmail } = req.user;
+
+    const {name, email, profileImage, totalAppeared, totalShortlisted, totalOffered, totalJoined} = req.body;
+
+    // Find the user in the database
+    const user = await Employees.findOne({ EmpEmail });
+    if (!user) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+
+    // Find the affiliate by ID
+    const affiliate = await User.findById(id, { password: 0 });
+    if (!affiliate) {
+      return res.status(404).json({ message: "Affiliate not found" });
+    }
+
+    if (!name) {
+      affiliate.name = affiliate.name;
+    } else {
+      affiliate.name = name;
+    }
+
+    if (!email) {
+      affiliate.email = affiliate.email;
+    } else {
+      affiliate.email = email;
+    }
+
+    if (!profileImage) {
+      affiliate.profileImage = affiliate.profileImage;
+    } else {
+      affiliate.profileImage = profileImage.filename;
+    }
+
+    if (!totalAppeared) {
+      affiliate.totalAppeared = affiliate.totalAppeared;
+    } else {
+      affiliate.totalAppeared = totalAppeared
+    }
+
+    if (!totalShortlisted) {
+      affiliate.totalShortlisted = affiliate.totalShortlisted;
+    } else {
+      affiliate.totalShortlisted = totalShortlisted
+    }
+
+    if (!totalOffered) {
+      affiliate.totalOffered = affiliate.totalOffered;
+    } else {
+      affiliate.totalOffered = totalOffered
+    }
+
+    if (!totalJoined) {
+      affiliate.totalJoined = affiliate.totalJoined;
+    } else {
+      affiliate.totalJoined = totalJoined
+    }
+
+    // Save the updated affiliate
+    await affiliate.save();
+
+    console.log(affiliate);
+
+    res.status(200).json({message: "Affiliate data has been updated!!! ", affiliate});
+  } catch (error) {
+    console.error("Error retrieving affiliate:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // FETCHING AFFILIATE'S CV DETAILS BY ID
 router.get(
   "/my-affiliates/get-cv-data/:id",
