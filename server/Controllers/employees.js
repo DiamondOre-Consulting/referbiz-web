@@ -801,7 +801,7 @@ const mailtoaffiupdatedappearingstatus = async (affirefdet, cvDetails ,user) => 
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <${affirefdet.email}>`,
-      subject: "🎉 Congratulations! Your Referred CV is Now Appeared 🎉",
+      subject: `🎉 Congratulations! ${cvDetails.name} is Now Appeared 🎉`,
       text: `Congratulations, ${cvDetails.name}! Your referral is now Appeared.`,
       html: `
         <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
@@ -849,7 +849,7 @@ const mailtoadminupdatedappearingstatus = async ( affirefdet ,cvDetails ,user ) 
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <info.codifiers@gmail.com>`,
-      subject: "Appeared status has been updated",
+      subject: `Appeared status has been updated of ${cvDetails.refName}`,
       text: ``,
       html: `
         <div style="font-family: Arial, sans-serif; color: #333; background-color: #f5f5f5; padding: 20px;">
@@ -897,7 +897,7 @@ const mailtoemployeeupdatedappearingstatus = async (affirefdet, cvDetails, user)
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <${user.EmpEmail}>`,
-      subject: "Appeared status has been updated",
+      subject:  `Appeared status has been updated of ${cvDetails.refName}`,
       text: `Hello ${user.EmpName}, Your affiliate's appeared status has been updated.`,
       html: `
         <p>Hello ${user.EmpName},</p>
@@ -1020,7 +1020,7 @@ const mailtoaffiupdatedShotlistingstatus = async ( affirefdet ,cvDetails,user ) 
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <${affirefdet.email}>`,
-      subject: "🎉 Congratulations! Your Referred CV is Now Shortlisted🎉",
+      subject: `🎉Congratulations, ${cvDetails.name}! Your referral is now Shortlisted.🎉`,
       text: `Congratulations, ${cvDetails.name}! Your referral is now Shortlisted.`,
       html: `
         <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
@@ -1069,7 +1069,7 @@ const mailtoadminupdatedShortlistingstatus = async ( affirefdet ,cvDetails ,user
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <info.codifiers@gmail.com>`,
-      subject: "Shortlisting status has been updated",
+      subject: `Shortlisting status has been updated ${cvDetails.refName}`,
       text: ``,
       html: `
       <div style="font-family: Arial, sans-serif; color: #333; background-color: #f5f5f5; padding: 20px;">
@@ -1118,7 +1118,7 @@ const mailtoemployeeupdatedShorlistingstatus = async ( affirefdet ,cvDetails ,us
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <${user.EmpEmail}>`,
-      subject: "Shortlisting status has been updated",
+      subject: `Shortlisting status has been updated ${cvDetails.refName}`,
       text: `Hello ${user.EmpName}, Your affiliate's Shortlisting status has been updated.`,
       html: `
         <p>Hello ${user.EmpName},</p>
@@ -1245,7 +1245,7 @@ const mailtoaffiupdatedOfferedstatus = async ( affirefdet ,cvDetails ,user) => {
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <${affirefdet.email}>`,
-      subject: "🎉 Congratulations! Your Referred CV is Now Offered🎉",
+      subject: `🎉 Congratulations, ${cvDetails.name}! Your referral is now Shortlisted.🎉`,
       text: `Congratulations, ${cvDetails.name}! Your referral is now Offered.`,
       html: `
         <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
@@ -1294,7 +1294,7 @@ const mailtoadminupdatedOfferedstatus = async ( affirefdet ,cvDetails ,user ) =>
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <info.codifiers@gmail.com>`,
-      subject: "Offered status has been updated",
+      subject: `Offered status has been updated ${cvDetails.refName}`,
       text: ``,
       html: `
       <div style="font-family: Arial, sans-serif; color: #333; background-color: #f5f5f5; padding: 20px;">
@@ -1344,7 +1344,7 @@ const mailtoemployeeupdatedOfferedstatus = async ( affirefdet ,cvDetails ,user )
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <${user.EmpEmail}>`,
-      subject: "Offered status has been updated",
+      subject: `Offered status has been updated ${cvDetails.refName}`,
       text: `Hello ${user.EmpName}, Your affiliate's Offered status has been updated.`,
       html: `
         <p>Hello ${user.EmpName},</p>
@@ -1469,7 +1469,7 @@ const mailtoaffiupdatedJoiningstatus = async ( affirefdet ,cvDetails,user ) => {
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <${affirefdet.email}>`,
-      subject: "🎉 Congratulations! Your Referred CV is Now Joined🎉",
+      subject: `🎉Congratulations, ${cvDetails.name}! Your referral is now Shortlisted.🎉`,
       text: `Congratulations, ${cvDetails.name}! Your referral is now Joined.`,
       html: `
         <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
@@ -1518,7 +1518,7 @@ const mailtoadminupdatedJoinedstatus = async ( affirefdet ,cvDetails ,user ) => 
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <info.codifiers@gmail.com>`,
-      subject: "Joining status has been updated",
+      subject: `Joining status has been updated of ${cvDetails.refName}`,
       text: ``,
       html: `
       <div style="font-family: Arial, sans-serif; color: #333; background-color: #f5f5f5; padding: 20px;">
@@ -1567,7 +1567,7 @@ const mailtoemployeeupdatedJoiningstatus = async ( affirefdet ,cvDetails ,user )
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <${user.EmpEmail}>`,
-      subject: "Joining status has been updated",
+      subject: `Joining status has been updated of ${cvDetails.refName}`,
       text: `Hello ${user.EmpName}, Your affiliate's Joining status has been updated.`,
       html: `
         <p>Hello ${user.EmpName},</p>
@@ -1694,7 +1694,7 @@ const mailforamountincreementupdate= async ( affdetails , user ) => {
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <${affdetails.email}>`,
-      subject: "🎉 Congratulations! Commission Increment Notification🎉",
+      subject: `🎉Congratulations, ${affdetails.name}! Your referral is now Shortlisted.🎉`,
       text:'',
       html: `
         <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">

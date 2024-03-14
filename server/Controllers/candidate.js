@@ -112,7 +112,7 @@ router.post("/send-otp", uploadImg.single("profileImage"), async (req, res) => {
       const mailOptions = {
         from: "ReferBiz.in <harshkr2709@gmail.com>",
         to: `Recipient <${email}>`,
-        subject: "Welcome to Referbiz!",
+        subject: `Welcome to Referbiz ${name}!`,
         text: `Congratulations! We are thrilled to have you as a new member of our community. By joining us, you've taken the first step towards unlocking a world of opportunities.`,
         html: `
         <p>Dear ${name} ,</p>
@@ -470,7 +470,7 @@ const storage = multer.diskStorage({
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <${email}>`,
-      subject: "Thank You for Referring",
+      subject: `Thank You for Referring ${refName}`,
       text: `Congratulations! `,
       html: `<p>Refferd Details</p>
       <p>refname: ${refName}</p>
@@ -504,7 +504,7 @@ const sendmailtoemployeeofitsaffiliate = async ( refName, refPhone, refUniqueEma
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <${employeedetails.EmpEmail}>`,
-      subject: "affiliate reffer",
+      subject: `Refferd by ${affidetails.name}`,
       text: `Congratulations! `,
       html: `<p>Refferd Details</p>
       <p>refname: ${refName}</p>
@@ -525,7 +525,7 @@ const sendmailtoemployeeofitsaffiliate = async ( refName, refPhone, refUniqueEma
 };
 
 
-//mail go to employee when affileate reffer someone
+//mail go to admin when affileate reffer someone
 const sendmailtoAdminaffiliatereffer = async ( refName, refPhone, refUniqueEmailId, employeedetails,modifiedUrl,affidetails) => {
   try {
     const transporter = nodemailer.createTransport({
@@ -539,7 +539,7 @@ const sendmailtoAdminaffiliatereffer = async ( refName, refPhone, refUniqueEmail
     const mailOptions = {
       from: "Referbiz.in <harshkr2709@gmail.com>",
       to: `Recipient <info.codifiers@gmail.com>`,
-      subject: "New CV has been shared",
+      subject: `New CV has been shared by ${affidetails.name}`,
       text: ``,
       html: `<p>CV details</p>
       <p>cv Shared by: ${affidetails.name}</p>
