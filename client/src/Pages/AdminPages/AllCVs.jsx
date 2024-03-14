@@ -98,13 +98,13 @@ const AllCVs = () => {
                   <p className="text-sm">
                     Shortlisted:{" "}
                     <span className="text-indigo-700 font-semibold">
-                      {CV.isShortlisted.toString()}
+                      {CV.isShortlisted}
                     </span>{" "}
                   </p>
                   <p className="text-sm">
                     Joined:{" "}
                     <span className="text-indigo-700 font-semibold">
-                      {CV.isJoined.toString()}
+                      {CV.isJoined}
                     </span>
                   </p>
                   <p className="text-sm">

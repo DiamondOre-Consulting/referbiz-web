@@ -1,6 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useJwt } from "react-jwt";
+import axios from "axios";
 
 const AffTotalShortlisted = () => {
+    const [afftototalshort, setAffTotalShort] = useState([]);
+    const { decodedToken } = useJwt(localStorage.getItem("token"));
+    const token = localStorage.getItem("token");
+    if (!token) {
+        navigate("/login"); // Redirect to login page if not authenticated
+        return;
+    }
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            // No token found, redirect to login page
+            navigate("/login");
+        }
+
+        const fetchAllShorlisted = async () => {
+            try {
+                // Make a GET request to retrieve the user data
+                const response = await axios.get('http://localhost:8080/api/candidates/my-shortlisted-refs', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }); // Replace '/api/user' with the appropriate endpoint
+
+                if (response.status === 200) {
+
+                    setAffTotalShort(response.data);
+                    console.log("all ref", response.data)
+
+                }
+
+            } catch (error) {
+                console.error("error in finding refferels", error);
+            }
+        };
+
+        fetchAllShorlisted();
+    }, []);
     return (
         <>
             <h1 className='text-center text-5xl font-bold mt-16 uppercase'> All Shortlisted candidates</h1>
@@ -18,31 +58,33 @@ const AffTotalShortlisted = () => {
                                 Candidate Phone
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Candidate Password
+                                Candidate Resume
                             </th>
-                            <th scope="col" class="px-6 py-3">
-                                Reffered By
-                            </th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Zoya
-                            </th>
-                            <td class="px-6 py-4">
-                                zoyas3423@gmail.com
-                            </td>
-                            <td class="px-6 py-4">
-                                398439473298
-                            </td>
-                            <td class="px-6 py-4">
-                                <a href='' className='text-blue-600 underline'> veiw </a>
-                            </td>
-                            <td class="px-6 py-4">
-                                Zoya
-                            </td>
-                        </tr>
+                        {
+                            afftototalshort.map((short) => {
+                                return (
+                                    <tr class="bg-gray-100 border-b dark:bg-gray-800 dark:border-gray-700 text-center">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            {short.refName}
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {short.refUniqueEmailId}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {short.refPhone}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <a href={short.PDF} target="_blank" className='text-blue-600 underline'> veiw </a>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+
+                        }
 
 
                     </tbody>
