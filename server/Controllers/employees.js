@@ -755,7 +755,7 @@ router.get("/my-affiliates-data/:id", employeeAuthToken, async (req, res) => {
 });
 
 // FETCHING AN AFFILAITE BY ID
-router.get("/my-affiliates-data/update/:id", employeeAuthToken, async (req, res) => {
+router.put("/my-affiliates-data/update/:id", employeeAuthToken, async (req, res) => {
   const { id } = req.params;
   console.log(id);
 
@@ -1756,8 +1756,53 @@ router.put(
   }
 );
 
-// mail go to affiliate when amout is updated
-const mailforamountincreementupdate= async ( affdetails , user ) => {
+
+
+
+// amonut apdation of an affiliate dashbord
+router.put('/affiliate-amount-update/:id',
+  employeeAuthToken,
+  async(req,res)=>{
+    const { id } = req.params;
+    const { addAmount } = req.body;
+
+    try {
+      // Get the user's email from the decoded token
+      const { EmpEmail } = req.user;
+      const affdetails =await Users.findById({_id :id})
+      const cvDetails = await CvSharing.findById(id);
+      // Find the user in the database
+      const user = await Employees.findOne({ EmpEmail });
+      if (!user) {
+        return res.status(404).json({ message: "Employee not found" });
+      }
+
+      // Find the affiliate by ID
+      const affiliate = await Users.findById(id);
+      if (!affiliate) {
+        return res.status(404).json({ message: "Affiliate not found" });
+      }
+
+      // Update the affiliate's fields
+      const updatedamount = parseFloat(addAmount);
+      affiliate.totalAmount += updatedamount;
+
+      // Save the updated affiliate
+      await affiliate.save();
+
+      mailforamountincreementupdate( affdetails , user,updatedamount )
+      mailtoadminamountincrementupdate( affdetails ,cvDetails ,user, updatedamount )  
+      mailtoemployeeamountincrementupdate ( affdetails ,cvDetails ,user, updatedamount )
+      res.status(200).json({ message: "Affiliate amount has been updated successfully" });
+    } catch (error) {
+      console.error("Error updating affiliate:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+// mail go to affiliate when amount is updated
+const mailforamountincreementupdate= async ( affdetails , user , updatedamount) => {
 
   try {
     const transporter = nodemailer.createTransport({
@@ -1778,7 +1823,9 @@ const mailforamountincreementupdate= async ( affdetails , user ) => {
           <h2 style="color: #2E86C1; text-align: center;">🎉 Congratulations, ${affdetails.name}! 🎉</h2>
           <div style="margin-top: 20px;">
             <p>We're thrilled to inform you that due to your outstanding performance and contribution to our affiliate model, we're increasing your commission rates, effective immediately. We truly appreciate your hard work and dedication .</p>
-            <h4 style=" color: green ;">Now your total amount is <span style="color:red">${affdetails.totalAmount} </span></h4>
+            <h4 style=" color: green ;">your privious amount: <span style="color:red">${affdetails.totalAmount} </span></h4>
+            <h4 style=" color: green ;">your updated amount: <span style="color:red">${updatedamount} </span></h4>
+            <h4 style=" color: green ;">your total amount: <span style="color:red">${updatedamount + affdetails.totalAmount} </span></h4>
           </div>
           <p>Best Regards,<br/>${user.EmpName}</p>
         </div>
@@ -1797,46 +1844,95 @@ const mailforamountincreementupdate= async ( affdetails , user ) => {
 }
 
 
+// mail go to admin the that amount increase
 
-// amonut apdation of an affiliate dashbord
-router.put('/affiliate-amount-update/:id',
-  employeeAuthToken,
-  async(req,res)=>{
-    const { id } = req.params;
-    const { addAmount } = req.body;
+const mailtoadminamountincrementupdate = async ( affdetails,cvDetails ,user, updatedamount ) => {
 
-    try {
-      // Get the user's email from the decoded token
-      const { EmpEmail } = req.user;
-      const affdetails =await Users.findById({_id :id})
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+  
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <info.codifiers@gmail.com>`,
+      subject: "Amount increment notification",
+      text: ``,
+      html: `
+      <div style="font-family: Arial, sans-serif; color: #333; background-color: #f5f5f5; padding: 20px;">
+      <h2 style="color: #2E86C1; margin-bottom: 20px;">Joining Status Update</h2>
+      <p>Hello Admin,</p>
+      <p>This is to inform you that the AmountIncrement status of an affiliate${affdetails.name}  has been updated.</p>
+      <p>Affiliate email : ${affdetails.email}</p>
+      <p>Affiliate Phone: ${affdetails.phone}</p>
+      <h4 style=" color: green ;">affi privious amount: <span style="color:red">${affdetails.totalAmount} </span></h4>
+      <h4 style=" color: green ;">affi updated amount: <span style="color:red">${updatedamount} </span></h4>
+      <h4 style=" color: green ;">affi total amount: <span style="color:red">${updatedamount + affdetails.totalAmount} </span></h4>
+      
+      <p>Please take necessary actions as required.</p>
+      <p>Best Regards,<br/>Referbiz Team</p>
+    </div>
+      `,
+    };
 
-      // Find the user in the database
-      const user = await Employees.findOne({ EmpEmail });
-      if (!user) {
-        return res.status(404).json({ message: "Employee not found" });
-      }
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
 
-      // Find the affiliate by ID
-      const affiliate = await Users.findById(id);
-      if (!affiliate) {
-        return res.status(404).json({ message: "Affiliate not found" });
-      }
-
-      // Update the affiliate's fields
-      const updatedamount = parseFloat(addAmount);
-      affiliate.totalAmount += updatedamount;
-
-      // Save the updated affiliate
-      await affiliate.save();
-
-      await mailforamountincreementupdate( affdetails , user ) 
-      res.status(200).json({ message: "Affiliate amount has been updated successfully" });
-    } catch (error) {
-      console.error("Error updating affiliate:", error);
-      res.status(500).json({ message: "Internal server error" });
-    }
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
   }
-);
+
+}
+
+// mail go to employee that amount status has been updated
+
+const mailtoemployeeamountincrementupdate = async ( affdetails ,cvDetails ,user, updatedamount ) => {
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "harshkr2709@gmail.com",
+        pass: "frtohlwnukisvrzh",
+      },
+    });
+
+    const mailOptions = {
+      from: "Referbiz.in <harshkr2709@gmail.com>",
+      to: `Recipient <${user.EmpEmail}>`,
+      subject: "Amount increment status has been updated",
+      text: `Hello ${user.EmpName}, Your affiliate's amount status has been updated.`,
+      html: `
+        <p>Hello ${user.EmpName},</p>
+        <p>We're writing to inform you that your affiliate, ${affdetails.name}, has had their amount increment status updated.</p>
+        <h3>Amount details:</h3>
+        <h4 style=" color: green ;">affi privious amount: <span style="color:red">${affdetails.totalAmount} </span></h4>
+      <h4 style=" color: green ;">affi updated amount: <span style="color:red">${updatedamount} </span></h4>
+      <h4 style=" color: green ;">affi total amount: <span style="color:red">${updatedamount + affdetails.totalAmount} </span></h4>
+        <p>Thank you for your attention.</p>
+        <p>Best Regards,<br/>Referbiz Team</p>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+
+    // console.log(info);
+  } catch (error) {
+    console.error("Error sending Mail:", error);
+    throw error;
+  }
+
+}
+
+
+
 
 
 

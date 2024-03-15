@@ -11,6 +11,13 @@ const EditPopUpAffiliateCV = () => {
     isAppeared: null,
     isOffered: null,
   });
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const handleButtonClick = () => {
+    // Disable the button
+    setIsButtonDisabled(true);
+  };
+
 
   const [userData, setUserData] = useState(null);
 
