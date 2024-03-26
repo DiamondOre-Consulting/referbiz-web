@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useJwt } from "react-jwt";
 import axios from "axios";
+import AffNav from './AffNav';
+import AffFooter from './AffFooter';
 
 const AffTotalJoined = () => {
     const [afftototaljoined, setAffTotalJoined] = useState([]);
@@ -21,7 +23,7 @@ const AffTotalJoined = () => {
         const fetchAllJoined = async () => {
             try {
                 // Make a GET request to retrieve the user data
-                const response = await axios.get('http://localhost:8080/api/candidates/my-joined-refs', {
+                const response = await axios.get('https://api.referbiz.in/api/candidates/my-joined-refs', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -44,7 +46,8 @@ const AffTotalJoined = () => {
 
     return (
         <>
-            <h1 className='text-center text-5xl font-bold mt-16 uppercase'>Total Joined Candidates</h1>
+            <AffNav />
+            <h1 className='text-center text-5xl font-bold mt-16 '>Total Joined</h1>
             <div class="relative overflow-x-auto px-0 sm:px-0 lg:px-16 md:px-0 my-12">
                 <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-50 uppercase bg-gray-700 dark:bg-gray-700 dark:text-white">
@@ -61,7 +64,7 @@ const AffTotalJoined = () => {
                             <th scope="col" class="px-6 py-3">
                                 Candidate Resume
                             </th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
@@ -91,7 +94,7 @@ const AffTotalJoined = () => {
                     </tbody>
                 </table>
             </div>
-
+            <AffFooter />
         </>
     )
 }

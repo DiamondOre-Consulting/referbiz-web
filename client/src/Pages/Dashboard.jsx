@@ -38,13 +38,23 @@ const Dashboard = () => {
               Authorization: `Bearer ${token}`
             }
           }); // Replace '/api/user' with the appropriate endpoint
-  
+          if(response.status === 200){
+
+            setPopUp(response.data.count);
+            console.log(response.data)
+
+          }
           // Set the user data in state
-          setPopUp(response.data.count);
-          console.log(response.data)
+         
           
         } catch (error) {
           console.error(error);
+          if(error.response){
+            const status = error.response.status;
+            if(status === 500){
+              alert("server error");
+            }
+          }
         }
       };
   

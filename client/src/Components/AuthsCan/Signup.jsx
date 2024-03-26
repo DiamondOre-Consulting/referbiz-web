@@ -70,6 +70,14 @@ const Signup = ({ toggleForm }) => {
       }
     } catch (error) {
       console.error("Error signing up:", error);
+      if(error.response)
+      {
+        const status = error.response.status;
+
+        if(status === 406){
+          setError("Otp Sending Error")
+        }
+      }
       // Handle error
     }
   };
@@ -109,21 +117,20 @@ const Signup = ({ toggleForm }) => {
       }
     } catch (error) {
       console.error("Error signing up:", error);
-      setError("Some details are wrong!!");
       if (error.response) {
         const status = error.response.status;
         if (status === 409) {
           setError("Affliate already Exist");
-        } else {
-          setError("An error occurred while in signup. Please try again later.");
+        } 
+        else if(status === 400){
+          setError("Invalid OTP try again ");
         }
-      } else {
-        setError("An error occurred while signup. Please try again later.");
-      }
+        else if(status === 500){
+            setError("Internel server error")
+        }
+      } 
     
 
-
-      // Handle error
     } 
   };
 

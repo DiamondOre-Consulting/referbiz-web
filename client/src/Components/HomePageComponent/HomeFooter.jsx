@@ -197,6 +197,15 @@ const HomeFooter = () => {
                   </Link>
                 </div>
 
+                <div>
+                  <Link
+                    to={'/vendor-login'}
+                    className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+                  >
+                    Vendor Login
+                  </Link>
+                  </div>
+
                 {/* <div>
                   <a
                     href="#"

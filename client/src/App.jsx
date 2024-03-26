@@ -61,7 +61,12 @@ import AffTotalAppeared from "./Components/AffDashComponents/AffTotalAppeared";
 import AffTotalShortlisted from "./Components/AffDashComponents/AffTotalShortlisted";
 import AffTotalOffered from "./Components/AffDashComponents/AffTotalOffered";
 import AffTotalJoined from "./Components/AffDashComponents/AffTotalJoined";
-
+import MainDashbord from "./Pages/MainDashbord";
+import Doc_labz_Intro from "./Components/AffIntroductoryPages/Doc_labz_Intro";
+import CvgenieIntro from "./Components/AffIntroductoryPages/CvgenieIntro";
+import VendSignup from "./Components/vendorComponents/VendSignup";
+import Vlogin from "./Components/vendorComponents/Vlogin";
+import VandorDashboard from "./Components/vendorComponents/VandorDashboard";
 
 function App() {
   return (
@@ -90,6 +95,9 @@ function App() {
             />
             <Route path="/FAQ" element={<FAQ/>}/>
             <Route path="/contactus" element={<AssoContact />} />
+            <Route path="/main-dashboard" element={<MainDashbord/>}/>
+            <Route path='/doc-labz/intro' element={<Doc_labz_Intro/>}/>
+            <Route path='/cv-genie/into' element={<CvgenieIntro/>}/>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path='/affi/total-referal' element={<AffTotalReferal/>}/>
             <Route path='/affi/total-appeared' element={<AffTotalAppeared/>}/>
@@ -183,7 +191,9 @@ function App() {
             <Route path="/add-new-employee" element={<SignupEmployee/>} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions/>}/>
             <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
-
+            <Route path= '/vendor-login' element={<Vlogin/>}/>
+            <Route path='/vendor-signup' element={<VendSignup/>}/>
+            <Route path= '/vendor-dashboard' element={<VandorDashboard/>}/>
             <Route path="*" element={<Error />} />
           </Route>
         </Routes>

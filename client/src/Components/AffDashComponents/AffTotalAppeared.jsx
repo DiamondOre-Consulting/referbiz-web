@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useJwt } from "react-jwt";
 import axios from "axios";
+import AffNav from './AffNav';
+import AffFooter from './AffFooter';
 
 const AffTotalAppeared = () => {
     const [afftototalapp, setAffTotalApp] = useState([]);
@@ -21,7 +23,7 @@ const AffTotalAppeared = () => {
         const fetchAllAppeared = async () => {
             try {
                 // Make a GET request to retrieve the user data
-                const response = await axios.get('http://localhost:8080/api/candidates/my-appeared-refs', {
+                const response = await axios.get('https://api.referbiz.in/api/candidates/my-appeared-refs', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -30,7 +32,7 @@ const AffTotalAppeared = () => {
                 if (response.status === 200) {
 
                     setAffTotalApp(response.data);
-                    console.log("all ref", response.data)
+                    console.log("all ref", response.data);
 
                 }
 
@@ -43,7 +45,8 @@ const AffTotalAppeared = () => {
     }, []);
     return (
         <>
-            <h1 className='text-center text-5xl font-bold mt-16 uppercase'> All Appeared candidates</h1>
+            <AffNav />
+            <h1 className='text-center text-5xl font-bold mt-16 '> Total Appeared </h1>
             <div class="relative overflow-x-auto px-0 sm:px-0 lg:px-16 md:px-0 my-12">
                 <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-50 uppercase bg-gray-700 dark:bg-gray-700 dark:text-white">
@@ -89,7 +92,7 @@ const AffTotalAppeared = () => {
                     </tbody>
                 </table>
             </div>
-
+            <AffFooter />
         </>
 
     )

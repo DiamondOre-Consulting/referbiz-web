@@ -55,10 +55,13 @@ const UpdateProfile = () => {
             },
           }
         ); // Replace '/api/user' with the appropriate endpoint
-
+          if(response.status === 200)
+          {
+            setUserData(response.data);
+            console.log(response.data);
+          }
         // Set the user data in state
-        setUserData(response.data);
-        console.log(response.data);
+      
       } catch (error) {
         console.error(error);
       }

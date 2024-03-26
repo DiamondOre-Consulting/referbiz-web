@@ -167,12 +167,32 @@ const HomeNav = () => {
               <li
                 className={`${
                   menuOpen ? "block" : "hidden"
-                } px-32 py-3 text-gray-600 text-lg font-semibold hover:bg-indigo-500 hover:text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-250`}
+                } px-32 py-3 text-gray-600 text-lg font-semibold `}
               >
                 Contact Us
               </li>
             </Link>
-            <Link to={"/home-main"}>
+            <Link to={"/AssoAuth"}>
+              <li
+                className={`${
+                  menuOpen ? "block" : "hidden"
+                } px-12 py-3 text-gray-600 text-lg font-semibold hover:bg-indigo-500 hover:text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-250`}
+              >
+              Login as  Assosiate
+              </li>
+            </Link>
+
+            <Link to={"/auth"}>
+              <li
+                className={`${
+                  menuOpen ? "block" : "hidden"
+                } px-12 py-3 text-gray-100 rounded-md text-lg bg-indigo-500 font-semibold hover:bg-indigo-500 hover:text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-250`}
+              >
+                Login as Affiliate
+              </li>
+            </Link>
+            
+            {/* <Link to={"/home-main"}>
               <li
                 className={`${
                   menuOpen ? "block" : "hidden"
@@ -180,7 +200,7 @@ const HomeNav = () => {
               >
                 Signin
               </li>
-            </Link>
+            </Link> */}
           </ul>
           <section className="flex flex-col justify-between gap-6 sm:gap-10 md:gap-16 lg:flex-row">
             <div className="flex flex-col justify-center sm:text-center lg:py-12 lg:text-left xl:w-5/12 xl:py-24">

@@ -181,7 +181,25 @@ const [menuOpen, setMenuOpen] = useState(false);
                 Contact Us
               </li>
             </Link>
-            <Link to={"/home-main"}>
+            <Link to={"/auth"}>
+              <li
+                className={`${
+                  menuOpen ? "block" : "hidden"
+                } px-32 py-3 text-gray-600 text-lg font-semibold hover:bg-indigo-500 hover:text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-250`}
+              >
+                Affiliate
+              </li>
+            </Link>
+            <Link to={"/AssoAuth"}>
+              <li
+                className={`${
+                  menuOpen ? "block" : "hidden"
+                } px-32 py-3 text-gray-600 text-lg font-semibold hover:bg-indigo-500 hover:text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-250`}
+              >
+                Assosiate
+              </li>
+            </Link>
+            {/* <Link to={"/home-main"}>
               <li
                 className={`${
                   menuOpen ? "block" : "hidden"
@@ -189,7 +207,7 @@ const [menuOpen, setMenuOpen] = useState(false);
               >
                 Signin
               </li>
-            </Link>
+            </Link> */}
           </ul>
     </div>
     </div>

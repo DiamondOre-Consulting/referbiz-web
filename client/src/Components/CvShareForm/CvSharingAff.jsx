@@ -47,6 +47,12 @@ const CvSharing = () => {
           
         } catch (error) {
           console.error(error);
+          if(error.response){
+            const status = error.response.status;
+            if(status === 404){
+              setError("user not found");
+            }
+          }
         }
       };
   

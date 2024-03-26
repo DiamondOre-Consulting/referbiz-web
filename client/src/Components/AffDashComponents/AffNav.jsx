@@ -54,7 +54,7 @@ const AffNav = () => {
     const fetchUserData = async () => {
       try {
         // Make a GET request to retrieve the user data
-        const response = await axios.get('http://api.referbiz.in/api/candidates/user-data', {
+        const response = await axios.get('https://api.referbiz.in/api/candidates/user-data', {
           headers: {
             Authorization: `Bearer ${token}`
           }

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useJwt } from "react-jwt";
 import axios from "axios";
+import AffNav from './AffNav';
+import AffFooter from './AffFooter';
 
 const AffTotalReferal = () => {
 
@@ -22,7 +24,7 @@ const AffTotalReferal = () => {
         const fetchAllReferal = async () => {
             try {
                 // Make a GET request to retrieve the user data
-                const response = await axios.get('http://localhost:8080/api/candidates/my-refs', {
+                const response = await axios.get('https://api.referbiz.in/api/candidates/my-refs', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -44,7 +46,8 @@ const AffTotalReferal = () => {
     }, []);
     return (
         <>
-            <h1 className='text-center text-5xl font-bold mt-16 uppercase'> All Referal</h1>
+            <AffNav />
+            <h1 className='text-center text-5xl font-bold mt-16'> Total Referrals</h1>
             <div class="relative overflow-x-auto px-0 sm:px-0 lg:px-16 md:px-0 my-12">
                 <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-50 uppercase bg-gray-700 dark:bg-gray-700 dark:text-white">
@@ -86,13 +89,10 @@ const AffTotalReferal = () => {
                             })
 
                         }
-
-
-
                     </tbody>
                 </table>
             </div>
-
+            <AffFooter />
         </>
     )
 }
