@@ -40,7 +40,7 @@ const AffilInfoEmployee = ({ candDetails }) => {
         }
 
         const response = await axios.get(
-          `api.referbiz.in/api/admin-rb/admin-affiliates-data/${candDetails}`,
+          `https://api.referbiz.in/api/admin-rb/admin-affiliates-data/${candDetails}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -33,7 +33,7 @@ const CvSharing = () => {
       const fetchUserData = async () => {
         try {
           // Make a GET request to retrieve the user data
-          const response = await axios.get('api.referbiz.in/api/candidates/employees-data', 
+          const response = await axios.get('https://api.referbiz.in/api/candidates/employees-data', 
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -113,7 +113,7 @@ const CvSharing = () => {
 
     try {
       const response = await axios.post(
-        "api.referbiz.in/api/candidates/affiliate-contact-form",
+        "https://api.referbiz.in/api/candidates/affiliate-contact-form",
         formData,
         {
           headers: {

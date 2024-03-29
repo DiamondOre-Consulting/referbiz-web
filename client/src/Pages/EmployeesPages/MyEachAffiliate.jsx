@@ -46,7 +46,7 @@ const MyEachAffiliate = () => {
 
         // Fetch associates data from the backend
         const response = await axios.get(
-          `api.referbiz.in/api/employee-rb/my-affiliates-data/${id}`,
+          `https://api.referbiz.in/api/employee-rb/my-affiliates-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -86,7 +86,7 @@ const MyEachAffiliate = () => {
       }
       const updatedAmount = parseFloat(amount);
       const response = await axios.put(
-        `api.referbiz.in/api/employee-rb/affiliate-amount-update/${id}`,
+        `https://api.referbiz.in/api/employee-rb/affiliate-amount-update/${id}`,
         {
           addAmount: updatedAmount,
         },

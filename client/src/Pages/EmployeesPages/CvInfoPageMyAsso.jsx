@@ -53,7 +53,7 @@ const CvInfoPageMyAsso = () => {
         }
 
         const response = await axios.get(
-          `api.referbiz.in/api/employee-rb/my-associates/get-cv-data/${cvId.id}`,
+          `https://api.referbiz.in/api/employee-rb/my-associates/get-cv-data/${cvId.id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -77,7 +77,7 @@ const CvInfoPageMyAsso = () => {
   const handlePreview = async () => {
     try{
       const preview = await axios.get(
-        `api.referbiz.in/api/employee-rb/my-associates/get-cv-data/${cvId.id}`,
+        `https://api.referbiz.in/api/employee-rb/my-associates/get-cv-data/${cvId.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -91,7 +91,7 @@ const CvInfoPageMyAsso = () => {
     }
   }
 
-  const pdfUrl = `api.referbiz.in/api/employee-rb/my-associates/get-cv-data/${cvId.id}`;
+  const pdfUrl = `https://api.referbiz.in/api/employee-rb/my-associates/get-cv-data/${cvId.id}`;
   return (
     <div>
       <EmployeeNav />

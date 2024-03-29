@@ -51,7 +51,7 @@ const Signup = ({ toggleForm }) => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        "api.referbiz.in/api/candidates/send-otp",
+        "https://api.referbiz.in/api/candidates/send-otp",
         formData,
         {
           headers: {
@@ -96,7 +96,7 @@ const Signup = ({ toggleForm }) => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        "api.referbiz.in/api/candidates/signup",
+        "https://api.referbiz.in/api/candidates/signup",
         formData,
         {
           headers: {

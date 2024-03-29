@@ -23,7 +23,7 @@ const AffTotalAppeared = () => {
         const fetchAllAppeared = async () => {
             try {
                 // Make a GET request to retrieve the user data
-                const response = await axios.get('api.referbiz.in/api/candidates/my-appeared-refs', {
+                const response = await axios.get('https://api.referbiz.in/api/candidates/my-appeared-refs', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

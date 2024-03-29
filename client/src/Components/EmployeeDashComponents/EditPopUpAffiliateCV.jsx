@@ -60,7 +60,7 @@ const EditPopUpAffiliateCV = () => {
       try {
         // Make a GET request to retrieve the user data
         const response = await axios.get(
-          `api.referbiz.in/api/employee-rb/my-associates/get-cv-data/${id}`,
+          `https://api.referbiz.in/api/employee-rb/my-associates/get-cv-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -98,7 +98,7 @@ const EditPopUpAffiliateCV = () => {
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `api.referbiz.in/api/employee-rb/my-affiliates-data/update-shortlisted-cv-sharing/${id}`,
+        `https://api.referbiz.in/api/employee-rb/my-affiliates-data/update-shortlisted-cv-sharing/${id}`,
         { isShortlisted: formValues.isShortlisted },
         {
           headers: {
@@ -144,7 +144,7 @@ const EditPopUpAffiliateCV = () => {
     // formData.append("isJoined", formValues.isJoined);
     try {
       const response = await axios.put(
-        `api.referbiz.in/api/employee-rb/my-affiliates-data/update-joined-cv-sharing/${id}`,
+        `https://api.referbiz.in/api/employee-rb/my-affiliates-data/update-joined-cv-sharing/${id}`,
         { isJoined: formValues.isJoined },
         {
           headers: {
@@ -185,7 +185,7 @@ const EditPopUpAffiliateCV = () => {
 
     try {
       const response = await axios.put(
-        `api.referbiz.in/api/employee-rb/my-affiliates-data/update-appeared-cv-sharing/${id}`,
+        `https://api.referbiz.in/api/employee-rb/my-affiliates-data/update-appeared-cv-sharing/${id}`,
         { isAppeared: formValues.isAppeared },
         {
           headers: {
@@ -224,7 +224,7 @@ const EditPopUpAffiliateCV = () => {
 
     try {
       const response = await axios.put(
-        `api.referbiz.in/api/employee-rb/my-affiliates-data/update-offering-cv-sharing/${id}`,
+        `https://api.referbiz.in/api/employee-rb/my-affiliates-data/update-offering-cv-sharing/${id}`,
         { isOffered: formValues.isOffered },
         {
           headers: {

@@ -48,7 +48,7 @@ const UpdateProfileAsso = () => {
       try {
         // Make a GET request to retrieve the user data
         const response = await axios.get(
-          "api.referbiz.in/api/associates/user-data",
+          "https://api.referbiz.in/api/associates/user-data",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -83,7 +83,7 @@ const UpdateProfileAsso = () => {
     // Perform signup logic here
     try {
       const response = await axios.put(
-        `api.referbiz.in/api/associates/associates-user-data/update/${id}`,
+        `https://api.referbiz.in/api/associates/associates-user-data/update/${id}`,
         formData,
         {
           headers: {

@@ -47,7 +47,7 @@ const EditPopUpAssociate = () => {
       try {
         // Make a GET request to retrieve the user data
         const response = await axios.get(
-          `api.referbiz.in/api/admin-rb/admin-associates-data/${id}`,
+          `https://api.referbiz.in/api/admin-rb/admin-associates-data/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -81,7 +81,7 @@ const EditPopUpAssociate = () => {
     // Perform signup logic here
     try {
       const response = await axios.put(
-        `api.referbiz.in/api/admin-rb/admin-associates-data/update/${id}`,
+        `https://api.referbiz.in/api/admin-rb/admin-associates-data/update/${id}`,
         formValues,
         {
           headers: {

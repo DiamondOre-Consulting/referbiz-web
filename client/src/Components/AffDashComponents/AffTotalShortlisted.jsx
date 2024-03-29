@@ -23,7 +23,7 @@ const AffTotalShortlisted = () => {
         const fetchAllShorlisted = async () => {
             try {
                 // Make a GET request to retrieve the user data
-                const response = await axios.get('api.referbiz.in/api/candidates/my-shortlisted-refs', {
+                const response = await axios.get('https://api.referbiz.in/api/candidates/my-shortlisted-refs', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

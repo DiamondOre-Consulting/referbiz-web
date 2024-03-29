@@ -36,7 +36,7 @@ const MyAffiliates = () => {
 
         // Fetch affiliates data from the backend
         const response = await axios.get(
-          "api.referbiz.in/api/employee-rb/my-affiliates-data",
+          "https://api.referbiz.in/api/employee-rb/my-affiliates-data",
           {
             headers: {
               Authorization: `Bearer ${token}`,
