@@ -24,7 +24,7 @@ const AffTotalReferal = () => {
         const fetchAllReferal = async () => {
             try {
                 // Make a GET request to retrieve the user data
-                const response = await axios.get('https://referbiz-web-backend.onrender.com/api/candidates/my-refs', {
+                const response = await axios.get('api.referbiz.in/api/candidates/my-refs', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

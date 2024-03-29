@@ -41,7 +41,7 @@ const CvInfoAffiliate = ({ candDetails }) => {
         }
 
         const response = await axios.get(
-          `https://referbiz-web-backend.onrender.com/api/admin-rb/admin-affiliates-data/get-cv-data/${candDetails}`,
+          `api.referbiz.in/api/admin-rb/admin-affiliates-data/get-cv-data/${candDetails}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -31,7 +31,7 @@ const VerifyOTPAndUpdate = () => {
     // Perform signup logic here
     try {
       const response = await axios.put(
-        `https://referbiz-web-backend.onrender.com/api/candidates/update-password`,
+        `api.referbiz.in/api/candidates/update-password`,
         formValues
       );
 

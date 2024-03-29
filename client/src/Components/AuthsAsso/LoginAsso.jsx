@@ -23,7 +23,7 @@ const AssoLogin = () => {
     // Perform login logic here
     try {
       const response = await axios.post(
-        "https://referbiz-web-backend.onrender.com/api/associates/login",
+        "api.referbiz.in/api/associates/login",
         {
           email,
           password,

@@ -43,7 +43,7 @@ function EmployeeAffiCv() {
   
           // Fetch associates data from the backend
           const response = await axios.get(
-            `https://referbiz-web-backend.onrender.com/api/admin-rb/admin-affiliates-data/${id}`,
+            `api.referbiz.in/api/admin-rb/admin-affiliates-data/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -77,7 +77,7 @@ function EmployeeAffiCv() {
             <div className="flex flex-wrap items-center gap-10">
               {/* <img
                 className="w-[100px] h-[100px] bg-indigo-400 rounded-full border-2 border-indigo-600"
-                src={`https://referbiz-web-backend.onrender.com/` + details?.profileImage}
+                src={`api.referbiz.in/` + details?.profileImage}
                 alt="Profile Image"
               /> */}
               <div className="flex flex-col items-left">

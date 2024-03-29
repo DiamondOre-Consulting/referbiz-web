@@ -37,7 +37,7 @@ const AllAssociates = () => {
 
         // Fetch associates data from the backend
         const response = await axios.get(
-          "https://referbiz-web-backend.onrender.com/api/admin-rb/admin-associates-data",
+          "api.referbiz.in/api/admin-rb/admin-associates-data",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -74,7 +74,7 @@ const AllAssociates = () => {
                 {associate?.profileImage ? (
                   <img
                     className="w-10 h-10 rounded-full border-2 border-indigo-600"
-                    src={`https://referbiz-web-backend.onrender.com/` + associate?.profileImage}
+                    src={`api.referbiz.in/` + associate?.profileImage}
                     alt="avatar"
                   />
                 ) : (

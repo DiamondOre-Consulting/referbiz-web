@@ -19,7 +19,7 @@ const AdminBody = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://referbiz-web-backend.onrender.com/api/admin-rb/admin-user-data",
+          "api.referbiz.in/api/admin-rb/admin-user-data",
           {
             headers: {
               Authorization: `Bearer ${token}`,

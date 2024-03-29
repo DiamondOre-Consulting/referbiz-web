@@ -22,7 +22,7 @@ const AssoHero = () => {
     // Make API request to fetch user data
     const fetchData = async () => {
         try {
-          const response = await axios.get('https://referbiz-web-backend.onrender.com/api/associates/user-data', {
+          const response = await axios.get('api.referbiz.in/api/associates/user-data', {
             headers: {
               Authorization: `Bearer ${token}`,
             },

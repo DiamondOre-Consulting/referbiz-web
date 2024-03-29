@@ -54,7 +54,7 @@ const AffNav = () => {
     const fetchUserData = async () => {
       try {
         // Make a GET request to retrieve the user data
-        const response = await axios.get('https://referbiz-web-backend.onrender.com/api/candidates/user-data', {
+        const response = await axios.get('api.referbiz.in/api/candidates/user-data', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -295,7 +295,7 @@ const AffNav = () => {
 //           {userData?.profileImage ? (
 //             <img
 //               className="w-10 h-10 rounded-full"
-//               src={`https://referbiz-web-backend.onrender.com/` + userData?.profileImage}
+//               src={`api.referbiz.in/` + userData?.profileImage}
 //               alt="avatar"
 //             />
 //           ) : (
