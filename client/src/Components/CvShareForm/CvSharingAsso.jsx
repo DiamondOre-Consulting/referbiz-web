@@ -50,7 +50,7 @@ const CvSharingAsso = () => {
 
     try {
       const response = await axios.post(
-        "https://api.referbiz.in/api/associates/associate-contact-form",
+        "https://referbiz-web-backend.onrender.com/api/associates/associate-contact-form",
         formData,
         {
           headers: {

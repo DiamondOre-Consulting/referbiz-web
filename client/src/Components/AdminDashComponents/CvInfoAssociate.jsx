@@ -38,7 +38,7 @@ const CvInfoAssociate = ({ candDetails }) => {
         }
 
         const response = await axios.get(
-          `https://api.referbiz.in/api/admin-rb/admin-associates-data/get-cv-data/${candDetails}`,
+          `https://referbiz-web-backend.onrender.com/api/admin-rb/admin-associates-data/get-cv-data/${candDetails}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

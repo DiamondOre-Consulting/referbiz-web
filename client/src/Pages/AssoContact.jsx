@@ -14,7 +14,7 @@ const AssoContact = () => {
 
     try {
       const response = await axios.post(
-        "https://api.referbiz.in/api/associates/contactus",
+        "https://referbiz-web-backend.onrender.com/api/associates/contactus",
         {
           name,
           email,

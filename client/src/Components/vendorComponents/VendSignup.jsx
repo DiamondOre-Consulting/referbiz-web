@@ -44,7 +44,7 @@ const VendSignup = () => {
         // Perform signup logic here
         try {
             const response = await axios.post(
-                "https://api.referbiz.in/api/candidates/send-otp",
+                "https://referbiz-web-backend.onrender.com/api/candidates/send-otp",
                 formData,
                 {
                     headers: {
@@ -88,7 +88,7 @@ const VendSignup = () => {
         // Perform signup logic here
         try {
             const response = await axios.post(
-                "https://api.referbiz.in/api/candidates/signup",
+                "https://referbiz-web-backend.onrender.com/api/candidates/signup",
                 formData,
                 {
                     headers: {

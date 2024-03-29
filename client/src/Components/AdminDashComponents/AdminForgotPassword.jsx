@@ -29,7 +29,7 @@ const AdminForgotPassword = () => {
     // Perform signup logic here
     try {
       const response = await axios.put(
-        `https://api.referbiz.in/api/admin-rb/forgot-password`,
+        `https://referbiz-web-backend.onrender.com/api/admin-rb/forgot-password`,
         formValues,
       );
 

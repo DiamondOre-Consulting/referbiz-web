@@ -5,6 +5,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   // server: {
-  //   host: 'https://api.referbiz.in'
+  //   host: 'https://referbiz-web-backend.onrender.com'
   // }
 })

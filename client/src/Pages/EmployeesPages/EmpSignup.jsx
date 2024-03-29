@@ -30,7 +30,7 @@ const SignupEmployee = () => {
     // Perform signup logic here
     try {
       const response = await axios.post(
-        "https://api.referbiz.in/api/employee-rb/employee-signup",
+        "https://referbiz-web-backend.onrender.com/api/employee-rb/employee-signup",
         formValues
         // {
         //   headers: {
