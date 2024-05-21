@@ -67,6 +67,11 @@ import CvgenieIntro from "./Components/AffIntroductoryPages/CvgenieIntro";
 import VendSignup from "./Components/vendorComponents/VendSignup";
 import Vlogin from "./Components/vendorComponents/Vlogin";
 import VandorDashboard from "./Components/vendorComponents/VandorDashboard";
+import AllLeads from "./Components/vendorComponents/AllLeads";
+import VendorAllAffi from "./Components/vendorComponents/VendorAllAffi";
+import EachVendoraffi from "./Components/vendorComponents/EachVendoraffi";
+import VendorEachLead from "./Components/vendorComponents/VendorEachLead";
+import CloseLeads from "./Components/vendorComponents/CloseLeads";
 
 function App() {
   return (
@@ -193,7 +198,12 @@ function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
             <Route path= '/vendor-login' element={<Vlogin/>}/>
             <Route path='/vendor-signup' element={<VendSignup/>}/>
-            <Route path= '/vendor-dashboard' element={<VandorDashboard/>}/>
+            <Route path='/vendor-dashboard' element={<VandorDashboard/>}/>
+            <Route path='/all-leads' element={<AllLeads/>}/>
+            <Route path='/each-lead' element={<VendorEachLead/>}/>
+            <Route path='/vendor/all-affi' element={<VendorAllAffi/>}/>
+            <Route path='/vendor/each-affi' element={<EachVendoraffi/>}/>
+            <Route path='/vendor/close-leads' element={<CloseLeads/>}/>
             <Route path="*" element={<Error />} />
           </Route>
         </Routes>

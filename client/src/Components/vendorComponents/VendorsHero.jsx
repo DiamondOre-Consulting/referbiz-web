@@ -43,9 +43,6 @@ const VendorsHero = () => {
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     )

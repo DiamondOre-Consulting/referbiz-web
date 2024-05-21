@@ -3,6 +3,7 @@ import VendorNav from './VendorNav'
 import VendorsHero from './VendorsHero'
 import VandorNewleeds from './VandorNewleeds'
 import VandorTopAffi from './VandorTopAffi'
+import VendorFooter from './VendorFooter'
 
 
 const VandorDashboard = () => {
@@ -15,6 +16,7 @@ const VandorDashboard = () => {
       <div className='bg-gray-100'>
       <VandorNewleeds/>
      <VandorTopAffi/>
+     <VendorFooter/>
       </div>
       
     </>

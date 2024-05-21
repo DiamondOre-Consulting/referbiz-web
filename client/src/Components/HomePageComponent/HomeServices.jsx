@@ -1,12 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import InternPic from "../../assets/handshaking.jpg";
 import ResumeBuildingPic from "../../assets/resumeBuilding.jpg";
 import AssociateServicePic from "../../assets/associateModel.jpg";
 import AffiliateServicePic from "../../assets/affiliatePic.jpg";
 import Employees from "../../assets/Employees.jpg";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const HomeServices = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    leadfor: "",
+    summery: ""
+  });
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const openForm = () => {
+    setIsFormOpen(true);
+  };
+
+  const closeForm = () => {
+    setIsFormOpen(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+
+    try {
+      const response = await axios.post(
+        "https://api.referbiz.in/api/leads-form/lead-form",
+        formData
+      );
+
+      if (response.status === 200) {
+        console.log("Form submitted successfully:", response.data);
+        setSuccessMessage("Thank you for giving the lead. We will connect with you soon.");
+        closeForm();
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          leadfor: "",
+          summery: ""
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setError("Error submitting form. Please try again.");
+      if (error.response) {
+        const status = error.response.status;
+        // if (status === 400) {
+        //   setError("Invalid OTP");
+        // }
+      }
+    }
+  };
+
+
   return (
     <div>
       <div className="bg-white py-6 sm:py-8 lg:py-12">
@@ -133,11 +192,11 @@ const HomeServices = () => {
 
           <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shadow-lg shadow-gray-300 mb-4">
+            <div onClick={openForm} className="flex flex-col cursor-pointer overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col justify-center items-center p-4 sm:p-6">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">
                   <a
-                    href="#"
+                    onClick={openForm}
                     className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
                     CV~Genie
@@ -154,11 +213,11 @@ const HomeServices = () => {
               </div>
             </div>
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shadow-lg shadow-gray-300 mb-4">
+            <div onClick={openForm} className=" cursor-pointer flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col justify-center items-center p-4 sm:p-6">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">
                   <a
-                    href="#"
+                    onClick={openForm}
                     className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
                     DOC_Labz
@@ -175,11 +234,11 @@ const HomeServices = () => {
               </div>
             </div>
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-3xl  shadow-lg shadow-gray-300 mb-4">
+            <div onClick={openForm} className=" cursor-pointer flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-3xl  shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col p-4 sm:p-6 justify-center items-center">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">
                   <a
-                    href="#"
+                    onClick={openForm}
                     className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
                     Intern Linker
@@ -204,11 +263,11 @@ const HomeServices = () => {
               </div>
             </div>
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg  shadow-lg shadow-gray-300 mb-4">
+            <div onClick={openForm} className="flex cursor-pointer flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg  shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col p-4 sm:p-6 justify-center items-center">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">
                   <a
-                    href="#"
+                    onClick={openForm}
                     className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
                     AgroBiz
@@ -232,11 +291,11 @@ const HomeServices = () => {
               </div>
             </div>
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg  shadow-lg shadow-gray-300 mb-4">
+            <a href="https://www.diamondore.in/" target='_blank' className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg  shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col p-4 sm:p-6 justify-center items-center">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800 text-center">
                   <a
-                    href="#"
+                    href="https://www.diamondore.in/" target='_blank'
                     className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
                     Diamond Ore Consulting
@@ -258,13 +317,13 @@ const HomeServices = () => {
                   internship needs with them today to unlock your brightest future.
                 </p> */}
               </div>
-            </div>
+            </a>
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shadow-lg shadow-gray-300 mb-4">
+            <div onClick={openForm} className="flex cursor-pointer flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col p-4 sm:p-6 justify-center items-center">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">
                   <a
-                    href="#"
+                    onClick={openForm}
                     className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
                     SwiftLane Motors
@@ -288,11 +347,11 @@ const HomeServices = () => {
               </div>
             </div>
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shadow-lg shadow-gray-300 mb-4">
+            <div onClick={openForm} className=" cursor-pointer flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shadow-lg shadow-gray-300 mb-4">
               <div className="flex flex-1 flex-col p-4 sm:p-6 justify-center items-center">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">
                   <a
-                    href="#"
+                    onClick={openForm}
                     className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
                     Midas Finserve
@@ -316,11 +375,11 @@ const HomeServices = () => {
               </div>
             </div>
 
-            <div className="flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shdow-lg shadow-gray-300">
+            <div onClick={openForm} className=" cursor-pointer flex flex-col overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg shdow-lg shadow-gray-300">
               <div className="flex flex-1 flex-col p-4 sm:p-6 justify-center items-center">
                 <h2 className="mb-2 text-2xl font-semibold text-gray-800">
                   <a
-                    href="#"
+                    onClick={openForm}
                     className="transition duration-100 hover:text-indigo-500 active:text-indigo-600 font-serif"
                   >
                     Oasis Homes
@@ -364,7 +423,73 @@ const HomeServices = () => {
           </div>
         </div>
       </div>
+      {isFormOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white shadow-md rounded-md p-6 w-3/4 max-w-md">
+            <h2 className="text-lg font-semibold mb-4"></h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="mt-1 p-2 border border-gray-500 rounded-md w-full" required />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="mt-1 p-2 border border-gray-500 rounded-md w-full" required />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone</label>
+                <input type="text" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="mt-1 p-2 border border-gray-500 rounded-md w-full" required />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="leadfor" className="block text-sm font-medium text-gray-700">Lead For</label>
+                <select id="leadfor" name="leadfor" value={formData.leadfor} onChange={handleChange} className="w-full p-2 border border-gray-500 rounded-md">
+                  <option>Select Lead</option>
+                  <option value="cv-genie">Cv-Genie</option>
+                  <option value="doc-labz">Doc-Labz</option>
+                  <option value="Intern Linker">Intern Linker</option>
+                  <option value="Agro Biz">Agro Biz</option>
+                  <option value="SwiftLane Moters">SwiftLane Moters</option>
+                  <option value="Midas Finserve">Maidas Finserve</option>
+                  <option value="Oasis Homes">Oasis Homes</option>
+
+                </select>
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="summery" className="block text-sm font-medium text-gray-700">Lead Summary</label>
+                <textarea id="summery" name="summery" placeholder="Please provide detailed information about the lead, including:
+                - Name of the candidate
+                - Contact information (phone and email)
+                
+                " value={formData.summery} onChange={handleChange} className="mt-1 p-2 border border-gray-500 rounded-md w-full" required />
+              </div>
+
+              <div className="flex justify-end">
+                <button type="button" onClick={closeForm} className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 mr-2">Close</button>
+                <button type="submit" className="px-4 py-2 text-black rounded-md bg-blue-400">Submit</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      )}
+
+
+      {successMessage && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white shadow-md rounded-md p-6 w-3/4 max-w-md">
+            <p>{successMessage}</p>
+          </div>
+        </div>
+      )}
+
     </div>
+
+
+
   );
 };
 

@@ -58,20 +58,20 @@ const VendorNav = () => {
               </a>
 
               <nav className="hidden gap-12 lg:flex items-center justify-center">
-                <a href="#" className="text-lg font-semibold text-indigo-500">
+                <Link to={'/vendor-dashboard'} className="text-lg font-semibold text-indigo-500">
                   Home
-                </a>
+                </Link>
                 <Link
-                  to={"/aboutus"}
+                  to={"/vendor/all-affi"}
                   className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
                 >
                   MyAffiliates
                 </Link>
                 <Link
-                  to={"/services"}
+                  to={"/vendor/close-leads"}
                   className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
                 >
-                  Closed leeds
+                  Close leads
                 </Link>
                 <a
                   href="#"
@@ -157,7 +157,7 @@ const VendorNav = () => {
               className={`gap-10 ${menuOpen ? "block" : "hidden"
                 } w-full flex flex-col items-center justify-center mb-14`}
             >
-              <Link to={"/home-main"}>
+              <Link to={"/vendor-dashboard"}>
                 <li
                   className={`${menuOpen ? "block" : "hidden"
                     } transition ease-in-out delay-150 px-32 py-3 text-gray-600 text-lg font-semibold hover:bg-indigo-500 hover:text-white hover:-translate-y-1 hover:scale-110 duration-250`}
@@ -165,7 +165,7 @@ const VendorNav = () => {
                   Home
                 </li>
               </Link>
-              <Link to={"/aboutus"}>
+              <Link to={"/vendor/all-affi"}>
                 <li
                   className={`${menuOpen ? "block" : "hidden"
                     } px-32 py-3 text-gray-600 text-lg font-semibold hover:bg-indigo-500 hover:text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-250`}
