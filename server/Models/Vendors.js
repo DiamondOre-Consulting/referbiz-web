@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const vendorSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -10,60 +10,21 @@ const userSchema = new mongoose.Schema({
     required: true,
     // unique: true,
   },
+  phone: {
+    type: String,
+    required: true,
+  },
   password: {
     type: String,
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  totalShared: {
-    type: Number,
-    default: 0,
-  },
-  totalAppeared: {
-    type: Number,
-    default: 0
-  },
-  totalShortlisted: {
-    type: Number,
-    default: 0,
-  },
-  totalOffered: {
-    type: Number,
-    default: 0,
-  },
-  totalJoined: {
-    type: Number,
-    default: 0,
-  },
-  totalAmount: {
-    type: Number,
-    default: 0,
-  },
-  document: {
+  company: {
     type: String,
+    required: true,
   },
-  allCvInfo: {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'CvSharing'
-      }
-    ],
-    default: [],
-  },
-  profileImage: {
+  designation: {
     type: String,
-    required: false,
-  },
-  otp: {
-    type: String,
-  },
-  count: {
-    type: Number,
-    default: 0
+    required: true,
   },
   allSubmittedLeads: {
     type: [
@@ -101,25 +62,34 @@ const userSchema = new mongoose.Schema({
     ],
     default: [],
   },
-  myViewedVendors: {
+  myAffiliates: {
     type: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Vendors",
+        ref: "Users",
       },
     ],
     default: [],
   },
-  myTrainedVendors: {
+  myViews: {
     type: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Vendors",
+        ref: "Users",
       },
     ],
     default: [],
   },
-  myCash: {
+  myTrainedAffiliates: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Users",
+      },
+    ],
+    default: [],
+  },
+  myTotalDistributedCash: {
     type: String,
     default: null
   },
@@ -129,4 +99,4 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model("Vendors", vendorSchema);

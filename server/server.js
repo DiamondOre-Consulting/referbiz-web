@@ -39,6 +39,7 @@ import candidateController from './Controllers/candidate.js';
 import associateController from './Controllers/associates.js';
 import adminController from './Controllers/admin.js';
 import employeeController from './Controllers/employees.js';
+import vendorController from './Controllers/vendors.js';
 import resumeBuilding from './Controllers/resumebuilding.js';
 import leadForm from './Controllers/leads.js'
 
@@ -46,6 +47,7 @@ app.use('/api/candidates', candidateController);
 app.use('/api/associates', associateController);
 app.use('/api/admin-rb', adminController);
 app.use('/api/employee-rb', employeeController);
+app.use('/api/vendor', vendorController);
 app.use('/api/resume-submit', resumeBuilding);
 app.use('/api/leads-form', leadForm);
 
