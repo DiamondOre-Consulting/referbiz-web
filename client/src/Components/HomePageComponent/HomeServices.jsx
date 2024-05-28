@@ -43,7 +43,7 @@ const HomeServices = () => {
 
       if (response.status === 200) {
         console.log("Form submitted successfully:", response.data);
-        setSuccessMessage("Thank you for giving the lead. We will connect with you soon.");
+        setSuccessMessage("Thank you for providing us with the lead. We will reach out to you shortly");
         closeForm();
         setFormData({
           name: "",
